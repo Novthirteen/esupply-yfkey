@@ -64,7 +64,7 @@
 		<amp.genericCore>true</amp.genericCore>
 		<amp.fullSource>false</amp.fullSource>
 		<dao.framework>hibernate</dao.framework>
-		<db.name>esupply_yfkey</db.name>
+		<db.name>esupply</db.name>
 		<web.framework>struts</web.framework>
 
 		<!-- Framework/Plugin versions -->

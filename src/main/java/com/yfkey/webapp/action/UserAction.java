@@ -4,9 +4,9 @@ import com.opensymphony.xwork2.Preparable;
 import org.apache.struts2.ServletActionContext;
 import com.yfkey.Constants;
 import com.yfkey.dao.SearchException;
+import com.yfkey.exception.UserExistsException;
 import com.yfkey.model.Role;
 import com.yfkey.model.User;
-import com.yfkey.service.UserExistsException;
 import com.yfkey.webapp.util.RequestUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.MailException;
@@ -74,7 +74,7 @@ public class UserAction extends BaseAction implements Preparable {
      * @return success
      */
     public String delete() {
-        userManager.removeUser(user.getId().toString());
+        userManager.removeUser(user.getUsername());
         List<Object> args = new ArrayList<Object>();
         args.add(user.getFullName());
         saveMessage(getText("user.deleted", args));
@@ -108,7 +108,7 @@ public class UserAction extends BaseAction implements Preparable {
             user = userManager.getUserByUsername(request.getRemoteUser());
         } else {
             user = new User();
-            user.addRole(new Role(Constants.USER_ROLE));
+            //user.addRole(new Role(Constants.USER_ROLE));
         }
 
         if (user.getUsername() != null) {
@@ -168,13 +168,13 @@ public class UserAction extends BaseAction implements Preparable {
         // only attempt to change roles if user is admin
         // for other users, prepare() method will handle populating
         if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-            user.getRoles().clear(); // APF-788: Removing roles from user doesn't work
+            //user.getRoles().clear(); // APF-788: Removing roles from user doesn't work
             String[] userRoles = getRequest().getParameterValues("userRoles");
 
             for (int i = 0; userRoles != null && i < userRoles.length; i++) {
                 String roleName = userRoles[i];
                 try {
-                    user.addRole(roleManager.getRole(roleName));
+                    //user.addRole(roleManager.getRole(roleName));
                 } catch (DataIntegrityViolationException e) {
                     return showUserExistsException(originalVersion);
                 }
@@ -238,7 +238,7 @@ public class UserAction extends BaseAction implements Preparable {
      */
     public String list() {
         try {
-            users = userManager.search(query);
+            //users = userManager.search(query);
         } catch (SearchException se) {
             addActionError(se.getMessage());
             users = userManager.getUsers();

@@ -14,8 +14,7 @@
     <!-- =================================================================== -->
     <aop:config>
         <aop:advisor id="userManagerTx" advice-ref="userManagerTxAdvice" pointcut="execution(* *..service.UserManager.*(..))" order="0"/>
-        <aop:advisor id="userManagerSecurity" advice-ref="userSecurityAdvice" pointcut="execution(* *..service.UserManager.saveUser(..))" order="1"/>
-        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Manager.*(..))" order="2"/>
+        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Manager.*(..))" order="1"/>
     </aop:config>
 
     <!-- Enable @Transactional support -->
@@ -44,8 +43,6 @@
             <tx:method name="save*" rollback-for="UserExistsException"/>
         </tx:attributes>
     </tx:advice>
-
-    <bean id="userSecurityAdvice" class="com.yfkey.service.UserSecurityAdvice"/>
 
     <!-- =================================================================== -->
     <!-- Mail: Sender and Velocity configuration                             -->
@@ -91,8 +88,4 @@
     <!-- Encryption in UserManagerImpl. Can override in security.xml.        -->
     <!-- =================================================================== -->
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-
-    <!-- Password reset token encoder -->
-    <bean id="passwordTokenEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
-
 </beans>

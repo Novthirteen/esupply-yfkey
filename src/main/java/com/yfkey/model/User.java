@@ -1,8 +1,8 @@
 package com.yfkey.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,13 +10,9 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -26,363 +22,373 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * This class represents the basic "user" object in AppFuse that allows for authentication
- * and user management.  It implements Spring Security's UserDetails interface.
+ * This class represents the basic "user" object in AppFuse that allows for
+ * authentication and user management. It implements Acegi Security's
+ * UserDetails interface.
  *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *         Updated by Dan Kibler (dan@getrolling.com)
- *         Extended to implement Spring UserDetails interface
- *         by David Carter david@carter.net
+ * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a> Updated by
+ *         Dan Kibler (dan@getrolling.com) Extended to implement Acegi
+ *         UserDetails interface by David Carter david@carter.net
  */
 @Entity
-@Table(name = "app_user")
-@Indexed
-@XmlRootElement
-public class User extends BaseObject implements Serializable, UserDetails {
-    private static final long serialVersionUID = 3832626162173359411L;
+@Table(name = "user")
+@XmlRootElement(name = "User")
+public class User extends BaseObject implements Serializable, UserDetails, Auditable, Versionable {
+	private static final long serialVersionUID = 3832626162173359411L;
 
-    private Long id;
-    private String username;                    // required
-    private String password;                    // required
-    private String confirmPassword;
-    private String passwordHint;
-    private String firstName;                   // required
-    private String lastName;                    // required
-    private String email;                       // required; unique
-    private String phoneNumber;
-    private String website;
-    private Address address = new Address();
-    private Integer version;
-    private Set<Role> roles = new HashSet<Role>();
-    private boolean enabled;
-    private boolean accountExpired;
-    private boolean accountLocked;
-    private boolean credentialsExpired;
+	private String username; // required
+	private String password; // required
+	private String confirmPassword;
+	private String passwordHint;
+	private String firstName; // required
+	private String lastName; // required
+	private String email; // required; unique
+	private String phoneNumber;
+	private String website;
+	private Gender gender;
+	private String mobilephone;
+	private String language;
+	private Address address = new Address();
+	private int version;
+	private boolean enabled;
+	private boolean accountExpired;
+	private boolean accountLocked;
+	private boolean credentialsExpired;
+	private String createUser;
+	private Timestamp createDate;
+	private String updateUser;
+	private Timestamp updateDate;
+	private Collection<UserAuthority> userAuthorities;
+	private List<UserMenu> userMenus;
 
-    /**
-     * Default constructor - creates a new instance with no values set.
-     */
-    public User() {
-    }
+	/**
+	 * Default constructor - creates a new instance with no values set.
+	 */
+	public User() {
+	}
 
-    /**
-     * Create a new instance and set the username.
-     *
-     * @param username login name for user.
-     */
-    public User(final String username) {
-        this.username = username;
-    }
+	/**
+	 * Create a new instance and set the username.
+	 *
+	 * @param username
+	 *            login name for user.
+	 */
+	public User(final String username) {
+		this.username = username;
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @DocumentId
-    public Long getId() {
-        return id;
-    }
+	@Id
+	@Column(length = 50)
+	public String getUsername() {
+		return username;
+	}
 
-    @Column(nullable = false, length = 50, unique = true)
-    @Field
-    public String getUsername() {
-        return username;
-    }
+	@Column(nullable = false)
+	@XmlTransient
+	public String getPassword() {
+		return password;
+	}
 
-    @Column(nullable = false)
-    @XmlTransient
-    @JsonIgnore
-    public String getPassword() {
-        return password;
-    }
+	@Transient
+	@XmlTransient
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
 
-    @Transient
-    @XmlTransient
-    @JsonIgnore
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
+	@Column(name = "password_hint")
+	@XmlTransient
+	public String getPasswordHint() {
+		return passwordHint;
+	}
 
-    @Column(name = "password_hint")
-    @XmlTransient
-    public String getPasswordHint() {
-        return passwordHint;
-    }
+	@Column(name = "first_name", nullable = false, length = 50)
+	public String getFirstName() {
+		return firstName;
+	}
 
-    @Column(name = "first_name", nullable = false, length = 50)
-    @Field
-    public String getFirstName() {
-        return firstName;
-    }
+	@Column(name = "last_name", nullable = false, length = 50)
+	public String getLastName() {
+		return lastName;
+	}
 
-    @Column(name = "last_name", nullable = false, length = 50)
-    @Field
-    public String getLastName() {
-        return lastName;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    @Column(nullable = false, unique = true)
-    @Field
-    public String getEmail() {
-        return email;
-    }
+	@Column(name = "phone_number")
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    @Column(name = "phone_number")
-    @Field(analyze= Analyze.NO)
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String getWebsite() {
+		return website;
+	}
 
-    @Field
-    public String getWebsite() {
-        return website;
-    }
+	@Column(name = "gender")
+	@Enumerated(EnumType.STRING)
+	public Gender getGender() {
+		return gender;
+	}
 
-    /**
-     * Returns the full name.
-     *
-     * @return firstName + ' ' + lastName
-     */
-    @Transient
-    public String getFullName() {
-        return firstName + ' ' + lastName;
-    }
+	public String getMobilephone() {
+		return mobilephone;
+	}
 
-    @Embedded
-    @IndexedEmbedded
-    public Address getAddress() {
-        return address;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    public Set<Role> getRoles() {
-        return roles;
-    }
+	/**
+	 * Returns the full name.
+	 *
+	 * @return firstName + ' ' + lastName
+	 */
+	@Transient
+	public String getFullName() {
+		return firstName + ' ' + lastName;
+	}
 
-    /**
-     * Convert user roles to LabelValue objects for convenience.
-     *
-     * @return a list of LabelValue objects with role information
-     */
-    @Transient
-    public List<LabelValue> getRoleList() {
-        List<LabelValue> userRoles = new ArrayList<LabelValue>();
+	@Embedded
+	public Address getAddress() {
+		return address;
+	}
 
-        if (this.roles != null) {
-            for (Role role : roles) {
-                // convert the user's roles to LabelValue Objects
-                userRoles.add(new LabelValue(role.getName(), role.getName()));
-            }
-        }
+	/**
+	 * @return GrantedAuthority[] an array of roles.
+	 * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
+	 */
+	@Transient
+	@JsonIgnore
+	public Collection<GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
+		authorities.addAll(this.userAuthorities);
+		return authorities;
+	}
 
-        return userRoles;
-    }
+	@Version
+	public int getVersion() {
+		return version;
+	}
 
-    /**
-     * Adds a role for the user
-     *
-     * @param role the fully instantiated role
-     */
-    public void addRole(Role role) {
-        getRoles().add(role);
-    }
+	@Column(name = "account_enabled")
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-    /**
-     * @return GrantedAuthority[] an array of roles.
-     * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
-     */
-    @Transient
-    @JsonIgnore // needed for UserApiITest in appfuse-ws archetype
-    public Set<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new LinkedHashSet<>();
-        authorities.addAll(roles);
-        return authorities;
-    }
+	@Column(name = "account_expired", nullable = false)
+	public boolean isAccountExpired() {
+		return accountExpired;
+	}
 
-    @Version
-    public Integer getVersion() {
-        return version;
-    }
+	/**
+	 * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
+	 * @return true if account is still active
+	 */
+	@Transient
+	public boolean isAccountNonExpired() {
+		return !isAccountExpired();
+	}
 
-    @Column(name = "account_enabled")
-    public boolean isEnabled() {
-        return enabled;
-    }
+	@Column(name = "account_locked", nullable = false)
+	public boolean isAccountLocked() {
+		return accountLocked;
+	}
 
-    @Column(name = "account_expired", nullable = false)
-    public boolean isAccountExpired() {
-        return accountExpired;
-    }
+	/**
+	 * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
+	 * @return false if account is locked
+	 */
+	@Transient
+	public boolean isAccountNonLocked() {
+		return !isAccountLocked();
+	}
 
-    /**
-     * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
-     * @return true if account is still active
-     */
-    @Transient
-    public boolean isAccountNonExpired() {
-        return !isAccountExpired();
-    }
+	@Column(name = "credentials_expired", nullable = false)
+	public boolean isCredentialsExpired() {
+		return credentialsExpired;
+	}
 
-    @Column(name = "account_locked", nullable = false)
-    public boolean isAccountLocked() {
-        return accountLocked;
-    }
+	/**
+	 * @see org.springframework.security.core.userdetails.UserDetails#isCredentialsNonExpired()
+	 * @return true if credentials haven't expired
+	 */
+	@Transient
+	public boolean isCredentialsNonExpired() {
+		return !credentialsExpired;
+	}
 
-    /**
-     * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
-     * @return false if account is locked
-     */
-    @Transient
-    public boolean isAccountNonLocked() {
-        return !isAccountLocked();
-    }
+	@Column(name = "create_user", length = 50, nullable = false, updatable = false)
+	public String getCreateUser() {
+		return createUser;
+	}
 
-    @Column(name = "credentials_expired", nullable = false)
-    public boolean isCredentialsExpired() {
-        return credentialsExpired;
-    }
+	@Column(name = "create_date", nullable = false, updatable = false)
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
 
-    /**
-     * @see org.springframework.security.core.userdetails.UserDetails#isCredentialsNonExpired()
-     * @return true if credentials haven't expired
-     */
-    @Transient
-    public boolean isCredentialsNonExpired() {
-        return !credentialsExpired;
-    }
+	@Column(name = "update_user", length = 50, nullable = false)
+	public String getUpdateUser() {
+		return updateUser;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column(name = "update_date", nullable = false)
+	public Timestamp getUpdateDate() {
+		return updateDate;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
-    public void setPasswordHint(String passwordHint) {
-        this.passwordHint = passwordHint;
-    }
+	public void setPasswordHint(String passwordHint) {
+		this.passwordHint = passwordHint;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public void setWebsite(String website) {
-        this.website = website;
-    }
+	public void setWebsite(String website) {
+		this.website = website;
+	}
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
+	public void setMobilephone(String mobilephone) {
+		this.mobilephone = mobilephone;
+	}
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
-    public void setAccountExpired(boolean accountExpired) {
-        this.accountExpired = accountExpired;
-    }
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
-    public void setAccountLocked(boolean accountLocked) {
-        this.accountLocked = accountLocked;
-    }
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-    public void setCredentialsExpired(boolean credentialsExpired) {
-        this.credentialsExpired = credentialsExpired;
-    }
+	public void setAccountExpired(boolean accountExpired) {
+		this.accountExpired = accountExpired;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof User)) {
-            return false;
-        }
+	public void setAccountLocked(boolean accountLocked) {
+		this.accountLocked = accountLocked;
+	}
 
-        final User user = (User) o;
+	public void setCredentialsExpired(boolean credentialsExpired) {
+		this.credentialsExpired = credentialsExpired;
+	}
 
-        return !(username != null ? !username.equals(user.getUsername()) : user.getUsername() != null);
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
 
-    }
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public int hashCode() {
-        return (username != null ? username.hashCode() : 0);
-    }
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public String toString() {
-        ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
-                .append("username", this.username)
-                .append("enabled", this.enabled)
-                .append("accountExpired", this.accountExpired)
-                .append("credentialsExpired", this.credentialsExpired)
-                .append("accountLocked", this.accountLocked);
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
 
-        if (roles != null) {
-            sb.append("Granted Authorities: ");
+	public void setUserAuthorities(Collection<UserAuthority> userAuthorities) {
+		this.userAuthorities = userAuthorities;
+	}
 
-            int i = 0;
-            for (Role role : roles) {
-                if (i > 0) {
-                    sb.append(", ");
-                }
-                sb.append(role.toString());
-                i++;
-            }
-        } else {
-            sb.append("No Granted Authorities");
-        }
-        return sb.toString();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof User)) {
+			return false;
+		}
+
+		final User user = (User) o;
+
+		return !(username != null ? !username.equals(user.getUsername()) : user.getUsername() != null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public int hashCode() {
+		return (username != null ? username.hashCode() : 0);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String toString() {
+		ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("username", this.username)
+				.append("enabled", this.enabled).append("accountExpired", this.accountExpired)
+				.append("credentialsExpired", this.credentialsExpired).append("accountLocked", this.accountLocked);
+
+		// if (roles != null) {
+		// sb.append("Granted Authorities: ");
+		//
+		// int i = 0;
+		// for (Role role : roles) {
+		// if (i > 0) {
+		// sb.append(", ");
+		// }
+		// sb.append(role.toString());
+		// i++;
+		// }
+		// } else {
+		// sb.append("No Granted Authorities");
+		// }
+		return sb.toString();
+	}
+
+	@Transient
+	@JsonIgnore
+	public List<UserMenu> getUserMenus() {
+		return userMenus;
+	}
+
+	public void setUserMenus(List<UserMenu> userMenus) {
+		this.userMenus = userMenus;
+	}
+
 }

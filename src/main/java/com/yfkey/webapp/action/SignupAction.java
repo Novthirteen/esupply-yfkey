@@ -3,8 +3,8 @@ package com.yfkey.webapp.action;
 
 import org.apache.struts2.ServletActionContext;
 import com.yfkey.Constants;
+import com.yfkey.exception.UserExistsException;
 import com.yfkey.model.User;
-import com.yfkey.service.UserExistsException;
 import com.yfkey.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
@@ -70,7 +70,7 @@ public class SignupAction extends BaseAction {
         user.setEnabled(true);
 
         // Set the default user role on this new user
-        user.addRole(roleManager.getRole(Constants.USER_ROLE));
+		// user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
         try {
             user = userManager.saveUser(user);

@@ -6,7 +6,13 @@
 
 <hibernate-configuration>
     <session-factory>
-        <mapping class="com.yfkey.model.User"/>
-        <mapping class="com.yfkey.model.Role"/>
+        <mapping class="com.yfkey.model.Permission" />
+		<mapping class="com.yfkey.model.User" />
+		<mapping class="com.yfkey.model.UserRole" />
+		<mapping class="com.yfkey.model.UserAuthority" />
+		<mapping class="com.yfkey.model.UserPermission" />
+		<mapping class="com.yfkey.model.Role" />
+		<mapping class="com.yfkey.model.RolePermission" />
+		<mapping class="com.yfkey.model.Menu" />
     </session-factory>
 </hibernate-configuration>

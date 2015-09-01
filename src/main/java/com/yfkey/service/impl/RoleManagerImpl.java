@@ -1,12 +1,18 @@
 package com.yfkey.service.impl;
 
-import com.yfkey.dao.RoleDao;
-import com.yfkey.model.Role;
-import com.yfkey.service.RoleManager;
+import java.util.List;
+
+import org.hibernate.internal.util.collections.CollectionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.yfkey.exception.PrincipalNullException;
+import com.yfkey.model.PermissionType;
+import com.yfkey.model.Role;
+import com.yfkey.model.RolePermission;
+import com.yfkey.model.UserRole;
+import com.yfkey.service.RoleManager;
+import com.yfkey.service.UniversalManager;
 
 /**
  * Implementation of RoleManager interface.
@@ -14,40 +20,49 @@ import java.util.List;
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
 @Service("roleManager")
-public class RoleManagerImpl extends GenericManagerImpl<Role, Long> implements RoleManager {
-    RoleDao roleDao;
+public class RoleManagerImpl extends GenericManagerImpl<Role, Long>implements RoleManager {
+	@Autowired
+	private UniversalManager universalManager;
 
-    @Autowired
-    public RoleManagerImpl(RoleDao roleDao) {
-        super(roleDao);
-        this.roleDao = roleDao;
-    }
+	@Override
+	public void saveRolePermission(String roleCode, PermissionType permissionType, List<String> assignedPermissions)
+			throws PrincipalNullException {
+		this.universalManager.executeByHql("delete from RolePermission where roleCode = ? and permissionType = ?",
+				new Object[] { roleCode, permissionType });
 
-    /**
-     * {@inheritDoc}
-     */
-    public List<Role> getRoles(Role role) {
-        return dao.getAll();
-    }
+		if (!CollectionHelper.isEmpty(assignedPermissions)) {
+			for (String assignedPermission : assignedPermissions) {
+				RolePermission rolePermission = new RolePermission();
 
-    /**
-     * {@inheritDoc}
-     */
-    public Role getRole(String rolename) {
-        return roleDao.getRoleByName(rolename);
-    }
+				rolePermission.setRoleCode(roleCode);
+				rolePermission.setPermissionType(permissionType);
+				rolePermission.setPermissionCode(assignedPermission);
 
-    /**
-     * {@inheritDoc}
-     */
-    public Role saveRole(Role role) {
-        return dao.save(role);
-    }
+				this.universalManager.save(rolePermission);
+			}
+		}
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public void removeRole(String rolename) {
-        roleDao.removeRole(rolename);
-    }
+	@Override
+	public void saveRoleUser(String roleCode, List<String> assignedUsers) throws PrincipalNullException {
+		this.universalManager.executeByHql("delete from UserRole where roleCode = ?", new Object[] { roleCode });
+
+		if (!CollectionHelper.isEmpty(assignedUsers)) {
+			for (String assignedUser : assignedUsers) {
+				UserRole userRole = new UserRole();
+
+				userRole.setRoleCode(roleCode);
+				userRole.setUsername(assignedUser);
+
+				this.universalManager.save(userRole);
+			}
+		}
+
+	}
+
+	public void deleteRole(String roleCode) {
+		this.universalManager.executeByHql("delete from RolePermission where roleCode = ?", new Object[] { roleCode });
+
+		this.universalManager.remove(Role.class, roleCode);
+	}
 }

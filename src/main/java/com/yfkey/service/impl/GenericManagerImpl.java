@@ -1,21 +1,23 @@
 package com.yfkey.service.impl;
 
+import java.io.Serializable;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import com.yfkey.dao.GenericDao;
-import com.yfkey.service.GenericManager;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import com.yfkey.dao.GenericDao;
+import com.yfkey.exception.PrincipalNullException;
+import com.yfkey.service.GenericManager;
 
 /**
  * This class serves as the Base class for all other Managers - namely to hold
  * common CRUD methods that they might all use. You should only need to extend
  * this class when your require custom CRUD logic.
  * <p/>
- * <p>To register this class in your Spring context file, use the following XML.
+ * <p>
+ * To register this class in your Spring context file, use the following XML.
+ * 
  * <pre>
  *     &lt;bean id="userManager" class="com.yfkey.service.impl.GenericManagerImpl"&gt;
  *         &lt;constructor-arg&gt;
@@ -27,7 +29,9 @@ import java.util.List;
  *     &lt;/bean&gt;
  * </pre>
  * <p/>
- * <p>If you're using iBATIS instead of Hibernate, use:
+ * <p>
+ * If you're using iBATIS instead of Hibernate, use:
+ * 
  * <pre>
  *     &lt;bean id="userManager" class="com.yfkey.service.impl.GenericManagerImpl"&gt;
  *         &lt;constructor-arg&gt;
@@ -40,97 +44,78 @@ import java.util.List;
  *     &lt;/bean&gt;
  * </pre>
  *
- * @param <T>  a type variable
- * @param <PK> the primary key for that type
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *  Updated by jgarcia: added full text search + reindexing
+ * @param <T>
+ *            a type variable
+ * @param <PK>
+ *            the primary key for that type
+ * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a> Updated by
+ *         jgarcia: added full text search + reindexing
  */
 public class GenericManagerImpl<T, PK extends Serializable> implements GenericManager<T, PK> {
-    /**
-     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
-     */
-    protected final Log log = LogFactory.getLog(getClass());
+	/**
+	 * Log variable for all child classes. Uses LogFactory.getLog(getClass())
+	 * from Commons Logging
+	 */
+	protected final Log log = LogFactory.getLog(getClass());
 
-    /**
-     * GenericDao instance, set by constructor of child classes
-     */
-    protected GenericDao<T, PK> dao;
+	/**
+	 * GenericDao instance, set by constructor of child classes
+	 */
+	protected GenericDao<T, PK> dao;
 
+	public GenericManagerImpl() {
+	}
 
-    public GenericManagerImpl() {
-    }
+	public GenericManagerImpl(GenericDao<T, PK> genericDao) {
+		this.dao = genericDao;
+	}
 
-    public GenericManagerImpl(GenericDao<T, PK> genericDao) {
-        this.dao = genericDao;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<T> getAll() {
+		return dao.getAll();
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public List<T> getAll() {
-        return dao.getAll();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public T get(PK id) {
+		return dao.get(id);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public T get(PK id) {
-        return dao.get(id);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean exists(PK id) {
+		return dao.exists(id);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean exists(PK id) {
-        return dao.exists(id);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public void save(T object) throws PrincipalNullException {
+		dao.save(object);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public T save(T object) {
-        return dao.save(object);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public void update(T object) throws PrincipalNullException {
+		dao.update(object);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public void remove(T object) {
-        dao.remove(object);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public void remove(T object) {
+		dao.remove(object);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public void remove(PK id) {
-        dao.remove(id);
-    }
-
-    /**
-     * {@inheritDoc}
-     * <p/>
-     * Search implementation using Hibernate Search.
-     */
-    @SuppressWarnings("unchecked")
-    public List<T> search(String q, Class clazz) {
-        if (q == null || "".equals(q.trim())) {
-            return getAll();
-        }
-
-        return dao.search(q);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void reindex() {
-        dao.reindex();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void reindexAll(boolean async) {
-        dao.reindexAll(async);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public void remove(PK id) {
+		dao.remove(id);
+	}
 }

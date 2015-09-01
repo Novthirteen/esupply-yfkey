@@ -1,5 +1,6 @@
 package com.yfkey.service;
 
+import com.yfkey.exception.UserExistsException;
 import com.yfkey.model.User;
 
 import javax.jws.WebService;

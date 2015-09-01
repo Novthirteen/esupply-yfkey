@@ -1,19 +1,20 @@
 package com.yfkey.dao;
 
-import com.yfkey.model.User;
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.yfkey.model.User;
 
 /**
  * User Data Access Object (GenericDao) interface.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public interface UserDao extends GenericDao<User, Long> {
+public interface UserDao extends GenericDao<User, String> {
 
     /**
      * Gets users information based on login name.
@@ -33,18 +34,11 @@ public interface UserDao extends GenericDao<User, Long> {
     List<User> getUsers();
 
     /**
-     * Saves a user's information.
-     * @param user the object to be saved
-     * @return the persisted User object
-     */
-    User saveUser(User user);
-
-    /**
      * Retrieves the password in DB for a user
      * @param userId the user's id
      * @return the password in DB, if the user is already persisted
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    String getUserPassword(Long userId);
+    String getUserPassword(String userName);
     
 }

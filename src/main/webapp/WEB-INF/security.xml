@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
               http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http pattern="/images/**" security="none"/>
-    <http pattern="/styles/**" security="none"/>
-    <http pattern="/scripts/**" security="none"/>
-    <http pattern="/assets/**" security="none"/>
+	<http pattern="/images/**" security="none" />
+	<http pattern="/styles/**" security="none" />
+	<http pattern="/scripts/**" security="none" />
+	<http pattern="/assets/**" security="none" />
 
-    <http auto-config="true">
-        <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/passwordHint*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/signup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/saveSignup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/**/*.action*" access="ROLE_ADMIN,ROLE_USER"/>
-        <form-login login-page="/login" authentication-failure-url="/login?error=true" login-processing-url="/j_security_check"/>
-        <remember-me user-service-ref="userDao" key="e37f4b31-0c45-11dd-bd0b-0800200c9a66"/>
-    </http>
+	<http auto-config="true">
+		<form-login login-page="/login" authentication-failure-url="/login?error=true"
+			login-processing-url="/j_security_check" />
+		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+	</http>
 
-    <authentication-manager>
-        <authentication-provider user-service-ref="userDao">
-            <password-encoder ref="passwordEncoder"/>
-        </authentication-provider>
-    </authentication-manager>
+	<beans:bean id="filterSecurityInterceptor"
+		class="com.yfkey.webapp.security.SimpleFilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
+	</beans:bean>
 
-    <!-- Override the default password-encoder (BCrypt) by uncommenting the following and changing the class -->
-    <!-- <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDao">
+			<password-encoder ref="passwordEncoder" />
+		</authentication-provider>
+	</authentication-manager>
 
-    <global-method-security>
-        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN"/>
-        <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN"/>
-    </global-method-security>
+	<beans:bean id="accessDecisionManager"
+		class="com.yfkey.webapp.security.SimpleAccessDecisionManager">
+		<beans:constructor-arg>
+			<beans:bean class="com.yfkey.webapp.security.SimpleAccessDecisionVoter" />
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="securityMetadataSource"
+		class="com.yfkey.webapp.security.DataBaseFilterInvocationSecurityMetadataSource">
+		<beans:property name="universalManager" ref="universalManager" />
+	</beans:bean>
+
+	<!-- Override the default password-encoder (BCrypt) by uncommenting the 
+		following and changing the class -->
+	<!-- <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> -->
+
+	<!-- <global-method-security> <protect-pointcut expression="execution(* 
+		*..service.UserManager.getUsers(..))" access="ROLE_ADMIN" /> <protect-pointcut 
+		expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN" 
+		/> </global-method-security> -->
 </beans:beans>

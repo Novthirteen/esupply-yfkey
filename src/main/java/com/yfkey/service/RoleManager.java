@@ -1,5 +1,7 @@
 package com.yfkey.service;
 
+import com.yfkey.model.PermissionType;
+import com.yfkey.exception.PrincipalNullException;
 import com.yfkey.model.Role;
 
 import java.util.List;
@@ -11,23 +13,10 @@ import java.util.List;
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
 public interface RoleManager extends GenericManager<Role, Long> {
-    /**
-     * {@inheritDoc}
-     */
-    List getRoles(Role role);
+	void saveRolePermission(String roleCode, PermissionType permissionType, List<String> assignedPermissions)
+			throws PrincipalNullException;
 
-    /**
-     * {@inheritDoc}
-     */
-    Role getRole(String rolename);
+	void saveRoleUser(String roleCode, List<String> assignedUsers) throws PrincipalNullException;
 
-    /**
-     * {@inheritDoc}
-     */
-    Role saveRole(Role role);
-
-    /**
-     * {@inheritDoc}
-     */
-    void removeRole(String rolename);
+	void deleteRole(String roleCode);
 }
