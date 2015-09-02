@@ -86,4 +86,9 @@ public final class Constants {
      * @deprecated No longer used to set themes.
      */
     public static final String CSS_THEME = "csstheme";
+    
+    /**
+     * The name of the bootstrap Theme setting.
+     */
+    public static final String BOOTSTRAP_THEME = "theme";
 }

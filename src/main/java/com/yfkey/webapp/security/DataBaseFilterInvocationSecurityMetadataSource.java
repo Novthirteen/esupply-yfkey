@@ -76,7 +76,7 @@ public class DataBaseFilterInvocationSecurityMetadataSource
 					if (!CollectionHelper.isEmpty(allPermissions)) {
 						for (Permission p : allPermissions) {
 							if (p.getType() == PermissionType.U) {
-								requestMatcher = new RegexRequestMatcher(p.getCode() + "*", null);
+								requestMatcher = new RegexRequestMatcher(p.getCode() + ".*$", null);
 							} else {
 								requestMatcher = new RegexRequestMatcher(p.getCode(), null);
 							}

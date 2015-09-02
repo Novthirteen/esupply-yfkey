@@ -9,8 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="<c:url value="/images/favicon.ico"/>" />
 <title><decorator:title /> | <fmt:message key="webapp.name" /></title>
-<link rel="stylesheet" type="text/css" media="all"
-	href="<c:url value='/styles/lib/bootstrap.min.css'/>" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/styles/lib/bootstrap-duallistbox.min.css'/>" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -26,6 +24,26 @@
 <script type="text/javascript"
 	src="<c:url value='/scripts/lib/jquery.bootstrap-duallistbox.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
+
+<script>
+var themes = {
+	"default" : "<c:url value='/styles/lib/bootstrap.min.css'/>",
+	"cerulean" : "<c:url value='/styles/lib/theme/cerulean.min.css'/>",
+	"cosmo" : "<c:url value='/styles/lib/theme/cosmo.min.css'/>",
+	"cyborg" : "<c:url value='/styles/lib/theme/cyborg.min.css'/>",
+	"united" : "<c:url value='/styles/lib/theme/united.min.css'/>"
+}
+
+<c:choose>
+  	<c:when test="${not empty sessionScope.theme}">	
+var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes["${sessionScope.theme}"] + '" />');
+	</c:when>
+	<c:otherwise>
+var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes[0] + '" />');
+	</c:otherwise>
+</c:choose>
+themesheet.appendTo('head');
+</script>
 </head>
 <body
 	<decorator:getProperty property="body.id" writeEntireProperty="true"/>
@@ -47,20 +65,14 @@
 
 		<div class="navbar-collapse collapse pull-right">
 			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><fmt:message key="login.Theme" /> <b
-						class="caret"></b></a>
+				<li class="dropdown"><a id="themeSelect" href="#"
+					class="dropdown-toggle" data-toggle="dropdown"><fmt:message
+							key="login.Theme" /> <b class="caret"></b></a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="#" data-theme="default" class="theme-link">Default</a></li>
 						<li><a href="#" data-theme="cerulean" class="theme-link">Cerulean</a></li>
 						<li><a href="#" data-theme="cosmo" class="theme-link">Cosmo</a></li>
 						<li><a href="#" data-theme="cyborg" class="theme-link">Cyborg</a></li>
-						<li><a href="#" data-theme="flatly" class="theme-link">Flatly</a></li>
-						<li><a href="#" data-theme="journal" class="theme-link">Journal</a></li>
-						<li><a href="#" data-theme="readable" class="theme-link">Readable</a></li>
-						<li><a href="#" data-theme="simplex" class="theme-link">Simplex</a></li>
-						<li><a href="#" data-theme="slate" class="theme-link">Slate</a></li>
-						<li><a href="#" data-theme="spacelab" class="theme-link">Spacelab</a></li>
 						<li><a href="#" data-theme="united" class="theme-link">United</a></li>
 					</ul></li>
 			</ul>
@@ -68,13 +80,13 @@
 
 		<div class="navbar-collapse collapse pull-right">
 			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
+				<li class="dropdown"><a id="languageSelect" href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false"> <fmt:message
 							key="login.language" /><b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="#" data-language="zh" class="language-link">
-								<fmt:message key="login.language.zh" />
+						<li><a href="#" data-language="zh_CN" class="language-link">
+								<fmt:message key="login.language.zh_CN" />
 						</a></li>
 						<li><a href="#" data-language="en" class="language-link">
 								<fmt:message key="login.language.en" />
@@ -111,5 +123,38 @@
 		</span>
 	</div>
 	<%=(request.getAttribute("scripts") != null) ? request.getAttribute("scripts") : ""%>
+	
+	<script>
+		var themes = {
+			"default" : "<c:url value='/styles/lib/bootstrap.min.css'/>",
+			"cerulean" : "<c:url value='/styles/lib/theme/cerulean.min.css'/>",
+			"cosmo" : "<c:url value='/styles/lib/theme/cosmo.min.css'/>",
+			"cyborg" : "<c:url value='/styles/lib/theme/cyborg.min.css'/>",
+			"united" : "<c:url value='/styles/lib/theme/united.min.css'/>"
+		}
+
+		$(function() {
+			$(".theme-link").click(function() {
+				var theme = $(this).attr("data-theme");
+				location.href = "<c:url value='/home?theme='/>" + theme;
+			});
+			
+			$(".language-link").click(function() {
+				var language = $(this).attr("data-language");
+				location.href = "<c:url value='/home?locale='/>" + language;
+			});
+			
+			<c:choose>
+			  	<c:when test="${not empty sessionScope.theme}">		
+			$("#themeSelect").html("<fmt:message key="login.Theme" /> [" + $('.theme-link[data-theme="${sessionScope.theme}"]').text() + "]<b class='caret'></b>");
+				</c:when>
+				<c:otherwise>	
+			$("#themeSelect").html("<fmt:message key="login.Theme" /> [" + $(".theme-link").first().text() + "]<b class='caret'></b>");
+				</c:otherwise>
+			</c:choose>
+			
+			$("#languageSelect").html("<fmt:message key="login.language" /> [" + $('.language-link[data-language="${pageContext.response.locale}"]').text() + "]<b class='caret'></b>");
+		});
+	</script>
 </body>
 </html>
