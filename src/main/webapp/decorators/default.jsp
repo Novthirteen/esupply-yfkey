@@ -16,7 +16,7 @@
 <decorator:head />
 
 <script type="text/javascript"
-	src="<c:url value='/scripts/lib/jquery-2.1.4.min.js'/>"></script>
+	src="<c:url value='/scripts/lib/jquery-2.1.4.js'/>"></script>
 <script type="text/javascript"
 	src="<c:url value='/scripts/lib/bootstrap.min.js'/>"></script>
 <script type="text/javascript"
@@ -28,10 +28,10 @@
 <script>
 var themes = {
 	"default" : "<c:url value='/styles/lib/bootstrap.min.css'/>",
-	"cerulean" : "<c:url value='/styles/lib/theme/cerulean.min.css'/>",
-	"cosmo" : "<c:url value='/styles/lib/theme/cosmo.min.css'/>",
-	"cyborg" : "<c:url value='/styles/lib/theme/cyborg.min.css'/>",
-	"united" : "<c:url value='/styles/lib/theme/united.min.css'/>"
+	"cerulean" : "<c:url value='/styles/lib/cerulean.min.css'/>",
+	"cosmo" : "<c:url value='/styles/lib/cosmo.min.css'/>",
+	"cyborg" : "<c:url value='/styles/lib/cyborg.min.css'/>",
+	"united" : "<c:url value='/styles/lib/united.min.css'/>"
 }
 
 <c:choose>
@@ -39,7 +39,7 @@ var themes = {
 var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes["${sessionScope.theme}"] + '" />');
 	</c:when>
 	<c:otherwise>
-var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes[0] + '" />');
+var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes["default"] + '" />');
 	</c:otherwise>
 </c:choose>
 themesheet.appendTo('head');
@@ -102,7 +102,7 @@ themesheet.appendTo('head');
 			<decorator:body />
 
 			<c:if test="${currentMenu == 'AdminMenu'}">
-				<div class="col-sm-2">
+				<div class="col-xs-2">
 					<menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm"
 						permissions="rolesAdapter">
 						<menu:displayMenu name="AdminMenu" />
@@ -113,11 +113,11 @@ themesheet.appendTo('head');
 	</div>
 
 	<div id="footer" class="container navbar-fixed-bottom">
-		<span class="col-sm-6 text-left"><fmt:message
+		<span class="col-xs-6 text-left"><fmt:message
 				key="webapp.version" /> <c:if
 				test="${pageContext.request.remoteUser != null}">
             | <fmt:message key="user.status" /> ${pageContext.request.remoteUser}
-            </c:if> </span> <span class="col-sm-6 text-right"> &copy; <fmt:message
+            </c:if> </span> <span class="col-xs-6 text-right"> &copy; <fmt:message
 				key="copyright.year" /> <a href="<fmt:message key="company.url"/>"><fmt:message
 					key="company.name" /></a>
 		</span>

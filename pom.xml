@@ -28,22 +28,25 @@
 		</repository>
 	</repositories>
 
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
 
-	<!--<build>
-		<plugins>
-			<plugin>
-				<groupId>de.juplo</groupId>
-				<artifactId>hibernate4-maven-plugin</artifactId>
-				<configuration>
-					<scanDependencies>none</scanDependencies>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>dbunit-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>-->
+	<!--<build> <plugins> <plugin> <groupId>de.juplo</groupId> <artifactId>hibernate4-maven-plugin</artifactId> 
+		<configuration> <scanDependencies>none</scanDependencies> </configuration> 
+		</plugin> <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>dbunit-maven-plugin</artifactId> 
+		</plugin> </plugins> </build> -->
 
 	<dependencies>
 		<dependency>
@@ -68,6 +71,7 @@
 		<web.framework>struts</web.framework>
 
 		<!-- Framework/Plugin versions -->
+		<struts.version>2.3.7</struts.version>
 		<appfuse.version>3.5.0</appfuse.version>
 		<java.version>1.7</java.version>
 
@@ -75,6 +79,7 @@
 		<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
 		<hibernate.show_sql>true</hibernate.show_sql>
 		<hibernate.format_sql>true</hibernate.format_sql>
+		<hibernate.use_sql_comments>true</hibernate.use_sql_comments>
 		<jdbc.groupId>mysql</jdbc.groupId>
 		<jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
 		<jdbc.version>5.1.27</jdbc.version>
@@ -83,7 +88,7 @@
 		<jdbc.username>root</jdbc.username>
 		<jdbc.password />
 		<jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
-		
+
 		<maven.test.skip>true</maven.test.skip>
 	</properties>
 

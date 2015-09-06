@@ -24,6 +24,11 @@
         <property name="mailMessage" ref="mailMessage"/>
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
+    
+    <bean id="roleAction" class="com.yfkey.webapp.action.RoleAction" scope="prototype">
+        <property name="roleManager" ref="roleManager"/>
+        <property name="universalManager" ref="universalManager"/>
+    </bean>
 
     <bean id="passwordHintAction" class="com.yfkey.webapp.action.PasswordHintAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
