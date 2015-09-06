@@ -91,4 +91,14 @@ public final class Constants {
      * The name of the bootstrap Theme setting.
      */
     public static final String BOOTSTRAP_THEME = "theme";
+    
+    /**
+     * The name of the plant user operated a session-scoped attribute
+     */
+    public static final String SELECTED_USER_PLANT = "selectedUserPlant";
+    
+    /**
+     * The name of the available plant list, a session-scoped attribute
+     */
+    public static final String AVAILABLE_USER_PLANTS = "availableUserPlants";
 }

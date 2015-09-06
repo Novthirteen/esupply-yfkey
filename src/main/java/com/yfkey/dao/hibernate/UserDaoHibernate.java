@@ -1,6 +1,7 @@
 package com.yfkey.dao.hibernate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Table;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
+import com.yfkey.model.PermissionType;
 import com.yfkey.dao.UniversalDao;
 import com.yfkey.dao.UserDao;
 import com.yfkey.model.Menu;
@@ -69,7 +71,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, String>implement
 		} else {
 			User user = (User) users.get(0);
 
-			loadUserAuthority(user);
+			loadUserPermission(user);
 			loadUserMenu(user);
 			return (UserDetails) user;
 		}
@@ -85,9 +87,24 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, String>implement
 				userName);
 	}
 
-	private void loadUserAuthority(User user) {
-		user.setUserAuthorities(getSession().createCriteria(UserAuthority.class)
-				.add(Restrictions.eq("username", user.getUsername())).list());
+	private void loadUserPermission(User user) {
+
+		Collection<UserAuthority> userAuthorities = getSession().createCriteria(UserAuthority.class)
+				.add(Restrictions.eq("username", user.getUsername())).list();
+
+		if (CollectionHelper.isNotEmpty(userAuthorities)) {
+			for (UserAuthority userAuthoritiy : userAuthorities) {
+				if (userAuthoritiy.getPermissionType() == PermissionType.U) {
+					user.addUserAuthorizedUrl(userAuthoritiy);
+				} else if (userAuthoritiy.getPermissionType() == PermissionType.P) {
+					user.addUserAuthorizedPlant(userAuthoritiy);
+				} else if (userAuthoritiy.getPermissionType() == PermissionType.S) {
+					user.addUserAuthorizedSupplier(userAuthoritiy);
+				} else if (userAuthoritiy.getPermissionType() == PermissionType.B) {
+					user.addUserAuthorizedButton(userAuthoritiy);
+				}
+			}
+		}
 	}
 
 	private void loadUserMenu(User user) {

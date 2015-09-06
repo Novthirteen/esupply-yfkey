@@ -8,6 +8,7 @@
     </bean>
     
     <bean id="accessDeniedInterceptor" class="com.yfkey.webapp.interceptor.AccessDeniedInterceptor" />
+    <bean id="plantNotSelectedInterceptor" class="com.yfkey.webapp.interceptor.NoPlantSelectedInterceptor" />
 
     <bean id="signupAction" class="com.yfkey.webapp.action.SignupAction" scope="prototype">
         <property name="userManager" ref="userManager"/>

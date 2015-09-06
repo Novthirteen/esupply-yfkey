@@ -1,3 +1,7 @@
+
+<%
+	try {
+%>
 <!DOCTYPE html>
 <%@ include file="/common/taglibs.jsp"%>
 <html lang="en">
@@ -26,23 +30,23 @@
 <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
 
 <script>
-var themes = {
-	"default" : "<c:url value='/styles/lib/bootstrap.min.css'/>",
-	"cerulean" : "<c:url value='/styles/lib/cerulean.min.css'/>",
-	"cosmo" : "<c:url value='/styles/lib/cosmo.min.css'/>",
-	"cyborg" : "<c:url value='/styles/lib/cyborg.min.css'/>",
-	"united" : "<c:url value='/styles/lib/united.min.css'/>"
-}
+	var themes = {
+		"default" : "<c:url value='/styles/lib/bootstrap.min.css'/>",
+		"cerulean" : "<c:url value='/styles/lib/cerulean.min.css'/>",
+		"cosmo" : "<c:url value='/styles/lib/cosmo.min.css'/>",
+		"cyborg" : "<c:url value='/styles/lib/cyborg.min.css'/>",
+		"united" : "<c:url value='/styles/lib/united.min.css'/>"
+	}
 
-<c:choose>
-  	<c:when test="${not empty sessionScope.theme}">	
-var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes["${sessionScope.theme}"] + '" />');
+	<c:choose>
+	<c:when test="${not empty sessionScope.theme}">
+	var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes["${sessionScope.theme}"] + '" />');
 	</c:when>
 	<c:otherwise>
-var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes["default"] + '" />');
+	var themesheet = $('<link rel="stylesheet" type="text/css" media="all" href="' + themes["default"] + '" />');
 	</c:otherwise>
-</c:choose>
-themesheet.appendTo('head');
+	</c:choose>
+	themesheet.appendTo('head');
 </script>
 </head>
 <body
@@ -80,9 +84,10 @@ themesheet.appendTo('head');
 
 		<div class="navbar-collapse collapse pull-right">
 			<ul class="nav navbar-nav">
-				<li class="dropdown"><a id="languageSelect" href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false"> <fmt:message
-							key="login.language" /><b class="caret"></b>
+				<li class="dropdown"><a id="languageSelect" href="#"
+					class="dropdown-toggle" data-toggle="dropdown" role="button"
+					aria-expanded="false"> <fmt:message key="login.language" /><b
+						class="caret"></b>
 				</a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="#" data-language="zh_CN" class="language-link">
@@ -94,22 +99,35 @@ themesheet.appendTo('head');
 					</ul></li>
 			</ul>
 		</div>
+
+		<c:if
+			test="${not empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">
+			<div class="navbar-collapse collapse pull-right">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a id="userPlantSelect" href="#"
+						class="dropdown-toggle" data-toggle="dropdown"><fmt:message
+								key="login.userPlant" /> <b class="caret"></b></a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<c:forEach items="${sessionScope.availableUserPlants}"
+								var="plant">
+								<li><a href="#" data-plant="${plant.value}"
+									class="plant-link">${plant.label}</a></li>
+							</c:forEach>
+						</ul></li>
+				</ul>
+			</div>
+		</c:if>
 	</div>
 
 	<div class="container" id="content">
 		<%@ include file="/common/messages.jsp"%>
 		<div class="row">
 			<decorator:body />
-
-			<c:if test="${currentMenu == 'AdminMenu'}">
-				<div class="col-xs-2">
-					<menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm"
-						permissions="rolesAdapter">
-						<menu:displayMenu name="AdminMenu" />
-					</menu:useMenuDisplayer>
-				</div>
-			</c:if>
 		</div>
+		<c:if
+			test="${empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">
+			<%@ include file="/common/selectUserPlant.jsp"%>
+		</c:if>
 	</div>
 
 	<div id="footer" class="container navbar-fixed-bottom">
@@ -117,13 +135,13 @@ themesheet.appendTo('head');
 				key="webapp.version" /> <c:if
 				test="${pageContext.request.remoteUser != null}">
             | <fmt:message key="user.status" /> ${pageContext.request.remoteUser}
-            </c:if> </span> <span class="col-xs-6 text-right"> &copy; <fmt:message
-				key="copyright.year" /> <a href="<fmt:message key="company.url"/>"><fmt:message
+            </c:if> </span> <span class="col-xs-6 text-right"> <a
+			href="<fmt:message key="company.url"/>"><fmt:message
 					key="company.name" /></a>
 		</span>
 	</div>
 	<%=(request.getAttribute("scripts") != null) ? request.getAttribute("scripts") : ""%>
-	
+
 	<script>
 		var themes = {
 			"default" : "<c:url value='/styles/lib/bootstrap.min.css'/>",
@@ -138,23 +156,55 @@ themesheet.appendTo('head');
 				var theme = $(this).attr("data-theme");
 				location.href = "<c:url value='/home?theme='/>" + theme;
 			});
-			
+
 			$(".language-link").click(function() {
 				var language = $(this).attr("data-language");
 				location.href = "<c:url value='/home?locale='/>" + language;
 			});
 			
+			$(".plant-link").click(function() {
+				var plant = $(this).attr("data-plant");
+				location.href = "<c:url value='/selectUserPlant?plantCode='/>" + plant;
+			});
+
 			<c:choose>
-			  	<c:when test="${not empty sessionScope.theme}">		
-			$("#themeSelect").html("<fmt:message key="login.Theme" /> [" + $('.theme-link[data-theme="${sessionScope.theme}"]').text() + "]<b class='caret'></b>");
-				</c:when>
-				<c:otherwise>	
-			$("#themeSelect").html("<fmt:message key="login.Theme" /> [" + $(".theme-link").first().text() + "]<b class='caret'></b>");
-				</c:otherwise>
+			<c:when test="${not empty sessionScope.theme}">
+			$("#themeSelect")
+					.html(
+							"<fmt:message key="login.Theme" /> ["
+									+ $(
+											'.theme-link[data-theme="${sessionScope.theme}"]')
+											.text() + "]<b class='caret'></b>");
+			</c:when>
+			<c:otherwise>
+			$("#themeSelect").html(
+					"<fmt:message key="login.Theme" /> ["
+							+ $(".theme-link").first().text()
+							+ "]<b class='caret'></b>");
+			</c:otherwise>
 			</c:choose>
-			
-			$("#languageSelect").html("<fmt:message key="login.language" /> [" + $('.language-link[data-language="${pageContext.response.locale}"]').text() + "]<b class='caret'></b>");
+
+			$("#languageSelect")
+					.html(
+							"<fmt:message key="login.language" /> ["
+									+ $(
+											'.language-link[data-language="${pageContext.response.locale}"]')
+											.text() + "]<b class='caret'></b>");
+
+			<c:if test="${not empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">
+			$("#userPlantSelect")
+					.html(
+							"<fmt:message key="login.userPlant" /> ["
+									+ $(
+											'.plant-link[data-plant="${sessionScope.selectedUserPlant}"]')
+											.text() + "]<b class='caret'></b>");
+			</c:if>
 		});
 	</script>
 </body>
 </html>
+<%
+	} catch (Exception ex) {
+		ex.printStackTrace();
+	}
+%>

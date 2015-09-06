@@ -25,6 +25,7 @@ public class UserAuthority extends BaseObject implements Serializable, GrantedAu
 	private String username;
 	private String authority;
 	private PermissionType permissionType;
+	private String authorityName;
 
 	@Id
 	@Column(name = "username")
@@ -44,6 +45,11 @@ public class UserAuthority extends BaseObject implements Serializable, GrantedAu
 	public PermissionType getPermissionType() {
 		return permissionType;
 	}
+	
+	@Column(name = "permission_name")
+	public String getAuthorityName() {
+		return authorityName;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -55,6 +61,10 @@ public class UserAuthority extends BaseObject implements Serializable, GrantedAu
 
 	public void setPermissionType(PermissionType permissionType) {
 		this.permissionType = permissionType;
+	}
+	
+	public void setAuthorityName(String authorityName) {
+		this.authorityName = authorityName;
 	}
 
 	@Override

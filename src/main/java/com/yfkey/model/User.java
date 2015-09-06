@@ -2,6 +2,7 @@ package com.yfkey.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -62,8 +63,11 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	private Timestamp createDate;
 	private String updateUser;
 	private Timestamp updateDate;
-	private Collection<UserAuthority> userAuthorities;
-	private List<UserMenu> userMenus;
+	private Collection<UserAuthority> userAuthorizedUrls;
+	private Collection<UserMenu> userMenus;
+	private Collection<UserAuthority> userAuthorizedPlants;
+	private Collection<UserAuthority> userAuthorizedSuppliers;
+	private Collection<UserAuthority> userAuthorizedButtons;
 
 	/**
 	 * Default constructor - creates a new instance with no values set.
@@ -165,8 +169,26 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	@JsonIgnore
 	public Collection<GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
-		authorities.addAll(this.userAuthorities);
+		authorities.addAll(this.userAuthorizedUrls);
 		return authorities;
+	}
+
+	@Transient
+	@JsonIgnore
+	public Collection<UserAuthority> getAuthoriedPlants() {
+		return this.userAuthorizedPlants;
+	}
+
+	@Transient
+	@JsonIgnore
+	public Collection<UserAuthority> getAuthoriedSuppliers() {
+		return this.userAuthorizedSuppliers;
+	}
+
+	@Transient
+	@JsonIgnore
+	public Collection<UserAuthority> getAuthoriedButtons() {
+		return this.userAuthorizedButtons;
 	}
 
 	@Version
@@ -328,9 +350,53 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
+	
+	public void setUserAuthorizedUrls(Collection<UserAuthority> userAuthorizedUrls) {
+		this.userAuthorizedUrls = userAuthorizedUrls;
+	}
+	
+	public void addUserAuthorizedUrl(UserAuthority userAuthorizedUrl) {
+		if (this.userAuthorizedUrls == null) {
+			this.userAuthorizedUrls = new ArrayList<UserAuthority>();
+		}
 
-	public void setUserAuthorities(Collection<UserAuthority> userAuthorities) {
-		this.userAuthorities = userAuthorities;
+		this.userAuthorizedUrls.add(userAuthorizedUrl);
+	}
+
+	public void setUserAuthorizedPlants(Collection<UserAuthority> userAuthorizedPlants) {
+		this.userAuthorizedPlants = userAuthorizedPlants;
+	}
+
+	public void addUserAuthorizedPlant(UserAuthority userAuthorizedPlant) {
+		if (this.userAuthorizedPlants == null) {
+			this.userAuthorizedPlants = new ArrayList<UserAuthority>();
+		}
+
+		this.userAuthorizedPlants.add(userAuthorizedPlant);
+	}
+
+	public void setUserAuthorizedSuppliers(Collection<UserAuthority> userAuthorizedSuppliers) {
+		this.userAuthorizedSuppliers = userAuthorizedSuppliers;
+	}
+
+	public void addUserAuthorizedSupplier(UserAuthority userAuthorizedSupplier) {
+		if (this.userAuthorizedSuppliers == null) {
+			this.userAuthorizedSuppliers = new ArrayList<UserAuthority>();
+		}
+
+		this.userAuthorizedSuppliers.add(userAuthorizedSupplier);
+	}
+
+	public void setUserAuthorizedButtons(Collection<UserAuthority> userAuthorizedButtons) {
+		this.userAuthorizedButtons = userAuthorizedButtons;
+	}
+
+	public void addUserAuthorizedButton(UserAuthority userAuthorizedButton) {
+		if (this.userAuthorizedButtons == null) {
+			this.userAuthorizedButtons = new ArrayList<UserAuthority>();
+		}
+
+		this.userAuthorizedButtons.add(userAuthorizedButton);
 	}
 
 	/**
@@ -383,7 +449,7 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 
 	@Transient
 	@JsonIgnore
-	public List<UserMenu> getUserMenus() {
+	public Collection<UserMenu> getUserMenus() {
 		return userMenus;
 	}
 

@@ -26,9 +26,13 @@
 			<!-- Interceptor to handle accessDenied exceptions thrown from service/model 
 				layer called from within actions -->
 			<interceptor name="accessDenied" class="accessDeniedInterceptor" />
+			<interceptor name="plantNotSelected" class="plantNotSelectedInterceptor" />
 			<!-- Copied from struts-default.xml and changed validation exclude methods -->
 			<interceptor-stack name="defaultStack">
 				<interceptor-ref name="accessDenied" />
+				<interceptor-ref name="plantNotSelected">
+					<param name="excludeMethods">home,selectUserPlant</param>
+				</interceptor-ref>
 				<interceptor-ref name="exception" />
 				<interceptor-ref name="alias" />
 				<interceptor-ref name="servletConfig" />
@@ -65,17 +69,12 @@
 				result="dataAccessFailure" />
 		</global-exception-mappings>
 
-		<action name="home">
+		<action name="home" class="userAction" method="home">
 			<result name="success">/WEB-INF/pages/home.jsp</result>
+			<result name="error">/WEB-INF/pages/login.jsp</result>
 		</action>
 
-		<action name="signup">
-			<result>/WEB-INF/pages/signup.jsp</result>
-		</action>
-
-		<action name="saveSignup" class="signupAction" method="save">
-			<result name="cancel" type="redirect">/</result>
-			<result name="input">/WEB-INF/pages/signup.jsp</result>
+		<action name="selectUserPlant" class="userAction" method="selectUserPlant">
 			<result name="success" type="redirectAction">home</result>
 		</action>
 
@@ -140,7 +139,7 @@
 			<result name="success">/WEB-INF/pages/user/role/roleForm.jsp</result>
 		</action>
 	</package>
-	
+
 	<package name="admin" extends="default" namespace="/admin">
 		<action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport">
 			<result name="success">/WEB-INF/pages/admin/activeUsers.jsp</result>
