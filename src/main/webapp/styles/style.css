@@ -1,5 +1,5 @@
 body {
-    padding-top: 80px;
+    /* padding-top: 80px; */
 }
 
 .navbar-brand {
@@ -289,3 +289,11 @@ span.pagelinks {
     border: 1px solid #CD0A0A;
     color: #FFFFFF;
 }
+
+.glyphicon { margin-right:10px; }
+.panel-body { padding:0px; }
+.panel-body table tr td { padding-left: 15px }
+.panel-body .table {margin-bottom: 0px; }
+
+#accordion a:hover {color:#FF0000; text-decoration: none }
+.selected { color:#FF0000; }
