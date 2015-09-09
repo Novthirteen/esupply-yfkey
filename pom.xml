@@ -61,6 +61,51 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>o4glrt</groupId>
+			<artifactId>o4glrt</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ecore</groupId>
+			<artifactId>ecore</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ecore.change</groupId>
+			<artifactId>ecore.change</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ecore.resources</groupId>
+			<artifactId>ecore.resources</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ecore.sdo</groupId>
+			<artifactId>ecore.sdo</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>common</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commonj.sdo</groupId>
+			<artifactId>commonj.sdo</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency> 
+			<groupId>ecore.xmi</groupId> 
+			<artifactId>ecore.xmi</artifactId> 
+         	<version>1.0.0</version> 
+		</dependency> 
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
