@@ -1,6 +1,7 @@
 package com.yfkey.webapp.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.progress.open4gl.javaproxy.Connection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
@@ -18,6 +19,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.yfkey.qad.QADConfg;
+import com.yfkey.qad.YFKSSSCP;
+import com.yfkey.model.PermissionType;
+import com.yfkey.service.UniversalManager;
 
 /**
  * Implementation of <strong>ActionSupport</strong> that contains convenience
@@ -40,6 +46,21 @@ public class BaseAction extends ActionSupport {
 	 * use instance for logging.
 	 */
 	protected final transient Log log = LogFactory.getLog(getClass());
+
+	/**
+	 * The UserManager
+	 */
+	protected UserManager userManager;
+
+	/**
+	 * The UniversalManager
+	 */
+	protected UniversalManager universalManager;
+
+	/**
+	 * The RoleManager
+	 */
+	protected RoleManager roleManager;
 
 	/**
 	 * Indicator if the user clicked cancel
@@ -81,6 +102,9 @@ public class BaseAction extends ActionSupport {
 	 *
 	 * @return "cancel"
 	 */
+	
+	protected static YFKSSSCP yfkssScp;
+
 	public String cancel() {
 		return CANCEL;
 	}
@@ -211,5 +235,37 @@ public class BaseAction extends ActionSupport {
 		List<Object> args = new ArrayList<Object>();
 		args.add(ex.getMessage());
 		addActionError(getText("errors.unexpectError", args));
+	}
+	
+	protected static boolean ConnectQAD() {
+		try {
+
+			yfkssScp = new YFKSSSCP(new Connection(QADConfg.m_AppSrvUrl, "", "", null));
+			if (yfkssScp != null) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	protected List<String> getSupplierCodeList(String supplierCode) {
+
+		String userCode = this.getRequest().getRemoteUser();
+		@SuppressWarnings("unchecked")
+		List<String> supplierCodeList = universalManager.findByNativeSql(
+				"select permission_code from permission_view where permission_type = ? and username = ?",
+				new Object[] { PermissionType.S.toString(), userCode });
+		if (supplierCode.trim() !=null && supplierCode.trim() != "" ) {
+			supplierCodeList = new ArrayList<String>();
+			if(supplierCodeList.contains(supplierCode))
+			{
+				supplierCodeList.add(supplierCode);
+			}
+		}
+		return supplierCodeList;
 	}
 }

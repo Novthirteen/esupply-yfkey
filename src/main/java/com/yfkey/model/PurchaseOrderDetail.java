@@ -2,6 +2,8 @@ package com.yfkey.model;
 
 import java.math.BigDecimal;
 
+import com.progress.open4gl.Parameter;
+
 
 public class PurchaseOrderDetail extends BaseObject {
 
@@ -9,143 +11,194 @@ public class PurchaseOrderDetail extends BaseObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -7409249741178402255L;
-	private BigDecimal xpyhddeto_seq;                        //序号(前端排序条件)
-	private String xpyhddeto_yhdnbr;						 //要货单号
-	private String xpyhddeto_partnbr;						 //物料号
-	private String xpyhddeto_partdesc;						 //物料描述
-	private String xpyhddeto_supppart;						 //供应商物料号
-	private String xpyhddeto_suppcode;						 //供应商代码
-	private String xpyhddeto_shipto;						 //收货地址
-	private String xpyhddeto_startdt;						 //开始日期时间
-	private String xpyhddeto_receptdt;						 //窗口日期时间
-	private String xpyhddeto_priority;						 //优先级
-	private String xpyhddeto_currcy;						 //货币
-	private String xpyhddeto_uom;							 //单位
-	private BigDecimal xpyhddeto_spq;						 //单包装
-	private int xpyhddeto_stat;								 //状态
-	private BigDecimal xpyhddeto_reqqty;					 //需求数
-	private BigDecimal xpyhddeto_ordqty;					 //订单数	
-	private String xpyhddeto_creator;						 //创建人	
-	private String xpyhddeto_xpyhmstroid;					 //xpyhmstr唯一标示(隐含，用户不可见)
-	private String xpyhddeto_xpyhddetoid;	                 //xpyhddet唯一标示(隐含，用户不可见)
+	private BigDecimal tt_xpyhddeto_seq;                   //序号(前端排序条件)
+	private String tt_xpyhddeto_yhdnbr;						 //要货单号
+	private String tt_xpyhddeto_partnbr;						 //物料号
+	private String tt_xpyhddeto_partdesc;					 //物料描述
+	private String tt_xpyhddeto_supppart;					 //供应商物料号
+	private String tt_xpyhddeto_suppcode;					 //供应商代码
+	private String tt_xpyhddeto_shipto;						 //收货地址
+	private String tt_xpyhddeto_startdt;						 //开始日期时间
+	private String tt_xpyhddeto_receptdt;					 //窗口日期时间
+	private String tt_xpyhddeto_priority;					 //优先级
+	private String tt_xpyhddeto_currcy;						 //货币
+	private String tt_xpyhddeto_uom;							 //单位
+	private BigDecimal tt_xpyhddeto_spq;						 //单包装
+	private int tt_xpyhddeto_stat;							 //状态
+	private BigDecimal tt_xpyhddeto_reqqty;					 //需求数
+	private BigDecimal tt_xpyhddeto_ordqty;					 //订单数	
+	private String tt_xpyhdde_creator;						 //创建人	
+	private String tt_xpyhddeto_xpyhmstroid;					 //xpyhmstr唯一标示(隐含，用户不可见)
+	private String tt_xpyhddeto_xpyhddetoid;	                 //xpyhddet唯一标示(隐含，用户不可见)
+	private String remark;	                 				 //备注
 	
-	public BigDecimal getXpyhddeto_seq() {
-		return xpyhddeto_seq;
+	//这4个给打条码用
+	private BigDecimal tt_xpyhddeto_innnerqty;				  //内包装
+	private BigDecimal tt_xpyhddeto_externalqty;              //外包装
+	private String tt_xpyhddeto_lots;              				//批号
+	private BigDecimal tt_xpyhddeto_qty;    					//数量
+	private String tt_xpyhddeto_pktype;              			//包装类型
+	
+	public BigDecimal getTt_xpyhddeto_seq() {
+		return tt_xpyhddeto_seq;
 	}
-	public void setXpyhddeto_seq(BigDecimal xpyhddeto_seq) {
-		this.xpyhddeto_seq = xpyhddeto_seq;
+	public void setTt_xpyhddeto_seq(BigDecimal tt_xpyhddeto_seq) {
+		this.tt_xpyhddeto_seq = tt_xpyhddeto_seq;
 	}
-	public String getXpyhddeto_yhdnbr() {
-		return xpyhddeto_yhdnbr;
+	public String getTt_xpyhddeto_yhdnbr() {
+		return tt_xpyhddeto_yhdnbr;
 	}
-	public void setXpyhddeto_yhdnbr(String xpyhddeto_yhdnbr) {
-		this.xpyhddeto_yhdnbr = xpyhddeto_yhdnbr;
+	public void setTt_xpyhddeto_yhdnbr(String tt_xpyhddeto_yhdnbr) {
+		this.tt_xpyhddeto_yhdnbr = tt_xpyhddeto_yhdnbr;
 	}
-	public String getXpyhddeto_partnbr() {
-		return xpyhddeto_partnbr;
+	public String getTt_xpyhddeto_partnbr() {
+		return tt_xpyhddeto_partnbr;
 	}
-	public void setXpyhddeto_partnbr(String xpyhddeto_partnbr) {
-		this.xpyhddeto_partnbr = xpyhddeto_partnbr;
+	public void setTt_xpyhddeto_partnbr(String tt_xpyhddeto_partnbr) {
+		this.tt_xpyhddeto_partnbr = tt_xpyhddeto_partnbr;
 	}
-	public String getXpyhddeto_partdesc() {
-		return xpyhddeto_partdesc;
+	public String getTt_xpyhddeto_partdesc() {
+		return tt_xpyhddeto_partdesc;
 	}
-	public void setXpyhddeto_partdesc(String xpyhddeto_partdesc) {
-		this.xpyhddeto_partdesc = xpyhddeto_partdesc;
+	public void setTt_xpyhddeto_partdesc(String tt_xpyhddeto_partdesc) {
+		this.tt_xpyhddeto_partdesc = tt_xpyhddeto_partdesc;
 	}
-	public String getXpyhddeto_supppart() {
-		return xpyhddeto_supppart;
+	public String getTt_xpyhddeto_supppart() {
+		return tt_xpyhddeto_supppart;
 	}
-	public void setXpyhddeto_supppart(String xpyhddeto_supppart) {
-		this.xpyhddeto_supppart = xpyhddeto_supppart;
+	public void setTt_xpyhddeto_supppart(String tt_xpyhddeto_supppart) {
+		this.tt_xpyhddeto_supppart = tt_xpyhddeto_supppart;
 	}
-	public String getXpyhddeto_suppcode() {
-		return xpyhddeto_suppcode;
+	public String getTt_xpyhddeto_suppcode() {
+		return tt_xpyhddeto_suppcode;
 	}
-	public void setXpyhddeto_suppcode(String xpyhddeto_suppcode) {
-		this.xpyhddeto_suppcode = xpyhddeto_suppcode;
+	public void setTt_xpyhddeto_suppcode(String tt_xpyhddeto_suppcode) {
+		this.tt_xpyhddeto_suppcode = tt_xpyhddeto_suppcode;
 	}
-	public String getXpyhddeto_shipto() {
-		return xpyhddeto_shipto;
+	public String getTt_xpyhddeto_shipto() {
+		return tt_xpyhddeto_shipto;
 	}
-	public void setXpyhddeto_shipto(String xpyhddeto_shipto) {
-		this.xpyhddeto_shipto = xpyhddeto_shipto;
+	public void setTt_xpyhddeto_shipto(String tt_xpyhddeto_shipto) {
+		this.tt_xpyhddeto_shipto = tt_xpyhddeto_shipto;
 	}
-	public String getXpyhddeto_startdt() {
-		return xpyhddeto_startdt;
+	public String getTt_xpyhddeto_startdt() {
+		return tt_xpyhddeto_startdt;
 	}
-	public void setXpyhddeto_startdt(String xpyhddeto_startdt) {
-		this.xpyhddeto_startdt = xpyhddeto_startdt;
+	public void setTt_xpyhddeto_startdt(String tt_xpyhddeto_startdt) {
+		this.tt_xpyhddeto_startdt = tt_xpyhddeto_startdt;
 	}
-	public String getXpyhddeto_receptdt() {
-		return xpyhddeto_receptdt;
+	public String getTt_xpyhddeto_receptdt() {
+		return tt_xpyhddeto_receptdt;
 	}
-	public void setXpyhddeto_receptdt(String xpyhddeto_receptdt) {
-		this.xpyhddeto_receptdt = xpyhddeto_receptdt;
+	public void setTt_xpyhddeto_receptdt(String tt_xpyhddeto_receptdt) {
+		this.tt_xpyhddeto_receptdt = tt_xpyhddeto_receptdt;
 	}
-	public String getXpyhddeto_priority() {
-		return xpyhddeto_priority;
+	public String getTt_xpyhddeto_priority() {
+		return tt_xpyhddeto_priority;
 	}
-	public void setXpyhddeto_priority(String xpyhddeto_priority) {
-		this.xpyhddeto_priority = xpyhddeto_priority;
+	public void setTt_xpyhddeto_priority(String tt_xpyhddeto_priority) {
+		this.tt_xpyhddeto_priority = tt_xpyhddeto_priority;
 	}
-	public String getXpyhddeto_currcy() {
-		return xpyhddeto_currcy;
+	public String getTt_xpyhddeto_currcy() {
+		return tt_xpyhddeto_currcy;
 	}
-	public void setXpyhddeto_currcy(String xpyhddeto_currcy) {
-		this.xpyhddeto_currcy = xpyhddeto_currcy;
+	public void setTt_xpyhddeto_currcy(String tt_xpyhddeto_currcy) {
+		this.tt_xpyhddeto_currcy = tt_xpyhddeto_currcy;
 	}
-	public String getXpyhddeto_uom() {
-		return xpyhddeto_uom;
+	public String getTt_xpyhddeto_uom() {
+		return tt_xpyhddeto_uom;
 	}
-	public void setXpyhddeto_uom(String xpyhddeto_uom) {
-		this.xpyhddeto_uom = xpyhddeto_uom;
+	public void setTt_xpyhddeto_uom(String tt_xpyhddeto_uom) {
+		this.tt_xpyhddeto_uom = tt_xpyhddeto_uom;
 	}
-	public BigDecimal getXpyhddeto_spq() {
-		return xpyhddeto_spq;
+	public BigDecimal getTt_xpyhddeto_spq() {
+		return tt_xpyhddeto_spq;
 	}
-	public void setXpyhddeto_spq(BigDecimal xpyhddeto_spq) {
-		this.xpyhddeto_spq = xpyhddeto_spq;
+	public void setTt_xpyhddeto_spq(BigDecimal tt_xpyhddeto_spq) {
+		this.tt_xpyhddeto_spq = tt_xpyhddeto_spq;
 	}
-	public int getXpyhddeto_stat() {
-		return xpyhddeto_stat;
+	public int getTt_xpyhddeto_stat() {
+		return tt_xpyhddeto_stat;
 	}
-	public void setXpyhddeto_stat(int xpyhddeto_stat) {
-		this.xpyhddeto_stat = xpyhddeto_stat;
+	public void setTt_xpyhddeto_stat(int tt_xpyhddeto_stat) {
+		this.tt_xpyhddeto_stat = tt_xpyhddeto_stat;
 	}
-	public BigDecimal getXpyhddeto_reqqty() {
-		return xpyhddeto_reqqty;
+	public BigDecimal getTt_xpyhddeto_reqqty() {
+		return tt_xpyhddeto_reqqty;
 	}
-	public void setXpyhddeto_reqqty(BigDecimal xpyhddeto_reqqty) {
-		this.xpyhddeto_reqqty = xpyhddeto_reqqty;
+	public void setTt_xpyhddeto_reqqty(BigDecimal tt_xpyhddeto_reqqty) {
+		this.tt_xpyhddeto_reqqty = tt_xpyhddeto_reqqty;
 	}
-	public BigDecimal getXpyhddeto_ordqty() {
-		return xpyhddeto_ordqty;
+	public BigDecimal getTt_xpyhddeto_ordqty() {
+		return tt_xpyhddeto_ordqty;
 	}
-	public void setXpyhddeto_ordqty(BigDecimal xpyhddeto_ordqty) {
-		this.xpyhddeto_ordqty = xpyhddeto_ordqty;
+	public void setTt_xpyhddeto_ordqty(BigDecimal tt_xpyhddeto_ordqty) {
+		this.tt_xpyhddeto_ordqty = tt_xpyhddeto_ordqty;
 	}
-	public String getXpyhddeto_creator() {
-		return xpyhddeto_creator;
+	public String getTt_xpyhddeto_xpyhmstroid() {
+		return tt_xpyhddeto_xpyhmstroid;
 	}
-	public void setXpyhddeto_creator(String xpyhddeto_creator) {
-		this.xpyhddeto_creator = xpyhddeto_creator;
+	public void setTt_xpyhddeto_xpyhmstroid(String tt_xpyhddeto_xpyhmstroid) {
+		this.tt_xpyhddeto_xpyhmstroid = tt_xpyhddeto_xpyhmstroid;
 	}
-	public String getXpyhddeto_xpyhmstroid() {
-		return xpyhddeto_xpyhmstroid;
+	public String getTt_xpyhddeto_xpyhddetoid() {
+		return tt_xpyhddeto_xpyhddetoid;
 	}
-	public void setXpyhddeto_xpyhmstroid(String xpyhddeto_xpyhmstroid) {
-		this.xpyhddeto_xpyhmstroid = xpyhddeto_xpyhmstroid;
+	public void setTt_xpyhddeto_xpyhddetoid(String tt_xpyhddeto_xpyhddetoid) {
+		this.tt_xpyhddeto_xpyhddetoid = tt_xpyhddeto_xpyhddetoid;
 	}
-	public String getXpyhddeto_xpyhddetoid() {
-		return xpyhddeto_xpyhddetoid;
+	public String getTt_xpyhdde_creator() {
+		return tt_xpyhdde_creator;
+	}
+	public void setTt_xpyhdde_creator(String tt_xpyhdde_creator) {
+		this.tt_xpyhdde_creator = tt_xpyhdde_creator;
+	}
+	
+	
+	
+	public BigDecimal getTt_xpyhddeto_innnerqty() {
+		return tt_xpyhddeto_innnerqty;
+	}
+	public void setTt_xpyhddeto_innnerqty(BigDecimal tt_xpyhddeto_innnerqty) {
+		this.tt_xpyhddeto_innnerqty = tt_xpyhddeto_innnerqty;
+	}
+	public BigDecimal getTt_xpyhddeto_externalqty() {
+		return tt_xpyhddeto_externalqty;
+	}
+	public void setTt_xpyhddeto_externalqty(BigDecimal tt_xpyhddeto_externalqty) {
+		this.tt_xpyhddeto_externalqty = tt_xpyhddeto_externalqty;
+	}
+	public String getTt_xpyhddeto_lots() {
+		return tt_xpyhddeto_lots;
+	}
+	public void setTt_xpyhddeto_lots(String tt_xpyhddeto_lots) {
+		this.tt_xpyhddeto_lots = tt_xpyhddeto_lots;
+	}
+	public BigDecimal getTt_xpyhddeto_qty() {
+		return tt_xpyhddeto_qty;
+	}
+	public void setTt_xpyhddeto_qty(BigDecimal tt_xpyhddeto_qty) {
+		this.tt_xpyhddeto_qty = tt_xpyhddeto_qty;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
+	
+	public String getTt_xpyhddeto_pktype() {
+		return tt_xpyhddeto_pktype;
+	}
+	public void setTt_xpyhddeto_pktype(String tt_xpyhddeto_pktype) {
+		this.tt_xpyhddeto_pktype = tt_xpyhddeto_pktype;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((xpyhddeto_xpyhddetoid == null) ? 0 : xpyhddeto_xpyhddetoid.hashCode());
-		result = prime * result + ((xpyhddeto_xpyhmstroid == null) ? 0 : xpyhddeto_xpyhmstroid.hashCode());
+		result = prime * result + ((tt_xpyhddeto_xpyhddetoid == null) ? 0 : tt_xpyhddeto_xpyhddetoid.hashCode());
 		return result;
 	}
 	@Override
@@ -157,27 +210,21 @@ public class PurchaseOrderDetail extends BaseObject {
 		if (getClass() != obj.getClass())
 			return false;
 		PurchaseOrderDetail other = (PurchaseOrderDetail) obj;
-		if (xpyhddeto_xpyhddetoid == null) {
-			if (other.xpyhddeto_xpyhddetoid != null)
+		if (tt_xpyhddeto_xpyhddetoid == null) {
+			if (other.tt_xpyhddeto_xpyhddetoid != null)
 				return false;
-		} else if (!xpyhddeto_xpyhddetoid.equals(other.xpyhddeto_xpyhddetoid))
-			return false;
-		if (xpyhddeto_xpyhmstroid == null) {
-			if (other.xpyhddeto_xpyhmstroid != null)
-				return false;
-		} else if (!xpyhddeto_xpyhmstroid.equals(other.xpyhddeto_xpyhmstroid))
+		} else if (!tt_xpyhddeto_xpyhddetoid.equals(other.tt_xpyhddeto_xpyhddetoid))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "PurchaseOrderDetail [xpyhddeto_xpyhmstroid=" + xpyhddeto_xpyhmstroid + ", xpyhddeto_xpyhddetoid="
-				+ xpyhddeto_xpyhddetoid + "]";
+		return "PurchaseOrderDetail [tt_xpyhddeto_xpyhddetoid=" + tt_xpyhddeto_xpyhddetoid + "]";
 	}
-	public void setXpyhddeto_xpyhddetoid(String xpyhddeto_xpyhddetoid) {
-		this.xpyhddeto_xpyhddetoid = xpyhddeto_xpyhddetoid;
-	}
-
+	
+	
+	
+	
 	
 	
 

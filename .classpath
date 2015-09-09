@@ -649,5 +649,14 @@
 			<attribute name="javadoc_location" value="jar:file:/D:/java.development/tools/mvn.repo/org/springframework/spring-test/4.1.3.RELEASE/spring-test-4.1.3.RELEASE-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/common/common/1.0.0/common-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commonj/sdo/commonj.sdo/1.0.0/commonj.sdo-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/ecore/change/ecore.change/1.0.0/ecore.change-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/ecore/ecore/1.0.0/ecore-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/ecore/resources/ecore.resources/1.0.0/ecore.resources-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/ecore/sdo/ecore.sdo/1.0.0/ecore.sdo-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/o4glrt/o4glrt/1.0.0/o4glrt-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/itextpdf/itextpdf/5.0.6"/>
+	<classpathentry kind="var" path="M2_REPO/ecore/xmi/ecore.xmi/1.0.0/ecore.xmi-1.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
