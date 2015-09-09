@@ -225,6 +225,16 @@ public class BaseAction extends ActionSupport {
 	public void setSave(String save) {
 		this.save = save;
 	}
+	
+	
+
+	public UniversalManager getUniversalManager() {
+		return universalManager;
+	}
+
+	public void setUniversalManager(UniversalManager universalManager) {
+		this.universalManager = universalManager;
+	}
 
 	protected void saveErrorForStaleObjectStateException() {
 		addActionError(getText("errors.staleObjectStateException"));

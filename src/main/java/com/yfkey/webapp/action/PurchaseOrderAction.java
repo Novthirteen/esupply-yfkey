@@ -337,7 +337,10 @@ public class PurchaseOrderAction extends BaseAction {
 	 * @return "success" if no exceptions thrown
 	 */
 	public String list() {
-		query();
+		if(purchaseOrder != null)
+		{
+			query();
+		}
 		return SUCCESS;
 	}
 	
