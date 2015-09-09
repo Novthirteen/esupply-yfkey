@@ -101,4 +101,9 @@ public final class Constants {
      * The name of the available plant list, a session-scoped attribute
      */
     public static final String AVAILABLE_USER_PLANTS = "availableUserPlants";
+    
+    /**
+     * The name of the user menu list, a request-scoped attribute
+     */
+    public static final String USER_MENUS = "userMenus";
 }

@@ -56,73 +56,88 @@
 		<decorator:getProperty property="meta.menu" />
 	</c:set>
 
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#navbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="<c:url value='/'/>"><fmt:message
-					key="webapp.name" /></a>
-		</div>
 
-		<div class="navbar-collapse collapse pull-right">
-			<ul class="nav navbar-nav">
-				<li class="dropdown"><a id="themeSelect" href="#"
-					class="dropdown-toggle" data-toggle="dropdown"><fmt:message
-							key="login.Theme" /> <b class="caret"></b></a>
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="#" data-theme="default" class="theme-link">Default</a></li>
-						<li><a href="#" data-theme="cerulean" class="theme-link">Cerulean</a></li>
-						<li><a href="#" data-theme="cosmo" class="theme-link">Cosmo</a></li>
-						<li><a href="#" data-theme="cyborg" class="theme-link">Cyborg</a></li>
-						<li><a href="#" data-theme="united" class="theme-link">United</a></li>
-					</ul></li>
-			</ul>
-		</div>
+	<div class="container" id="content">
+		<div class="navbar navbar-default" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#navbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<c:url value='/'/>"><fmt:message
+						key="webapp.name" /></a>
+			</div>
 
-		<div class="navbar-collapse collapse pull-right">
-			<ul class="nav navbar-nav">
-				<li class="dropdown"><a id="languageSelect" href="#"
-					class="dropdown-toggle" data-toggle="dropdown" role="button"
-					aria-expanded="false"> <fmt:message key="login.language" /><b
-						class="caret"></b>
-				</a>
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="#" data-language="zh_CN" class="language-link">
-								<fmt:message key="login.language.zh_CN" />
-						</a></li>
-						<li><a href="#" data-language="en" class="language-link">
-								<fmt:message key="login.language.en" />
-						</a></li>
-					</ul></li>
-			</ul>
-		</div>
-
-		<c:if
-			test="${not empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">
 			<div class="navbar-collapse collapse pull-right">
 				<ul class="nav navbar-nav">
-					<li class="dropdown"><a id="userPlantSelect" href="#"
+					<li class="dropdown"><a id="themeSelect" href="#"
 						class="dropdown-toggle" data-toggle="dropdown"><fmt:message
-								key="login.userPlant" /> <b class="caret"></b></a>
+								key="login.Theme" /> <b class="caret"></b></a>
 						<ul class="dropdown-menu dropdown-menu-right">
-							<c:forEach items="${sessionScope.availableUserPlants}"
-								var="plant">
-								<li><a href="#" data-plant="${plant.value}"
-									class="plant-link">${plant.label}</a></li>
-							</c:forEach>
+							<li><a href="#" data-theme="default" class="theme-link">Default</a></li>
+							<li><a href="#" data-theme="cerulean" class="theme-link">Cerulean</a></li>
+							<li><a href="#" data-theme="cosmo" class="theme-link">Cosmo</a></li>
+							<li><a href="#" data-theme="cyborg" class="theme-link">Cyborg</a></li>
+							<li><a href="#" data-theme="united" class="theme-link">United</a></li>
 						</ul></li>
 				</ul>
 			</div>
-		</c:if>
-	</div>
 
-	<div class="container" id="content">
+			<div class="navbar-collapse collapse pull-right">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a id="languageSelect" href="#"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-expanded="false"> <fmt:message key="login.language" /><b
+							class="caret"></b>
+					</a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li><a href="#" data-language="zh_CN" class="language-link">
+									<fmt:message key="login.language.zh_CN" />
+							</a></li>
+							<li><a href="#" data-language="en" class="language-link">
+									<fmt:message key="login.language.en" />
+							</a></li>
+						</ul></li>
+				</ul>
+			</div>
+
+			<c:if
+				test="${not empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">
+				<div class="navbar-collapse collapse pull-right">
+					<ul class="nav navbar-nav">
+						<li class="dropdown"><a id="userPlantSelect" href="#"
+							class="dropdown-toggle" data-toggle="dropdown"><fmt:message
+									key="login.userPlant" /> <b class="caret"></b></a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<c:forEach items="${sessionScope.availableUserPlants}"
+									var="plant">
+									<li><a href="#" data-plant="${plant.value}"
+										class="plant-link">${plant.label}</a></li>
+								</c:forEach>
+							</ul></li>
+					</ul>
+				</div>
+			</c:if>
+		</div>
+		
 		<%@ include file="/common/messages.jsp"%>
 		<div class="row">
-			<decorator:body />
+			<c:if test="${pageContext.request.remoteUser != null}">
+				<%@ include file="/common/menu.jsp"%>
+        	</c:if>	
+	        <c:choose>
+			   <c:when test="${pageContext.request.remoteUser != null}">  
+			   		<div class="col-sm-9 col-md-9">
+						<decorator:body />
+					</div>
+			   </c:when>
+			   <c:otherwise> 
+					<div class="col-sm-12 col-md-12">
+						<decorator:body />
+					</div>
+			   </c:otherwise>
+			</c:choose>
 		</div>
 		<c:if
 			test="${empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">

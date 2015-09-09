@@ -2,7 +2,7 @@
 
 <head>
 <title><fmt:message key="roleList.title" /></title>
-<meta name="menu" content="UserMenu" />
+<meta name="menu" content="ViewRoles" />
 </head>
 
 <div class="col-xs-10">
