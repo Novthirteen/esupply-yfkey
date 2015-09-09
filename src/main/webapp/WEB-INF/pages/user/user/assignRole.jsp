@@ -10,7 +10,7 @@
 	<input type="hidden" name="username" value="${user.username}" />
 	<input type="hidden" name="tab" value="2" />
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<s:select key="user.assignUserRole" id="availableRoles"
 				name="assignedRoles" list="availableRoles" listValue="label"
 				listKey="value" multiple="true" size="10">

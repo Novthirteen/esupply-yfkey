@@ -5,6 +5,11 @@
 		<field-validator type="requiredstring">
 			<message key="errors.required" />
 		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<param name="trim">true</param>
+			<message key="errors.stringOutofRange" />
+		</field-validator>
 	</field>
 	<field name="user.password">
 		<field-validator type="requiredstring">
@@ -22,27 +27,67 @@
 			<message key="errors.twofields" />
 		</field-validator>
 	</field>
-<!-- 	<field name="user.passwordHint"> -->
-<!-- 		<field-validator type="requiredstring"> -->
-<!-- 			<message key="errors.required" /> -->
-<!-- 		</field-validator> -->
-<!-- 	</field> -->
 	<field name="user.firstName">
 		<field-validator type="requiredstring">
 			<message key="errors.required" />
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<param name="trim">true</param>
+			<message key="errors.stringOutofRange" />
 		</field-validator>
 	</field>
 	<field name="user.lastName">
 		<field-validator type="requiredstring">
 			<message key="errors.required" />
 		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<param name="trim">true</param>
+			<message key="errors.stringOutofRange" />
+		</field-validator>
 	</field>
-<!-- 	<field name="user.email"> -->
-<!-- 		<field-validator type="requiredstring"> -->
-<!-- 			<message key="errors.required" /> -->
-<!-- 		</field-validator> -->
-<!-- 		<field-validator type="email"> -->
-<!-- 			<message key="errors.email" /> -->
-<!-- 		</field-validator> -->
-<!-- 	</field> -->
+	<field name="user.gender">
+		<field-validator type="required">
+			<message key="errors.required" />
+		</field-validator>
+	</field>
+	<field name="user.mobilephone">
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<param name="trim">true</param>
+			<message key="errors.stringOutofRange" />
+		</field-validator>
+	</field>
+	<field name="user.email">
+		<field-validator type="stringlength">
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="errors.stringOutofRange" />
+		</field-validator>
+		<field-validator type="email">
+			<message key="errors.email" />
+		</field-validator>
+	</field>
+	<field name="user.phoneNumber">
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<param name="trim">true</param>
+			<message key="errors.stringOutofRange" />
+		</field-validator>
+	</field>
+	<field name="user.website">
+		<field-validator type="stringlength">
+			<param name="maxLength">100</param>
+			<param name="trim">true</param>
+			<message key="errors.stringOutofRange" />
+		</field-validator>
+	</field>
+	<field name="user.address">
+		<field-validator type="stringlength">
+			<param name="maxLength">100</param>
+			<param name="trim">true</param>
+			<message key="errors.stringOutofRange" />
+		</field-validator>
+	</field>
 </validators>

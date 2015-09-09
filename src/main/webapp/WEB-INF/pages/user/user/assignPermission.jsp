@@ -10,14 +10,14 @@
 	<input type="hidden" name="username" value="${user.username}" />
 	<input type="hidden" name="tab" value="1" />
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-6">
 			<s:select key="user.permissionType" id="permissionType"
 				name="permissionType" list="permissionTypeList" listKey="label"
 				listValue="value" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<s:select key="user.assignUserPermission" id="availablePermissions"
 				name="assignedPermissions" list="availablePermissions"
 				listValue="label" listKey="value"
