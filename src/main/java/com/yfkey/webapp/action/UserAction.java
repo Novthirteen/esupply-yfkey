@@ -5,27 +5,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.ServletActionContext;
+import org.hibernate.internal.util.StringHelper;
 import org.hibernate.internal.util.collections.CollectionHelper;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.mail.MailException;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 
+import com.yfkey.model.Gender;
 import com.yfkey.Constants;
-import com.yfkey.dao.SearchException;
-import com.yfkey.exception.UserExistsException;
 import com.yfkey.model.LabelValue;
+import com.yfkey.model.LabelValueComparator;
+import com.yfkey.model.Permission;
+import com.yfkey.model.PermissionType;
+import com.yfkey.model.Role;
 import com.yfkey.model.User;
 import com.yfkey.model.UserAuthority;
-import com.yfkey.webapp.util.RequestUtil;
+import com.yfkey.service.UniversalManager;
+import com.yfkey.service.UserManager;
 import com.yfkey.webapp.util.SecurityContextHelper;
 
 /**
@@ -35,9 +29,16 @@ public class UserAction extends BaseAction {
 	private static final long serialVersionUID = 6776558938712115191L;
 	private List<User> users;
 	private User user;
-	private String id;
-	private String query;
+	private String username;
 	private String plantCode;
+	private String permissionType;
+	private List<LabelValue> availablePermissions;
+	private List<String> assignedPermissions;
+	private List<LabelValue> availableRoles;
+	private List<String> assignedRoles;
+	private UserManager userManager;
+	private UniversalManager universalManager;
+	private LabelValueComparator labelValueComparator = new LabelValueComparator();
 
 	/**
 	 * Holder for users to display on list screen
@@ -48,10 +49,6 @@ public class UserAction extends BaseAction {
 		return users;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -60,12 +57,78 @@ public class UserAction extends BaseAction {
 		this.user = user;
 	}
 
-	public void setQ(String q) {
-		this.query = q;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPlantCode() {
+		return plantCode;
 	}
 
 	public void setPlantCode(String plantCode) {
 		this.plantCode = plantCode;
+	}
+
+	public void setPermissionType(String permissionType) {
+		this.permissionType = permissionType;
+	}
+
+	public List<LabelValue> getAvailablePermissions() {
+		return availablePermissions;
+	}
+
+	public void setAvailablePermissions(List<LabelValue> availablePermissions) {
+		this.availablePermissions = availablePermissions;
+	}
+
+	public List<String> getAssignedPermissions() {
+		return assignedPermissions;
+	}
+
+	public void setAssignedPermissions(List<String> assignedPermissions) {
+		this.assignedPermissions = assignedPermissions;
+	}
+
+	public List<LabelValue> getAvailableRoles() {
+		return availableRoles;
+	}
+
+	public void setAvailableRoles(List<LabelValue> availableRoles) {
+		this.availableRoles = availableRoles;
+	}
+
+	public List<String> getAssignedRoles() {
+		return assignedRoles;
+	}
+
+	public void setAssignedRoles(List<String> assignedRoles) {
+		this.assignedRoles = assignedRoles;
+	}
+
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
+	}
+
+	public void setUniversalManager(UniversalManager universalManager) {
+		this.universalManager = universalManager;
+	}
+
+	public List<LabelValue> getPermissionTypeList() {
+		List<LabelValue> permissionTypeList = new ArrayList<LabelValue>();
+		permissionTypeList.add(new LabelValue(PermissionType.U.toString(), getText("permission.url")));
+		permissionTypeList.add(new LabelValue(PermissionType.B.toString(), getText("permission.button")));
+		permissionTypeList.add(new LabelValue(PermissionType.S.toString(), getText("permission.supplier")));
+		permissionTypeList.add(new LabelValue(PermissionType.P.toString(), getText("permission.plant")));
+
+		return permissionTypeList;
+	}
+	
+	public List<LabelValue> getGenderList() {
+		List<LabelValue> genderList = new ArrayList<LabelValue>();
+		genderList.add(new LabelValue(Gender.M.toString(), getText("gender.male")));
+		genderList.add(new LabelValue(Gender.F.toString(), getText("gender.female")));
+
+		return genderList;
 	}
 
 	public String home() {
@@ -88,6 +151,8 @@ public class UserAction extends BaseAction {
 								.add(new LabelValue(userAuthority.getAuthorityName(), userAuthority.getAuthority()));
 					}
 
+					availableUserPlants.sort(labelValueComparator);
+
 					this.getRequest().getSession().setAttribute(Constants.AVAILABLE_USER_PLANTS, availableUserPlants);
 				}
 			}
@@ -107,12 +172,18 @@ public class UserAction extends BaseAction {
 	 * @return success
 	 */
 	public String delete() {
-		userManager.removeUser(user.getUsername());
-		List<Object> args = new ArrayList<Object>();
-		args.add(user.getFullName());
-		saveMessage(getText("user.deleted", args));
+		try {
+			this.userManager.deleteUser(user.getUsername());
+			List<Object> args = new ArrayList<Object>();
+			args.add(user.getUsername());
+			saveMessage(getText("user.deleted", args));
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			prepare();
+			return INPUT;
+		}
 
-		return SUCCESS;
+		return CANCEL;
 	}
 
 	/**
@@ -124,46 +195,10 @@ public class UserAction extends BaseAction {
 	 *             response.sendError()
 	 */
 	public String edit() throws IOException {
-		HttpServletRequest request = getRequest();
-		boolean editProfile = request.getRequestURI().contains("editProfile");
-
-		// if URL is "editProfile" - make sure it's the current user
-		if (editProfile && ((request.getParameter("id") != null) || (request.getParameter("from") != null))) {
-			ServletActionContext.getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-			log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" + request.getParameter("id")
-					+ "'");
-			return null;
-		}
-
-		// if a user's id is passed in
-		if (id != null) {
-			// lookup the user using that id
-			user = userManager.getUser(id);
-		} else if (editProfile) {
-			user = userManager.getUserByUsername(request.getRemoteUser());
+		if (username != null) {
+			prepare();
 		} else {
 			user = new User();
-			// user.addRole(new Role(Constants.USER_ROLE));
-		}
-
-		if (user.getUsername() != null) {
-			user.setConfirmPassword(user.getPassword());
-
-			// if user logged in with remember me, display a warning that they
-			// can't change passwords
-			log.debug("checking for remember me login...");
-
-			AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-			SecurityContext ctx = SecurityContextHolder.getContext();
-
-			if (ctx != null) {
-				Authentication auth = ctx.getAuthentication();
-
-				if (resolver.isRememberMe(auth)) {
-					getSession().setAttribute("cookieLogin", "true");
-					saveMessage(getText("userProfile.cookieLogin"));
-				}
-			}
 		}
 
 		return SUCCESS;
@@ -185,10 +220,7 @@ public class UserAction extends BaseAction {
 	 * @return "home" or "cancel"
 	 */
 	public String cancel() {
-		if (!"list".equals(from)) {
-			return "home";
-		}
-		return "cancel";
+		return CANCEL;
 	}
 
 	/**
@@ -199,76 +231,32 @@ public class UserAction extends BaseAction {
 	 *             when setting "access denied" fails on response
 	 */
 	public String save() throws Exception {
-
-		Integer originalVersion = user.getVersion();
-
-		boolean isNew = ("".equals(getRequest().getParameter("user.version")));
-		// only attempt to change roles if user is admin
-		// for other users, prepare() method will handle populating
-		if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-			// user.getRoles().clear(); // APF-788: Removing roles from user
-			// doesn't work
-			String[] userRoles = getRequest().getParameterValues("userRoles");
-
-			for (int i = 0; userRoles != null && i < userRoles.length; i++) {
-				String roleName = userRoles[i];
-				try {
-					// user.addRole(roleManager.getRole(roleName));
-				} catch (DataIntegrityViolationException e) {
-					return showUserExistsException(originalVersion);
-				}
-			}
-		}
-
 		try {
-			userManager.saveUser(user);
-		} catch (AccessDeniedException ade) {
-			// thrown by UserSecurityAdvice configured in aop:advisor
-			// userManagerSecurity
-			log.warn(ade.getMessage());
-			getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-			return null;
-		} catch (UserExistsException e) {
-			return showUserExistsException(originalVersion);
-		}
-
-		if (!"list".equals(from)) {
-			// add success messages
-			saveMessage(getText("user.saved"));
-			return "home";
-		} else {
-			// add success messages
 			List<Object> args = new ArrayList<Object>();
-			args.add(user.getFullName());
-			if (isNew) {
-				saveMessage(getText("user.added", args));
-				// Send an account information e-mail
-				mailMessage.setSubject(getText("signup.email.subject"));
-				try {
-					sendUserMessage(user, getText("newuser.email.message", args), RequestUtil.getAppURL(getRequest()));
-				} catch (MailException me) {
-					addActionError(me.getCause().getLocalizedMessage());
+			args.add(user.getUsername());
+			if (user.getVersion() == 0) {
+				if (!universalManager.exists(User.class, user.getUsername())) {
+					universalManager.save(user);
+					saveMessage(getText("user.created", args));
+				} else {
+					return showUserExistsException();
 				}
-				return SUCCESS;
 			} else {
-				user.setConfirmPassword(user.getPassword());
-				saveMessage(getText("user.updated.byAdmin", args));
-				return INPUT;
+				universalManager.update(user);
+				saveMessage(getText("user.updated", args));
 			}
+		} catch (HibernateOptimisticLockingFailureException ex) {
+			saveErrorForStaleObjectStateException();
+			prepare();
+			return INPUT;
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			prepare();
+			return INPUT;
 		}
-	}
 
-	private String showUserExistsException(Integer originalVersion) {
-		List<Object> args = new ArrayList<Object>();
-		args.add(user.getUsername());
-		args.add(user.getEmail());
-		addActionError(getText("errors.existing.user", args));
-
-		// reset the version # to what was passed in
-		user.setVersion(originalVersion);
-		// redisplay the unencrypted passwords
-		user.setPassword(user.getConfirmPassword());
-		return INPUT;
+		prepare();
+		return SUCCESS;
 	}
 
 	/**
@@ -278,13 +266,128 @@ public class UserAction extends BaseAction {
 	 * @return "success" if no exceptions thrown
 	 */
 	public String list() {
-		try {
-			// users = userManager.search(query);
-		} catch (SearchException se) {
-			addActionError(se.getMessage());
-			users = userManager.getUsers();
-		}
+		query();
 		return SUCCESS;
 	}
 
+	public String saveUserPermission() {
+		try {
+			this.userManager.saveUserPermission(username, PermissionType.valueOf(permissionType), assignedPermissions);
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			prepare();
+			return INPUT;
+		}
+
+		prepare();
+		List<Object> args = new ArrayList<Object>();
+		args.add(user.getUsername());
+		saveMessage(getText("user.assignPermissionSuccess", args));
+		return SUCCESS;
+	}
+
+	public String saveUserRole() {
+		try {
+			this.userManager.saveUserRole(username, assignedRoles);
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			prepare();
+			return INPUT;
+		}
+
+		prepare();
+		List<Object> args = new ArrayList<Object>();
+		args.add(user.getUsername());
+		saveMessage(getText("user.assignRoleSuccess", args));
+		return SUCCESS;
+	}
+
+	private void query() {
+		String hql = "from User where 1=1 ";
+		List<Object> args = new ArrayList<Object>();
+
+		if (user != null) {
+			if (user.getUsername() != null && user.getUsername().trim().length() != 0) {
+				hql += "and username like ? ";
+				args.add("%" + user.getUsername() + "%");
+			}
+
+			if (user.getFirstName() != null && user.getFirstName().trim().length() != 0) {
+				hql += "and firstName like ? ";
+				args.add("%" + user.getFirstName() + "%");
+			}
+
+			if (user.getLastName() != null && user.getLastName().trim().length() != 0) {
+				hql += "and lastName like ? ";
+				args.add("%" + user.getLastName() + "%");
+			}
+		}
+
+		users = universalManager.findByHql(hql, args.toArray());
+	}
+
+	private void prepare() {
+		if (user == null && StringHelper.isNotEmpty(username)) {
+			user = (User) this.universalManager.get(User.class, username);
+		}
+
+		if (user != null && user.getVersion() != 0) {
+			prepareAssignPermission();
+			prepareAssignRole();
+		}
+	}
+
+	private void prepareAssignPermission() {
+		List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
+				new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
+
+		List<String> assignedPermissionList = universalManager
+				.findByHql("select permissionCode from UserPermission where permissionType = ? and username = ?",
+						new Object[] {
+								permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U,
+								username });
+
+		this.assignedPermissions = assignedPermissionList;
+		this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
+	}
+
+	private void prepareAssignRole() {
+		List<Role> availableRoleList = universalManager.getAll(Role.class);
+
+		List<String> assignedRoleList = universalManager.findByHql("select roleCode from UserRole where username = ?",
+				new Object[] { username });
+
+		this.assignedRoles = assignedRoleList;
+		this.availableRoles = transferRoleToLabelValue(availableRoleList);
+	}
+
+	private List<LabelValue> transferPermissionToLabelValue(List<Permission> permissionList) {
+		List<LabelValue> lvList = new ArrayList<LabelValue>();
+		if (permissionList != null && permissionList.size() > 0) {
+			for (Permission permission : permissionList) {
+				lvList.add(new LabelValue(permission.getName(), permission.getCode()));
+			}
+		}
+
+		return lvList;
+	}
+
+	private List<LabelValue> transferRoleToLabelValue(List<Role> roleList) {
+		List<LabelValue> lvList = new ArrayList<LabelValue>();
+		if (roleList != null && roleList.size() > 0) {
+			for (Role role : roleList) {
+				lvList.add(new LabelValue(role.getName(), role.getCode()));
+			}
+		}
+
+		return lvList;
+	}
+
+	private String showUserExistsException() {
+		List<Object> args = new ArrayList<Object>();
+		args.add(user.getUsername());
+		addActionError(getText("user.errors.existingUser", args));
+
+		return INPUT;
+	}
 }

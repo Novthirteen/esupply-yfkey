@@ -43,7 +43,6 @@
 				<interceptor-ref name="profiling" />
 				<interceptor-ref name="scopedModelDriven" />
 				<interceptor-ref name="modelDriven" />
-				<interceptor-ref name="fileUpload" />
 				<interceptor-ref name="checkbox" />
 				<interceptor-ref name="staticParams" />
 				<interceptor-ref name="params">
@@ -78,43 +77,15 @@
 			<result name="success" type="redirectAction">home</result>
 		</action>
 
-		<action name="editUser" class="userAction" method="edit">
-			<result name="success">/WEB-INF/pages/userForm.jsp</result>
-			<result name="input">/WEB-INF/pages/admin/userList.jsp</result>
-		</action>
-
 		<action name="editProfile" class="userAction" method="edit">
 			<result name="success">/WEB-INF/pages/userForm.jsp</result>
 			<result name="error">/WEB-INF/pages/home.jsp</result>
 		</action>
 
-		<action name="saveUser" class="userAction" method="save">
-			<result name="cancel" type="redirectAction">admin/users</result>
-			<result name="input">/WEB-INF/pages/userForm.jsp</result>
-			<result name="success" type="redirectAction">admin/users</result>
-		</action>
-
-		<action name="selectFile" class="com.yfkey.webapp.action.FileUploadAction">
-			<result name="success">/WEB-INF/pages/uploadForm.jsp</result>
-		</action>
-
-		<action name="uploadFile" class="com.yfkey.webapp.action.FileUploadAction"
-			method="upload">
-			<interceptor-ref name="fileUploadStack" />
-			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
-			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
-			<result name="cancel" type="redirectAction">home</result>
-		</action>
-
-		<action name="passwordHint" class="passwordHintAction">
-			<result name="input">/</result>
-			<result name="success">/</result>
-		</action>
-
 		<!-- Add additional actions here -->
 	</package>
 
-	<!-- Actions in this package will be prefixed with /admin/ -->
+	<!-- Actions in this package will be prefixed with /user/ -->
 	<package name="user" extends="default" namespace="/user">
 		<!-- role -->
 		<action name="roles" class="roleAction" method="list">
@@ -137,6 +108,29 @@
 		<action name="saveRoleUser" class="roleAction" method="saveRoleUser">
 			<result name="input">/WEB-INF/pages/user/role/roleForm.jsp</result>
 			<result name="success">/WEB-INF/pages/user/role/roleForm.jsp</result>
+		</action>
+
+		<!-- user -->
+		<action name="users" class="userAction" method="list">
+			<result name="success">/WEB-INF/pages/user/user/userList.jsp</result>
+		</action>
+		<action name="editUser" class="userAction" method="edit">
+			<result name="cancel" type="redirectAction">users</result>
+			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
+			<result name="input">/WEB-INF/pages/user/user/userList.jsp</result>
+		</action>
+		<action name="saveUser" class="userAction" method="save">
+			<result name="cancel" type="redirectAction">users</result>
+			<result name="input">/WEB-INF/pages/user/user/userForm.jsp</result>
+			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
+		</action>
+		<action name="saveUserPermission" class="userAction" method="saveUserPermission">
+			<result name="input">/WEB-INF/pages/user/user/userForm.jsp</result>
+			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
+		</action>
+		<action name="saveUserRole" class="userAction" method="saveUserRole">
+			<result name="input">/WEB-INF/pages/user/user/userForm.jsp</result>
+			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
 		</action>
 	</package>
 

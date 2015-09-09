@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @IdClass(UserPermissionId.class)
 @Table(name = "user_permission")
-public class UserPermission extends BaseObject {
+public class UserPermission extends BaseObject implements Traceable {
 
 	/**
 	* 

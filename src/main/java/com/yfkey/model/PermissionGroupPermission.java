@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @IdClass(PermissionGroupPermissionId.class)
 @Table(name = "permission_group_permission")
 
-public class PermissionGroupPermission extends BaseObject {
+public class PermissionGroupPermission extends BaseObject implements Traceable {
 
 	/**
 	* 

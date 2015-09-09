@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @IdClass(RolePermissionGroupId.class)
 @Table(name = "role_permission_group")
 
-public class RolePermissionGroup extends BaseObject {
+public class RolePermissionGroup extends BaseObject implements Traceable {
 
 
 		/**

@@ -42,16 +42,6 @@ public class BaseAction extends ActionSupport {
 	protected final transient Log log = LogFactory.getLog(getClass());
 
 	/**
-	 * The UserManager
-	 */
-	protected UserManager userManager;
-
-	/**
-	 * The RoleManager
-	 */
-	protected RoleManager roleManager;
-
-	/**
 	 * Indicator if the user clicked cancel
 	 */
 	protected String cancel;
@@ -179,14 +169,6 @@ public class BaseAction extends ActionSupport {
 		model.put("message", msg);
 		model.put("applicationURL", url);
 		mailEngine.sendMessage(mailMessage, templateName, model);
-	}
-
-	public void setUserManager(UserManager userManager) {
-		this.userManager = userManager;
-	}
-
-	public void setRoleManager(RoleManager roleManager) {
-		this.roleManager = roleManager;
 	}
 
 	public void setMailEngine(MailEngine mailEngine) {

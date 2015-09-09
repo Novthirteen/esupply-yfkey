@@ -10,30 +10,13 @@
     <bean id="accessDeniedInterceptor" class="com.yfkey.webapp.interceptor.AccessDeniedInterceptor" />
     <bean id="plantNotSelectedInterceptor" class="com.yfkey.webapp.interceptor.NoPlantSelectedInterceptor" />
 
-    <bean id="signupAction" class="com.yfkey.webapp.action.SignupAction" scope="prototype">
-        <property name="userManager" ref="userManager"/>
-        <property name="roleManager" ref="roleManager"/>
-        <property name="mailEngine" ref="mailEngine"/>
-        <property name="mailMessage" ref="mailMessage"/>
-        <property name="templateName" value="accountCreated.vm"/>
-    </bean>
-
     <bean id="userAction" class="com.yfkey.webapp.action.UserAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
-        <property name="roleManager" ref="roleManager"/>
-        <property name="mailEngine" ref="mailEngine"/>
-        <property name="mailMessage" ref="mailMessage"/>
-        <property name="templateName" value="accountCreated.vm"/>
+        <property name="universalManager" ref="universalManager"/>
     </bean>
     
     <bean id="roleAction" class="com.yfkey.webapp.action.RoleAction" scope="prototype">
         <property name="roleManager" ref="roleManager"/>
         <property name="universalManager" ref="universalManager"/>
-    </bean>
-
-    <bean id="passwordHintAction" class="com.yfkey.webapp.action.PasswordHintAction" scope="prototype">
-        <property name="userManager" ref="userManager"/>
-        <property name="mailEngine" ref="mailEngine"/>
-        <property name="mailMessage" ref="mailMessage"/>
     </bean>
 </beans>
