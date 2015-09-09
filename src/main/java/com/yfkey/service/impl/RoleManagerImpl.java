@@ -62,6 +62,7 @@ public class RoleManagerImpl extends GenericManagerImpl<Role, String>implements 
 
 	public void deleteRole(String roleCode) {
 		this.universalManager.executeByHql("delete from RolePermission where roleCode = ?", new Object[] { roleCode });
+		this.universalManager.executeByHql("delete from UserRole where roleCode = ?", new Object[] { roleCode });
 
 		this.universalManager.remove(Role.class, roleCode);
 	}

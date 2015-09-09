@@ -61,7 +61,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, String>implements 
 	}
 
 	public void deleteUser(String username) {
-		this.universalManager.executeByHql("delete from UserPermission where roleCode = ?", new Object[] { username });
+		this.universalManager.executeByHql("delete from UserPermission where username = ?", new Object[] { username });
+		this.universalManager.executeByHql("delete from UserRole where username = ?", new Object[] { username });
 
 		this.universalManager.remove(User.class, username);
 	}
