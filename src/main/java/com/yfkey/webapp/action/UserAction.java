@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.yfkey.model.Gender;
 import com.yfkey.Constants;
@@ -20,6 +21,7 @@ import com.yfkey.model.User;
 import com.yfkey.model.UserAuthority;
 import com.yfkey.service.UniversalManager;
 import com.yfkey.service.UserManager;
+import com.yfkey.util.NativeSqlRepository;
 import com.yfkey.webapp.util.SecurityContextHelper;
 
 /**
@@ -38,6 +40,7 @@ public class UserAction extends BaseAction {
 	private List<String> assignedRoles;
 	private UserManager userManager;
 	private UniversalManager universalManager;
+	private PasswordEncoder passwordEncoder;
 	private LabelValueComparator labelValueComparator = new LabelValueComparator();
 
 	/**
@@ -113,6 +116,10 @@ public class UserAction extends BaseAction {
 		this.universalManager = universalManager;
 	}
 
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+
 	public List<LabelValue> getPermissionTypeList() {
 		List<LabelValue> permissionTypeList = new ArrayList<LabelValue>();
 		permissionTypeList.add(new LabelValue(PermissionType.U.toString(), getText("permission.url")));
@@ -122,7 +129,7 @@ public class UserAction extends BaseAction {
 
 		return permissionTypeList;
 	}
-	
+
 	public List<LabelValue> getGenderList() {
 		List<LabelValue> genderList = new ArrayList<LabelValue>();
 		genderList.add(new LabelValue(Gender.M.toString(), getText("gender.male")));
@@ -236,12 +243,19 @@ public class UserAction extends BaseAction {
 			args.add(user.getUsername());
 			if (user.getVersion() == 0) {
 				if (!universalManager.exists(User.class, user.getUsername())) {
+					user.setPassword(passwordEncoder.encode(user.getPassword()));
 					universalManager.save(user);
 					saveMessage(getText("user.created", args));
 				} else {
 					return showUserExistsException();
 				}
 			} else {
+
+				final String currentPassword = (String) this.universalManager
+						.findByNativeSql(NativeSqlRepository.SELECT_USER_PASSWORD_STATEMENT, user.getUsername()).get(0);
+				if (!currentPassword.equals(user.getPassword())) {
+					user.setPassword(passwordEncoder.encode(user.getPassword()));
+				}
 				universalManager.update(user);
 				saveMessage(getText("user.updated", args));
 			}
@@ -332,6 +346,7 @@ public class UserAction extends BaseAction {
 		}
 
 		if (user != null && user.getVersion() != 0) {
+			user.setConfirmPassword(user.getPassword());
 			prepareAssignPermission();
 			prepareAssignRole();
 		}

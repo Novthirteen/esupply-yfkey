@@ -21,7 +21,7 @@
 				<li><a href="#assignPermission" data-toggle="tab"><fmt:message
 							key="user.tab.assignPermission" /></a></li>
 				<li><a href="#assignUser" data-toggle="tab"><fmt:message
-							key="user.tab.assignUser" /></a></li>
+							key="user.tab.assignRole" /></a></li>
 			</ul>
 			<div id="userTabContent" class="tab-content">
 				<div class="tab-pane fade in active" id="basic">

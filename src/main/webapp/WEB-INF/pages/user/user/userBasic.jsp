@@ -52,21 +52,21 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<s:textfield key="user.firstName" required="true"
+			<s:textfield key="user.lastName" required="true"
 				cssClass="form-control" />
 		</div>
 		<div class="col-xs-6">
-			<s:textfield key="user.lastName" required="true"
+			<s:textfield key="user.firstName" required="true"
 				cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<s:textfield key="user.mobilePhone" cssClass="form-control" />
+			<s:textfield key="user.mobilephone" cssClass="form-control" />
 		</div>
 		<div class="col-xs-6">
 			<s:radio key="user.gender" listValue="value" listKey="label"
-				list="genderList" />
+				list="genderList" required="true" />
 		</div>
 	</div>
 	<div class="row">
@@ -89,23 +89,40 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
+			<label class="control-label"> <fmt:message
+					key="userProfile.accountSettings" />
+			</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3">
+			<s:checkbox key="user.enabled" id="user.enabled" theme="simple"
+				fieldValue="true" />
+			<fmt:message key="user.enabled" />
+		</div>
+		<div class="col-xs-3">
+			<s:checkbox key="user.accountExpired" id="user.accountExpired"
+				theme="simple" fieldValue="true" />
+			<fmt:message key="user.accountExpired" />
+		</div>
+		<div class="col-xs-3">
+			<s:checkbox key="user.accountLocked" id="user.accountLocked"
+				theme="simple" fieldValue="true" />
+			<fmt:message key="user.accountLocked" />
+		</div>
+		<div class="col-xs-3">
+			<s:checkbox key="user.credentialsExpired"
+				id="user.credentialsExpired" theme="simple" fieldValue="true" />
+			<fmt:message key="user.credentialsExpired" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
 			<fieldset class="form-group">
-				<label class="control-label"> <fmt:message
-						key="userProfile.accountSettings" />
-				</label> <label class="checkbox inline"> <s:checkbox
-						key="user.enabled" id="user.enabled" theme="simple"
-						fieldValue="true" /> <fmt:message key="user.enabled" />
-				</label> <label class="checkbox inline"> <s:checkbox
-						key="user.accountExpired" id="user.accountExpired" theme="simple"
-						fieldValue="true" /> <fmt:message key="user.accountExpired" />
-				</label> <label class="checkbox inline"> <s:checkbox
-						key="user.accountLocked" id="user.accountLocked" theme="simple"
-						fieldValue="true" /> <fmt:message key="user.accountLocked" />
-				</label> <label class="checkbox inline"> <s:checkbox
-						key="user.credentialsExpired" id="user.credentialsExpired"
-						theme="simple" fieldValue="true" /> <fmt:message
-						key="user.credentialsExpired" />
-				</label>
+				<label class="checkbox inline"> </label> <label
+					class="checkbox inline"> </label> <label class="checkbox inline">
+
+				</label> <label class="checkbox inline"> </label>
 			</fieldset>
 		</div>
 	</div>

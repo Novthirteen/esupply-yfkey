@@ -13,6 +13,7 @@
     <bean id="userAction" class="com.yfkey.webapp.action.UserAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="universalManager" ref="universalManager"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
     
     <bean id="roleAction" class="com.yfkey.webapp.action.RoleAction" scope="prototype">
