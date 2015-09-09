@@ -195,14 +195,6 @@ public class BaseAction extends ActionSupport {
 		mailEngine.sendMessage(mailMessage, templateName, model);
 	}
 
-	public void setUserManager(UserManager userManager) {
-		this.userManager = userManager;
-	}
-
-	public void setRoleManager(RoleManager roleManager) {
-		this.roleManager = roleManager;
-	}
-
 	public void setMailEngine(MailEngine mailEngine) {
 		this.mailEngine = mailEngine;
 	}
@@ -232,6 +224,16 @@ public class BaseAction extends ActionSupport {
 
 	public void setSave(String save) {
 		this.save = save;
+	}
+	
+	
+
+	public UniversalManager getUniversalManager() {
+		return universalManager;
+	}
+
+	public void setUniversalManager(UniversalManager universalManager) {
+		this.universalManager = universalManager;
 	}
 
 	protected void saveErrorForStaleObjectStateException() {

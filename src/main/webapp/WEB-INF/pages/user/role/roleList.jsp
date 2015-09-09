@@ -11,7 +11,7 @@
 	</h2>
 
 	<s:form name="roleForm" action="roles" method="post"
-		cssClass="form-inline">
+		cssClass="form-horizontal">
 		<div class="row">
 			<div class="col-xs-4">
 				<s:textfield key="role.code" />

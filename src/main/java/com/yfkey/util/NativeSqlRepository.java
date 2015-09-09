@@ -14,5 +14,5 @@ public class NativeSqlRepository {
 			+ " select distinct m.parent from menu as m "
 			+ " inner join permission_view as pv on m.permission_code = pv.permission_code"
 			+ " where pv.username = ? and m.parent is not null) and m.is_active = 1) as menu"
-			+ " order by menu.parent, menu.sequence";
+			+ " order by menu.sequence";
 }

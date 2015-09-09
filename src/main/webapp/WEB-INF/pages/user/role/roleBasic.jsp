@@ -29,17 +29,17 @@
 				<c:when test="${role.version != 0}">
 					<s:hidden key="role.code" />
 					<s:hidden key="role.version" />
-					<s:label key="role.code" />
+					<s:label key="role.code" cssClass="form-control" />
 				</c:when>
 				<c:otherwise>
-					<s:textfield key="role.code" required="true" />
+					<s:textfield key="role.code" required="true" cssClass="form-control" />
 				</c:otherwise>
 			</c:choose>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4">
-			<s:textfield key="role.name" required="true" />
+			<s:textfield key="role.name" required="true" cssClass="form-control" />
 		</div>
 	</div>
 	<hr>

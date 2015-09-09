@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "permission_group")
-public class PermissionGroup extends BaseObject  {
+public class PermissionGroup extends BaseObject implements Auditable  {
 
 	 	/**
 	 * 
