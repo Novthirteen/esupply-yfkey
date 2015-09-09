@@ -13,26 +13,25 @@
 		<div class="col-xs-4">
 			<s:select key="role.permissionType" id="permissionType"
 				name="permissionType" list="permissionTypeList" listKey="label"
-				listValue="value" />
+				listValue="value" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-10">
 			<s:select key="role.assignRolePermission" id="availablePermissions"
 				name="assignedPermissions" list="availablePermissions"
-				listValue="label" listKey="value"
-				multiple="true" size="10">
+				listValue="label" listKey="value" multiple="true" size="10">
 			</s:select>
 		</div>
 	</div>
 	<hr>
 	<div id="actions" class="form-group form-actions">
-		<s:submit type="button" cssClass="btn btn-primary" action="saveRolePermission" 
-			key="button.save" theme="simple">
+		<s:submit type="button" cssClass="btn btn-primary"
+			action="saveRolePermission" key="button.save" theme="simple">
 			<i class="icon-ok icon-white"></i>
 			<fmt:message key="button.save" />
 		</s:submit>
-		
+
 		<s:submit type="button" cssClass="btn" method="cancel"
 			key="button.cancel" theme="simple">
 			<i class="icon-remove"></i>

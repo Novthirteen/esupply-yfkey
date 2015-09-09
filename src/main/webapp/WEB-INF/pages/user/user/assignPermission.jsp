@@ -13,11 +13,11 @@
 		<div class="col-xs-6">
 			<s:select key="user.permissionType" id="permissionType"
 				name="permissionType" list="permissionTypeList" listKey="label"
-				listValue="value" />
+				listValue="value" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-10">
 			<s:select key="user.assignUserPermission" id="availablePermissions"
 				name="assignedPermissions" list="availablePermissions"
 				listValue="label" listKey="value"

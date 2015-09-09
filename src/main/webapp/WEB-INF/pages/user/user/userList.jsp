@@ -14,13 +14,13 @@
 		cssClass="form-horizontal">
 		<div class="row">
 			<div class="col-xs-3">
-				<s:textfield key="user.username" />
+				<s:textfield key="user.username" cssClass="form-control" />
 			</div>
 			<div class="col-xs-3">
-				<s:textfield key="user.firstName" />
+				<s:textfield key="user.firstName" cssClass="form-control" />
 			</div>
 			<div class="col-xs-3">
-				<s:textfield key="user.lastName" />
+				<s:textfield key="user.lastName" cssClass="form-control" />
 			</div>
 			<div class="col-xs-3">
 				<input type="hidden" name="from" value="list" />
@@ -43,27 +43,31 @@
 		class="table table-condensed table-striped table-hover" export="true">
 
 		<display:column property="username" escapeXml="true" sortable="true"
-			titleKey="user.username" url="/user/editUser?from=list" paramId="username"
-			paramProperty="username" />
+			titleKey="user.username" url="/user/editUser?from=list"
+			paramId="username" paramProperty="username" />
 		<display:column property="fullName" escapeXml="true" sortable="true"
-			titleKey="user.fullName" url="/user/editUser?from=list" paramId="username"
-			paramProperty="username" />
+			titleKey="user.fullName" url="/user/editUser?from=list"
+			paramId="username" paramProperty="username" />
 		<display:column property="email" escapeXml="true" sortable="true"
-			titleKey="user.email" url="/user/editUser?from=list" paramId="username"
-			paramProperty="username" />
+			titleKey="user.email" url="/user/editUser?from=list"
+			paramId="username" paramProperty="username" />
 		<display:column property="address" escapeXml="true" sortable="true"
-			titleKey="user.address" url="/user/editUser?from=list" paramId="username"
+			titleKey="user.address" url="/user/editUser?from=list"
+			paramId="username" paramProperty="username" />
+		<display:column property="phoneNumber" escapeXml="true"
+			sortable="true" titleKey="user.phoneNumber"
+			url="/user/editUser?from=list" paramId="username"
 			paramProperty="username" />
-		<display:column property="phoneNumber" escapeXml="true" sortable="true"
-			titleKey="user.phoneNumber" url="/user/editUser?from=list" paramId="username"
+		<display:column property="mobilephone" escapeXml="true"
+			sortable="true" titleKey="user.mobilephone"
+			url="/user/editUser?from=list" paramId="username"
 			paramProperty="username" />
-		<display:column property="mobilephone" escapeXml="true" sortable="true"
-			titleKey="user.mobilephone" url="/user/editUser?from=list" paramId="username"
-			paramProperty="username" />
- 		<display:column sortProperty="enabled" sortable="true" titleKey="user.enabled">
-            <input type="checkbox" disabled="disabled" <c:if test="${users.enabled}">checked="checked"</c:if>/>
-        </display:column>
-        
+		<display:column sortProperty="enabled" sortable="true"
+			titleKey="user.enabled">
+			<input type="checkbox" disabled="disabled"
+				<c:if test="${users.enabled}">checked="checked"</c:if> />
+		</display:column>
+
 		<display:setProperty name="paging.banner.item_name">
 			<fmt:message key="roleList.role" />
 		</display:setProperty>

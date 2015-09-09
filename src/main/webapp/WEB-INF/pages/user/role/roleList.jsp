@@ -14,10 +14,10 @@
 		cssClass="form-horizontal">
 		<div class="row">
 			<div class="col-xs-4">
-				<s:textfield key="role.code" />
+				<s:textfield key="role.code" cssClass="form-control" />
 			</div>
 			<div class="col-xs-4">
-				<s:textfield key="role.name" />
+				<s:textfield key="role.name" cssClass="form-control" />
 			</div>
 			<div class="col-xs-4">
 				<input type="hidden" name="from" value="list" />
