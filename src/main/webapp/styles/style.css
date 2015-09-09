@@ -7,8 +7,10 @@ body {
     font-weight: bold;
     margin-left: 0;
     margin-right: 20px;
+    min-width:306px;
     padding-right: 0;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
+    background: url(../images/logo_small.png) no-repeat;
 }
 
 .nav-stacked .nav-header {
@@ -18,6 +20,13 @@ body {
 
 body#login {
     padding-bottom: 40px;
+}
+
+.login_logo {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 32px;
+  color:#808080;
 }
 
 .navbar .brand:hover {
@@ -45,6 +54,7 @@ h1, h2 {
 
 #content {
     padding-bottom: 60px;
+    width:75%;
 }
 
 .row h2 {
@@ -85,7 +95,7 @@ ul.feedbackPanel {
 }
 
 .form-signin {
-    max-width: 330px;
+    max-width: 440px;
     padding: 15px;
     margin: 0 auto;
 }
@@ -125,6 +135,15 @@ ul.feedbackPanel {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.login_boder {
+  background: url(../images/login_l_bg.png) no-repeat;
+  height: 360px;
+  padding-top: 15px;
+  overflow: hidden;
+}
+
+.login_padding{ padding: 25px 47px 20px 47px;}
 
 #login p {
     text-align: center
@@ -217,6 +236,7 @@ span.pagelinks {
     background-color: white;
     color: #808080;
     font-size: 0.9em;
+    width:75%;
 }
 
 #footer a {
@@ -238,7 +258,7 @@ span.pagelinks {
 
 /* Desktop large
 ------------------------- */
-@media (min-width: 1200px) {
+@media (min-width: 1280px) {
 
 }
 
@@ -296,4 +316,5 @@ span.pagelinks {
 .panel-body .table {margin-bottom: 0px; }
 
 #accordion a:hover {color:#FF0000; text-decoration: none }
-.selected { color:#FF0000; }
+.selected { color:#FF0000 !important; }
+

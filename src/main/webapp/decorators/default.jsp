@@ -65,8 +65,9 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value='/'/>"><fmt:message
-						key="webapp.name" /></a>
+				<a class="navbar-brand" href="<c:url value='/'/>"></a>
+				<%-- <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message
+						key="webapp.name" /></a> --%>
 			</div>
 
 			<div class="navbar-collapse collapse pull-right">
@@ -128,7 +129,7 @@
         	</c:if>	
 	        <c:choose>
 			   <c:when test="${pageContext.request.remoteUser != null}">  
-			   		<div class="col-sm-9 col-md-9">
+			   		<div class="col-sm-10 col-md-10">
 						<decorator:body />
 					</div>
 			   </c:when>

@@ -6,7 +6,7 @@
 </head>
 <body id="activeUsers">
 
-<div class="col-sm-10">
+
     <h2><fmt:message key="activeUsers.heading"/></h2>
 
     <p><fmt:message key="activeUsers.message"/></p>
@@ -33,5 +33,5 @@
         <display:setProperty name="paging.banner.item_name" value="user"/>
         <display:setProperty name="paging.banner.items_name" value="users"/>
     </display:table>
-</div>
+
 </body>

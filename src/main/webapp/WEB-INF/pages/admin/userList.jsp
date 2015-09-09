@@ -5,7 +5,7 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<div class="col-sm-10">
+
     <h2><fmt:message key="userList.heading"/></h2>
 
     <form method="get" action="${ctx}/admin/users" id="searchForm" class="form-inline">
@@ -52,4 +52,4 @@
         <display:setProperty name="export.csv.filename" value="User List.csv"/>
         <display:setProperty name="export.pdf.filename" value="User List.pdf"/>
     </display:table>
-</div>
+
