@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -52,8 +51,7 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	private String website;
 	private Gender gender;
 	private String mobilephone;
-	private String language;
-	private Address address = new Address();
+	private String address;
 	private int version;
 	private boolean enabled;
 	private boolean accountExpired;
@@ -138,12 +136,13 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 		return gender;
 	}
 
-	public String getMobilephone() {
-		return mobilephone;
+	@Column(length = 150)
+	public String getAddress() {
+		return address;
 	}
 
-	public String getLanguage() {
-		return language;
+	public String getMobilephone() {
+		return mobilephone;
 	}
 
 	/**
@@ -154,11 +153,6 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	@Transient
 	public String getFullName() {
 		return firstName + ' ' + lastName;
-	}
-
-	@Embedded
-	public Address getAddress() {
-		return address;
 	}
 
 	/**
@@ -262,6 +256,12 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}
+	
+	@Transient
+	@JsonIgnore
+	public Collection<UserMenu> getUserMenus() {
+		return userMenus;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -303,15 +303,11 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 		this.gender = gender;
 	}
 
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
 	public void setMobilephone(String mobilephone) {
 		this.mobilephone = mobilephone;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
@@ -350,11 +346,11 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+
 	public void setUserAuthorizedUrls(Collection<UserAuthority> userAuthorizedUrls) {
 		this.userAuthorizedUrls = userAuthorizedUrls;
 	}
-	
+
 	public void addUserAuthorizedUrl(UserAuthority userAuthorizedUrl) {
 		if (this.userAuthorizedUrls == null) {
 			this.userAuthorizedUrls = new ArrayList<UserAuthority>();
@@ -447,14 +443,7 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 		return sb.toString();
 	}
 
-	@Transient
-	@JsonIgnore
-	public Collection<UserMenu> getUserMenus() {
-		return userMenus;
-	}
-
 	public void setUserMenus(List<UserMenu> userMenus) {
 		this.userMenus = userMenus;
 	}
-
 }

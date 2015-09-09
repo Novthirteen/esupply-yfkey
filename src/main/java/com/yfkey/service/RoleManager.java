@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
-public interface RoleManager extends GenericManager<Role, Long> {
+public interface RoleManager extends GenericManager<Role, String> {
 	void saveRolePermission(String roleCode, PermissionType permissionType, List<String> assignedPermissions)
 			throws PrincipalNullException;
 

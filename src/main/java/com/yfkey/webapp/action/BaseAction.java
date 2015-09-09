@@ -195,14 +195,6 @@ public class BaseAction extends ActionSupport {
 		mailEngine.sendMessage(mailMessage, templateName, model);
 	}
 
-	public void setUserManager(UserManager userManager) {
-		this.userManager = userManager;
-	}
-
-	public void setRoleManager(RoleManager roleManager) {
-		this.roleManager = roleManager;
-	}
-
 	public void setMailEngine(MailEngine mailEngine) {
 		this.mailEngine = mailEngine;
 	}

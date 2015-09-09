@@ -20,7 +20,7 @@ import com.yfkey.service.UniversalManager;
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
 @Service("roleManager")
-public class RoleManagerImpl extends GenericManagerImpl<Role, Long>implements RoleManager {
+public class RoleManagerImpl extends GenericManagerImpl<Role, String>implements RoleManager {
 	@Autowired
 	private UniversalManager universalManager;
 
