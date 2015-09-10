@@ -18,8 +18,9 @@
 						   		<input type="hidden" value=""  id="${userMenu.value}"  name="${userMenu.value}"  />
 						   </c:when>
 						   <c:otherwise> 
+						   		<span class="glyphicon glyphicon-folder-close"></span>
 								<a data-toggle="collapse" data-parent="#accordion" href="#${userMenu.value}" onclick="loadClick('#${userMenu.value}')">
-									<span class="glyphicon glyphicon-folder-close"></span><fmt:message key="${userMenu.text}" />
+									<fmt:message key="${userMenu.text}" />
 								</a>
 						   </c:otherwise>
 						</c:choose>

@@ -48,7 +48,7 @@
 	<div class="row">
 		<div class="col-xs-4 search-group">
 		</div>
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-4 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn btn-primary"
 				action="confirmPurchaseOrder" key="button.confirm" theme="simple">
