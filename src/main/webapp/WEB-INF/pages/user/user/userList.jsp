@@ -5,7 +5,7 @@
 <meta name="menu" content="UserMenu" />
 </head>
 
-<div class="col-xs-10">
+
 	<h2>
 		<fmt:message key="userList.heading" />
 	</h2>
@@ -80,4 +80,4 @@
 		<display:setProperty name="export.csv.filename" value="Role List.csv" />
 		<display:setProperty name="export.pdf.filename" value="Role List.pdf" />
 	</display:table>
-</div>
+

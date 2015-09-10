@@ -4,14 +4,68 @@
 <title><fmt:message key="purchaseOrderList.title" /></title>
 <meta name="menu" content="AdminMenu" />
 </head>
-
+<body id="purchaseOrder">
 <h2>
 	<fmt:message key="purchaseOrderList.heading" />
 </h2>
 
+
 <s:form name="purchaseOrderForm" action="purchaseOrders"
 	method="post" validate="true">
-	<div class="row-fluid">
+	<div class="row">
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
+		</div>
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_priority" />
+		</div>
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_suppcode" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_creator" />
+		</div>
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_stat" />
+		</div>
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_shipto" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_startdt" />
+		</div>
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_receptdt" />
+		</div>
+		<div class="col-xs-4 search-group layouttrim">
+			<s:checkbox key="purchaseOrder.isDetail" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 search-group">
+		</div>
+		<div class="col-xs-4 search-group">
+			<input type="hidden" name="from" value="list" />
+			<s:submit type="button" cssClass="btn btn-primary"
+				action="confirmPurchaseOrder" key="button.confirm" theme="simple">
+				<i class="icon-plus icon-white"></i>
+				<fmt:message key="button.confirm" />
+			</s:submit>
+		
+			<s:submit type="button" cssClass="btn" action="purchaseOrders"
+				key="button.search" theme="simple">
+				<i class="icon-search"></i>
+				<fmt:message key="button.search" />
+			</s:submit>
+		</div>	
+		<div class="col-xs-4 search-group">	
+		</div>
+	</div>
+<%-- 	<div class="row-fluid">
 		<div class="span3">
 			<s:textfield key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
 		</div>
@@ -47,7 +101,7 @@
 		<div class="span3">
 			<s:checkbox key="purchaseOrder.isDetail" />
 		</div>
-	</div>
+	</div> 
 	<div class="row-fluid">
 		<div class="span3">
 			<input type="hidden" name="from" value="list" />
@@ -62,7 +116,7 @@
 				<fmt:message key="button.search" />
 			</s:submit>
 		</div>
-	</div>
+	</div>--%>
 </s:form>
 
 <c:choose>
@@ -146,3 +200,4 @@
 		</display:table>
 	</c:otherwise>
 </c:choose>
+</body>
