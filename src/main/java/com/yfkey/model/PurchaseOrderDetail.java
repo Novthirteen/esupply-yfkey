@@ -11,7 +11,7 @@ public class PurchaseOrderDetail extends BaseObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -7409249741178402255L;
-	private BigDecimal tt_xpyhddeto_seq;                   //序号(前端排序条件)
+	private int    tt_xpyhddeto_seq;                   //序号(前端排序条件)
 	private String tt_xpyhddeto_yhdnbr;						 //要货单号
 	private String tt_xpyhddeto_partnbr;						 //物料号
 	private String tt_xpyhddeto_partdesc;					 //物料描述
@@ -24,13 +24,14 @@ public class PurchaseOrderDetail extends BaseObject {
 	private String tt_xpyhddeto_currcy;						 //货币
 	private String tt_xpyhddeto_uom;							 //单位
 	private BigDecimal tt_xpyhddeto_spq;						 //单包装
-	private int tt_xpyhddeto_stat;							 //状态
+	private String tt_xpyhddeto_stat;							 //状态
 	private BigDecimal tt_xpyhddeto_reqqty;					 //需求数
 	private BigDecimal tt_xpyhddeto_ordqty;					 //订单数	
 	private String tt_xpyhdde_creator;						 //创建人	
 	private String tt_xpyhddeto_xpyhmstroid;					 //xpyhmstr唯一标示(隐含，用户不可见)
 	private String tt_xpyhddeto_xpyhddetoid;	                 //xpyhddet唯一标示(隐含，用户不可见)
 	private String remark;	                 				 //备注
+	private BigDecimal tt_xpyhddeto_shipedqty;                //已发货数
 	
 	//这4个给打条码用
 	private BigDecimal tt_xpyhddeto_innnerqty;				  //内包装
@@ -39,10 +40,10 @@ public class PurchaseOrderDetail extends BaseObject {
 	private BigDecimal tt_xpyhddeto_qty;    					//数量
 	private String tt_xpyhddeto_pktype;              			//包装类型
 	
-	public BigDecimal getTt_xpyhddeto_seq() {
+	public int getTt_xpyhddeto_seq() {
 		return tt_xpyhddeto_seq;
 	}
-	public void setTt_xpyhddeto_seq(BigDecimal tt_xpyhddeto_seq) {
+	public void setTt_xpyhddeto_seq(int tt_xpyhddeto_seq) {
 		this.tt_xpyhddeto_seq = tt_xpyhddeto_seq;
 	}
 	public String getTt_xpyhddeto_yhdnbr() {
@@ -117,10 +118,10 @@ public class PurchaseOrderDetail extends BaseObject {
 	public void setTt_xpyhddeto_spq(BigDecimal tt_xpyhddeto_spq) {
 		this.tt_xpyhddeto_spq = tt_xpyhddeto_spq;
 	}
-	public int getTt_xpyhddeto_stat() {
+	public String getTt_xpyhddeto_stat() {
 		return tt_xpyhddeto_stat;
 	}
-	public void setTt_xpyhddeto_stat(int tt_xpyhddeto_stat) {
+	public void setTt_xpyhddeto_stat(String tt_xpyhddeto_stat) {
 		this.tt_xpyhddeto_stat = tt_xpyhddeto_stat;
 	}
 	public BigDecimal getTt_xpyhddeto_reqqty() {
@@ -194,6 +195,14 @@ public class PurchaseOrderDetail extends BaseObject {
 	public void setTt_xpyhddeto_pktype(String tt_xpyhddeto_pktype) {
 		this.tt_xpyhddeto_pktype = tt_xpyhddeto_pktype;
 	}
+	
+	public BigDecimal getTt_xpyhddeto_shipedqty() {
+		return tt_xpyhddeto_shipedqty;
+	}
+	public void setTt_xpyhddeto_shipedqty(BigDecimal tt_xpyhddeto_shipedqty) {
+		this.tt_xpyhddeto_shipedqty = tt_xpyhddeto_shipedqty;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

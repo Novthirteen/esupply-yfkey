@@ -78,7 +78,7 @@
 			<display:column property="tt_xpyhmstro_yhdnbr" escapeXml="true"
 				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_yhdnbr"
 				url="/purchaseOrder/editPurchaseOrder?from=list"
-				paramId="tt_xpyhmstro_yhdnbr" paramProperty="tt_xpyhmstro_yhdnbr" />
+				paramId="tt_xpyhmstro_xpyhmstroid" paramProperty="tt_xpyhmstro_xpyhmstroid" />
 			<display:column property="tt_xpyhmstro_suppcode" escapeXml="true"
 				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_suppcode" />
 			<display:column property="tt_xpyhmstro_shipto" escapeXml="true"

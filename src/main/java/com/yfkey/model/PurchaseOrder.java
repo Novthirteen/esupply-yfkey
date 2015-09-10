@@ -13,10 +13,11 @@ public class PurchaseOrder extends BaseObject {
 	private int tt_xpyhmstro_seq;                            //序号(前端排序条件)
 	private String tt_xpyhmstro_yhdnbr;         			  //要货单号
 	private String tt_xpyhmstro_suppcode;     				  //供应商代码 
+	private String tt_xpyhmstro_shipfrom;        			  //发货地址
 	private String tt_xpyhmstro_shipto;        			  //收货地址
 	private String tt_xpyhmstro_startdt;   				  //开始日期时间   
 	private String tt_xpyhmstro_receptdt;                    //窗口日期时间
-	private int    tt_xpyhmstro_stat;           				  //状态
+	private String tt_xpyhmstro_stat;           				  //状态,逗号分隔
 	private String tt_xpyhmstro_priority;       			  //优先级
 	private String tt_xpyhmstro_creator;        			  //创建人
 	private String tt_xpyhmstro_xpyhmstroid;   			  //xpyhmstr唯一标示(隐含，用户不可见)
@@ -25,7 +26,8 @@ public class PurchaseOrder extends BaseObject {
 	private Boolean isDetail;                  			  //明细
 	private String remark;    				     		  //备注
 	private String tt_xpyhmstro_partnbr;                     //零件号
-	private String tt_xpyhmstro_userauth;                    //？？
+	private String tt_xpyhmstro_currcy;                    //币种
+	
 	
 	private List<PurchaseOrderDetail> purchaseOrderDetailList;
 
@@ -53,6 +55,14 @@ public class PurchaseOrder extends BaseObject {
 		this.tt_xpyhmstro_suppcode = tt_xpyhmstro_suppcode;
 	}
 
+	public String getTt_xpyhmstro_shipfrom() {
+		return tt_xpyhmstro_shipfrom;
+	}
+
+	public void setTt_xpyhmstro_shipfrom(String tt_xpyhmstro_shipfrom) {
+		this.tt_xpyhmstro_shipfrom = tt_xpyhmstro_shipfrom;
+	}
+	
 	public String getTt_xpyhmstro_shipto() {
 		return tt_xpyhmstro_shipto;
 	}
@@ -77,11 +87,11 @@ public class PurchaseOrder extends BaseObject {
 		this.tt_xpyhmstro_receptdt = tt_xpyhmstro_receptdt;
 	}
 
-	public int getTt_xpyhmstro_stat() {
+	public String getTt_xpyhmstro_stat() {
 		return tt_xpyhmstro_stat;
 	}
 
-	public void setTt_xpyhmstro_stat(int tt_xpyhmstro_stat) {
+	public void setTt_xpyhmstro_stat(String tt_xpyhmstro_stat) {
 		this.tt_xpyhmstro_stat = tt_xpyhmstro_stat;
 	}
 
@@ -149,12 +159,12 @@ public class PurchaseOrder extends BaseObject {
 		this.tt_xpyhmstro_partnbr = tt_xpyhmstro_partnbr;
 	}
 
-	public String getTt_xpyhmstro_userauth() {
-		return tt_xpyhmstro_userauth;
+	public String getTt_xpyhmstro_currcy() {
+		return tt_xpyhmstro_currcy;
 	}
 
-	public void setTt_xpyhmstro_userauth(String tt_xpyhmstro_userauth) {
-		this.tt_xpyhmstro_userauth = tt_xpyhmstro_userauth;
+	public void setTt_xpyhmstro_currcy(String tt_xpyhmstro_userauth) {
+		this.tt_xpyhmstro_currcy = tt_xpyhmstro_userauth;
 	}
 
 	public List<PurchaseOrderDetail> getPurchaseOrderDetailList() {

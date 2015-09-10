@@ -154,7 +154,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxexport_xpyhddet_MetaData21.setFieldDesc(7, "tt_xpyhddeto_shipto", 0, Parameter.PRO_CHARACTER,6,0);
 		xxexport_xpyhddet_MetaData21.setFieldDesc(8, "tt_xpyhddeto_startdt", 0, Parameter.PRO_CHARACTER,7,0);
 		xxexport_xpyhddet_MetaData21.setFieldDesc(9, "tt_xpyhddeto_receptdt", 0, Parameter.PRO_CHARACTER,8,0);
-		xxexport_xpyhddet_MetaData21.setFieldDesc(10, "tt_xpyhddeto_currency", 0, Parameter.PRO_CHARACTER,9,0);
+		xxexport_xpyhddet_MetaData21.setFieldDesc(10, "tt_xpyhddeto_currcy", 0, Parameter.PRO_CHARACTER,9,0);
 		xxexport_xpyhddet_MetaData21.setFieldDesc(11, "tt_xpyhddeto_uom", 0, Parameter.PRO_CHARACTER,10,0);
 		xxexport_xpyhddet_MetaData21.setFieldDesc(12, "tt_xpyhddeto_spq", 0, Parameter.PRO_DECIMAL,11,0);
 		xxexport_xpyhddet_MetaData21.setFieldDesc(13, "tt_xpyhddeto_reqqty", 0, Parameter.PRO_DECIMAL,12,0);
@@ -162,7 +162,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxexport_xpyhddet_MetaData21.setFieldDesc(15, "tt_xpyhddeto_stat", 0, Parameter.PRO_CHARACTER,14,0);
 		xxexport_xpyhddet_MetaData21.setFieldDesc(16, "tt_xpyhddeto_priority", 0, Parameter.PRO_CHARACTER,15,0);
 		xxexport_xpyhddet_MetaData21.setFieldDesc(17, "tt_xpyhddeto_creator", 0, Parameter.PRO_CHARACTER,16,0);
-		xxexport_xpyhddet_MetaData21.setFieldDesc(18, "tt_xpyhddeto_yhdmstroid", 0, Parameter.PRO_CHARACTER,17,0);
+		xxexport_xpyhddet_MetaData21.setFieldDesc(18, "tt_xpyhddeto_xpyhmstroid", 0, Parameter.PRO_CHARACTER,17,0);
 		xxexport_xpyhddet_MetaData21.setFieldDesc(19, "tt_xpyhddeto_xpyhddetoid", 0, Parameter.PRO_CHARACTER,18,0);
 		xxexport_xpyhddet_DSMetaData2.addTable(xxexport_xpyhddet_MetaData21);
 		xxexport_xpyhddet_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
@@ -342,7 +342,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xpyhmstr_DSMetaData1.addTable(xxinquiry_xpyhmstr_MetaData11);
 		xxinquiry_xpyhmstr_MetaData12 = new ProDataObjectMetaData("tt_xpyhmstr_in", 8, false, 0, null, null, null);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(1, "tt_xpyhmstri_yhdnbr", 0, Parameter.PRO_CHARACTER,0,0);
-		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(2, "tt_xpyhmstri_stat", 0, Parameter.PRO_INTEGER,1,0);
+		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(2, "tt_xpyhmstri_stat", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(3, "tt_xpyhmstri_startdt", 0, Parameter.PRO_CHARACTER,2,0);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(4, "tt_xpyhmstri_priority", 0, Parameter.PRO_CHARACTER,3,0);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(5, "tt_xpyhmstri_creator", 0, Parameter.PRO_CHARACTER,4,0);
@@ -361,7 +361,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(7, "tt_xpyhmstro_stat", 0, Parameter.PRO_CHARACTER,6,0);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(8, "tt_xpyhmstro_priority", 0, Parameter.PRO_CHARACTER,7,0);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(9, "tt_xpyhmstro_creator", 0, Parameter.PRO_CHARACTER,8,0);
-		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(10, "tt_xpyhmstro_yhdmstroid", 0, Parameter.PRO_CHARACTER,9,0);
+		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(10, "tt_xpyhmstro_xpyhmstroid", 0, Parameter.PRO_CHARACTER,9,0);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(11, "tt_xpyhmstro_conf", 0, Parameter.PRO_CHARACTER,10,0);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(12, "tt_xpyhmstro_print", 0, Parameter.PRO_CHARACTER,11,0);
 		xxinquiry_xpyhmstr_DSMetaData2.addTable(xxinquiry_xpyhmstr_MetaData21);

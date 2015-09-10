@@ -16,7 +16,7 @@ public class Asn extends BaseObject {
 	private String tt_xasnmstro_asnnbr;         			//供应商ASN
 	private String tt_xasnmstro_shipto;     				  	//收货地址
 	private String tt_xasnmstro_startdt;   				    //创建日期时间(YYYY-MM-DD)  
-	private int tt_xasnmstro_stat;                           //状态
+	private String tt_xasnmstro_stat;                           //状态
 	private String tt_xasnmstro_creator;           		    //创建人
 	private String tt_xasnmstro_xasnmstroid;       			//xasnmstr唯一标示
 	private String tt_xasnmstro_suppcode;     				//供应商代码 
@@ -71,12 +71,12 @@ public class Asn extends BaseObject {
 	}
 
 
-	public int getTt_xasnmstro_stat() {
+	public String getTt_xasnmstro_stat() {
 		return tt_xasnmstro_stat;
 	}
 
 
-	public void setTt_xasnmstro_stat(int tt_xasnmstro_stat) {
+	public void setTt_xasnmstro_stat(String tt_xasnmstro_stat) {
 		this.tt_xasnmstro_stat = tt_xasnmstro_stat;
 	}
 

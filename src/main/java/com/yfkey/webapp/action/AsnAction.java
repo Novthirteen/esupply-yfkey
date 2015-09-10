@@ -136,7 +136,7 @@ public class AsnAction extends BaseAction {
 			asn.setTt_xasnmstro_startdt("20150831");
 			asn.setTt_xasnmstro_shipto("秀浦路426号");
 			asn.setTt_xasnmstro_suppcode("ADKJ");
-			asn.setTt_xasnmstro_stat(2);
+			asn.setTt_xasnmstro_stat("2");
 
 			 asnDetails = new ArrayList<AsnDetail>();
 			 AsnDetail asndet = new AsnDetail();
@@ -257,7 +257,7 @@ public class AsnAction extends BaseAction {
 			asn1.setTt_xasnmstro_creator("admin");
 			asn1.setTt_xasnmstro_startdt("20150831");
 			asn1.setTt_xasnmstro_suppcode("ADKJ");
-			asn1.setTt_xasnmstro_stat(2);
+			asn1.setTt_xasnmstro_stat("2");
 			asns.add(asn1);
 
 			// if (ConnectQAD()) {
@@ -325,7 +325,7 @@ public class AsnAction extends BaseAction {
 		asn.setTt_xasnmstro_startdt("20150831");
 		asn.setTt_xasnmstro_shipto("秀浦路426号");
 		asn.setTt_xasnmstro_suppcode("ADKJ");
-		asn.setTt_xasnmstro_stat(2);
+		asn.setTt_xasnmstro_stat("2");
 
 		 asnDetails = new ArrayList<AsnDetail>();
 		 AsnDetail asndet = new AsnDetail();
