@@ -2,7 +2,7 @@
 
 <head>
 <title><fmt:message key="user.title" /></title>
-<meta name="menu" content="UserMenu" />
+<meta name="menu" content="ViewUsers" />
 </head>
 
 <div class="col-xs-10">

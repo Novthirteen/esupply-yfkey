@@ -2,17 +2,46 @@
 
 <head>
 <title><fmt:message key="userList.title" /></title>
-<meta name="menu" content="UserMenu" />
+<meta name="menu" content="ViewUsers" />
 </head>
 
-<div class="col-xs-10">
+
 	<h2>
 		<fmt:message key="userList.heading" />
 	</h2>
 
 	<s:form name="userForm" action="users" method="post"
 		cssClass="form-horizontal">
+
 		<div class="row">
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control" key="user.username"  />
+			</div>
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control" key="user.firstName"  />
+			</div>
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control" key="user.lastName"  />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4 search-group"></div>
+			<div class="col-xs-4 search-group layouttrim">
+				<input type="hidden" name="from" value="list" />
+				<s:submit type="button" cssClass="btn btn-default btn-sm"
+					action="users" key="button.search" theme="simple">
+					<i class="icon-search"></i>
+					<fmt:message key="button.search" />
+				</s:submit>
+				<s:submit type="button" cssClass="btn btn-primary btn-sm"
+					action="editUser" key="button.add" theme="simple">
+					<i class="icon-plus icon-white"></i>
+					<fmt:message key="button.add" />
+				</s:submit>
+			</div>
+			<div class="col-xs-4 search-group"></div>
+		</div>
+<%-- 	<div class="row">
 			<div class="col-xs-3">
 				<s:textfield key="user.username" cssClass="form-control" />
 			</div>
@@ -35,7 +64,7 @@
 					<fmt:message key="button.add" />
 				</s:submit>
 			</div>
-		</div>
+		</div> --%>
 	</s:form>
 
 	<display:table name="users" cellspacing="0" cellpadding="0"
@@ -80,4 +109,4 @@
 		<display:setProperty name="export.csv.filename" value="Role List.csv" />
 		<display:setProperty name="export.pdf.filename" value="Role List.pdf" />
 	</display:table>
-</div>
+

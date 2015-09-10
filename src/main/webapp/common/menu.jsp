@@ -11,15 +11,16 @@
 					<h4 class="panel-title">
 						<c:choose>
 						   <c:when test="${empty userMenu.items}">
+						   		<span class="glyphicon glyphicon-folder-close"></span>
 						   		<a data-toggle="collapse" data-parent="#accordion" href="<c:url value='${userMenu.url}'/>" onclick="loadClick('<c:url value='${userMenu.url}'/>')">
-						   			<span class="glyphicon glyphicon-folder-close"></span>
 						   			<fmt:message key="${userMenu.text}" />
 						   		</a>
 						   		<input type="hidden" value=""  id="${userMenu.value}"  name="${userMenu.value}"  />
 						   </c:when>
 						   <c:otherwise> 
+						   		<span class="glyphicon glyphicon-folder-close"></span>
 								<a data-toggle="collapse" data-parent="#accordion" href="#${userMenu.value}" onclick="loadClick('#${userMenu.value}')">
-									<span class="glyphicon glyphicon-folder-close"></span><fmt:message key="${userMenu.text}" />
+									<fmt:message key="${userMenu.text}" />
 								</a>
 						   </c:otherwise>
 						</c:choose>
