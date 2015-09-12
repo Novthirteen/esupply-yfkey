@@ -1,11 +1,25 @@
 package com.yfkey.webapp.action;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.Barcode128;
+import com.itextpdf.text.pdf.BarcodeQRCode;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.progress.open4gl.Parameter;
 import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
@@ -134,37 +148,108 @@ public class BarcodeAction extends BaseAction {
 	public String print() throws Exception {
 		String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
 
-		// // 测试
-		//
-		//
-		// purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
-		// PurchaseOrderDetail podet = new PurchaseOrderDetail();
-		// podet.setTt_xpyhddeto_seq(new BigDecimal(10));
-		// podet.setTt_xpyhddeto_yhdnbr("ORD000001");
-		// podet.setTt_xpyhddeto_partnbr("1000001");
-		// podet.setTt_xpyhddeto_partdesc("螺丝");
-		// podet.setTt_xpyhddeto_spq(new BigDecimal(100));
-		// podet.setTt_xpyhddeto_uom("件");
-		// podet.setTt_xpyhddeto_reqqty(new BigDecimal(2000));
-		// podet.setTt_xpyhddeto_ordqty(new BigDecimal(2000));
-		// purchaseOrderDetails.add(podet);
-		//
-		// PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
-		// podet1.setTt_xpyhddeto_seq(new BigDecimal(20));
-		// podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
-		// podet1.setTt_xpyhddeto_partnbr("1000002");
-		// podet1.setTt_xpyhddeto_partdesc("螺母");
-		// podet1.setTt_xpyhddeto_spq(new BigDecimal(100));
-		// podet1.setTt_xpyhddeto_uom("件");
-		// podet1.setTt_xpyhddeto_reqqty(new BigDecimal(2000));
-		// podet1.setTt_xpyhddeto_ordqty(new BigDecimal(2000));
-		// purchaseOrderDetails.add(podet1);
-		//
-		// purchaseOrder.setPurchaseOrderDetailList(purchaseOrderDetails);
+		try 
+	    {
+	    	Rectangle pagesize = new Rectangle(226.771653f,170.078740f);
+	        Document document = new Document(pagesize, 2f, 5f, 10f, 1f);
+	        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	        
+	        // step 2
+	        PdfWriter writer = PdfWriter.getInstance(document, baos);
+	        // step 3
+	        document.open();
+	        
+			 PdfContentByte cb = writer.getDirectContent();
+			 	Font font = FontFactory.getFont("Times-Roman");
+		        Barcode128 code128 = new Barcode128();
+		        code128.setCode("47000009320250F427100026");
+		        //code128.setX(0.75f);
+		        //code128.setN(1.5f);
+		        code128.setSize(10f);
+		        code128.setTextAlignment(Element.ALIGN_LEFT);
+		        //code128.setBaseline(1);
+		        //code128.setBarHeight(26f);
+		        Image img = code128.createImageWithBarcode(cb, null, null);
+		        cb.addImage(img, 150, 0, 0, 35, 50, 120);
+		        cb.stroke();
+		        //document.add(img);
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 7);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PART NO.", 10, 120, 0);
+		        cb.endText();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 8);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "47000009320250", 35, 110, 0);
+		        cb.endText();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 7);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "LOT/SERIAL NO.", 10, 100, 0);
+		        cb.endText();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 8);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "F512", 35, 90, 0);
+		        cb.endText();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 7);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "QUANTITY", 145, 100, 0);
+		        cb.endText();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 8);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "1000", 145, 90, 0);
+		        cb.endText();
+		        
+		        //QRCODE
+		        BarcodeQRCode qrcode = new BarcodeQRCode("yfkey", 1, 1, null);
+		        Image img1 = qrcode.getImage();
+		        cb.addImage(img1, 40, 0, 0, 40, 150, 50);
+		        cb.stroke();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 7);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DESCRIPTION ", 10, 80, 0);
+		        cb.endText();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 8);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "MODEL Z", 35, 70, 0);
+		        cb.endText();
+		        
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 7);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUPPLIER ", 10, 60, 0);
+		        cb.endText();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 8);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "YFKSS KNXOWHILLE", 35, 50, 0);
+		        cb.endText();
+		        
+		        cb.beginText();
+		        cb.setFontAndSize(font.getBaseFont(), 8);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED DATE: 09/12/15", 10, 10, 0);
+		        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED USER:38846", 110, 10, 0);
+		        cb.endText();
+	        
+	        document.close(); 
+	        HttpServletResponse response = this.getResponse();
+	        ServletOutputStream outputStream = response.getOutputStream() ; 
+	        baos.writeTo(outputStream); 
+	        response.setHeader("Content-Disposition", "attachment; filename=\"barcode.pdf\""); 
+	        response.setContentType("application/pdf"); 
+	        outputStream.flush(); 
+	        outputStream.close(); 
+	    }
+	    catch (Exception e) {
+	        //catch
+	    }
 
-		// inputStream = export(localAbsolutPath, "", purchaseOrderDetail);
-
-		fileName = "purchaseOrder_" + purchaseOrderDetail.getTt_xpyhddeto_yhdnbr() + ".pdf";
+		//fileName = "purchaseOrder_" + purchaseOrderDetail.getTt_xpyhddeto_yhdnbr() + ".pdf";
 		return SUCCESS;
 	}
 

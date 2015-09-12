@@ -17,4 +17,5 @@
         <a href="<c:url value='/selectFile'/>"><fmt:message key="menu.selectFile"/></a>
     </li>
 </ul>
+<a href="<c:url value='/barcode/printBarcode'/>">print</a>
 </body>
