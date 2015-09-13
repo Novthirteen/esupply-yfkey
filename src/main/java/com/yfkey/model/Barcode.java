@@ -1,12 +1,14 @@
 package com.yfkey.model;
 
+import java.math.BigDecimal;
+
 public class Barcode extends BaseObject {
 	
 	private String tt_bcdeto_date;         			  	  //打印日期(YYYY-MM-DD)
 	private String tt_bcdeto_partnbr;     				  //物料号
 	private String tt_bcdeto_partdesc;        			  //物料描述
 	private String tt_bcdeto_lots;   				  	  //批号
-	private String tt_bcdeto_qty;   				  	  //数量
+	private BigDecimal tt_bcdeto_qty;   				  	  //数量
 	private String tt_bcdeto_bcinfo1;   				  //条码1(1维码)
 	private String tt_bcdeto_suppname;   				  //供应商名称
 	private String tt_bcdeto_bcinfo2;   				  //条码2(2维码)
@@ -38,10 +40,10 @@ public class Barcode extends BaseObject {
 	public void setTt_bcdeto_lots(String tt_bcdeto_lots) {
 		this.tt_bcdeto_lots = tt_bcdeto_lots;
 	}
-	public String getTt_bcdeto_qty() {
+	public BigDecimal getTt_bcdeto_qty() {
 		return tt_bcdeto_qty;
 	}
-	public void setTt_bcdeto_qty(String tt_bcdeto_qty) {
+	public void setTt_bcdeto_qty(BigDecimal tt_bcdeto_qty) {
 		this.tt_bcdeto_qty = tt_bcdeto_qty;
 	}
 	public String getTt_bcdeto_bcinfo1() {

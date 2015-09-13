@@ -65,58 +65,6 @@
 		<div class="col-xs-4 search-group">	
 		</div>
 	</div>
-<%-- 	<div class="row-fluid">
-		<div class="span3">
-			<s:textfield key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
-		</div>
-		<div class="span3">
-			<s:textfield key="purchaseOrder.tt_xpyhmstro_priority" />
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span3">
-			<s:textfield key="purchaseOrder.tt_xpyhmstro_suppcode" />
-		</div>
-		<div class="span3">
-			<s:textfield key="purchaseOrder.tt_xpyhmstro_creator" />
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span3">
-			<s:textfield key="purchaseOrder.tt_xpyhmstro_stat" />
-		</div>
-		<div class="span3">
-			<s:textfield key="purchaseOrder.tt_xpyhmstro_shipto" />
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span3">
-			<s:textfield key="purchaseOrder.tt_xpyhmstro_startdt" />
-		</div>
-		<div class="span3">
-			<s:textfield key="purchaseOrder.tt_xpyhmstro_receptdt" />
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span3">
-			<s:checkbox key="purchaseOrder.isDetail" />
-		</div>
-	</div> 
-	<div class="row-fluid">
-		<div class="span3">
-			<input type="hidden" name="from" value="list" />
-			<s:submit type="button" cssClass="btn btn-primary"
-				action="confirmPurchaseOrder" key="button.confirm" theme="simple">
-				<i class="icon-plus icon-white"></i>
-				<fmt:message key="button.confirm" />
-			</s:submit>
-			<s:submit type="button" cssClass="btn" action="purchaseOrders"
-				key="button.search" theme="simple">
-				<i class="icon-search"></i>
-				<fmt:message key="button.search" />
-			</s:submit>
-		</div>
-	</div>--%>
 </s:form>
 
 <c:choose>

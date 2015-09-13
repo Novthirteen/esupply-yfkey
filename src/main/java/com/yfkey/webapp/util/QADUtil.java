@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.progress.open4gl.Parameter;
 import com.progress.open4gl.ProDataObject;
+import com.yfkey.model.Barcode;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
 
@@ -143,6 +144,38 @@ public final class QADUtil {
 		
 		return poList;
 		
+	}
+	
+	public static List<Barcode> ConvertToBarcode(List<ProDataObject> proDataObjectList)
+	{
+		List<Barcode> barcodeList = new ArrayList<Barcode>();
+		if(proDataObjectList != null && proDataObjectList.size()>0)
+		{
+		   int i = 1;
+		   for(ProDataObject o : proDataObjectList)
+		   {
+			   Barcode bc =  new Barcode();
+			   bc.setTt_bcdeto_date(o.getString("tt_bcdeto_date"));
+			   bc.setTt_bcdeto_partnbr(o.getString("tt_bcdeto_partnbr"));
+			   bc.setTt_bcdeto_partdesc(o.getString("tt_bcdeto_partdesc"));
+			   bc.setTt_bcdeto_lots(o.getString("tt_bcdeto_lots"));
+//			   bc.setTt_bcdeto_qty(o.getBigDecimal("tt_bcdeto_qty"));
+//			   
+//			   
+//			    xxprint_barcode_MetaData21.setFieldDesc(1, "tt_bcdeto_date", 0, Parameter.PRO_CHARACTER,0,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(2, "tt_bcdeto_partnbr", 0, Parameter.PRO_CHARACTER,1,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(3, "tt_bcdeto_partdesc", 0, Parameter.PRO_CHARACTER,2,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(4, "tt_bcdeto_lots", 0, Parameter.PRO_CHARACTER,3,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(5, "tt_bcdeto_qty", 0, Parameter.PRO_DECIMAL,4,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(6, "tt_bcdeto_bcinfo1", 0, Parameter.PRO_CHARACTER,5,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(7, "tt_bcdeto_suppname", 0, Parameter.PRO_CHARACTER,6,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(8, "tt_bcdeto_bcinfo2", 0, Parameter.PRO_CHARACTER,7,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(9, "tt_bcdeto_serial", 0, Parameter.PRO_CHARACTER,8,0);
+//				xxprint_barcode_MetaData21.setFieldDesc(10, "tt_bcdeto_bcdetoid", 0, Parameter.PRO_CHARACTER,9,0);
+		   }
+		}
+		return barcodeList;
+	
 	}
 		 
 	
