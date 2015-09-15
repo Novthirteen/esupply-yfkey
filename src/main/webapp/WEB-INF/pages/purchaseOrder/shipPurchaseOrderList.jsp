@@ -9,7 +9,7 @@
 	<fmt:message key="shipPurchaseOrderList.heading" />
 </h2>
 
-<s:form name="purchaseOrderForm" action="purchaseOrders"
+<s:form name="purchaseOrderForm" action="shipPurchaseOrders"
 	method="post" validate="true">
 	<div class="row-fluid">
 		<div class="span3">
@@ -24,7 +24,7 @@
 	<div class="row-fluid">
 		<div class="span3">
 			<input type="hidden" name="from" value="list" />
-			<s:submit type="button" cssClass="btn" action="purchaseOrders"
+			<s:submit type="button" cssClass="btn" action="shipPurchaseOrders"
 				key="button.search" theme="simple">
 				<i class="icon-search"></i>
 				<fmt:message key="button.search" />

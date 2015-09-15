@@ -658,5 +658,7 @@
 	<classpathentry kind="var" path="M2_REPO/o4glrt/o4glrt/1.0.0/o4glrt-1.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/itextpdf/itextpdf/5.0.6/itextpdf-5.0.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/ecore/xmi/ecore.xmi/1.0.0/ecore.xmi-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/itextpdf/itextpdf-iTextAsian/1.0.0/itextpdf-iTextAsian-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/displaytag/displaytag-export-poi/1.2.0/displaytag-export-poi-1.2.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

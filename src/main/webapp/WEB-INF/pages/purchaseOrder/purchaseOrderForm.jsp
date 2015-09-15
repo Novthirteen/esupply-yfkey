@@ -15,6 +15,8 @@
 	<div class="row-fluid">
 		<div class="span4">
 			<s:label key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
+			<s:hidden key="purchaseOrder.tt_xpyhmstro_xpyhmstroid" />
+			<s:hidden key="purchaseOrder.tt_xpyhmstro_stat" />
 		</div>
 		<div class="span4">
 			<s:label key="purchaseOrder.tt_xpyhmstro_priority" />
@@ -78,10 +80,10 @@
 			<fmt:message key="button.back" />
 		</s:submit>
 	</div>
-</s:form>
+
 
 <display:table name="purchaseOrderDetails" cellspacing="0" cellpadding="0"
-	requestURI="/purchaseOrderDetails"  id="purchaseOrderDetails" 
+	requestURI="editPurchaseOrder"  id="purchaseOrderDetails" 
 	class="table table-condensed table-striped table-hover"
 	export="true">
 
@@ -105,6 +107,7 @@
 	<display:setProperty name="export.excel.filename"
 				value="PurchaseOrderDetail List.xls" />
 </display:table>
+</s:form>
 
 <script type="text/javascript">
 	$(document).ready(

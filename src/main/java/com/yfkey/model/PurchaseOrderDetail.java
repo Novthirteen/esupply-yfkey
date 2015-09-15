@@ -39,6 +39,12 @@ public class PurchaseOrderDetail extends BaseObject {
 	private String tt_xpyhddeto_lots;              				//批号
 	private BigDecimal tt_xpyhddeto_qty;    					//数量
 	private String tt_xpyhddeto_pktype;              			//包装类型
+	private boolean isexternal;              			      //包装类型
+	
+	
+	//发货用
+	private String tt_xpyhddeto_toloc;  					//目的库位
+	private BigDecimal tt_xpyhddeto_delvqty; 				//发货数
 	
 	public int getTt_xpyhddeto_seq() {
 		return tt_xpyhddeto_seq;
@@ -203,6 +209,29 @@ public class PurchaseOrderDetail extends BaseObject {
 		this.tt_xpyhddeto_shipedqty = tt_xpyhddeto_shipedqty;
 	}
 	
+	public boolean isIsexternal() {
+		return isexternal;
+	}
+	public void setIsexternal(boolean isexternal) {
+		this.isexternal = isexternal;
+	}
+	
+	
+	
+	
+	
+	public String getTt_xpyhddeto_toloc() {
+		return tt_xpyhddeto_toloc;
+	}
+	public void setTt_xpyhddeto_toloc(String tt_xpyhddeto_toloc) {
+		this.tt_xpyhddeto_toloc = tt_xpyhddeto_toloc;
+	}
+	public BigDecimal getTt_xpyhddeto_delvqty() {
+		return tt_xpyhddeto_delvqty;
+	}
+	public void setTt_xpyhddeto_delvqty(BigDecimal tt_xpyhddeto_delvqty) {
+		this.tt_xpyhddeto_delvqty = tt_xpyhddeto_delvqty;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

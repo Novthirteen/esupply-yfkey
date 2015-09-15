@@ -1,34 +1,40 @@
 package com.yfkey.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class PurchaseOrder extends BaseObject {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7886126588988285842L;
-	private int tt_xpyhmstro_seq;                            //序号(前端排序条件)
-	private String tt_xpyhmstro_yhdnbr;         			  //要货单号
-	private String tt_xpyhmstro_suppcode;     				  //供应商代码 
-	private String tt_xpyhmstro_shipfrom;        			  //发货地址
-	private String tt_xpyhmstro_shipto;        			  //收货地址
-	private String tt_xpyhmstro_startdt;   				  //开始日期时间   
-	private String tt_xpyhmstro_receptdt;                    //窗口日期时间
-	private String tt_xpyhmstro_stat;           				  //状态,逗号分隔
-	private String tt_xpyhmstro_priority;       			  //优先级
-	private String tt_xpyhmstro_creator;        			  //创建人
-	private String tt_xpyhmstro_xpyhmstroid;   			  //xpyhmstr唯一标示(隐含，用户不可见)
-	private String tt_xpyhmstro_conf;          			  //是否已确认
-	private String tt_xpyhmstro_print;    			  //是否已打印
-	private Boolean isDetail;                  			  //明细
-	private String remark;    				     		  //备注
-	private String tt_xpyhmstro_partnbr;                     //零件号
-	private String tt_xpyhmstro_currcy;                    //币种
+	private int tt_xpyhmstro_seq; // 序号(前端排序条件)
+	private String tt_xpyhmstro_yhdnbr; // 要货单号
+	private String tt_xpyhmstro_suppcode; // 供应商代码
+	private String tt_xpyhmstro_shipfrom; // 发货地址
+	private String tt_xpyhmstro_shipto; // 收货地址
+	private String tt_xpyhmstro_startdt; // 开始日期时间
+	private String tt_xpyhmstro_receptdt; // 窗口日期时间
+	private String tt_xpyhmstro_stat; // 状态,逗号分隔
+	private String tt_xpyhmstro_priority; // 优先级
+	private String tt_xpyhmstro_creator; // 创建人
+	private String tt_xpyhmstro_xpyhmstroid; // xpyhmstr唯一标示(隐含，用户不可见)
+	private String tt_xpyhmstro_conf; // 是否已确认
+	private String tt_xpyhmstro_print; // 是否已打印
+	private Boolean isDetail; // 明细
+	private String remark; // 备注
+	private String tt_xpyhmstro_partnbr; // 零件号
+	private String tt_xpyhmstro_currcy; // 币种
+
+	// 发货用
+	private String tt_xpyhddeto_suppname; // 供应商名称
+	private String tt_xpyhddeto_carrier; // 承运商
+	private String tt_xpyhddeto_dock;    //道口
 	
 	
+	
+
 	private List<PurchaseOrderDetail> purchaseOrderDetailList;
 
 	public int getTt_xpyhmstro_seq() {
@@ -62,7 +68,7 @@ public class PurchaseOrder extends BaseObject {
 	public void setTt_xpyhmstro_shipfrom(String tt_xpyhmstro_shipfrom) {
 		this.tt_xpyhmstro_shipfrom = tt_xpyhmstro_shipfrom;
 	}
-	
+
 	public String getTt_xpyhmstro_shipto() {
 		return tt_xpyhmstro_shipto;
 	}
@@ -167,6 +173,30 @@ public class PurchaseOrder extends BaseObject {
 		this.tt_xpyhmstro_currcy = tt_xpyhmstro_userauth;
 	}
 
+	public String getTt_xpyhddeto_suppname() {
+		return tt_xpyhddeto_suppname;
+	}
+
+	public void setTt_xpyhddeto_suppname(String tt_xpyhddeto_suppname) {
+		this.tt_xpyhddeto_suppname = tt_xpyhddeto_suppname;
+	}
+
+	public String getTt_xpyhddeto_carrier() {
+		return tt_xpyhddeto_carrier;
+	}
+
+	public void setTt_xpyhddeto_carrier(String tt_xpyhddeto_carrier) {
+		this.tt_xpyhddeto_carrier = tt_xpyhddeto_carrier;
+	}
+
+	public String getTt_xpyhddeto_dock() {
+		return tt_xpyhddeto_dock;
+	}
+
+	public void setTt_xpyhddeto_dock(String tt_xpyhddeto_dock) {
+		this.tt_xpyhddeto_dock = tt_xpyhddeto_dock;
+	}
+
 	public List<PurchaseOrderDetail> getPurchaseOrderDetailList() {
 		return purchaseOrderDetailList;
 	}
@@ -204,9 +234,5 @@ public class PurchaseOrder extends BaseObject {
 	public String toString() {
 		return "PurchaseOrder [tt_xpyhmstro_xpyhmstroid=" + tt_xpyhmstro_xpyhmstroid + "]";
 	}
-	
 
-	
-
-	
 }

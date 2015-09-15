@@ -50,11 +50,11 @@
 		</div>
 		<div class="col-xs-4 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
-			<s:submit type="button" cssClass="btn btn-primary"
-				action="confirmPurchaseOrder" key="button.confirm" theme="simple">
-				<i class="icon-plus icon-white"></i>
-				<fmt:message key="button.confirm" />
-			</s:submit>
+<%-- 			<s:submit type="button" cssClass="btn btn-primary" --%>
+<%-- 				action="confirmPurchaseOrder" key="button.confirm" theme="simple"> --%>
+<!-- 				<i class="icon-plus icon-white"></i> -->
+<%-- 				<fmt:message key="button.confirm" /> --%>
+<%-- 			</s:submit> --%>
 		
 			<s:submit type="button" cssClass="btn" action="purchaseOrders"
 				key="button.search" theme="simple">
@@ -84,7 +84,7 @@
 			<display:column property="tt_xpyhmstro_suppcode" escapeXml="true"
 				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_suppcode" />
 			<display:column property="tt_xpyhmstro_shipto" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_seq" />
+				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_shipto" />
 			<display:column property="tt_xpyhmstro_startdt" escapeXml="true"
 				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_startdt" />
 			<display:column property="tt_xpyhmstro_receptdt" escapeXml="true"
