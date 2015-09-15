@@ -323,27 +323,35 @@ public class PurchaseOrderAction extends BaseAction {
 
 	public String ship() {
 		try {
-			// if (ConnectQAD()) {
-			// String userCode = this.getRequest().getRemoteUser();
-			//
-			// String domain = "YFKSH";
-			// ProDataGraph exDataGraph; // 输入参数
-			// ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
-			//
-			// exDataGraph = new
-			// ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxupdate_xpyhmstr_DSMetaData1());
-			//
-			// ProDataObject object =
-			// exDataGraph.createProDataObject("tt_xpyhmstr_in");
-			//
-			// object.setString(0, "1001");
-			// object.setString(1, "2");
-			// object.setString(2, "4");
-			//
-			// exDataGraph.addProDataObject(object);
-			//
-			// yfkssScp.xxupdate_xpyhmstr(exDataGraph, outputData);
-			// }
+				if (ConnectQAD()) {
+					
+					ProDataGraph exDataGraph; // 输入参数
+					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+					
+					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxcreate_xasndet_DSMetaData1());
+					
+					if(purchaseOrderDetails != null && purchaseOrderDetails.size()>0)
+					{
+						for(PurchaseOrderDetail pod : purchaseOrderDetails)
+						{
+							ProDataObject object = exDataGraph.createProDataObject("tt_xasndet_in");
+							
+							object.setBigDecimal("tt_xasndeti_xpyhddetoid", new BigDecimal(pod.getTt_xpyhddeto_xpyhddetoid()));
+							object.setBigDecimal("tt_xasndeti_delvqty", pod.getTt_xpyhddeto_delvqty());
+							object.setString("tt_xasndeti_rmk", pod.getRemark());
+							object.setBigDecimal("tt_new_xasndeti_xasndetoid", new BigDecimal("-1"));
+							object.setBigDecimal("tt_new_xasnmstri_xasnmstroid",  new BigDecimal("-1"));
+							
+							exDataGraph.addProDataObject(object);
+						}
+					}
+
+					yfkssScp.xxcreate_xasndet(exDataGraph, outputData);
+				
+			} else {
+				purchaseOrder = new PurchaseOrder();
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

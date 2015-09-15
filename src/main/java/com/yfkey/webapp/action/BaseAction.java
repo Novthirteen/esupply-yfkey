@@ -278,4 +278,9 @@ public class BaseAction extends ActionSupport {
 		}
 		return supplierCodeList;
 	}
+	
+	protected String getCurrentDomain()
+	{
+		return this.getRequest().getSession().getAttribute(Constants.SELECTED_USER_PLANT).toString();
+	}
 }
