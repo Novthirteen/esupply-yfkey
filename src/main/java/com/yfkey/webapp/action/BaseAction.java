@@ -269,7 +269,7 @@ public class BaseAction extends ActionSupport {
 		List<String> supplierCodeList = universalManager.findByNativeSql(
 				"select permission_code from permission_view where permission_type = ? and username = ?",
 				new Object[] { PermissionType.S.toString(), userCode });
-		if (supplierCode.trim() !=null && supplierCode.trim() != "" ) {
+		if (supplierCode !=null && ! supplierCode.trim().equals("") ) {
 			supplierCodeList = new ArrayList<String>();
 			if(supplierCodeList.contains(supplierCode))
 			{

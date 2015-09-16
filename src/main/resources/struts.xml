@@ -254,4 +254,26 @@
 			</result>
 		</action>
 	</package>
+	
+	
+	<package name="receipt" extends="default" namespace="/receipt">
+		<action name="receipts" class="receiptAction" method="list">
+			<result name="success">/WEB-INF/pages/receipt/receiptList.jsp
+			</result>
+		</action>
+		<action name="editReceipt" class="receiptAction" method="edit">
+			<result name="success">/WEB-INF/pages/receipt/receiptForm.jsp
+			</result>
+			<result name="input">/WEB-INF/pages/receipt/receiptList.jsp
+			</result>
+			<result name="cancel" type="redirectAction">receipts</result>
+		</action>
+		<action name="printReceipt" class="receiptAction" method="print">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
 </struts>

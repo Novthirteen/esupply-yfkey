@@ -99,6 +99,15 @@ public class PurchaseOrderAction extends BaseAction {
 		this.tt_xpyhmstro_xpyhmstroid = tt_xpyhmstro_xpyhmstroid;
 	}
 
+	
+	public String getTt_xpyhddeti_xpyhmstroid() {
+		return tt_xpyhddeti_xpyhmstroid;
+	}
+
+	public void setTt_xpyhddeti_xpyhmstroid(String tt_xpyhddeti_xpyhmstroid) {
+		this.tt_xpyhddeti_xpyhmstroid = tt_xpyhddeti_xpyhmstroid;
+	}
+
 	/**
 	 * Grab the purchaseOrder from the database based on the "purchaseOrderName"
 	 * passed in.
@@ -117,7 +126,7 @@ public class PurchaseOrderAction extends BaseAction {
 				if (ConnectQAD()) {
 					String userCode = this.getRequest().getRemoteUser();
 
-					String domain = "YFKSS";
+					String domain = getCurrentDomain();
 					ProDataGraph exDataGraph; // 输入参数
 					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
@@ -269,7 +278,7 @@ public class PurchaseOrderAction extends BaseAction {
 			if (ConnectQAD()) {
 				String userCode = this.getRequest().getRemoteUser();
 
-				String domain = "YFKSS";
+				String domain = getCurrentDomain();
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
@@ -338,7 +347,8 @@ public class PurchaseOrderAction extends BaseAction {
 							
 							object.setBigDecimal("tt_xasndeti_xpyhddetoid", new BigDecimal(pod.getTt_xpyhddeto_xpyhddetoid()));
 							object.setBigDecimal("tt_xasndeti_delvqty", pod.getTt_xpyhddeto_delvqty());
-							object.setString("tt_xasndeti_rmk", pod.getRemark());
+							object.setString("tt_xasndeti_rmkline", pod.getRemark());
+							object.setString("tt_xasndeti_rmk", purchaseOrder.getRemark());
 							object.setBigDecimal("tt_new_xasndeti_xasndetoid", new BigDecimal("-1"));
 							object.setBigDecimal("tt_new_xasnmstri_xasnmstroid",  new BigDecimal("-1"));
 							
@@ -398,11 +408,9 @@ public class PurchaseOrderAction extends BaseAction {
 			if (ConnectQAD()) {
 				String userCode = this.getRequest().getRemoteUser();
 				@SuppressWarnings("unchecked")
-				List<String> supplierCodeList = universalManager.findByNativeSql(
-						"select permission_code from permission_view where permission_type = ? and username = ?",
-						new Object[] { PermissionType.S.toString(), userCode });
+				List<String> supplierCodeList = getSupplierCodeList(purchaseOrder!= null ?purchaseOrder.getTt_xpyhmstro_suppcode():"");
 
-				String domain = "YFKSS";
+				String domain = getCurrentDomain();
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 				try {
@@ -462,11 +470,9 @@ public class PurchaseOrderAction extends BaseAction {
 				
 				String userCode = this.getRequest().getRemoteUser();
 				@SuppressWarnings("unchecked")
-				List<String> supplierCodeList = universalManager.findByNativeSql(
-						"select permission_code from permission_view where permission_type = ? and username = ?",
-						new Object[] { PermissionType.S.toString(), userCode });
+				List<String> supplierCodeList = getSupplierCodeList(purchaseOrder!= null ?purchaseOrder.getTt_xpyhmstro_suppcode():"");
 
-				String domain = "YFKSS";
+				String domain = getCurrentDomain();
 				
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
@@ -536,11 +542,9 @@ public class PurchaseOrderAction extends BaseAction {
 			}
 			String userCode = this.getRequest().getRemoteUser();
 			@SuppressWarnings("unchecked")
-			List<String> supplierCodeList = universalManager.findByNativeSql(
-					"select permission_code from permission_view where permission_type = ? and username = ?",
-					new Object[] { PermissionType.S.toString(), userCode });
+			List<String> supplierCodeList = getSupplierCodeList(purchaseOrder!= null ?purchaseOrder.getTt_xpyhmstro_suppcode():"");
 
-			String domain = "YFKSS";
+			String domain = getCurrentDomain();
 			
 			ProDataGraph exDataGraph; // 输入参数
 			ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
@@ -559,7 +563,7 @@ public class PurchaseOrderAction extends BaseAction {
 				ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhmstr_in");
 				if (purchaseOrder != null) {
 					objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr());
-					objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat());
+					objectMstr.setString(1, "3");
 					objectMstr.setString(2, "");
 					objectMstr.setString(3, "");
 					objectMstr.setString(4, "");

@@ -11,31 +11,37 @@
 
 <s:form name="barcodeForm" action="barcodes" method="post"
 	validate="true">
-	<div class="row-fluid">
-		<div class="span3">
-			<s:textfield key="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
+	<div class="row">
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control"
+				key="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
 		</div>
-		<div class="span3">
-			<s:textfield key="purchaseOrderDetail.tt_xpyhddeto_shipto" />
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control"
+				key="purchaseOrderDetail.tt_xpyhddeto_shipto" />
 		</div>
 	</div>
-	<div class="span3">
+	<div class="col-xs-4 search-group">
 
-		<s:textfield key="purchaseOrderDetail.tt_xpyhddeto_suppcode" />
+		<s:textfield cssClass="form-control search-control"
+			key="purchaseOrderDetail.tt_xpyhddeto_suppcode" />
 	</div>
-	<div class="span3">
-		<s:textfield key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+	<div class="col-xs-4 search-group">
+		<s:textfield cssClass="form-control search-control"
+			key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
 	</div>
-	<div class="row-fluid">
-		<div class="span3">
-			<s:textfield key="purchaseOrderDetail.tt_xpyhddeto_supppart" />
+	<div class="col-xs-4 search-group">
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control"
+				key="purchaseOrderDetail.tt_xpyhddeto_supppart" />
 		</div>
-		<div class="span3">
-			<s:checkbox key="purchaseOrderDetail.isexternal" />
+		<div class="col-xs-4 search-group">
+			<s:checkbox cssClass="form-control search-control"
+				key="purchaseOrderDetail.isexternal" />
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span3">
+	<div class="row">
+		<div class="col-xs-4 search-group layouttrim">
 			<s:submit type="button" cssClass="btn btn-primary" action="barcodes"
 				key="button.search" theme="simple">
 				<i class="icon-search icon-white"></i>
@@ -73,6 +79,9 @@
 			<input type="text" style="margin: 0px; width: 100px;"
 				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum}].tt_xpyhddeto_lots"
 				value="${purchaseOrderDetail.tt_xpyhddeto_lots}" class="text medium" />
+			<input type="hidden"
+				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum}].tt_xpyhddeto_xpyhddetoid"
+				value="${purchaseOrderDetail.tt_xpyhddeto_xpyhddetoid}" />
 			<input type="hidden"
 				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum}].tt_xpyhddeto_partnbr"
 				value="${purchaseOrderDetail.tt_xpyhddeto_partnbr}" />

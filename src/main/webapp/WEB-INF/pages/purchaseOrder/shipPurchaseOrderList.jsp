@@ -44,7 +44,7 @@
 			<display:column property="tt_xpyhmstro_yhdnbr" escapeXml="true"
 				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_yhdnbr"
 				url="/purchaseOrder/editShipPurchaseOrder?from=list"
-				paramId="tt_xpyhmstro_yhdnbr" paramProperty="tt_xpyhmstro_yhdnbr" />
+				paramId="tt_xpyhddeti_xpyhmstroid" paramProperty="tt_xpyhmstro_xpyhmstroid" />
 			<display:column property="tt_xpyhmstro_startdt" escapeXml="true"
 				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_startdt" />
 			<display:column property="tt_xpyhmstro_receptdt" escapeXml="true"

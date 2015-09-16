@@ -27,7 +27,7 @@ public class AsnDetail extends BaseObject {
 	private String tt_xasndeto_xasnmstroid;       		   //xasnmstr唯一标示
 	private String tt_xasndeto_xasndetoid;       		   //xasndet唯一标示
 	private String tt_xasndeto_yhdnbr;                     //要货单号
-	
+
 	public int getTt_xasndeto_seq() {
 		return tt_xasndeto_seq;
 	}

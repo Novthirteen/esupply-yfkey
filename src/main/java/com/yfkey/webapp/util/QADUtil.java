@@ -5,9 +5,14 @@ import java.util.List;
 
 import com.progress.open4gl.Parameter;
 import com.progress.open4gl.ProDataObject;
+import com.yfkey.Constants;
+import com.yfkey.model.Asn;
+import com.yfkey.model.AsnDetail;
 import com.yfkey.model.Barcode;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
+import com.yfkey.model.Receipt;
+import com.yfkey.model.ReceiptDetail;
 
 /**
  * Convenience class for setting and retrieving cookies.
@@ -156,6 +161,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_lots(o.getString("tt_xpyhddeto_lots"));
 				pod.setTt_xpyhddeto_qty(o.getBigDecimal("tt_xpyhddeto_qty"));
 				pod.setTt_xpyhddeto_suppcode(o.getString("tt_xpyhddeto_suppcode"));
+				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
 
 				purchaseOrderDetailList.add(pod);
 
@@ -180,16 +186,15 @@ public final class QADUtil {
 				bc.setTt_bcdeto_bcinfo2(o.getString("tt_bcdeto_bcinfo2"));
 				bc.setTt_bcdeto_serial(o.getString("tt_bcdeto_serial"));
 				bc.setTt_bcdeto_bcdetoid(o.getString("tt_bcdeto_bcdetoid"));
-
+				bc.setTt_bcdeto_bcnon(o.getString("tt_bcdeto_bcnon"));
 				barcodeList.add(bc);
 			}
 		}
 		return barcodeList;
 
 	}
-	
-	
-	//ship
+
+	// ship
 	public static List<Object> ConvertToShipPurchaseOrderAndDetail(List<ProDataObject> proDataObjectList) {
 		PurchaseOrder po = new PurchaseOrder();
 		List<PurchaseOrderDetail> purchaseOrderDetailList = new ArrayList<PurchaseOrderDetail>();
@@ -205,7 +210,7 @@ public final class QADUtil {
 			po.setTt_xpyhddeto_carrier(poDataObject.getString("tt_xpyhddeto_carrier"));
 			po.setTt_xpyhddeto_dock(poDataObject.getString("tt_xpyhddeto_dock"));
 			po.setTt_xpyhmstro_xpyhmstroid(poDataObject.getString("tt_xpyhddeto_xpyhmstroid"));
-		
+
 			poList.add(po);
 
 			int i = 1;
@@ -224,7 +229,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_delvqty(o.getBigDecimal("tt_xpyhddeto_delvqty"));
 				pod.setTt_xpyhddeto_xpyhmstroid(o.getString("tt_xpyhddeto_xpyhmstroid"));
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
-			
+
 				purchaseOrderDetailList.add(pod);
 
 			}
@@ -235,4 +240,131 @@ public final class QADUtil {
 
 	}
 
+	// asn
+	public static List<Asn> ConverToAsn(List<ProDataObject> proDataObjectList) {
+
+		List<Asn> asnList = new ArrayList<Asn>();
+		if (proDataObjectList != null && proDataObjectList.size() > 0) {
+			int i = 1; // qad的序号让我们自动生成
+			for (ProDataObject o : proDataObjectList) {
+				Asn asn = new Asn();
+
+				asn.setTt_xasnmstro_seq(i);
+				asn.setTt_xasnmstro_asnnbr(o.getString("tt_xasnmstro_asnnbr"));
+				asn.setTt_xasnmstro_shipto(o.getString("tt_xasnmstro_shipto"));
+				asn.setTt_xasnmstro_startdt(o.getString("tt_xasnmstro_startdt"));
+				asn.setTt_xasnmstro_stat(o.getString("tt_xasnmstro_stat"));
+				asn.setTt_xasnmstro_creator(o.getString("tt_xasnmstro_creator"));
+				asn.setTt_xasnmstro_xasnmstroid(o.getString("tt_xasnmstro_xasnmstroid"));
+
+				asnList.add(asn);
+				i++;
+			}
+		}
+		return asnList;
+	}
+
+	// asn detail
+	public static List<AsnDetail> ConverToAsnDetail(List<ProDataObject> proDataObjectList) {
+
+		List<AsnDetail> asnDetailList = new ArrayList<AsnDetail>();
+		if (proDataObjectList != null && proDataObjectList.size() > 0) {
+			int i = 1; // qad的序号让我们自动生成
+			for (ProDataObject o : proDataObjectList) {
+				AsnDetail asnDetail = new AsnDetail();
+				asnDetail.setTt_xasndeto_seq(i);
+				asnDetail.setTt_xasndeto_asnnbr(o.getString("tt_xasndeto_asnnbr"));
+				asnDetail.setTt_xasndeto_shipto(o.getString("tt_xasndeto_shipto"));
+				asnDetail.setTt_xasndeto_startdt(o.getString("tt_xasndeto_startdt"));
+				asnDetail.setTt_xasndeto_stat(o.getInt("tt_xasndeto_stat"));
+				asnDetail.setTt_xasndeto_creator(o.getString("tt_xasndeto_creator"));
+				asnDetail.setTt_xasndeto_partnbr(o.getString("tt_xasndeto_partnbr"));
+				asnDetail.setTt_xasndeto_partdesc(o.getString("tt_xasndeto_partdesc"));
+				asnDetail.setTt_xasndeto_supppart(o.getString("tt_xasndeto_supppart"));
+				asnDetail.setTt_xasndeto_uom(o.getString("tt_xasndeto_uom"));
+				asnDetail.setTt_xasndeto_spq(o.getBigDecimal("tt_xasndeto_spq"));
+				asnDetail.setTt_xasndeto_asnqty(o.getBigDecimal("tt_xasndeto_asnqty"));
+				asnDetail.setTt_xasndeto_xasnmstroid(o.getString("tt_xasndeto_xasnmstroid"));
+				asnDetail.setTt_xasndeto_xasndetoid(o.getString("tt_xasndeto_xasndetoid"));
+
+				asnDetailList.add(asnDetail);
+				i++;
+			}
+		}
+		return asnDetailList;
+	}
+
+	// asn master and detail
+	public static List<Object> ConvertToAsnAndDetail(List<ProDataObject> proDataObjectList) {
+		Asn asn = new Asn();
+		List<AsnDetail> asnDetailList = new ArrayList<AsnDetail>();
+		List<Object> asnList = new ArrayList<Object>();
+
+		if (proDataObjectList != null && proDataObjectList.size() > 0) {
+			ProDataObject om = proDataObjectList.get(0);
+
+			asn.setTt_xasnmstro_asnnbr(om.getString("tt_xasndeto_asnnbr"));
+			asn.setTt_xasnmstro_shipto(om.getString("tt_xasndeto_shipto"));
+			asn.setTt_xasnmstro_startdt(om.getString("tt_xasndeto_startdt"));
+			asn.setTt_xasnmstro_stat(om.getString("tt_xasndeto_stat"));
+			asn.setTt_xasnmstro_creator(om.getString("tt_xasndeto_creator"));
+			asnList.add(asn);
+
+			int i = 1;
+			for (ProDataObject o : proDataObjectList) {
+
+				AsnDetail asnDetail = new AsnDetail();
+				asnDetail.setTt_xasndeto_seq(i);
+				asnDetail.setTt_xasndeto_asnnbr(o.getString("tt_xasndeto_asnnbr"));
+				asnDetail.setTt_xasndeto_shipto(o.getString("tt_xasndeto_shipto"));
+				asnDetail.setTt_xasndeto_startdt(o.getString("tt_xasndeto_startdt"));
+				asnDetail.setTt_xasndeto_stat(o.getInt("tt_xasndeto_stat"));
+				asnDetail.setTt_xasndeto_creator(o.getString("tt_xasndeto_creator"));
+				asnDetail.setTt_xasndeto_partnbr(o.getString("tt_xasndeto_partnbr"));
+				asnDetail.setTt_xasndeto_partdesc(o.getString("tt_xasndeto_partdesc"));
+				asnDetail.setTt_xasndeto_supppart(o.getString("tt_xasndeto_supppart"));
+				asnDetail.setTt_xasndeto_uom(o.getString("tt_xasndeto_uom"));
+				asnDetail.setTt_xasndeto_spq(o.getBigDecimal("tt_xasndeto_spq"));
+				asnDetail.setTt_xasndeto_asnqty(o.getBigDecimal("tt_xasndeto_asnqty"));
+				asnDetail.setTt_xasndeto_xasndetoid(o.getString("tt_xasndeto_xasndetoid"));
+
+				asnDetailList.add(asnDetail);
+
+			}
+			asnList.add(asnDetailList);
+		}
+
+		return asnList;
+
+	}
+
+	// receipt mstr
+		public static List<Receipt> ConverToReceipt(List<ProDataObject> proDataObjectList) {
+
+			List<Receipt> receiptList = new ArrayList<Receipt>();
+			if (proDataObjectList != null && proDataObjectList.size() > 0) {
+				int i = 1; // qad的序号让我们自动生成
+				for (ProDataObject o : proDataObjectList) {
+					Receipt receipt = new Receipt();
+					receipt.setTt_prhmstro_seq(i);
+					
+					receiptList.add(receipt);
+				}
+			}
+			return receiptList;
+		}
+		
+	// receipt detail
+	public static List<ReceiptDetail> ConverToReceiptDetail(List<ProDataObject> proDataObjectList) {
+
+		List<ReceiptDetail> receiptDetailList = new ArrayList<ReceiptDetail>();
+		if (proDataObjectList != null && proDataObjectList.size() > 0) {
+			int i = 1; // qad的序号让我们自动生成
+			for (ProDataObject o : proDataObjectList) {
+				ReceiptDetail receiptDetail = new ReceiptDetail();
+				receiptDetail.setTt_prhdeto_seq(i);
+			}
+		}
+		return receiptDetailList;
+	}
 }

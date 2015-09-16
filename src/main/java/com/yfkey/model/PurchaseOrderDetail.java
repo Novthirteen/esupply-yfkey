@@ -209,7 +209,7 @@ public class PurchaseOrderDetail extends BaseObject {
 		this.tt_xpyhddeto_shipedqty = tt_xpyhddeto_shipedqty;
 	}
 	
-	public boolean isIsexternal() {
+	public boolean getIsIsexternal() {
 		return isexternal;
 	}
 	public void setIsexternal(boolean isexternal) {

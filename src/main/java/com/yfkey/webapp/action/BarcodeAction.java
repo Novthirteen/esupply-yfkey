@@ -20,6 +20,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.BarcodeQRCode;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.progress.open4gl.Parameter;
@@ -84,41 +85,40 @@ public class BarcodeAction extends BaseAction {
 
 	private void query() {
 
-		// purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
-		//
-		// PurchaseOrderDetail podet = new PurchaseOrderDetail();
-		// podet.setTt_xpyhddeto_seq(10);
-		// podet.setTt_xpyhddeto_yhdnbr("ORD000001");
-		// podet.setTt_xpyhddeto_partnbr("1000001");
-		// podet.setTt_xpyhddeto_partdesc("螺丝");
-		// podet.setTt_xpyhddeto_spq(new BigDecimal(100));
-		// podet.setTt_xpyhddeto_uom("件");
-		// podet.setTt_xpyhddeto_innnerqty(new BigDecimal(100));
-		// podet.setTt_xpyhddeto_externalqty(new BigDecimal(200));
-		// podet.setTt_xpyhddeto_pktype("纸箱");
-		// purchaseOrderDetails.add(podet);
-		//
-		// PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
-		// podet1.setTt_xpyhddeto_seq(20);
-		// podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
-		// podet1.setTt_xpyhddeto_partnbr("1000002");
-		// podet1.setTt_xpyhddeto_partdesc("螺母");
-		// podet1.setTt_xpyhddeto_spq(new BigDecimal(200));
-		// podet1.setTt_xpyhddeto_uom("件");
-		// podet1.setTt_xpyhddeto_innnerqty(new BigDecimal(200));
-		// podet1.setTt_xpyhddeto_externalqty(new BigDecimal(200));
-		// podet1.setTt_xpyhddeto_pktype("纸箱");
-		// purchaseOrderDetails.add(podet1);
+//		purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
+//
+//		PurchaseOrderDetail podet = new PurchaseOrderDetail();
+//		podet.setTt_xpyhddeto_seq(10);
+//		podet.setTt_xpyhddeto_yhdnbr("ORD000001");
+//		podet.setTt_xpyhddeto_partnbr("1000001");
+//		podet.setTt_xpyhddeto_partdesc("螺丝");
+//		podet.setTt_xpyhddeto_spq(new BigDecimal(100));
+//		podet.setTt_xpyhddeto_uom("件");
+//		podet.setTt_xpyhddeto_innnerqty(new BigDecimal(100));
+//		podet.setTt_xpyhddeto_externalqty(new BigDecimal(200));
+//		podet.setTt_xpyhddeto_pktype("纸箱");
+//		purchaseOrderDetails.add(podet);
+//
+//		PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
+//		podet1.setTt_xpyhddeto_seq(20);
+//		podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
+//		podet1.setTt_xpyhddeto_partnbr("1000002");
+//		podet1.setTt_xpyhddeto_partdesc("螺母");
+//		podet1.setTt_xpyhddeto_spq(new BigDecimal(200));
+//		podet1.setTt_xpyhddeto_uom("件");
+//		podet1.setTt_xpyhddeto_innnerqty(new BigDecimal(200));
+//		podet1.setTt_xpyhddeto_externalqty(new BigDecimal(200));
+//		podet1.setTt_xpyhddeto_pktype("纸箱");
+//		purchaseOrderDetails.add(podet1);
 
 		if (ConnectQAD()) {
 
 			String userCode = this.getRequest().getRemoteUser();
 			@SuppressWarnings("unchecked")
-			List<String> supplierCodeList = universalManager.findByNativeSql(
-					"select permission_code from permission_view where permission_type = ? and username = ?",
-					new Object[] { PermissionType.S.toString(), userCode });
+			List<String> supplierCodeList = getSupplierCodeList(
+					purchaseOrderDetail != null ? purchaseOrderDetail.getTt_xpyhddeto_suppcode() : "");
 
-			String domain = "YFKSS";
+			String domain = getCurrentDomain();
 
 			ProDataGraph exDataGraph; // 输入参数
 			ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
@@ -160,10 +160,11 @@ public class BarcodeAction extends BaseAction {
 
 	public String print() {
 
-		// // purchaseOrderDetails.size();
+		// purchaseOrderDetails.size();
 		// List<Barcode> barcodeList = new ArrayList<Barcode>();
 		// Barcode bc = new Barcode();
-		// bc.setTt_bcdeto_serial("47000009320250F427100026");
+		// bc.setTt_bcdeto_bcnon("47000009320250F427100025");
+		// bc.setTt_bcdeto_serial("47000009320250F427100025");
 		// bc.setTt_bcdeto_partnbr("100001");
 		// bc.setTt_bcdeto_lots("AC12");
 		// bc.setTt_bcdeto_qty(new BigDecimal(100));
@@ -171,26 +172,33 @@ public class BarcodeAction extends BaseAction {
 		// barcodeList.add(bc);
 		//
 		// Barcode bc1 = new Barcode();
+		// bc1.setTt_bcdeto_bcnon("47000009320250F427100026");
 		// bc1.setTt_bcdeto_serial("47000009320250F427100026");
 		// bc1.setTt_bcdeto_partnbr("100002");
 		// bc1.setTt_bcdeto_lots("AC12");
 		// bc1.setTt_bcdeto_qty(new BigDecimal(200));
 		// bc1.setTt_bcdeto_partdesc("螺母");
 		// barcodeList.add(bc1);
+		//
+		// try {
+		// printBarcode(barcodeList);
+		// } catch (Exception e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 
 		if (ConnectQAD()) {
 
 			String userCode = this.getRequest().getRemoteUser();
 			@SuppressWarnings("unchecked")
-			List<String> supplierCodeList = universalManager.findByNativeSql(
-					"select permission_code from permission_view where permission_type = ? and username = ?",
-					new Object[] { PermissionType.S.toString(), userCode });
+			List<String> supplierCodeList = getSupplierCodeList(
+					purchaseOrderDetail != null ? purchaseOrderDetail.getTt_xpyhddeto_suppcode() : "");
 
-			String domain = "YFKSS";
+			String domain = getCurrentDomain();
 			ProDataGraph exDataGraph; // 输入参数
 			ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 			try {
-				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_xpyhddet_DSMetaData1());
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxprint_barcode_DSMetaData1());
 				for (int i = 0; i < supplierCodeList.size(); i++) {
 					ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
 					String supCode = supplierCodeList.get(i);
@@ -199,33 +207,32 @@ public class BarcodeAction extends BaseAction {
 
 					exDataGraph.addProDataObject(object);
 				}
-				
-				
+
 				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");// 设置日期格式
 				String currDate = df.format(new Date());
 
 				if (purchaseOrderDetails != null) {
-					for (PurchaseOrderDetail pod : purchaseOrderDetails)
-					{
-						if(pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != "" && pod.getTt_xpyhddeto_qty() != null && !pod.getTt_xpyhddeto_qty().equals(BigDecimal.ZERO))
-						{
-						
-						
-						ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhddet_in");
-						objectMstr.setString("tt_bcdeti_partnbr", pod.getTt_xpyhddeto_partnbr());
-						objectMstr.setString("tt_bcdeti_lots", pod.getTt_xpyhddeto_lots());
-						objectMstr.setBigDecimal("tt_bcdeti_qty", pod.getTt_xpyhddeto_qty());
-						objectMstr.setString("tt_bcdeti_date", currDate);
-						// objectMstr.setString("tt_bcdeti_domain", value);
-						objectMstr.setString("", pod.getTt_xpyhddeto_xpyhddetoid());
-						objectMstr.setString("tt_bcdeti_pktype", "-1");
-						
-						exDataGraph.addProDataObject(objectMstr);
+					for (PurchaseOrderDetail pod : purchaseOrderDetails) {
+						if (pod != null) {
+							if (pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != ""
+									&& pod.getTt_xpyhddeto_qty() != null
+									&& !pod.getTt_xpyhddeto_qty().equals(BigDecimal.ZERO)) {
+
+								ProDataObject objectMstr = exDataGraph.createProDataObject("tt_bcdet_in");
+								objectMstr.setString(0, pod.getTt_xpyhddeto_partnbr());
+								objectMstr.setString(1, pod.getTt_xpyhddeto_lots());
+								objectMstr.setBigDecimal(2, pod.getTt_xpyhddeto_qty());
+								objectMstr.setString(3, currDate);
+								// objectMstr.setString("tt_bcdeti_domain",
+								// value);
+								objectMstr.setString(4, pod.getTt_xpyhddeto_xpyhddetoid());
+								objectMstr.setString(5, purchaseOrderDetail.getIsIsexternal() ? "1" : "0");
+
+								exDataGraph.addProDataObject(objectMstr);
+							}
 						}
 					}
 				}
-
-				
 
 				yfkssScp.xxprint_barcode(exDataGraph, outputData);
 
@@ -245,7 +252,7 @@ public class BarcodeAction extends BaseAction {
 	}
 
 	public void printBarcode(List<Barcode> barcodeList) throws Exception {
-		
+
 		String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
 		Rectangle pagesize = new Rectangle(226.771653f, 170.078740f);
 		Document document = new Document(pagesize, 2f, 5f, 10f, 1f);
@@ -263,9 +270,10 @@ public class BarcodeAction extends BaseAction {
 				if (i != 0) {
 					document.newPage();
 				}
-				Font font = FontFactory.getFont("Times-Roman");
+				BaseFont baseFont = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", BaseFont.EMBEDDED);
+				// Font font = FontFactory.getFont("Times-Roman");
 				Barcode128 code128 = new Barcode128();
-				code128.setCode(barcode.getTt_bcdeto_serial());
+				code128.setCode(barcode.getTt_bcdeto_bcnon());
 				// code128.setX(0.75f);
 				// code128.setN(1.5f);
 				code128.setSize(10f);
@@ -277,65 +285,70 @@ public class BarcodeAction extends BaseAction {
 				cb.stroke();
 				// document.add(img);
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 7);
+				cb.setFontAndSize(baseFont, 7);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PART NO.", 10, 120, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 8);
+				cb.setFontAndSize(baseFont, 8);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partnbr(), 35, 110, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 7);
+				cb.setFontAndSize(baseFont, 7);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "LOT/SERIAL NO.", 10, 100, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 8);
+				cb.setFontAndSize(baseFont, 8);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_lots(), 35, 90, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 7);
+				cb.setFontAndSize(baseFont, 7);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "QUANTITY", 145, 100, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 8);
+				cb.setFontAndSize(baseFont, 8);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(barcode.getTt_bcdeto_qty()), 145, 90, 0);
 				cb.endText();
 
 				// QRCODE
-				BarcodeQRCode qrcode = new BarcodeQRCode("yfkey", 1, 1, null);
-				Image img1 = qrcode.getImage();
-				cb.addImage(img1, 40, 0, 0, 40, 150, 50);
-				cb.stroke();
+				if (barcode.getTt_bcdeto_bcinfo2() != null && !barcode.getTt_bcdeto_bcinfo2().trim().equals("")) {
+					BarcodeQRCode qrcode = new BarcodeQRCode(barcode.getTt_bcdeto_bcinfo2(), 1, 1, null);
+					Image img1 = qrcode.getImage();
+					cb.addImage(img1, 40, 0, 0, 40, 150, 50);
+					cb.stroke();
+				}
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 7);
+				cb.setFontAndSize(baseFont, 7);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DESCRIPTION ", 10, 80, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 8);
+				cb.setFontAndSize(baseFont, 8);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partdesc(), 35, 70, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 7);
+				cb.setFontAndSize(baseFont, 7);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUPPLIER ", 10, 60, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "YFKSS KNXOWHILLE", 35, 50, 0);
+				cb.setFontAndSize(baseFont, 8);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
+						barcode.getTt_bcdeto_suppname() == null ? "" : barcode.getTt_bcdeto_suppname(), 35, 50, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED DATE: 09/12/15", 10, 10, 0);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED USER:38846", 110, 10, 0);
+				cb.setFontAndSize(baseFont, 8);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED DATE: " + barcode.getTt_bcdeto_date(), 10, 10,
+						0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED USER: " + this.getRequest().getRemoteUser(), 110,
+						10, 0);
 				cb.endText();
 
 				i++;

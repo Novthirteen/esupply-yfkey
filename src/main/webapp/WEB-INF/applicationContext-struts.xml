@@ -32,4 +32,8 @@
 		scope="prototype">
 		<property name="universalManager" ref="universalManager" />
 	</bean>
+	<bean id="receiptAction" class="com.yfkey.webapp.action.ReceiptAction"
+		scope="prototype">
+		<property name="universalManager" ref="universalManager" />
+	</bean>
 </beans>

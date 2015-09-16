@@ -14,7 +14,7 @@ public class Barcode extends BaseObject {
 	private String tt_bcdeto_bcinfo2;   				  //条码2(2维码)
 	private String tt_bcdeto_serial;   				  	  //条码序列号
 	private String tt_bcdeto_bcdetoid;   				  //bcdet唯一标示
-	
+	private String tt_bcdeto_bcnon;                       //条码，不带特殊符号
 	
 	public String getTt_bcdeto_date() {
 		return tt_bcdeto_date;
@@ -77,6 +77,14 @@ public class Barcode extends BaseObject {
 		this.tt_bcdeto_bcdetoid = tt_bcdeto_bcdetoid;
 	}
 	
+	
+	
+	public String getTt_bcdeto_bcnon() {
+		return tt_bcdeto_bcnon;
+	}
+	public void setTt_bcdeto_bcnon(String tt_bcdeto_bcnon) {
+		this.tt_bcdeto_bcnon = tt_bcdeto_bcnon;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
