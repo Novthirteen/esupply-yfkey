@@ -20,6 +20,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.BarcodeQRCode;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.progress.open4gl.Parameter;
@@ -29,6 +30,9 @@ import com.progress.open4gl.ProDataObject;
 import com.yfkey.model.Barcode;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.PurchaseOrderDetail;
+import com.yfkey.webapp.util.PrintASNUtil;
+import com.yfkey.webapp.util.PrintReceiptNotesUtil;
+import com.yfkey.webapp.util.PrintRequisitionOrderUtil;
 import com.yfkey.webapp.util.QADUtil;
 
 /**
@@ -157,28 +161,79 @@ public class BarcodeAction extends BaseAction {
 		}
 
 	}
+	
+	public String printRec(){
+		String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			inputStream = PrintReceiptNotesUtil.PrintReceiptNotes(localAbsolutPath, "ReceiptNotes.pdf");
+		}
+		catch (Exception e) {
+			// catch
+		} finally {
 
+		}
+
+		return SUCCESS;
+	}
+
+	public String printASN(){
+		String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			inputStream = PrintASNUtil.PrintASN(localAbsolutPath, "ASN.pdf");
+			//inputStream = PrintReceiptNotesUtil.PrintReceiptNotes(localAbsolutPath, "ASN.pdf");
+		}
+		catch (Exception e) {
+			// catch
+		} finally {
+
+		}
+
+		return SUCCESS;
+	}
+
+	public String printOrder(){
+		String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			inputStream = PrintRequisitionOrderUtil.PrintRequisitionOrder(localAbsolutPath, "RequisitionOrder.pdf");
+			//inputStream = PrintReceiptNotesUtil.PrintReceiptNotes(localAbsolutPath, "RequisitionOrder.pdf");
+		}
+		catch (Exception e) {
+			// catch
+		} finally {
+
+		}
+
+		return SUCCESS;
+	}
+	
 	public String print() {
 
 		// // purchaseOrderDetails.size();
-		// List<Barcode> barcodeList = new ArrayList<Barcode>();
-		// Barcode bc = new Barcode();
-		// bc.setTt_bcdeto_serial("47000009320250F427100026");
-		// bc.setTt_bcdeto_partnbr("100001");
-		// bc.setTt_bcdeto_lots("AC12");
-		// bc.setTt_bcdeto_qty(new BigDecimal(100));
-		// bc.setTt_bcdeto_partdesc("螺丝");
-		// barcodeList.add(bc);
+		List<Barcode> barcodeList = new ArrayList<Barcode>();
+		Barcode bc = new Barcode();
+		bc.setTt_bcdeto_serial("47000009320250F427100026");
+		bc.setTt_bcdeto_partnbr("100001");
+		bc.setTt_bcdeto_lots("AC12");
+		bc.setTt_bcdeto_qty(new BigDecimal(100));
+		bc.setTt_bcdeto_partdesc("螺丝");
+		barcodeList.add(bc);
 		//
-		// Barcode bc1 = new Barcode();
-		// bc1.setTt_bcdeto_serial("47000009320250F427100026");
-		// bc1.setTt_bcdeto_partnbr("100002");
-		// bc1.setTt_bcdeto_lots("AC12");
-		// bc1.setTt_bcdeto_qty(new BigDecimal(200));
-		// bc1.setTt_bcdeto_partdesc("螺母");
-		// barcodeList.add(bc1);
-
-		if (ConnectQAD()) {
+		Barcode bc1 = new Barcode();
+		bc1.setTt_bcdeto_serial("47000009320250F427100026");
+		bc1.setTt_bcdeto_partnbr("100002");
+		bc1.setTt_bcdeto_lots("AC12");
+		bc1.setTt_bcdeto_qty(new BigDecimal(200));
+		bc1.setTt_bcdeto_partdesc("螺母");
+		barcodeList.add(bc1);
+		try {
+			printBarcode(barcodeList);
+		}catch (Exception e) {
+			// catch
+		}
+		/*if (ConnectQAD()) {
 
 			String userCode = this.getRequest().getRemoteUser();
 			@SuppressWarnings("unchecked")
@@ -240,7 +295,7 @@ public class BarcodeAction extends BaseAction {
 			} catch (Exception e) {
 				// catch
 			}
-		}
+		}*/
 		return SUCCESS;
 	}
 
@@ -263,6 +318,7 @@ public class BarcodeAction extends BaseAction {
 				if (i != 0) {
 					document.newPage();
 				}
+				BaseFont baseFont = BaseFont.createFont("STSongStd-Light","UniGB-UCS2-H",BaseFont.EMBEDDED);  
 				Font font = FontFactory.getFont("Times-Roman");
 				Barcode128 code128 = new Barcode128();
 				code128.setCode(barcode.getTt_bcdeto_serial());
@@ -277,12 +333,12 @@ public class BarcodeAction extends BaseAction {
 				cb.stroke();
 				// document.add(img);
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 7);
+				cb.setFontAndSize(baseFont, 7);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PART NO.", 10, 120, 0);
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 8);
+				cb.setFontAndSize(baseFont, 8);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partnbr(), 35, 110, 0);
 				cb.endText();
 
@@ -318,7 +374,7 @@ public class BarcodeAction extends BaseAction {
 				cb.endText();
 
 				cb.beginText();
-				cb.setFontAndSize(font.getBaseFont(), 8);
+				cb.setFontAndSize(baseFont, 8);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partdesc(), 35, 70, 0);
 				cb.endText();
 
