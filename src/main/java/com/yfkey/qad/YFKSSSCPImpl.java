@@ -247,7 +247,6 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xprcmstr_MetaData12.setFieldDesc(1, "tt_xprcmstri_voucher", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xprcmstr_MetaData12.setFieldDesc(2, "tt_xprcmstri_fromdate", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xprcmstr_MetaData12.setFieldDesc(3, "tt_xprcmstri_todate", 0, Parameter.PRO_CHARACTER,2,0);
-		xxinquiry_xprcmstr_MetaData12.setFieldDesc(4, "tt_xprcmstri_domain", 0, Parameter.PRO_CHARACTER,3,0);
 		xxinquiry_xprcmstr_DSMetaData1.addTable(xxinquiry_xprcmstr_MetaData12);
 		xxinquiry_xprcmstr_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprc", 2, ParameterSet.OUTPUT);
 		xxinquiry_xprcmstr_MetaData21 = new ProDataObjectMetaData("tt_xprcmstr_out", 8, false, 0, null, null, null);

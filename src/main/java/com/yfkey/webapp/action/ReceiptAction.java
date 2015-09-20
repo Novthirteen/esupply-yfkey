@@ -28,6 +28,8 @@ import com.progress.open4gl.Parameter;
 import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
+import com.yfkey.model.Asn;
+import com.yfkey.model.AsnDetail;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
@@ -142,6 +144,9 @@ public class ReceiptAction extends BaseAction {
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 							.getProDataObjects("tt_xpyhddet_out");
+					List<Object> objList = QADUtil.ConvertToReceiptAndDetail(outDataList);
+					receipt = (Receipt) objList.get(0);
+					receiptDetails = (List<ReceiptDetail>) objList.get(1);
 
 				}
 			} else {
