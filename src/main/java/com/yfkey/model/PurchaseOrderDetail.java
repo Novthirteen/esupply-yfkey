@@ -30,7 +30,7 @@ public class PurchaseOrderDetail extends BaseObject {
 	private String tt_xpyhdde_creator;						 //创建人	
 	private String tt_xpyhddeto_xpyhmstroid;					 //xpyhmstr唯一标示(隐含，用户不可见)
 	private String tt_xpyhddeto_xpyhddetoid;	                 //xpyhddet唯一标示(隐含，用户不可见)
-	private String remark;	                 				 //备注
+	private String line_remark;	                 				 //备注
 	private BigDecimal tt_xpyhddeto_shipedqty;                //已发货数
 	
 	//这4个给打条码用
@@ -45,6 +45,7 @@ public class PurchaseOrderDetail extends BaseObject {
 	//发货用
 	private String tt_xpyhddeto_toloc;  					//目的库位
 	private BigDecimal tt_xpyhddeto_delvqty; 				//发货数
+	private BigDecimal tt_xpyhddeto_openqty;                //待发数
 	
 	public int getTt_xpyhddeto_seq() {
 		return tt_xpyhddeto_seq;
@@ -187,11 +188,11 @@ public class PurchaseOrderDetail extends BaseObject {
 	public void setTt_xpyhddeto_qty(BigDecimal tt_xpyhddeto_qty) {
 		this.tt_xpyhddeto_qty = tt_xpyhddeto_qty;
 	}
-	public String getRemark() {
-		return remark;
+	public String getLine_remark() {
+		return line_remark;
 	}
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setLine_remark(String line_remark) {
+		this.line_remark = line_remark;
 	}
 	
 	
@@ -209,7 +210,7 @@ public class PurchaseOrderDetail extends BaseObject {
 		this.tt_xpyhddeto_shipedqty = tt_xpyhddeto_shipedqty;
 	}
 	
-	public boolean getIsIsexternal() {
+	public boolean getIsexternal() {
 		return isexternal;
 	}
 	public void setIsexternal(boolean isexternal) {
@@ -217,9 +218,12 @@ public class PurchaseOrderDetail extends BaseObject {
 	}
 	
 	
-	
-	
-	
+	public BigDecimal getTt_xpyhddeto_openqty() {
+		return tt_xpyhddeto_openqty;
+	}
+	public void setTt_xpyhddeto_openqty(BigDecimal tt_xpyhddeto_openqty) {
+		this.tt_xpyhddeto_openqty = tt_xpyhddeto_openqty;
+	}
 	public String getTt_xpyhddeto_toloc() {
 		return tt_xpyhddeto_toloc;
 	}

@@ -18,7 +18,7 @@ public class QADConfg {
 	 * 如：路径为：/opt/qad/custom/gl/src/gl/xxexpensegl.p
 	 * 那这里的路径为：/opt/qad/custom/gl/src/gl/
 	 */
-	public static String m_QadFilePath = "/apps/cust/us/xx/";
-	
+//	public static String m_QadFilePath = "/apps/cust/us/xx/";
+    public static String m_QadFilePath = "/home/mfg/scp/us/xx/";
 	
 }

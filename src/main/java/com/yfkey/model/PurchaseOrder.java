@@ -28,9 +28,11 @@ public class PurchaseOrder extends BaseObject {
 	private String tt_xpyhmstro_currcy; // 币种
 
 	// 发货用
-	private String tt_xpyhddeto_suppname; // 供应商名称
-	private String tt_xpyhddeto_carrier; // 承运商
-	private String tt_xpyhddeto_dock;    //道口
+	private String tt_xpyhmstro_suppname; // 供应商名称
+	private String tt_xpyhmstro_carrier; // 承运商
+	private String tt_xpyhmstro_dock;    //道口
+	
+	private String tt_xpyhmstro_type;  //类型，0是要货单，1是发货
 	
 	
 	
@@ -173,28 +175,38 @@ public class PurchaseOrder extends BaseObject {
 		this.tt_xpyhmstro_currcy = tt_xpyhmstro_userauth;
 	}
 
-	public String getTt_xpyhddeto_suppname() {
-		return tt_xpyhddeto_suppname;
+	
+
+	public String getTt_xpyhmstro_suppname() {
+		return tt_xpyhmstro_suppname;
 	}
 
-	public void setTt_xpyhddeto_suppname(String tt_xpyhddeto_suppname) {
-		this.tt_xpyhddeto_suppname = tt_xpyhddeto_suppname;
+	public void setTt_xpyhmstro_suppname(String tt_xpyhmstro_suppname) {
+		this.tt_xpyhmstro_suppname = tt_xpyhmstro_suppname;
 	}
 
-	public String getTt_xpyhddeto_carrier() {
-		return tt_xpyhddeto_carrier;
+	public String getTt_xpyhmstro_carrier() {
+		return tt_xpyhmstro_carrier;
 	}
 
-	public void setTt_xpyhddeto_carrier(String tt_xpyhddeto_carrier) {
-		this.tt_xpyhddeto_carrier = tt_xpyhddeto_carrier;
+	public void setTt_xpyhmstro_carrier(String tt_xpyhmstro_carrier) {
+		this.tt_xpyhmstro_carrier = tt_xpyhmstro_carrier;
 	}
 
-	public String getTt_xpyhddeto_dock() {
-		return tt_xpyhddeto_dock;
+	public String getTt_xpyhmstro_dock() {
+		return tt_xpyhmstro_dock;
 	}
 
-	public void setTt_xpyhddeto_dock(String tt_xpyhddeto_dock) {
-		this.tt_xpyhddeto_dock = tt_xpyhddeto_dock;
+	public void setTt_xpyhmstro_dock(String tt_xpyhmstro_dock) {
+		this.tt_xpyhmstro_dock = tt_xpyhmstro_dock;
+	}
+
+	public String getTt_xpyhmstro_type() {
+		return tt_xpyhmstro_type;
+	}
+
+	public void setTt_xpyhmstro_type(String tt_xpyhmstro_type) {
+		this.tt_xpyhmstro_type = tt_xpyhmstro_type;
 	}
 
 	public List<PurchaseOrderDetail> getPurchaseOrderDetailList() {

@@ -49,7 +49,7 @@ public class PurchaseOrderAction extends BaseAction {
 	private InputStream inputStream;
 	private String fileName;
 	private String tt_xpyhmstro_xpyhmstroid;
-	
+
 	private String tt_xpyhddeti_xpyhmstroid;
 
 	/**
@@ -88,8 +88,6 @@ public class PurchaseOrderAction extends BaseAction {
 	public String getFileName() {
 		return fileName;
 	}
-	
-	
 
 	public String getTt_xpyhmstro_xpyhmstroid() {
 		return tt_xpyhmstro_xpyhmstroid;
@@ -99,7 +97,6 @@ public class PurchaseOrderAction extends BaseAction {
 		this.tt_xpyhmstro_xpyhmstroid = tt_xpyhmstro_xpyhmstroid;
 	}
 
-	
 	public String getTt_xpyhddeti_xpyhmstroid() {
 		return tt_xpyhddeti_xpyhmstroid;
 	}
@@ -139,14 +136,14 @@ public class PurchaseOrderAction extends BaseAction {
 					exDataGraph.addProDataObject(object);
 
 					yfkssScp.xxview_xpyhddet(exDataGraph, outputData);
-					
+
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 							.getProDataObjects("tt_xpyhddet_out");
 
 					List<Object> objList = QADUtil.ConvertToPurchaseOrderAndDetail(outDataList);
-					purchaseOrder = (PurchaseOrder)objList.get(0);
-					purchaseOrderDetails = (List<PurchaseOrderDetail>)objList.get(1);
+					purchaseOrder = (PurchaseOrder) objList.get(0);
+					purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
 				}
 			} else {
 				purchaseOrder = new PurchaseOrder();
@@ -160,61 +157,69 @@ public class PurchaseOrderAction extends BaseAction {
 	}
 
 	public String shipEdit() throws IOException {
-//		if (tt_xpyhmstro_yhdnbr != null) {
-//			// lookup the purchaseOrder using code
-//			// purchaseOrder = (PurchaseOrder)
-//			// universalManager.get(PurchaseOrder.class, xpyhmstro_yhdnbr);
-//
-//			purchaseOrder = new PurchaseOrder();
-//			purchaseOrder.setTt_xpyhmstro_yhdnbr("ORD000001");
-//			purchaseOrder.setTt_xpyhmstro_priority("High");
-//			purchaseOrder.setTt_xpyhmstro_creator("admin");
-//			purchaseOrder.setTt_xpyhmstro_receptdt("20150901");
-//			purchaseOrder.setTt_xpyhmstro_startdt("20150831");
-//			purchaseOrder.setTt_xpyhmstro_seq(1);
-//			purchaseOrder.setTt_xpyhmstro_suppcode("ADKJ");
-//			purchaseOrder.setTt_xpyhmstro_shipto("秀浦路426号");
-//			purchaseOrder.setTt_xpyhmstro_stat("2");
-//
-//			purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
-//			PurchaseOrderDetail podet = new PurchaseOrderDetail();
-//			podet.setTt_xpyhddeto_seq(10);
-//			podet.setTt_xpyhddeto_yhdnbr("ORD000001");
-//			podet.setTt_xpyhddeto_partnbr("1000001");
-//			podet.setTt_xpyhddeto_partdesc("螺丝");
-//			podet.setTt_xpyhddeto_spq(new BigDecimal(100));
-//			podet.setTt_xpyhddeto_uom("件");
-//			podet.setTt_xpyhddeto_reqqty(new BigDecimal(2000));
-//			podet.setTt_xpyhddeto_ordqty(new BigDecimal(2000));
-//			purchaseOrderDetails.add(podet);
-//
-//			PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
-//			podet1.setTt_xpyhddeto_seq(20);
-//			podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
-//			podet1.setTt_xpyhddeto_partnbr("1000002");
-//			podet1.setTt_xpyhddeto_partdesc("螺母");
-//			podet1.setTt_xpyhddeto_spq(new BigDecimal(100));
-//			podet1.setTt_xpyhddeto_uom("件");
-//			podet1.setTt_xpyhddeto_reqqty(new BigDecimal(2000));
-//			podet1.setTt_xpyhddeto_ordqty(new BigDecimal(2000));
-//			purchaseOrderDetails.add(podet1);
-//
-//			purchaseOrder.setPurchaseOrderDetailList(purchaseOrderDetails);
-//			
-//			
-//			
-//
-//		} else {
-//			purchaseOrder = new PurchaseOrder();
-//			// purchaseOrder.addRole(new Role(Constants.USER_ROLE));
-//		}
+		// if (tt_xpyhmstro_yhdnbr != null) {
+		// // lookup the purchaseOrder using code
+		// // purchaseOrder = (PurchaseOrder)
+		// // universalManager.get(PurchaseOrder.class, xpyhmstro_yhdnbr);
+		//
+		// purchaseOrder = new PurchaseOrder();
+		// purchaseOrder.setTt_xpyhmstro_yhdnbr("ORD000001");
+		// purchaseOrder.setTt_xpyhmstro_priority("High");
+		// purchaseOrder.setTt_xpyhmstro_creator("admin");
+		// purchaseOrder.setTt_xpyhmstro_receptdt("20150901");
+		// purchaseOrder.setTt_xpyhmstro_startdt("20150831");
+		// purchaseOrder.setTt_xpyhmstro_seq(1);
+		// purchaseOrder.setTt_xpyhmstro_suppcode("ADKJ");
+		// purchaseOrder.setTt_xpyhmstro_shipto("秀浦路426号");
+		// purchaseOrder.setTt_xpyhmstro_stat("2");
+		//
+		// purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
+		// PurchaseOrderDetail podet = new PurchaseOrderDetail();
+		// podet.setTt_xpyhddeto_seq(10);
+		// podet.setTt_xpyhddeto_yhdnbr("ORD000001");
+		// podet.setTt_xpyhddeto_partnbr("1000001");
+		// podet.setTt_xpyhddeto_partdesc("螺丝");
+		// podet.setTt_xpyhddeto_spq(new BigDecimal(100));
+		// podet.setTt_xpyhddeto_uom("件");
+		// podet.setTt_xpyhddeto_reqqty(new BigDecimal(2000));
+		// podet.setTt_xpyhddeto_ordqty(new BigDecimal(2000));
+		// purchaseOrderDetails.add(podet);
+		//
+		// PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
+		// podet1.setTt_xpyhddeto_seq(20);
+		// podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
+		// podet1.setTt_xpyhddeto_partnbr("1000002");
+		// podet1.setTt_xpyhddeto_partdesc("螺母");
+		// podet1.setTt_xpyhddeto_spq(new BigDecimal(100));
+		// podet1.setTt_xpyhddeto_uom("件");
+		// podet1.setTt_xpyhddeto_reqqty(new BigDecimal(2000));
+		// podet1.setTt_xpyhddeto_ordqty(new BigDecimal(2000));
+		// purchaseOrderDetails.add(podet1);
+		//
+		// purchaseOrder.setPurchaseOrderDetailList(purchaseOrderDetails);
+		//
+		//
+		//
+		//
+		// } else {
+		// purchaseOrder = new PurchaseOrder();
+		// // purchaseOrder.addRole(new Role(Constants.USER_ROLE));
+		// }
 
 		try {
 
 			if (tt_xpyhddeti_xpyhmstroid != null) {
 
 				if (ConnectQAD()) {
-					
+
+					// 先清空一下
+					if (purchaseOrder != null) {
+						purchaseOrder = new PurchaseOrder();
+					}
+					if (purchaseOrderDetails != null) {
+						purchaseOrderDetails.clear();
+					}
+
 					ProDataGraph exDataGraph; // 输入参数
 					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
@@ -227,14 +232,14 @@ public class PurchaseOrderAction extends BaseAction {
 					exDataGraph.addProDataObject(object);
 
 					yfkssScp.xxinqury_xpyhddet2(exDataGraph, outputData);
-					
+
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 							.getProDataObjects("tt_xpyhddet_out");
 
 					List<Object> objList = QADUtil.ConvertToShipPurchaseOrderAndDetail(outDataList);
-					purchaseOrder = (PurchaseOrder)objList.get(0);
-					purchaseOrderDetails = (List<PurchaseOrderDetail>)objList.get(1);
+					purchaseOrder = (PurchaseOrder) objList.get(0);
+					purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
 				}
 			} else {
 				purchaseOrder = new PurchaseOrder();
@@ -293,9 +298,7 @@ public class PurchaseOrderAction extends BaseAction {
 				exDataGraph.addProDataObject(object);
 
 				yfkssScp.xxupdate_xpyhmstr(exDataGraph, outputData);
-				
-				
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -332,32 +335,38 @@ public class PurchaseOrderAction extends BaseAction {
 
 	public String ship() {
 		try {
-				if (ConnectQAD()) {
-					
-					ProDataGraph exDataGraph; // 输入参数
-					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
-					
-					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxcreate_xasndet_DSMetaData1());
-					
-					if(purchaseOrderDetails != null && purchaseOrderDetails.size()>0)
-					{
-						for(PurchaseOrderDetail pod : purchaseOrderDetails)
-						{
-							ProDataObject object = exDataGraph.createProDataObject("tt_xasndet_in");
-							
-							object.setBigDecimal("tt_xasndeti_xpyhddetoid", new BigDecimal(pod.getTt_xpyhddeto_xpyhddetoid()));
-							object.setBigDecimal("tt_xasndeti_delvqty", pod.getTt_xpyhddeto_delvqty());
-							object.setString("tt_xasndeti_rmkline", pod.getRemark());
-							object.setString("tt_xasndeti_rmk", purchaseOrder.getRemark());
-							object.setBigDecimal("tt_new_xasndeti_xasndetoid", new BigDecimal("-1"));
-							object.setBigDecimal("tt_new_xasnmstri_xasnmstroid",  new BigDecimal("-1"));
-							
-							exDataGraph.addProDataObject(object);
-						}
-					}
+			String userCode = this.getRequest().getRemoteUser();
+			if (ConnectQAD()) {
 
-					yfkssScp.xxcreate_xasndet(exDataGraph, outputData);
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxcreate_xasndet_DSMetaData1());
+
+				if (purchaseOrderDetails != null && purchaseOrderDetails.size() > 0) {
+					for (PurchaseOrderDetail pod : purchaseOrderDetails) {
+						ProDataObject object = exDataGraph.createProDataObject("tt_xasndet_in");
+
+						object.setString(0, pod.getTt_xpyhddeto_xpyhddetoid());
+						object.setBigDecimal(1, new BigDecimal(pod.getLine_remark()));
+						object.setString(2, purchaseOrder.getRemark());
+						object.setString(3, pod.getLine_remark());
+						object.setString(4, userCode);
+						object.setString(5, "-1");
+						object.setString(6, "-1");
+
+						exDataGraph.addProDataObject(object);
+					}
+				}
+
+				yfkssScp.xxcreate_xasndet(exDataGraph, outputData);
 				
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_xasndet_out");
+
+				
+
 			} else {
 				purchaseOrder = new PurchaseOrder();
 			}
@@ -408,7 +417,8 @@ public class PurchaseOrderAction extends BaseAction {
 			if (ConnectQAD()) {
 				String userCode = this.getRequest().getRemoteUser();
 				@SuppressWarnings("unchecked")
-				List<String> supplierCodeList = getSupplierCodeList(purchaseOrder!= null ?purchaseOrder.getTt_xpyhmstro_suppcode():"");
+				List<String> supplierCodeList = getSupplierCodeList(
+						purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
 
 				String domain = getCurrentDomain();
 				ProDataGraph exDataGraph; // 输入参数
@@ -427,14 +437,15 @@ public class PurchaseOrderAction extends BaseAction {
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhddet_in");
 
 					if (purchaseOrder != null) {
-						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr());
-						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat());
-						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt());
-						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority());
-						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator());
-						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto());
-						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt());
-						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr());
+						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr() == null?"":purchaseOrder.getTt_xpyhmstro_yhdnbr());
+						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat() == null?"":purchaseOrder.getTt_xpyhmstro_stat());
+						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt() == null?"":purchaseOrder.getTt_xpyhmstro_startdt());
+						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority() == null? "": purchaseOrder.getTt_xpyhmstro_priority());
+						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator() == null? "":purchaseOrder.getTt_xpyhmstro_creator());
+						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null?"":purchaseOrder.getTt_xpyhmstro_shipto());
+						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt()== null?"":purchaseOrder.getTt_xpyhmstro_receptdt());
+						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null?"":purchaseOrder.getTt_xpyhmstro_partnbr());
+						objectMstr.setString(8, "0");
 					}
 
 					exDataGraph.addProDataObject(objectMstr);
@@ -453,7 +464,7 @@ public class PurchaseOrderAction extends BaseAction {
 			}
 
 		} else {
-			
+
 			// purchaseOrders = new ArrayList<PurchaseOrder>();
 			// PurchaseOrder po = new PurchaseOrder();
 			// po.setTt_xpyhmstro_yhdnbr("ORD000001");
@@ -467,13 +478,14 @@ public class PurchaseOrderAction extends BaseAction {
 			// purchaseOrders.add(po);
 
 			if (ConnectQAD()) {
-				
+
 				String userCode = this.getRequest().getRemoteUser();
 				@SuppressWarnings("unchecked")
-				List<String> supplierCodeList = getSupplierCodeList(purchaseOrder!= null ?purchaseOrder.getTt_xpyhmstro_suppcode():"");
+				List<String> supplierCodeList = getSupplierCodeList(
+						purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
 
 				String domain = getCurrentDomain();
-				
+
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 				try {
@@ -490,14 +502,15 @@ public class PurchaseOrderAction extends BaseAction {
 
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhmstr_in");
 					if (purchaseOrder != null) {
-						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr());
-						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat());
-						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt());
-						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority());
-						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator());
-						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto());
-						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt());
-						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr());
+						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr() == null?"":purchaseOrder.getTt_xpyhmstro_yhdnbr());
+						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat() == null?"":purchaseOrder.getTt_xpyhmstro_stat());
+						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt() == null?"":purchaseOrder.getTt_xpyhmstro_startdt());
+						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority() == null? "": purchaseOrder.getTt_xpyhmstro_priority());
+						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator() == null? "":purchaseOrder.getTt_xpyhmstro_creator());
+						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null?"":purchaseOrder.getTt_xpyhmstro_shipto());
+						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt()== null?"":purchaseOrder.getTt_xpyhmstro_receptdt());
+						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null?"":purchaseOrder.getTt_xpyhmstro_partnbr());
+						objectMstr.setString(8, "0");
 
 					}
 
@@ -520,20 +533,20 @@ public class PurchaseOrderAction extends BaseAction {
 
 	private void shipQuery() {
 
-//		purchaseOrders = new ArrayList<PurchaseOrder>();
-//		PurchaseOrder po = new PurchaseOrder();
-//		po.setTt_xpyhmstro_yhdnbr("ORD000001");
-//		po.setTt_xpyhmstro_priority("High");
-//		po.setTt_xpyhmstro_creator("admin");
-//		po.setTt_xpyhmstro_receptdt("20150901");
-//		po.setTt_xpyhmstro_startdt("20150831");
-//		po.setTt_xpyhmstro_seq(1);
-//		po.setTt_xpyhmstro_suppcode("ADKJ");
-//		po.setTt_xpyhmstro_shipto("秀浦路426号");
-//		purchaseOrders.add(po);
+		// purchaseOrders = new ArrayList<PurchaseOrder>();
+		// PurchaseOrder po = new PurchaseOrder();
+		// po.setTt_xpyhmstro_yhdnbr("ORD000001");
+		// po.setTt_xpyhmstro_priority("High");
+		// po.setTt_xpyhmstro_creator("admin");
+		// po.setTt_xpyhmstro_receptdt("20150901");
+		// po.setTt_xpyhmstro_startdt("20150831");
+		// po.setTt_xpyhmstro_seq(1);
+		// po.setTt_xpyhmstro_suppcode("ADKJ");
+		// po.setTt_xpyhmstro_shipto("秀浦路426号");
+		// purchaseOrders.add(po);
 
 		if (ConnectQAD()) {
-			
+
 			if (purchaseOrder == null) {
 				purchaseOrder = new PurchaseOrder();
 				purchaseOrder.setTt_xpyhmstro_stat("3");
@@ -542,10 +555,11 @@ public class PurchaseOrderAction extends BaseAction {
 			}
 			String userCode = this.getRequest().getRemoteUser();
 			@SuppressWarnings("unchecked")
-			List<String> supplierCodeList = getSupplierCodeList(purchaseOrder!= null ?purchaseOrder.getTt_xpyhmstro_suppcode():"");
+			List<String> supplierCodeList = getSupplierCodeList(
+					purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
 
 			String domain = getCurrentDomain();
-			
+
 			ProDataGraph exDataGraph; // 输入参数
 			ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 			try {
@@ -570,6 +584,7 @@ public class PurchaseOrderAction extends BaseAction {
 					objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto());
 					objectMstr.setString(6, "");
 					objectMstr.setString(7, "");
+					objectMstr.setString(8, "1");
 
 				}
 

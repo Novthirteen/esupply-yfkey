@@ -2,7 +2,7 @@
 
 <head>
 <title><fmt:message key="purchaseOrderList.title" /></title>
-<meta name="menu" content="AdminMenu" />
+<meta name="menu" content="PurchaseOrderMenu" />
 </head>
 <body id="purchaseOrder">
 <h2>

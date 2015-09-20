@@ -2,50 +2,58 @@
 
 <head>
 <title><fmt:message key="purchaseOrder.title" /></title>
-<meta name="menu" content="AdminMenu" />
+<meta name="menu" content="PurchaseOrderMenu" />
 </head>
 
 <h2>
 	<fmt:message key="purchaseOrder.heading" />
 </h2>
 
-<s:form name="purchaseOrderForm" action="editPurchaseOrder" method="post"
-	validate="true" cssClass="well form-horizontal" autocomplete="off">
+<s:form name="purchaseOrderForm" action="editPurchaseOrder"
+	method="post" validate="true" cssClass="well form-horizontal"
+	autocomplete="off">
 	<input type="hidden" name="from" value="${param.from}" />
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="purchaseOrder.tt_xpyhmstro_yhdnbr"
+				cssClass="form-control" />
 			<s:hidden key="purchaseOrder.tt_xpyhmstro_xpyhmstroid" />
 			<s:hidden key="purchaseOrder.tt_xpyhmstro_stat" />
 		</div>
-		<div class="span4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_priority" />
+		<div class="col-xs-4">
+			<s:label key="purchaseOrder.tt_xpyhmstro_priority"
+				cssClass="form-control" />
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_startdt" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="purchaseOrder.tt_xpyhmstro_startdt"
+				cssClass="form-control" />
 		</div>
-		<div class="span4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_receptdt" />
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_suppcode" />
-		</div>
-		<div class="span4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_shipto" />
+		<div class="col-xs-4">
+			<s:label key="purchaseOrder.tt_xpyhmstro_receptdt"
+				cssClass="form-control" />
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_stat" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="purchaseOrder.tt_xpyhmstro_suppcode"
+				cssClass="form-control" />
+		</div>
+		<div class="col-xs-4">
+			<s:label key="purchaseOrder.tt_xpyhmstro_shipto"
+				cssClass="form-control" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="purchaseOrder.tt_xpyhmstro_stat"
+				cssClass="form-control" />
 		</div>
 
 	</div>
-	<div class="row-fluid">
-		<div class="span8">
+	<div class="row">
+		<div class="col-xs-8">
 			<s:label key="purchaseOrder.remark" />
 		</div>
 	</div>
@@ -63,8 +71,8 @@
 			<i class="icon-off icon-white"></i>
 			<fmt:message key="button.close" />
 		</s:submit>
-		<s:submit type="button" cssClass="btn btn-primary" action="printPurchaseOder" 
-			key="button.print" theme="simple">
+		<s:submit type="button" cssClass="btn btn-primary"
+			action="printPurchaseOder" key="button.print" theme="simple">
 			<i class="icon-print icon-white"></i>
 			<fmt:message key="button.print" />
 		</s:submit>
@@ -82,31 +90,31 @@
 	</div>
 
 
-<display:table name="purchaseOrderDetails" cellspacing="0" cellpadding="0"
-	requestURI="editPurchaseOrder"  id="purchaseOrderDetails" 
-	class="table table-condensed table-striped table-hover"
-	export="true">
+	<display:table name="purchaseOrderDetails" cellspacing="0"
+		cellpadding="0" requestURI="editPurchaseOrder"
+		id="purchaseOrderDetails"
+		class="table table-condensed table-striped table-hover" export="true">
 
-	<display:column property="tt_xpyhddeto_seq" escapeXml="true"
-		titleKey="purchaseOrderDetail.tt_xpyhddeto_seq" />
-	<display:column property="tt_xpyhddeto_partnbr" escapeXml="true" 
-		titleKey="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
-	<display:column property="tt_xpyhddeto_partdesc" escapeXml="true" 
-		titleKey="purchaseOrderDetail.tt_xpyhddeto_partdesc" />
-	<display:column property="tt_xpyhddeto_supppart" escapeXml="true" 
-		titleKey="purchaseOrderDetail.tt_xpyhddeto_supppart" />
-	<display:column property="tt_xpyhddeto_uom" escapeXml="true" 
-		titleKey="purchaseOrderDetail.tt_xpyhddeto_uom" />
-	<display:column property="tt_xpyhddeto_spq" escapeXml="true" 
-		titleKey="purchaseOrderDetail.tt_xpyhddeto_spq" />		
-	<display:column property="tt_xpyhddeto_reqqty" escapeXml="true" 
-		titleKey="purchaseOrderDetail.tt_xpyhddeto_reqqty" />
-	<display:column property="tt_xpyhddeto_ordqty" escapeXml="true" 
-		titleKey="purchaseOrderDetail.tt_xpyhddeto_ordqty" />
+		<display:column property="tt_xpyhddeto_seq" escapeXml="true"
+			titleKey="purchaseOrderDetail.tt_xpyhddeto_seq" />
+		<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
+			titleKey="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+		<display:column property="tt_xpyhddeto_partdesc" escapeXml="true"
+			titleKey="purchaseOrderDetail.tt_xpyhddeto_partdesc" />
+		<display:column property="tt_xpyhddeto_supppart" escapeXml="true"
+			titleKey="purchaseOrderDetail.tt_xpyhddeto_supppart" />
+		<display:column property="tt_xpyhddeto_uom" escapeXml="true"
+			titleKey="purchaseOrderDetail.tt_xpyhddeto_uom" />
+		<display:column property="tt_xpyhddeto_spq" escapeXml="true"
+			titleKey="purchaseOrderDetail.tt_xpyhddeto_spq" />
+		<display:column property="tt_xpyhddeto_reqqty" escapeXml="true"
+			titleKey="purchaseOrderDetail.tt_xpyhddeto_reqqty" />
+		<display:column property="tt_xpyhddeto_ordqty" escapeXml="true"
+			titleKey="purchaseOrderDetail.tt_xpyhddeto_ordqty" />
 
-	<display:setProperty name="export.excel.filename"
-				value="PurchaseOrderDetail List.xls" />
-</display:table>
+		<display:setProperty name="export.excel.filename"
+			value="PurchaseOrderDetail List.xls" />
+	</display:table>
 </s:form>
 
 <script type="text/javascript">

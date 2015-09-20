@@ -74,8 +74,6 @@ public class AsnAction extends BaseAction {
 		this.asn = asn;
 	}
 
-
-
 	public String getTt_xasnmstro_asnnbr() {
 		return tt_xasnmstro_asnnbr;
 	}
@@ -90,6 +88,16 @@ public class AsnAction extends BaseAction {
 
 	public String getFileName() {
 		return fileName;
+	}
+	
+	
+
+	public String getTt_xasnmstro_xasnmstroid() {
+		return tt_xasnmstro_xasnmstroid;
+	}
+
+	public void setTt_xasnmstro_xasnmstroid(String tt_xasnmstro_xasnmstroid) {
+		this.tt_xasnmstro_xasnmstroid = tt_xasnmstro_xasnmstroid;
 	}
 
 	/**
@@ -131,16 +139,17 @@ public class AsnAction extends BaseAction {
 		// if a asnCode is passed in
 		try {
 
+			
 			if (tt_xasnmstro_xasnmstroid != null) {
 
+				asn = new Asn();
+				asnDetails = new ArrayList<AsnDetail>();
+				
 				if (ConnectQAD()) {
-					String userCode = this.getRequest().getRemoteUser();
-
-					String domain = getCurrentDomain();
 					ProDataGraph exDataGraph; // 输入参数
 					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
-					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxexport_xasndet_DSMetaData1());
+					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxview_xasndet_DSMetaData1());
 
 					ProDataObject object = exDataGraph.createProDataObject("tt_xasndet_in");
 
@@ -148,15 +157,15 @@ public class AsnAction extends BaseAction {
 
 					exDataGraph.addProDataObject(object);
 
-					yfkssScp.xxview_xpyhddet(exDataGraph, outputData);
-					
+					yfkssScp.xxview_xasndet(exDataGraph, outputData);
+
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhddet_out");
+							.getProDataObjects("tt_xasndet_out");
 
-					List<Object> objList = QADUtil.ConvertToPurchaseOrderAndDetail(outDataList);
-					asn = (Asn)objList.get(0);
-					asnDetails = (List<AsnDetail>)objList.get(1);
+					List<Object> objList = QADUtil.ConvertToAsnAndDetail(outDataList);
+					asn = (Asn) objList.get(0);
+					asnDetails = (List<AsnDetail>) objList.get(1);
 				}
 			} else {
 				asn = new Asn();
@@ -184,18 +193,18 @@ public class AsnAction extends BaseAction {
 		return CANCEL;
 	}
 
-	private void query() {		
+	private void query() {
 		if (asn != null && asn.getIsDetail()) {
 			if (ConnectQAD()) {
 				String userCode = this.getRequest().getRemoteUser();
 				@SuppressWarnings("unchecked")
-				List<String> supplierCodeList = getSupplierCodeList( asn != null ?asn.getTt_xasnmstro_suppcode():"");
+				List<String> supplierCodeList = getSupplierCodeList(asn != null ? asn.getTt_xasnmstro_suppcode() : "");
 
 				String domain = getCurrentDomain();
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 				try {
-					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinqury_xasnmstr_DSMetaData1());
+					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxexport_xasndet_DSMetaData1());
 					for (int i = 0; i < supplierCodeList.size(); i++) {
 						ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
 						String supCode = supplierCodeList.get(i);
@@ -208,15 +217,22 @@ public class AsnAction extends BaseAction {
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xasndet_in");
 
 					if (asn != null) {
+
 						
-						objectMstr.setString(0, asn.getTt_xasnmstro_asnnbr());
-						objectMstr.setString(1, asn.getTt_xasnmstro_stat());
-						objectMstr.setString(2, asn.getTt_xasnmstri_fromdate());
-						objectMstr.setString(3, asn.getTt_xasnmstri_todate());
-						objectMstr.setString(4, asn.getTt_xasnmstro_shipto());
-						objectMstr.setString(5, asn.getTt_xasnmstri_yhdnbr());
-						objectMstr.setString(6, asn.getTt_xasnmstri_partnbr());
-				
+						objectMstr.setString(0,
+								asn.getTt_xasnmstro_asnnbr() == null ? "" : asn.getTt_xasnmstro_asnnbr());
+						objectMstr.setString(1, asn.getTt_xasnmstro_stat() == null ? "" : asn.getTt_xasnmstro_stat());
+						objectMstr.setString(2,
+								asn.getTt_xasnmstri_fromdate() == null ? "" : asn.getTt_xasnmstri_fromdate());
+						objectMstr.setString(3,
+								asn.getTt_xasnmstri_todate() == null ? "" : asn.getTt_xasnmstri_todate());
+						objectMstr.setString(4,
+								asn.getTt_xasnmstro_shipto() == null ? "" : asn.getTt_xasnmstro_shipto());
+						objectMstr.setString(5,
+								asn.getTt_xasnmstri_yhdnbr() == null ? "" : asn.getTt_xasnmstri_yhdnbr());
+						objectMstr.setString(6,
+								asn.getTt_xasnmstri_partnbr() == null ? "" : asn.getTt_xasnmstri_partnbr());
+
 					}
 
 					exDataGraph.addProDataObject(objectMstr);
@@ -227,7 +243,7 @@ public class AsnAction extends BaseAction {
 							.getProDataObjects("tt_xasndet_out");
 
 					asnDetails = QADUtil.ConverToAsnDetail(outDataList);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -235,22 +251,20 @@ public class AsnAction extends BaseAction {
 			}
 
 		} else {
-			
-			
 
 			if (ConnectQAD()) {
-				
+
 				String userCode = this.getRequest().getRemoteUser();
 				@SuppressWarnings("unchecked")
-				List<String> supplierCodeList = getSupplierCodeList( asn != null ?asn.getTt_xasnmstro_suppcode():"");
+				List<String> supplierCodeList = getSupplierCodeList(asn != null ? asn.getTt_xasnmstro_suppcode() : "");
 
 				String domain = getCurrentDomain();
-				
+
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 				try {
 
-					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxexport_xasndet_DSMetaData1());
+					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinqury_xasnmstr_DSMetaData1());
 					for (int i = 0; i < supplierCodeList.size(); i++) {
 						ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
 						String supCode = supplierCodeList.get(i);
@@ -262,13 +276,19 @@ public class AsnAction extends BaseAction {
 
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xasnmstr_in");
 					if (asn != null) {
-						objectMstr.setString(0, asn.getTt_xasnmstro_asnnbr());
-						objectMstr.setString(1, asn.getTt_xasnmstro_stat());
-						objectMstr.setString(2, asn.getTt_xasnmstri_fromdate());
-						objectMstr.setString(3, asn.getTt_xasnmstri_todate());
-						objectMstr.setString(4, asn.getTt_xasnmstro_shipto());
-						objectMstr.setString(5, asn.getTt_xasnmstri_yhdnbr());
-						objectMstr.setString(6, asn.getTt_xasnmstri_partnbr());
+						objectMstr.setString(0,
+								asn.getTt_xasnmstro_asnnbr() == null ? "" : asn.getTt_xasnmstro_asnnbr());
+						objectMstr.setString(1, asn.getTt_xasnmstro_stat() == null ? "" : asn.getTt_xasnmstro_stat());
+						objectMstr.setString(2,
+								asn.getTt_xasnmstri_fromdate() == null ? "" : asn.getTt_xasnmstri_fromdate());
+						objectMstr.setString(3,
+								asn.getTt_xasnmstri_todate() == null ? "" : asn.getTt_xasnmstri_todate());
+						objectMstr.setString(4,
+								asn.getTt_xasnmstro_shipto() == null ? "" : asn.getTt_xasnmstro_shipto());
+						objectMstr.setString(5,
+								asn.getTt_xasnmstri_yhdnbr() == null ? "" : asn.getTt_xasnmstri_yhdnbr());
+						objectMstr.setString(6,
+								asn.getTt_xasnmstri_partnbr() == null ? "" : asn.getTt_xasnmstri_partnbr());
 
 					}
 
@@ -278,145 +298,146 @@ public class AsnAction extends BaseAction {
 
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhddet_out");
+							.getProDataObjects("tt_xasnmstr_out");
 
 					asns = QADUtil.ConverToAsn(outDataList);
-					
-			
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
 			}
 		}
-		
-//		
-//		if (asn != null && asn.getIsDetail()) {
-//			asnDetails = new ArrayList<AsnDetail>();
-//			// AsnDetail podet = new AsnDetail();
-//			// podet.setTt_xasnddeto_seq(new BigDecimal(20));
-//			// podet.setTt_xasnddeto_yhdnbr("ORD000001");
-//			// podet.setTt_xasnddeto_partnbr("1000002");
-//			// podet.setTt_xasnddeto_partdesc("螺母");
-//			// podet.setTt_xasnddeto_spq(new BigDecimal(100));
-//			// podet.setTt_xasnddeto_uom("件");
-//			// podet.setTt_xasnddeto_reqqty(new BigDecimal(2000));
-//			// podet.setTt_xasnddeto_ordqty(new BigDecimal(2000));
-//			// asnDetails.add(podet);
-//
-//			// if (ConnectQAD()) {
-//			// String userCode = this.getRequest().getRemoteUser();
-//			// @SuppressWarnings("unchecked")
-//			// List<String> supplierCodeList = universalManager.findByNativeSql(
-//			// "select permission_code from permission_view where
-//			// permission_type = ? and username = ?",
-//			// new Object[] { PermissionType.S.toString(), userCode });
-//			//
-//			// String domain = "YFKSH";
-//			// ProDataGraph exDataGraph; // 输入参数
-//			// ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
-//			// try {
-//			// exDataGraph = new
-//			// ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxexport_xasnddet_DSMetaData1());
-//			// for (int i = 0; i < supplierCodeList.size(); i++) {
-//			// ProDataObject object =
-//			// exDataGraph.createProDataObject("tt_suppcode_in");
-//			// String supCode = supplierCodeList.get(i);
-//			// object.setString(0, domain);
-//			// object.setString(1, supCode);
-//			//
-//			// exDataGraph.addProDataObject(object);
-//			// }
-//			//
-//			// ProDataObject objectMstr =
-//			// exDataGraph.createProDataObject("tt_xasnddet_in");
-//			//
-//			// if (asn != null) {
-//			// objectMstr.setString(0, asn.getTt_xasnmstro_yhdnbr());
-//			// objectMstr.setString(1,
-//			// String.valueOf(asn.getTt_xasnmstro_stat()));
-//			// objectMstr.setString(2, asn.getTt_xasnmstro_startdt());
-//			// objectMstr.setString(3, asn.getTt_xasnmstro_priority());
-//			// objectMstr.setString(4, asn.getTt_xasnmstro_creator());
-//			// objectMstr.setString(5, asn.getTt_xasnmstro_shipto());
-//			// objectMstr.setString(6, asn.getTt_xasnmstro_receptdt());
-//			// objectMstr.setString(7, asn.getTt_xasnmstro_partnbr());
-//			// objectMstr.setString(8, asn.getTt_xasnmstro_userauth());
-//			// }
-//			// objectMstr.setString(0, domain);
-//			//
-//			// exDataGraph.addProDataObject(objectMstr);
-//			//
-//			// yfkssScp.xxexport_xasnddet(exDataGraph, outputData);
-//			// } catch (Exception e) {
-//			// e.printStackTrace();
-//			// }
-//			//
-//			// }
-//
-//		} else {
-//			asns = new ArrayList<Asn>();
-//			Asn asn1 = new Asn();
-//			asn1.setTt_xasnmstro_asnnbr("ASN000001");
-//			asn1.setTt_xasnmstro_seq(10);
-//			asn1.setTt_xasnmstro_creator("admin");
-//			asn1.setTt_xasnmstro_startdt("20150831");
-//			asn1.setTt_xasnmstro_suppcode("ADKJ");
-//			asn1.setTt_xasnmstro_stat("2");
-//			asns.add(asn1);
-//
-//			// if (ConnectQAD()) {
-//			// String userCode = this.getRequest().getRemoteUser();
-//			// @SuppressWarnings("unchecked")
-//			// List<String> supplierCodeList = universalManager.findByNativeSql(
-//			// "select permission_code from permission_view where
-//			// permission_type = ? and username = ?",
-//			// new Object[] { PermissionType.S.toString(), userCode });
-//			//
-//			// String domain = "YFKSH";
-//			// ProDataGraph exDataGraph; // 输入参数
-//			// ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
-//			// try {
-//			//
-//			// exDataGraph = new
-//			// ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_xasnmstr_DSMetaData1());
-//			// for (int i = 0; i < supplierCodeList.size(); i++) {
-//			// ProDataObject object =
-//			// exDataGraph.createProDataObject("tt_suppcode_in");
-//			// String supCode = supplierCodeList.get(i);
-//			// object.setString(0, domain);
-//			// object.setString(1, supCode);
-//			//
-//			// exDataGraph.addProDataObject(object);
-//			// }
-//			//
-//			// ProDataObject objectMstr =
-//			// exDataGraph.createProDataObject("tt_xasnmstr_in");
-//			// if (asn != null) {
-//			// objectMstr.setString(0, asn.getTt_xasnmstro_yhdnbr());
-//			// objectMstr.setString(1,
-//			// String.valueOf(asn.getTt_xasnmstro_stat()));
-//			// objectMstr.setGregorianCalendar(2, new
-//			// GregorianCalendar(2015,9,1));
-//			// objectMstr.setString(3, asn.getTt_xasnmstro_priority());
-//			// objectMstr.setString(4, asn.getTt_xasnmstro_creator());
-//			// objectMstr.setString(5, asn.getTt_xasnmstro_shipto());
-//			// objectMstr.setGregorianCalendar(6, new
-//			// GregorianCalendar(2015,9,1));
-//			// objectMstr.setString(7, asn.getTt_xasnmstro_partnbr());
-//			// objectMstr.setString(8, asn.getTt_xasnmstro_userauth());
-//			// }
-//			// objectMstr.setString(0, domain);
-//			//
-//			// exDataGraph.addProDataObject(objectMstr);
-//			//
-//			// yfkssScp.xxinquiry_xasnmstr(exDataGraph, outputData);
-//			// } catch (Exception e) {
-//			// e.printStackTrace();
-//			// }
-//			//
-//			// }
-//		}
+
+		//
+		// if (asn != null && asn.getIsDetail()) {
+		// asnDetails = new ArrayList<AsnDetail>();
+		// // AsnDetail podet = new AsnDetail();
+		// // podet.setTt_xasnddeto_seq(new BigDecimal(20));
+		// // podet.setTt_xasnddeto_yhdnbr("ORD000001");
+		// // podet.setTt_xasnddeto_partnbr("1000002");
+		// // podet.setTt_xasnddeto_partdesc("螺母");
+		// // podet.setTt_xasnddeto_spq(new BigDecimal(100));
+		// // podet.setTt_xasnddeto_uom("件");
+		// // podet.setTt_xasnddeto_reqqty(new BigDecimal(2000));
+		// // podet.setTt_xasnddeto_ordqty(new BigDecimal(2000));
+		// // asnDetails.add(podet);
+		//
+		// // if (ConnectQAD()) {
+		// // String userCode = this.getRequest().getRemoteUser();
+		// // @SuppressWarnings("unchecked")
+		// // List<String> supplierCodeList = universalManager.findByNativeSql(
+		// // "select permission_code from permission_view where
+		// // permission_type = ? and username = ?",
+		// // new Object[] { PermissionType.S.toString(), userCode });
+		// //
+		// // String domain = "YFKSH";
+		// // ProDataGraph exDataGraph; // 输入参数
+		// // ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+		// // try {
+		// // exDataGraph = new
+		// //
+		// ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxexport_xasnddet_DSMetaData1());
+		// // for (int i = 0; i < supplierCodeList.size(); i++) {
+		// // ProDataObject object =
+		// // exDataGraph.createProDataObject("tt_suppcode_in");
+		// // String supCode = supplierCodeList.get(i);
+		// // object.setString(0, domain);
+		// // object.setString(1, supCode);
+		// //
+		// // exDataGraph.addProDataObject(object);
+		// // }
+		// //
+		// // ProDataObject objectMstr =
+		// // exDataGraph.createProDataObject("tt_xasnddet_in");
+		// //
+		// // if (asn != null) {
+		// // objectMstr.setString(0, asn.getTt_xasnmstro_yhdnbr());
+		// // objectMstr.setString(1,
+		// // String.valueOf(asn.getTt_xasnmstro_stat()));
+		// // objectMstr.setString(2, asn.getTt_xasnmstro_startdt());
+		// // objectMstr.setString(3, asn.getTt_xasnmstro_priority());
+		// // objectMstr.setString(4, asn.getTt_xasnmstro_creator());
+		// // objectMstr.setString(5, asn.getTt_xasnmstro_shipto());
+		// // objectMstr.setString(6, asn.getTt_xasnmstro_receptdt());
+		// // objectMstr.setString(7, asn.getTt_xasnmstro_partnbr());
+		// // objectMstr.setString(8, asn.getTt_xasnmstro_userauth());
+		// // }
+		// // objectMstr.setString(0, domain);
+		// //
+		// // exDataGraph.addProDataObject(objectMstr);
+		// //
+		// // yfkssScp.xxexport_xasnddet(exDataGraph, outputData);
+		// // } catch (Exception e) {
+		// // e.printStackTrace();
+		// // }
+		// //
+		// // }
+		//
+		// } else {
+		// asns = new ArrayList<Asn>();
+		// Asn asn1 = new Asn();
+		// asn1.setTt_xasnmstro_asnnbr("ASN000001");
+		// asn1.setTt_xasnmstro_seq(10);
+		// asn1.setTt_xasnmstro_creator("admin");
+		// asn1.setTt_xasnmstro_startdt("20150831");
+		// asn1.setTt_xasnmstro_suppcode("ADKJ");
+		// asn1.setTt_xasnmstro_stat("2");
+		// asns.add(asn1);
+		//
+		// // if (ConnectQAD()) {
+		// // String userCode = this.getRequest().getRemoteUser();
+		// // @SuppressWarnings("unchecked")
+		// // List<String> supplierCodeList = universalManager.findByNativeSql(
+		// // "select permission_code from permission_view where
+		// // permission_type = ? and username = ?",
+		// // new Object[] { PermissionType.S.toString(), userCode });
+		// //
+		// // String domain = "YFKSH";
+		// // ProDataGraph exDataGraph; // 输入参数
+		// // ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+		// // try {
+		// //
+		// // exDataGraph = new
+		// //
+		// ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_xasnmstr_DSMetaData1());
+		// // for (int i = 0; i < supplierCodeList.size(); i++) {
+		// // ProDataObject object =
+		// // exDataGraph.createProDataObject("tt_suppcode_in");
+		// // String supCode = supplierCodeList.get(i);
+		// // object.setString(0, domain);
+		// // object.setString(1, supCode);
+		// //
+		// // exDataGraph.addProDataObject(object);
+		// // }
+		// //
+		// // ProDataObject objectMstr =
+		// // exDataGraph.createProDataObject("tt_xasnmstr_in");
+		// // if (asn != null) {
+		// // objectMstr.setString(0, asn.getTt_xasnmstro_yhdnbr());
+		// // objectMstr.setString(1,
+		// // String.valueOf(asn.getTt_xasnmstro_stat()));
+		// // objectMstr.setGregorianCalendar(2, new
+		// // GregorianCalendar(2015,9,1));
+		// // objectMstr.setString(3, asn.getTt_xasnmstro_priority());
+		// // objectMstr.setString(4, asn.getTt_xasnmstro_creator());
+		// // objectMstr.setString(5, asn.getTt_xasnmstro_shipto());
+		// // objectMstr.setGregorianCalendar(6, new
+		// // GregorianCalendar(2015,9,1));
+		// // objectMstr.setString(7, asn.getTt_xasnmstro_partnbr());
+		// // objectMstr.setString(8, asn.getTt_xasnmstro_userauth());
+		// // }
+		// // objectMstr.setString(0, domain);
+		// //
+		// // exDataGraph.addProDataObject(objectMstr);
+		// //
+		// // yfkssScp.xxinquiry_xasnmstr(exDataGraph, outputData);
+		// // } catch (Exception e) {
+		// // e.printStackTrace();
+		// // }
+		// //
+		// // }
+		// }
 	}
 
 	public String print() throws Exception {
@@ -432,32 +453,32 @@ public class AsnAction extends BaseAction {
 		asn.setTt_xasnmstro_suppcode("ADKJ");
 		asn.setTt_xasnmstro_stat("2");
 
-		 asnDetails = new ArrayList<AsnDetail>();
-		 AsnDetail asndet = new AsnDetail();
-		 asndet.setTt_xasndeto_seq(10);
-		 asndet.setTt_xasndeto_yhdnbr("ORD000001");
-		 asndet.setTt_xasndeto_partnbr("1000001");
-		 asndet.setTt_xasndeto_partdesc("螺丝");
-		 asndet.setTt_xasndeto_spq(new BigDecimal(100));
-		 asndet.setTt_xasndeto_uom("件");
-		 asndet.setTt_xasndeto_asnqty(new BigDecimal(2000));
-		 asnDetails.add(asndet);
-		
-		 AsnDetail asndet1 = new AsnDetail();
-		 asndet1.setTt_xasndeto_seq(20);
-		 asndet1.setTt_xasndeto_yhdnbr("ORD000001");
-		 asndet1.setTt_xasndeto_partnbr("1000002");
-		 asndet1.setTt_xasndeto_partdesc("螺母");
-		 asndet1.setTt_xasndeto_spq(new BigDecimal(100));
-		 asndet1.setTt_xasndeto_uom("件");
-		 asndet1.setTt_xasndeto_asnqty(new BigDecimal(2000));
-		 asnDetails.add(asndet1);
+		asnDetails = new ArrayList<AsnDetail>();
+		AsnDetail asndet = new AsnDetail();
+		asndet.setTt_xasndeto_seq(10);
+		asndet.setTt_xasndeto_yhdnbr("ORD000001");
+		asndet.setTt_xasndeto_partnbr("1000001");
+		asndet.setTt_xasndeto_partdesc("螺丝");
+		asndet.setTt_xasndeto_spq(new BigDecimal(100));
+		asndet.setTt_xasndeto_uom("件");
+		asndet.setTt_xasndeto_asnqty(new BigDecimal(2000));
+		asnDetails.add(asndet);
+
+		AsnDetail asndet1 = new AsnDetail();
+		asndet1.setTt_xasndeto_seq(20);
+		asndet1.setTt_xasndeto_yhdnbr("ORD000001");
+		asndet1.setTt_xasndeto_partnbr("1000002");
+		asndet1.setTt_xasndeto_partdesc("螺母");
+		asndet1.setTt_xasndeto_spq(new BigDecimal(100));
+		asndet1.setTt_xasndeto_uom("件");
+		asndet1.setTt_xasndeto_asnqty(new BigDecimal(2000));
+		asnDetails.add(asndet1);
 
 		asn.setAsnDetailList(asnDetails);
-		
-		 inputStream = export(localAbsolutPath, "", asn);
-		
-		 fileName = "asn_" + asn.getTt_xasnmstro_asnnbr() + ".pdf";
+
+		inputStream = export(localAbsolutPath, "", asn);
+
+		fileName = "asn_" + asn.getTt_xasnmstro_asnnbr() + ".pdf";
 		return SUCCESS;
 	}
 
@@ -515,23 +536,21 @@ public class AsnAction extends BaseAction {
 					exportHead(underPdfContentByte, cb, asn, dinBf, simBf, barCodeBf);
 				}
 
-				 int seq =asnDetail.getTt_xasndeto_seq();
-				
-				 cb.beginText();
-				 cb.setFontAndSize(dinBf, 8);
-				 cb.showTextAligned(PdfContentByte.ALIGN_CENTER,
-				 asnDetail.getTt_xasndeto_asnnbr(), 82,
-				 rowPix, 0);
-				 cb.endText();
-				
-				 PdfTemplate tp2 = cb.createTemplate(100, 50);
-				 tp2.beginText();
-				 tp2.setTextRenderingMode(PdfContentByte.TEXT_RENDER_MODE_FILL_CLIP);
-				 tp2.setFontAndSize(simBf, 8);
-				 // tp2.moveText(6, -6);
+				int seq = asnDetail.getTt_xasndeto_seq();
+
+				cb.beginText();
+				cb.setFontAndSize(dinBf, 8);
+				cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_asnnbr(), 82, rowPix, 0);
+				cb.endText();
+
+				PdfTemplate tp2 = cb.createTemplate(100, 50);
+				tp2.beginText();
+				tp2.setTextRenderingMode(PdfContentByte.TEXT_RENDER_MODE_FILL_CLIP);
+				tp2.setFontAndSize(simBf, 8);
+				// tp2.moveText(6, -6);
 				// tp2.showText(asnDetail.getTt_xasnddeto_partdesc());
-				 tp2.endText();
-				 cb.addTemplate(tp2, 122, rowPix);
+				tp2.endText();
+				cb.addTemplate(tp2, 122, rowPix);
 
 				rowPix -= 17;
 				if (i % 5 == 0) {

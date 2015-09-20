@@ -2,7 +2,7 @@
 
 <head>
 <title><fmt:message key="barcodeList.title" /></title>
-<meta name="menu" content="AdminMenu" />
+<meta name="menu" content="BarcodeMenu" />
 </head>
 
 <h2>
@@ -21,23 +21,24 @@
 				key="purchaseOrderDetail.tt_xpyhddeto_shipto" />
 		</div>
 	</div>
-	<div class="col-xs-4 search-group">
+	<div class="row">
+		<div class="col-xs-4 search-group">
 
-		<s:textfield cssClass="form-control search-control"
-			key="purchaseOrderDetail.tt_xpyhddeto_suppcode" />
+			<s:textfield cssClass="form-control search-control"
+				key="purchaseOrderDetail.tt_xpyhddeto_suppcode" />
+		</div>
+		<div class="col-xs-4 search-group">
+			<s:textfield cssClass="form-control search-control"
+				key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+		</div>
 	</div>
-	<div class="col-xs-4 search-group">
-		<s:textfield cssClass="form-control search-control"
-			key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
-	</div>
-	<div class="col-xs-4 search-group">
+	<div class="row">
 		<div class="col-xs-4 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="purchaseOrderDetail.tt_xpyhddeto_supppart" />
 		</div>
-		<div class="col-xs-4 search-group">
-			<s:checkbox cssClass="form-control search-control"
-				key="purchaseOrderDetail.isexternal" />
+		<div class="col-xs-4 search-group layouttrim">
+			<s:checkbox key="purchaseOrderDetail.isexternal" />
 		</div>
 	</div>
 	<div class="row">
@@ -77,22 +78,22 @@
 			titleKey="purchaseOrderDetail.tt_xpyhddeto_externalqty" />
 		<display:column titleKey="purchaseOrderDetail.tt_xpyhddeto_lots">
 			<input type="text" style="margin: 0px; width: 100px;"
-				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum}].tt_xpyhddeto_lots"
+				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum - 1}].tt_xpyhddeto_lots"
 				value="${purchaseOrderDetail.tt_xpyhddeto_lots}" class="text medium" />
 			<input type="hidden"
-				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum}].tt_xpyhddeto_xpyhddetoid"
+				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum - 1}].tt_xpyhddeto_xpyhddetoid"
 				value="${purchaseOrderDetail.tt_xpyhddeto_xpyhddetoid}" />
 			<input type="hidden"
-				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum}].tt_xpyhddeto_partnbr"
+				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum - 1}].tt_xpyhddeto_partnbr"
 				value="${purchaseOrderDetail.tt_xpyhddeto_partnbr}" />
 			<input type="hidden"
-				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum}].tt_xpyhddeto_partdesc"
+				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum- 1}].tt_xpyhddeto_partdesc"
 				value="${purchaseOrderDetail.tt_xpyhddeto_partdesc}" />
 
 		</display:column>
 		<display:column titleKey="purchaseOrderDetail.tt_xpyhddeto_qty">
 			<input type="text" style="margin: 0px; width: 100px;"
-				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum}].tt_xpyhddeto_qty"
+				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum- 1}].tt_xpyhddeto_qty"
 				value="${purchaseOrderDetail.tt_xpyhddeto_qty}" class="text medium" />
 		</display:column>
 	</display:table>
