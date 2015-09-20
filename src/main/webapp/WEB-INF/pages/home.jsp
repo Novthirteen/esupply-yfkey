@@ -18,4 +18,7 @@
     </li>
 </ul>
 <a href="<c:url value='/barcode/printBarcode'/>">print</a>
+<a href="<c:url value='/barcode/printRec'/>">printrec</a>
+<a href="<c:url value='/barcode/printASN'/>">printasn</a>
+<a href="<c:url value='/barcode/printOrder'/>">printorder</a>
 </body>
