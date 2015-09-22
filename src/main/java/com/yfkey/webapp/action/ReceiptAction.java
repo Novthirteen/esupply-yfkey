@@ -62,7 +62,7 @@ public class ReceiptAction extends BaseAction {
 	}
 
 	public  void setReceiptDetails(List<ReceiptDetail> receiptDetails) {
-		receiptDetails = receiptDetails;
+		this.receiptDetails = receiptDetails;
 	}
 
 	public Receipt getReceipt() {

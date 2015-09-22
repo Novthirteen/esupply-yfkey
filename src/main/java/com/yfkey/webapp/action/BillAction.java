@@ -147,7 +147,7 @@ public class BillAction extends BaseAction {
 
 				ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
 
-				object.setString(0, "14814");
+				object.setString(0, bill.getTt_xprcmstro_xprcmstroid() );
 				object.setInt(1, bill.getTt_xprcmstro_qty());
 				object.setBigDecimal(2,bill.getTt_xprcmstro_taxamt());
 				object.setString(3,bill.getTt_xprcmstro_invdate());
@@ -185,7 +185,45 @@ public class BillAction extends BaseAction {
 
 				ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
 
-				object.setString(0, "14814");
+				object.setString(0, bill.getTt_xprcmstro_xprcmstroid() );
+				object.setInt(1, 0);
+				object.setBigDecimal(2,BigDecimal.ZERO);
+				object.setString(3,"");
+				object.setBigDecimal(4,BigDecimal.ZERO);
+			    object.setString(5,"");
+				object.setString(6, "");
+			    object.setString(7,"2");
+				object.setString(8, "");
+				object.setString(9, ""); //""为确认，0为打印
+				object.setString(10, userCode);
+
+
+				exDataGraph.addProDataObject(object);
+
+				yfkssScp.xxupdate_xprcmstr(exDataGraph, outputData);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	
+	public String agree() {
+		try {
+			if (ConnectQAD()) {
+				String userCode = this.getRequest().getRemoteUser();
+
+				
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxupdate_xprcmstr_DSMetaData1());
+
+				ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
+
+				object.setString(0, bill.getTt_xprcmstro_xprcmstroid() );
 				object.setInt(1, 0);
 				object.setBigDecimal(2,BigDecimal.ZERO);
 				object.setString(3,"");
@@ -209,7 +247,6 @@ public class BillAction extends BaseAction {
 		return SUCCESS;
 	}
 	
-	
 	public String print() {
 		try {
 			if (ConnectQAD()) {
@@ -223,7 +260,7 @@ public class BillAction extends BaseAction {
 
 				ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
 
-				object.setString(0, "14814");
+				object.setString(0, bill.getTt_xprcmstro_xprcmstroid() );
 				object.setInt(1, 0);
 				object.setBigDecimal(2,BigDecimal.ZERO);
 				object.setString(3,"");

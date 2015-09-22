@@ -14,8 +14,8 @@
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
 		<div class="col-xs-4">
-			<s:label key="bill.tt_prhmstro_receiver" cssClass="form-control" />
-			<s:hidden key="bill.tt_prhmstro_receiver" />
+			<s:label key="bill.tt_xprcmstro_voucher" cssClass="form-control" />
+			<s:hidden key="bill.tt_xprcmstro_xprcmstroid" />
 		</div>
 		<div class="col-xs-4">
 			<s:label key="bill.tt_xprcmstro_invdate" cssClass="form-control" />
@@ -36,6 +36,11 @@
 			action="confirmBill" key="button.confirm" theme="simple">
 			<i class="icon-confirm icon-white"></i>
 			<fmt:message key="button.confirm" />
+		</s:submit>
+		<s:submit type="button" cssClass="btn btn-primary"
+			action="agreeBill" key="button.agree" theme="simple">
+			<i class="icon-agree icon-white"></i>
+			<fmt:message key="button.agree" />
 		</s:submit>
 		<s:submit type="button" cssClass="btn btn-primary"
 			action="refuseBill" key="button.refuse" theme="simple">
@@ -83,35 +88,38 @@
 
 	<div class="row">
 		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xpyhddeto_qty" />
+			<s:textfield key="bill.tt_xprcmstro_qty" cssClass="form-control" />
 		</div>
 		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xprcmstro_invdate" />
+			<s:textfield key="bill.tt_xprcmstro_invdate" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xprcmstro_taxamt" />
+			<s:textfield key="bill.tt_xprcmstro_taxamt" cssClass="form-control" />
 		</div>
 		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xprcmstro_notaxamt" />
+			<s:textfield key="bill.tt_xprcmstro_notaxamt" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xprcmstro_totalamt" />
+			<s:textfield key="bill.tt_xprcmstro_totalamt" cssClass="form-control" />
 		</div>
 		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xprcmstro_firstinvoice" />
+			<s:textfield key="bill.tt_xprcmstri_indexinvnbr" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xpyhddeto_rmk" />
+	<div class="col-xs-8">
+			<s:textfield key="bill.tt_xprcmstro_invnbr" cssClass="form-control" rows="6" />
 		</div>
-		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xpyhddeto_invnbr" />
 		</div>
+	<div class="row">
+		<div class="col-xs-8">
+			<s:textfield key="bill.tt_xprcmstro_rmk" cssClass="form-control" />
+		</div>
+		
 	</div>
 
 </s:form>

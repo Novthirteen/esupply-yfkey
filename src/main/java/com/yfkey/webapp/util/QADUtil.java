@@ -482,6 +482,7 @@ public final class QADUtil {
 				bill.setTt_xprcmstro_claiminv(om.getString("tt_xpyhddeto_claiminv"));
 				bill.setTt_xprcmstro_claimamt(om.getBigDecimal("tt_xpyhddeto_claimamt"));
 				bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_voucher"));
+				bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			
 				billList.add(bill);
 
