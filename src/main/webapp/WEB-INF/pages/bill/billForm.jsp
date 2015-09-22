@@ -12,20 +12,21 @@
 <s:form name="billForm" action="editBill" method="post" validate="true"
 	cssClass="well form-horizontal" autocomplete="off">
 	<input type="hidden" name="from" value="${param.from}" />
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="bill.tt_prhmstro_receiver" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="bill.tt_prhmstro_receiver" cssClass="form-control" />
+			<s:hidden key="bill.tt_prhmstro_receiver" />
 		</div>
-		<div class="span4">
-			<s:label key="bill.tt_xprcmstro_invdate" />
+		<div class="col-xs-4">
+			<s:label key="bill.tt_xprcmstro_invdate" cssClass="form-control" />
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="bill.tt_xprcmstro_totalamt" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="bill.tt_xprcmstro_totalamt" cssClass="form-control" />
 		</div>
-		<div class="span4">
-			<s:label key="bill.tt_xprcmstro_claimamt" />
+		<div class="col-xs-4">
+			<s:label key="bill.tt_xprcmstro_claimamt" cssClass="form-control" />
 		</div>
 	</div>
 
@@ -36,9 +37,14 @@
 			<i class="icon-confirm icon-white"></i>
 			<fmt:message key="button.confirm" />
 		</s:submit>
-
 		<s:submit type="button" cssClass="btn btn-primary"
-			action="printBill" key="button.print" theme="simple">
+			action="refuseBill" key="button.refuse" theme="simple">
+			<i class="icon-refuse icon-white"></i>
+			<fmt:message key="button.refuse" />
+		</s:submit>
+
+		<s:submit type="button" cssClass="btn btn-primary" action="printBill"
+			key="button.print" theme="simple">
 			<i class="icon-printm icon-white"></i>
 			<fmt:message key="button.print" />
 		</s:submit>
@@ -51,86 +57,62 @@
 
 
 
-<display:table name="billDetails" cellspacing="0" cellpadding="0"
-	requestURI="/billDetails" id="billDetails"
-	class="table table-condensed table-striped table-hover" export="false">
-	<display:column property="tt_xpyhddeto_receiver" escapeXml="false"
-		titleKey="billDetail.tt_xpyhddeto_receiver" />
-	<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_partnbr" />
-	<display:column property="tt_xpyhddeto_seq" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_seq" />
-	<display:column property="tt_xpyhddeto_poprice" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_poprice" />
-	<display:column property="tt_xpyhddeto_uom" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_uom" />
-	<display:column property="tt_xpyhddeto_invprice" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_invprice" />
-	<display:column property="tt_xpyhddeto_invamt" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_invamt" />
-	<display:column property="tt_xpyhddeto_partdesc" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_partdesc" />
-	<display:column property="tt_xpyhddeto_rcdate" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_rcdate" />
-	<display:column property="tt_xpyhddeto_qty" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_qty" />
-	<display:column property="tt_xpyhddeto_taxamt" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_taxamt" />
-	<display:column property="tt_xpyhddeto_invdate" escapeXml="true"
-		titleKey="billDetail.tt_xpyhddeto_invdate" />
-</display:table>
+	<display:table name="billDetails" cellspacing="0" cellpadding="0"
+		requestURI="/billDetails" id="billDetail"
+		class="table table-condensed table-striped table-hover" export="false">
+		<display:column property="tt_xpyhddeto_receiver" escapeXml="false"
+			titleKey="billDetail.tt_xpyhddeto_receiver" />
+		<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_partnbr" />
+		<display:column property="tt_xpyhddeto_seq" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_seq" />
+		<display:column property="tt_xpyhddeto_poprice" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_poprice" />
+		<display:column property="tt_xpyhddeto_uom" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_uom" />
+		<display:column property="tt_xpyhddeto_invprice" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_invprice" />
+		<display:column property="tt_xpyhddeto_invamt" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_invamt" />
+		<display:column property="tt_xpyhddeto_partdesc" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_partdesc" />
+		<display:column property="tt_xpyhddeto_rcdate" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_rcdate" />
+	</display:table>
 
 
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="bill.tt_xpyhddeto_qty" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:textfield key="bill.tt_xpyhddeto_qty" />
 		</div>
-		<div class="span4">
-			<s:label key="bill.tt_xprcmstro_invdate" />
+		<div class="col-xs-4">
+			<s:textfield key="bill.tt_xprcmstro_invdate" />
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="bill.tt_xprcmstro_taxamt" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:textfield key="bill.tt_xprcmstro_taxamt" />
 		</div>
-		<div class="span4">
-			<s:label key="bill.tt_xprcmstro_notaxamt" />
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="bill.tt_xprcmstro_totalamt" />
-		</div>
-		<div class="span4">
-			<s:label key="bill.tt_xprcmstro_firstinvoice" />
+		<div class="col-xs-4">
+			<s:textfield key="bill.tt_xprcmstro_notaxamt" />
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="bill.tt_xpyhddeto_rmk" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:textfield key="bill.tt_xprcmstro_totalamt" />
 		</div>
-		<div class="span4">
-			<s:label key="bill.tt_xpyhddeto_invnbr" />
+		<div class="col-xs-4">
+			<s:textfield key="bill.tt_xprcmstro_firstinvoice" />
 		</div>
 	</div>
-	
-
-	<div id="actions" class="form-actions">
-
-		<s:submit type="button" cssClass="btn btn-primary"
-			action="confirmBill" key="button.confirm" theme="simple">
-			<i class="icon-confirm icon-white"></i>
-			<fmt:message key="button.confirm" />
-		</s:submit>
-
-
-		<s:submit type="button" cssClass="btn" method="cancel"
-			key="button.back" theme="simple">
-			<i class=" icon-arrow-left"></i>
-			<fmt:message key="button.back" />
-		</s:submit>
+	<div class="row">
+		<div class="col-xs-4">
+			<s:textfield key="bill.tt_xpyhddeto_rmk" />
+		</div>
+		<div class="col-xs-4">
+			<s:textfield key="bill.tt_xpyhddeto_invnbr" />
+		</div>
 	</div>
-
 
 </s:form>
 

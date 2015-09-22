@@ -34,7 +34,7 @@ public class Bill extends BaseObject {
 	private String tt_xprcmstro_rmk; // 备注
 	private String tt_xprcmstri_indexinvnbr; // 第一張发票号
 	private String tt_xprcmstro_claiminv; //索赔发票
-	
+	private String tt_xprcmstro_type; //发票类型
 
 	List<BillDetail> billDetailList;
 
@@ -201,6 +201,14 @@ public class Bill extends BaseObject {
 	
 	public String getTt_xprcmstro_invnbr() {
 		return tt_xprcmstro_invnbr;
+	}
+
+	public String getTt_xprcmstro_type() {
+		return tt_xprcmstro_type;
+	}
+
+	public void setTt_xprcmstro_type(String tt_xprcmstro_type) {
+		this.tt_xprcmstro_type = tt_xprcmstro_type;
 	}
 
 	@Override

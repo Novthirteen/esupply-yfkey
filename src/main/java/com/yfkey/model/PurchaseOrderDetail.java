@@ -230,6 +230,7 @@ public class PurchaseOrderDetail extends BaseObject {
 	public void setTt_xpyhddeto_toloc(String tt_xpyhddeto_toloc) {
 		this.tt_xpyhddeto_toloc = tt_xpyhddeto_toloc;
 	}
+	
 	public BigDecimal getTt_xpyhddeto_delvqty() {
 		return tt_xpyhddeto_delvqty;
 	}

@@ -43,7 +43,7 @@ import com.yfkey.webapp.util.QADUtil;
 public class ReceiptAction extends BaseAction {
 
 	private List<Receipt> receipts;
-	private static List<ReceiptDetail> receiptDetails;
+	private  List<ReceiptDetail> receiptDetails;
 	private Receipt receipt;
 	private String tt_prhmstri_receiver;
 	private InputStream inputStream;
@@ -57,12 +57,12 @@ public class ReceiptAction extends BaseAction {
 		this.receipts = receipts;
 	}
 
-	public static List<ReceiptDetail> getReceiptDetails() {
+	public  List<ReceiptDetail> getReceiptDetails() {
 		return receiptDetails;
 	}
 
-	public static void setReceiptDetails(List<ReceiptDetail> receiptDetails) {
-		ReceiptAction.receiptDetails = receiptDetails;
+	public  void setReceiptDetails(List<ReceiptDetail> receiptDetails) {
+		receiptDetails = receiptDetails;
 	}
 
 	public Receipt getReceipt() {
@@ -136,6 +136,11 @@ public class ReceiptAction extends BaseAction {
 					ProDataObject object = exDataGraph.createProDataObject("tt_prhdet_in");
 
 					object.setString(0, tt_prhmstri_receiver);
+					object.setString(1, "");
+					object.setString(2, "");
+					object.setString(3, "");
+					object.setString(4, "");
+					
 
 					exDataGraph.addProDataObject(object);
 
@@ -143,7 +148,7 @@ public class ReceiptAction extends BaseAction {
 
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhddet_out");
+							.getProDataObjects("tt_prhdet_out");
 					List<Object> objList = QADUtil.ConvertToReceiptAndDetail(outDataList);
 					receipt = (Receipt) objList.get(0);
 					receiptDetails = (List<ReceiptDetail>) objList.get(1);

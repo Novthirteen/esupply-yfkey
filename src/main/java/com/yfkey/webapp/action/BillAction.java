@@ -44,10 +44,14 @@ import com.yfkey.webapp.util.QADUtil;
  */
 public class BillAction extends BaseAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4564824979970519304L;
 	private List<Bill> bills;
-	private static List<BillDetail> billDetails;
+	private List<BillDetail> billDetails;
 	private Bill bill;
-	private String tt_xprcdeti_xprcmstroid;
+	private String tt_xprcmstro_xprcmstroid;
 	
 	private InputStream inputStream;
 	private String fileName;
@@ -61,12 +65,12 @@ public class BillAction extends BaseAction {
 		this.bill = bill;
 	}
 
-	public String getTt_xprcdeti_xprcmstroid() {
-		return tt_xprcdeti_xprcmstroid;
+	public String getTt_xprcmstro_xprcmstroid() {
+		return tt_xprcmstro_xprcmstroid;
 	}
 
-	public void setTt_xprcdeti_xprcmstroid(String tt_xprcdeti_xprcmstroid) {
-		this.tt_xprcdeti_xprcmstroid = tt_xprcdeti_xprcmstroid;
+	public void setTt_xprcmstro_xprcmstroid(String tt_xprcmstro_xprcmstroid) {
+		this.tt_xprcmstro_xprcmstroid = tt_xprcmstro_xprcmstroid;
 	}
 
 	public InputStream getInputStream() throws FileNotFoundException {
@@ -90,7 +94,7 @@ public class BillAction extends BaseAction {
 
 		try {
 
-			if (tt_xprcdeti_xprcmstroid != null) {
+			if (tt_xprcmstro_xprcmstroid != null) {
 
 				if (ConnectQAD()) {
 					String userCode = this.getRequest().getRemoteUser();
@@ -103,7 +107,7 @@ public class BillAction extends BaseAction {
 
 					ProDataObject object = exDataGraph.createProDataObject("tt_xprcdet_in");
 
-					object.setString(0, tt_xprcdeti_xprcmstroid);
+					object.setString(0, tt_xprcmstro_xprcmstroid);
 
 					exDataGraph.addProDataObject(object);
 
@@ -135,7 +139,7 @@ public class BillAction extends BaseAction {
 			if (ConnectQAD()) {
 				String userCode = this.getRequest().getRemoteUser();
 
-				String domain = getCurrentDomain();
+				
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
@@ -143,15 +147,94 @@ public class BillAction extends BaseAction {
 
 				ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
 
-				object.setString(0, bill.getTt_xprcmstro_xprcmstroid());
+				object.setString(0, "14814");
 				object.setInt(1, bill.getTt_xprcmstro_qty());
 				object.setBigDecimal(2,bill.getTt_xprcmstro_taxamt());
 				object.setString(3,bill.getTt_xprcmstro_invdate());
 				object.setBigDecimal(4,bill.getTt_xprcmstro_notaxamt());
 			    object.setString(5,bill.getTt_xprcmstro_invnbr());
 				object.setString(6, bill.getTt_xprcmstro_rmk());
-			    object.setString(7,bill.getTt_xprcmstro_stat());
+			    object.setString(7,"0");
 				object.setString(8, bill.getTt_xprcmstri_indexinvnbr());
+				object.setString(9, ""); //""为确认，0为打印
+				object.setString(10, userCode);
+
+
+				exDataGraph.addProDataObject(object);
+
+				yfkssScp.xxupdate_xprcmstr(exDataGraph, outputData);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	
+	public String refuse() {
+		try {
+			if (ConnectQAD()) {
+				String userCode = this.getRequest().getRemoteUser();
+
+				
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxupdate_xprcmstr_DSMetaData1());
+
+				ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
+
+				object.setString(0, "14814");
+				object.setInt(1, 0);
+				object.setBigDecimal(2,BigDecimal.ZERO);
+				object.setString(3,"");
+				object.setBigDecimal(4,BigDecimal.ZERO);
+			    object.setString(5,"");
+				object.setString(6, "");
+			    object.setString(7,"1");
+				object.setString(8, "");
+				object.setString(9, ""); //""为确认，0为打印
+				object.setString(10, userCode);
+
+
+				exDataGraph.addProDataObject(object);
+
+				yfkssScp.xxupdate_xprcmstr(exDataGraph, outputData);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	
+	public String print() {
+		try {
+			if (ConnectQAD()) {
+				String userCode = this.getRequest().getRemoteUser();
+
+				
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxupdate_xprcmstr_DSMetaData1());
+
+				ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
+
+				object.setString(0, "14814");
+				object.setInt(1, 0);
+				object.setBigDecimal(2,BigDecimal.ZERO);
+				object.setString(3,"");
+				object.setBigDecimal(4,BigDecimal.ZERO);
+			    object.setString(5,"");
+				object.setString(6, "");
+			    object.setString(7,"1");
+				object.setString(8, "");
+				object.setString(9, "0"); //""为确认，0为打印
+				object.setString(10, userCode);
+
 
 				exDataGraph.addProDataObject(object);
 
@@ -210,11 +293,11 @@ public class BillAction extends BaseAction {
 
 					exDataGraph.addProDataObject(objectMstr);
 
-					yfkssScp.xxinquiry_xpyhmstr(exDataGraph, outputData);
+					yfkssScp.xxinquiry_xprcmstr(exDataGraph, outputData);
 
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhmstr_out");
+							.getProDataObjects("tt_xprcmstr_out");
 
 					bills = QADUtil.ConverToBill(outDataList);
 				} catch (Exception e) {

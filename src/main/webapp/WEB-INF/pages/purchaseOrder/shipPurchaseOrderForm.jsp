@@ -12,6 +12,7 @@
 <s:form name="purchaseOrderForm" action="editPurchaseOrder"
 	method="post" validate="true" cssClass="well form-horizontal"
 	autocomplete="off">
+	
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
 		<div class="col-xs-4">
@@ -64,6 +65,7 @@
 			<i class="icon-ok icon-white"></i>
 			<fmt:message key="button.ship" />
 		</s:submit>
+			
 		<s:submit type="button" cssClass="btn" method="cancel"
 			key="button.back" theme="simple">
 			<i class=" icon-arrow-left"></i>
@@ -72,9 +74,9 @@
 	</div>
 
 	<display:table name="purchaseOrderDetails" cellspacing="0"
-		cellpadding="0" requestURI="/purchaseOrderDetails"
-		id="purchaseOrderDetail"
+		cellpadding="0"  id="purchaseOrderDetail"
 		class="table table-condensed table-striped table-hover" export="false">
+		
 
 		<display:column property="tt_xpyhddeto_seq" escapeXml="true"
 			titleKey="purchaseOrderDetail.tt_xpyhddeto_seq" />
@@ -93,16 +95,21 @@
 		<display:column property="tt_xpyhddeto_openqty" escapeXml="true"
 			titleKey="purchaseOrderDetail.tt_xpyhddeto_openqty" />
 		<display:column titleKey="purchaseOrderDetail.tt_xpyhddeto_delvqty">
-			<input type="text" style="margin: 0px; width: 100px;"
-				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum -1}]. tt_xpyhddeto_delvqty"
-				value="${purchaseOrderDetail.tt_xpyhddeto_delvqty}"
-				class="text medium" />
-		</display:column>
-		<display:column titleKey="purchaseOrderDetail.line_remark">
+			
 			<input type="text" style="margin: 0px; width: 200px;"
+				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum - 1}].tt_xpyhddeto_delvqty"
+				value="${purchaseOrderDetail.tt_xpyhddeto_delvqty}" class="text medium" />
+			<input type="hidden"
+				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum - 1}].tt_xpyhddeto_xpyhddetoid"
+				value="${purchaseOrderDetail.tt_xpyhddeto_xpyhddetoid}" />
+		</display:column>
+		
+		<display:column titleKey="purchaseOrderDetail.line_remark">
+		
+		<input type="text" style="margin: 0px; width: 200px;"
 				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum - 1}].line_remark"
 				value="${purchaseOrderDetail.line_remark}" class="text medium" />
-		</display:column>
+				</display:column>
 	</display:table>
 </s:form>
 

@@ -317,5 +317,19 @@
 				<param name="bufferSize">4096</param>
 			</result>
 		</action>
+		<action name="confirmBill" class="billAction"
+			method="confirm">
+			<result name="success">/WEB-INF/pages/bill/billForm.jsp
+			</result>
+			<result name="input">/WEB-INF/pages/bill/billForm.jsp
+			</result>
+		</action>
+		<action name="refuseBill" class="billAction"
+			method="refuse">
+			<result name="success">/WEB-INF/pages/bill/billForm.jsp
+			</result>
+			<result name="input">/WEB-INF/pages/bill/billForm.jsp
+			</result>
+		</action>
 	</package>
 </struts>

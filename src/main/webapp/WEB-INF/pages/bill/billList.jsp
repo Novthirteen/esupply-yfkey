@@ -50,8 +50,8 @@
 		sortable="true" titleKey="bill.tt_xprcmstro_seq" />
 	<display:column property="tt_xprcmstro_voucher" escapeXml="true"
 		sortable="true" titleKey="bill.tt_xprcmstro_voucher"
-		url="/bill/editBill?from=list" paramId="tt_prhmstri_receiver"
-		paramProperty="tt_prhmstro_receiver" />
+		url="/bill/editBill?from=list" paramId="tt_xprcmstro_xprcmstroid"
+		paramProperty="tt_xprcmstro_xprcmstroid" />
 	<display:column property="tt_xprcmstro_suppcode" escapeXml="true"
 		sortable="true" titleKey="bill.tt_xprcmstro_suppcode" />
 	<display:column property="tt_xprcmstro_invdate" escapeXml="true"

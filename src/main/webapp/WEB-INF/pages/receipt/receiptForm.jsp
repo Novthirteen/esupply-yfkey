@@ -12,27 +12,29 @@
 <s:form name="receiptForm" action="editReceipt" method="post"
 	validate="true" cssClass="well form-horizontal" autocomplete="off">
 	<input type="hidden" name="from" value="${param.from}" />
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="receipt.tt_prhmstro_receiver" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="receipt.tt_prhmstro_receiver" cssClass="form-control" />
 		</div>
-		<div class="span4">
-			<s:label key="receipt.tt_prhmstri_yhdnbr" />
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="receipt.tt_prhmstri_fromdate" />
-		</div>
-		<div class="span4">
-			<s:label key="receipt.tt_prhmstri_todate" />
+		<div class="col-xs-4">
+			<s:label key="receipt.tt_prhmstro_asnnbr" cssClass="form-control" />
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<s:label key="receipt.tt_prhmstri_partnbr" />
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="receipt.tt_prhmstro_suppcode" cssClass="form-control" />
 		</div>
-
+		<div class="col-xs-4">
+			<s:label key="receipt.tt_prhmstro_shipto" cssClass="form-control" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			<s:label key="receipt.tt_prhmstro_rcdate" cssClass="form-control" />
+		</div>
+		<div class="col-xs-4">
+			<s:label key="receipt.tt_prhmstro_rcuserid" cssClass="form-control" />
+		</div>
 	</div>
 
 
@@ -55,12 +57,10 @@
 
 
 <display:table name="receiptDetails" cellspacing="0" cellpadding="0"
-	requestURI="/receiptDetails" id="receiptDetails"
+	requestURI="/receiptDetails" id="receiptDetail"
 	class="table table-condensed table-striped table-hover" export="false">
 	<display:column property="tt_prhdeto_seq" escapeXml="false"
 		 titleKey="receiptDetail.tt_prhdeto_seq" />
-	<display:column property="tt_prhdeto_receiver" escapeXml="true"
-		 titleKey="receiptDetail.tt_prhdeto_receiver" />
 	<display:column property="tt_prhdeto_yhdnbr" escapeXml="true"
 		 titleKey="receiptDetail.tt_prhdeto_yhdnbr" />
 	<display:column property="tt_prhdeto_partnbr" escapeXml="true"

@@ -43,7 +43,7 @@ public class PurchaseOrderAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = -569882426981216104L;
 	private List<PurchaseOrder> purchaseOrders;
-	private static List<PurchaseOrderDetail> purchaseOrderDetails;
+	private  List<PurchaseOrderDetail> purchaseOrderDetails;
 	private PurchaseOrder purchaseOrder;
 	private String tt_xpyhmstro_yhdnbr;
 	private InputStream inputStream;
@@ -63,6 +63,10 @@ public class PurchaseOrderAction extends BaseAction {
 
 	public List<PurchaseOrderDetail> getPurchaseOrderDetails() {
 		return purchaseOrderDetails;
+	}
+	
+	public void setPurchaseOrderDetails(List<PurchaseOrderDetail> purchaseOrderDetails) {
+		this.purchaseOrderDetails = purchaseOrderDetails;
 	}
 
 	public PurchaseOrder getPurchaseOrder() {
@@ -346,9 +350,8 @@ public class PurchaseOrderAction extends BaseAction {
 				if (purchaseOrderDetails != null && purchaseOrderDetails.size() > 0) {
 					for (PurchaseOrderDetail pod : purchaseOrderDetails) {
 						ProDataObject object = exDataGraph.createProDataObject("tt_xasndet_in");
-
 						object.setString(0, pod.getTt_xpyhddeto_xpyhddetoid());
-						object.setBigDecimal(1, new BigDecimal(pod.getLine_remark()));
+						object.setBigDecimal(1, pod.getTt_xpyhddeto_delvqty());
 						object.setString(2, purchaseOrder.getRemark());
 						object.setString(3, pod.getLine_remark());
 						object.setString(4, userCode);

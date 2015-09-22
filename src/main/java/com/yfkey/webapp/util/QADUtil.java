@@ -228,7 +228,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_uom(o.getString("tt_xpyhddeto_uom"));
 				pod.setTt_xpyhddeto_spq(o.getBigDecimal("tt_xpyhddeto_spq"));
 				pod.setTt_xpyhddeto_toloc(o.getString("tt_xpyhddeto_toloc"));
-				//pod.setTt_xpyhddeto_delvqty(o.getBigDecimal("tt_xpyhddeto_delvqty"));
+				pod.setTt_xpyhddeto_delvqty(o.getBigDecimal("tt_xpyhddeto_delvqty"));
 				pod.setTt_xpyhddeto_openqty(o.getBigDecimal("tt_xpyhddeto_openqty"));
 				pod.setTt_xpyhddeto_xpyhmstroid(o.getString("tt_xpyhddeto_xpyhmstroid"));
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
@@ -399,13 +399,14 @@ public final class QADUtil {
 			if (proDataObjectList != null && proDataObjectList.size() > 0) {
 				ProDataObject om = proDataObjectList.get(0);
 
-				receipt.setTt_prhmstro_receiver(om.getString("tt_prhmstro_receiver"));
-				receipt.setTt_prhmstro_suppcode(om.getString("tt_prhmstro_suppcode"));
-				receipt.setTt_prhmstro_asnnbr(om.getString("tt_prhmstro_asnnbr"));
-				receipt.setTt_prhmstro_suppcode(om.getString("tt_prhmstro_suppcode"));
-				receipt.setTt_prhmstro_rcdate(om.getString("tt_prhmstro_rcdate"));
-				receipt.setTt_prhmstro_rcuserid(om.getString("tt_prhmstro_rcuserid"));
-				receipt.setTt_prhmstro_prhmstroid(om.getString("tt_prhmstro_prhmstroid"));
+				receipt.setTt_prhmstro_receiver(om.getString("tt_prhdeto_receiver"));
+				receipt.setTt_prhmstro_suppcode(om.getString("tt_prhdeto_suppcode"));
+				receipt.setTt_prhmstro_asnnbr(om.getString("tt_prhdeto_asnnbr"));
+				receipt.setTt_prhmstro_suppcode(om.getString("tt_prhdeto_suppcode"));
+				receipt.setTt_prhmstro_rcdate(om.getString("tt_prhdeto_rcdate"));
+				receipt.setTt_prhmstro_rcuserid(om.getString("tt_prhdeto_rcuserid"));
+				receipt.setTt_prhmstro_prhmstroid(om.getString("tt_prhdeto_prhmstroid"));
+				receipt.setTt_prhmstro_shipto(om.getString("tt_prhdeto_shipto"));
 				receiptList.add(receipt);
 
 				int i = 1;
@@ -443,13 +444,13 @@ public final class QADUtil {
 					Bill bill = new Bill();
 					bill.setTt_xprcmstro_seq(i);
 					bill.setTt_xprcmstro_voucher(o.getString("tt_xprcmstro_voucher"));
-					bill.setTt_xprcmstro_suppcode(o.getString("tt_xpyhmstro_suppcode"));
+					bill.setTt_xprcmstro_suppcode(o.getString("tt_xprcmstro_suppcode"));
 					bill.setTt_xprcmstro_invdate(o.getString("tt_xprcmstro_invdate"));
 					bill.setTt_xprcmstro_totalamt(o.getBigDecimal("tt_xprcmstro_totalamt"));
 					bill.setTt_xprcmstro_printed(o.getString("tt_xprcmstro_printed"));
 					bill.setTt_xprcmstro_stat(o.getString("tt_xprcmstro_stat"));
 					bill.setTt_xprcmstro_xprcmstroid(o.getString("tt_xprcmstro_xprcmstroid"));
-				
+				    bill.setTt_xprcmstro_type(o.getString("tt_xprcmstro_type"));
 
 					billList.add(bill);
 					i++;
@@ -460,18 +461,17 @@ public final class QADUtil {
 
 		//bill det
 		public static List<Object> ConvertToBillAndDetail(List<ProDataObject> proDataObjectList) {
-			Bill po = new Bill();
+			Bill bill = new Bill();
 			List<BillDetail> billDetailList = new ArrayList<BillDetail>();
 			List<Object> billList = new ArrayList<Object>();
 
 			if (proDataObjectList != null && proDataObjectList.size() > 0) {
 				ProDataObject om = proDataObjectList.get(0);
-				Bill bill = new Bill();
+				
 				bill.setTt_xprcmstro_voucher(om.getString("tt_xpyhddeto_voucher"));
 				bill.setTt_xprcmstro_suppcode(om.getString("tt_xpyhddeto_suppcode"));
 				bill.setTt_xprcmstro_invdate(om.getString("tt_xpyhddeto_invdate"));
 				bill.setTt_xprcmstro_totalamt(om.getBigDecimal("tt_xpyhddeto_totalamt"));
-				bill.setTt_xprcmstro_printed(om.getString("tt_xpyhddeto_printed"));
 				bill.setTt_xprcmstro_stat(om.getString("tt_xpyhddeto_stat"));
 				
 				bill.setTt_xprcmstro_qty(om.getInt("tt_xpyhddeto_qty"));
@@ -481,9 +481,9 @@ public final class QADUtil {
 				bill.setTt_xprcmstro_rmk(om.getString("tt_xpyhddeto_rmk"));
 				bill.setTt_xprcmstro_claiminv(om.getString("tt_xpyhddeto_claiminv"));
 				bill.setTt_xprcmstro_claimamt(om.getBigDecimal("tt_xpyhddeto_claimamt"));
-				
+				bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_voucher"));
 			
-				billList.add(po);
+				billList.add(bill);
 
 				int i = 1;
 				for (ProDataObject o : proDataObjectList) {
