@@ -134,7 +134,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxexport_xpyhddet_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
 		xxexport_xpyhddet_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxexport_xpyhddet_DSMetaData1.addTable(xxexport_xpyhddet_MetaData11);
-		xxexport_xpyhddet_MetaData12 = new ProDataObjectMetaData("tt_xpyhddet_in", 10, false, 0, null, null, null);
+		xxexport_xpyhddet_MetaData12 = new ProDataObjectMetaData("tt_xpyhddet_in", 8, false, 0, null, null, null);
 		xxexport_xpyhddet_MetaData12.setFieldDesc(1, "tt_xpyhddeti_yhdnbr", 0, Parameter.PRO_CHARACTER,0,0);
 		xxexport_xpyhddet_MetaData12.setFieldDesc(2, "tt_xpyhddeti_stat", 0, Parameter.PRO_CHARACTER,1,0);
 		xxexport_xpyhddet_MetaData12.setFieldDesc(3, "tt_xpyhddeti_startdt", 0, Parameter.PRO_CHARACTER,2,0);

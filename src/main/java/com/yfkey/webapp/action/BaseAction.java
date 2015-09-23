@@ -283,4 +283,17 @@ public class BaseAction extends ActionSupport {
 	{
 		return this.getRequest().getSession().getAttribute(Constants.SELECTED_USER_PLANT).toString();
 	}
+	
+	
+	protected String getBillStatus(String billStatus)
+	{
+		String billStatusDescription = "";
+		switch(billStatus)
+		{
+			case "0": billStatusDescription = getText("billStatus.empty");
+		}
+		
+		return getText("");
+	}
+	
 }

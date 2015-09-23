@@ -58,7 +58,7 @@
 
 <display:table name="asnDetails" cellspacing="0" cellpadding="0"
 	requestURI="/asnDetails" id="asnDetails"
-	class="table table-condensed table-striped table-hover" export="true">
+	class="table table-condensed table-striped table-hover" export="false">
 	<display:column property="tt_xasndeto_yhdnbr" escapeXml="true"
 		titleKey="asnDetail.tt_xasndeto_yhdnbr" />
 	<display:column property="tt_xasndeto_seq" escapeXml="true"
@@ -76,8 +76,7 @@
 	<display:column property="tt_xasndeto_asnqty" escapeXml="true"
 		titleKey="asnDetail.tt_xasndeto_asnqty" />
 
-	<display:setProperty name="export.excel.filename"
-		value="AsnDetail List.xls" />
+	
 </display:table>
 
 <script type="text/javascript">

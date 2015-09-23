@@ -13,11 +13,13 @@
 	method="post" validate="true">
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
+			<s:textfield cssClass="form-control search-control"
+				key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
 		</div>
 
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_shipto" />
+			<s:textfield cssClass="form-control search-control"
+				key="purchaseOrder.tt_xpyhmstro_shipto" />
 		</div>
 	</div>
 

@@ -11,10 +11,15 @@ import com.yfkey.model.AsnDetail;
 import com.yfkey.model.Barcode;
 import com.yfkey.model.Bill;
 import com.yfkey.model.BillDetail;
+import com.yfkey.model.Gender;
+import com.yfkey.model.LabelValue;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
 import com.yfkey.model.Receipt;
 import com.yfkey.model.ReceiptDetail;
+
+import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
 
 /**
  * Convenience class for setting and retrieving cookies.
@@ -87,6 +92,7 @@ public final class QADUtil {
 				pod.setTt_xpyhdde_creator(o.getString("tt_xpyhddeto_creator"));
 				pod.setTt_xpyhddeto_xpyhmstroid(o.getString("tt_xpyhddeto_xpyhmstroid"));
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
+				purchaseOrderDetailList.add(pod);
 			}
 		}
 		return purchaseOrderDetailList;
@@ -374,6 +380,7 @@ public final class QADUtil {
 			for (ProDataObject o : proDataObjectList) {
 				ReceiptDetail receiptDetail = new ReceiptDetail();
 				receiptDetail.setTt_prhdeto_seq(i);
+				receiptDetail.setTt_prhdeto_receiver(o.getString("tt_prhdeto_receiver"));
 				receiptDetail.setTt_prhdeto_yhdnbr(o.getString("tt_prhdeto_yhdnbr"));
 				receiptDetail.setTt_prhdeto_partnbr(o.getString("tt_prhdeto_partnbr"));
 				receiptDetail.setTt_prhdeto_partdesc(o.getString("tt_prhdeto_partdesc"));
@@ -383,6 +390,8 @@ public final class QADUtil {
 				receiptDetail.setTt_prhdeto_toloc(o.getString("tt_prhdeto_toloc"));
 				receiptDetail.setTt_prhdeto_delvqty(o.getBigDecimal("tt_prhdeto_delvqty"));
 			    receiptDetail.setTt_prhdeto_revdqty(o.getBigDecimal("tt_prhdeto_revdqty"));
+			    receiptDetailList.add(receiptDetail);
+			    i++;
 			}
 		}
 		return receiptDetailList;
@@ -508,6 +517,16 @@ public final class QADUtil {
 			}
 
 			return billList;
-
 		}
+		
+		
+//		public  String getBillStatus(String status)
+//		{
+//		
+//			
+//		
+//			
+//		}
+
+	
 }

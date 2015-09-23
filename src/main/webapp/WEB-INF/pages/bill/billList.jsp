@@ -72,6 +72,9 @@
 
 	<display:setProperty name="export.excel.filename" value="Bill List.xls" />
 
-
+	<display:setProperty name="export.pdf" value="false" />
+	<display:setProperty name="export.excel" value="true" />
+	<display:setProperty name="export.csv" value="false" />
+	<display:setProperty name="export.xml" value="false" />
 
 </display:table>

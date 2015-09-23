@@ -59,12 +59,12 @@
 			class="table table-condensed table-striped table-hover" export="true">
 			<display:column property="tt_prhmstro_seq" escapeXml="true"
 				sortable="true" titleKey="receipt.tt_prhmstro_seq" />
-		
+
 			<display:column property="tt_prhmstro_receiver" escapeXml="true"
 				sortable="true" titleKey="receipt.tt_prhmstro_receiver"
-				url="/receipt/editReceipt?from=list"
-				paramId="tt_prhmstri_receiver" paramProperty="tt_prhmstro_receiver" />
-				
+				url="/receipt/editReceipt?from=list" paramId="tt_prhmstri_receiver"
+				paramProperty="tt_prhmstro_receiver" />
+
 			<display:column property="tt_prhmstro_suppcode" escapeXml="true"
 				sortable="true" titleKey="receipt.tt_prhmstro_suppcode" />
 			<display:column property="tt_prhmstro_asnnbr" escapeXml="true"
@@ -86,15 +86,18 @@
 			<display:setProperty name="export.excel.filename"
 				value="Receipt List.xls" />
 
-
+			<display:setProperty name="export.pdf" value="false" />
+			<display:setProperty name="export.excel" value="true" />
+			<display:setProperty name="export.csv" value="false" />
+			<display:setProperty name="export.xml" value="false" />
 
 		</display:table>
 	</c:when>
 	<c:otherwise>
 
 		<display:table name="receiptDetails" cellspacing="0" pagesize="25"
-			defaultsort="1" cellpadding="0" requestURI="receipts"
-			id="receiptDetails"
+			defaultsort="1" cellpadding="0" requestURI="receiptDetails"
+			id="receiptDetail"
 			class="table table-condensed table-striped table-hover" export="true">
 
 			<display:column property="tt_prhdeto_seq" escapeXml="true"
@@ -129,6 +132,10 @@
 
 			<display:setProperty name="export.excel.filename"
 				value="Receipt List.xls" />
+			<display:setProperty name="export.pdf" value="false" />
+			<display:setProperty name="export.excel" value="true" />
+			<display:setProperty name="export.csv" value="false" />
+			<display:setProperty name="export.xml" value="false" />
 		</display:table>
 	</c:otherwise>
 </c:choose>

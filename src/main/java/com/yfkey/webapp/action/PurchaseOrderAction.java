@@ -448,7 +448,6 @@ public class PurchaseOrderAction extends BaseAction {
 						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null?"":purchaseOrder.getTt_xpyhmstro_shipto());
 						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt()== null?"":purchaseOrder.getTt_xpyhmstro_receptdt());
 						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null?"":purchaseOrder.getTt_xpyhmstro_partnbr());
-						objectMstr.setString(8, "0");
 					}
 
 					exDataGraph.addProDataObject(objectMstr);

@@ -46,7 +46,7 @@
 				key="asn.tt_xasnmstri_partnbr" />
 		</div>
 		<div class="col-xs-4 search-group layouttrim">
-			<s:checkbox  key="asn.isDetail" />
+			<s:checkbox key="asn.isDetail" />
 		</div>
 	</div>
 	<div class="row">
@@ -87,12 +87,18 @@
 			</display:setProperty>
 			<display:setProperty name="export.excel.filename"
 				value="Asn List.xls" />
+
+			<display:setProperty name="export.pdf" value="false" />
+			<display:setProperty name="export.excel" value="true" />
+			<display:setProperty name="export.csv" value="false" />
+			<display:setProperty name="export.xml" value="false" />
 		</display:table>
 	</c:when>
 	<c:otherwise>
 
 		<display:table name="asnDetails" cellspacing="0" pagesize="25"
-			defaultsort="1" cellpadding="0" requestURI="asnDetails" id="asnDetails"
+			defaultsort="1" cellpadding="0" requestURI="asnDetails"
+			id="asnDetails"
 			class="table table-condensed table-striped table-hover" export="true">
 
 			<display:column property="tt_xasndeto_seq" escapeXml="true"
@@ -123,6 +129,11 @@
 
 			<display:setProperty name="export.excel.filename"
 				value="AsnDetail List.xls" />
+
+			<display:setProperty name="export.pdf" value="false" />
+			<display:setProperty name="export.excel" value="true" />
+			<display:setProperty name="export.csv" value="false" />
+			<display:setProperty name="export.xml" value="false" />
 		</display:table>
 	</c:otherwise>
 </c:choose>

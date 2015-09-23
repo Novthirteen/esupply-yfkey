@@ -54,7 +54,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-8">
-			<s:label key="purchaseOrder.remark" />
+			<s:label key="purchaseOrder.remark" cssClass="form-control" />
 		</div>
 	</div>
 
@@ -114,6 +114,10 @@
 
 		<display:setProperty name="export.excel.filename"
 			value="PurchaseOrderDetail List.xls" />
+		<display:setProperty name="export.pdf" value="false" />
+		<display:setProperty name="export.excel" value="true" />
+		<display:setProperty name="export.csv" value="false" />
+		<display:setProperty name="export.xml" value="false" />
 	</display:table>
 </s:form>
 

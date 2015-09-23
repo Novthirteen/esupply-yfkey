@@ -226,7 +226,7 @@ public class ReceiptAction extends BaseAction {
 
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhddet_out");
+							.getProDataObjects("tt_prhdet_out");
 
 					receiptDetails = QADUtil.ConverToReceiptDetail(outDataList);
 

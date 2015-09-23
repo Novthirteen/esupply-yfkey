@@ -163,7 +163,10 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	@JsonIgnore
 	public Collection<GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
-		authorities.addAll(this.userAuthorizedUrls);
+		if(this.userAuthorizedUrls != null)
+		{
+			authorities.addAll(this.userAuthorizedUrls);
+		}
 		return authorities;
 	}
 
