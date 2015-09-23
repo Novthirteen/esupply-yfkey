@@ -751,8 +751,9 @@ public final class YFKSSSCPImpl extends AppObject
 	static
 	{
 		xxview_xpyhddet_DSMetaData1 = new ProDataGraphMetaData(0, "input_xpyhddet", 1, ParameterSet.INPUT);
-		xxview_xpyhddet_MetaData11 = new ProDataObjectMetaData("tt_xpyhddet_in", 1, false, 0, null, null, null);
+		xxview_xpyhddet_MetaData11 = new ProDataObjectMetaData("tt_xpyhddet_in", 2, false, 0, null, null, null);
 		xxview_xpyhddet_MetaData11.setFieldDesc(1, "tt_xpyhddeti_xpyhmstroid", 0, Parameter.PRO_CHARACTER,0,0);
+		xxview_xpyhddet_MetaData11.setFieldDesc(2, "tt_xpyhddeti_type", 0, Parameter.PRO_CHARACTER,1,0);
 		xxview_xpyhddet_DSMetaData1.addTable(xxview_xpyhddet_MetaData11);
 		xxview_xpyhddet_DSMetaData2 = new ProDataGraphMetaData(0, "export_xpyhddet", 2, ParameterSet.OUTPUT);
 		xxview_xpyhddet_MetaData21 = new ProDataObjectMetaData("tt_xpyhddet_out", 32, false, 0, null, null, null);

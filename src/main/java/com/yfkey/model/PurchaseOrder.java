@@ -33,6 +33,7 @@ public class PurchaseOrder extends BaseObject {
 	private String tt_xpyhmstro_dock;    //道口
 	
 	private String tt_xpyhmstro_type;  //类型，0是要货单，1是发货
+	private String tt_xpyhmstro_recepttm; //窗口时间
 	
 	
 	
@@ -207,6 +208,16 @@ public class PurchaseOrder extends BaseObject {
 
 	public void setTt_xpyhmstro_type(String tt_xpyhmstro_type) {
 		this.tt_xpyhmstro_type = tt_xpyhmstro_type;
+	}
+
+	
+	
+	public String getTt_xpyhmstro_recepttm() {
+		return tt_xpyhmstro_recepttm;
+	}
+
+	public void setTt_xpyhmstro_recepttm(String tt_xpyhmstro_recepttm) {
+		this.tt_xpyhmstro_recepttm = tt_xpyhmstro_recepttm;
 	}
 
 	public List<PurchaseOrderDetail> getPurchaseOrderDetailList() {

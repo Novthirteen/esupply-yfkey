@@ -15,6 +15,8 @@
 	<div class="row">
 		<div class="col-xs-4">
 			<s:label key="asn.tt_xasnmstro_asnnbr" cssClass="form-control" />
+			<s:label key="asn.tt_xasnmstro_xasnmstroid" />
+			<s:hidden key="asn.tt_xasnmstro_xasnmstroid" />
 		</div>
 		<div class="col-xs-4">
 			<s:label key="asn.tt_xasnmstro_stat" cssClass="form-control" />

@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,9 +20,11 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.yfkey.model.Asn;
+import com.yfkey.model.AsnDetail;
 
 public class PrintASNUtil {
-	public static ByteArrayInputStream PrintASN(String localAbsolutPath, String template) throws IOException, DocumentException 
+	public static ByteArrayInputStream PrintASN(String localAbsolutPath, String template,Asn asn) throws IOException, DocumentException 
 	{
 		String templateUrl = localAbsolutPath + File.separator + "template" + File.separator + "pdf" + File.separator;
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -38,26 +41,31 @@ public class PrintASNUtil {
 	
 			BaseFont baseFont = BaseFont.createFont("STSongStd-Light","UniGB-UCS2-H",BaseFont.EMBEDDED);  
 			
-			int max= 100;
+			int max= asn.getAsnDetailList().size();
 			int lineCount = 35;
 	        int pageCount = (int)Math.ceil((double)max/lineCount);
 	        int pageNum = 1;
-			fillHeader(cb,baseFont,tempPage,pageNum,pageCount);
+			fillHeader(cb,baseFont,tempPage,pageNum,pageCount,asn);
 	        
 	        float height = 16f;
 	        float baseDetailHeight = 615;
 	        for(int i=0; i<max;i++)
 	        {
+	        	AsnDetail asnDetail = asn.getAsnDetailList().get(i);
 	        	cb.beginText();
 	        	cb.setFontAndSize(baseFont, 8);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "ORD0000001", 36, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(i+1), 84, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "Item000000"+String.valueOf(i+1), 117, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "RefItem000"+String.valueOf(i+1), 165, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "零件描述"+String.valueOf(i+1), 228, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "单位", 308, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf((i+1)*10), 344, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf((i+1)*10), 384, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_yhdnbr() == null?"":asnDetail.getTt_xasndeto_yhdnbr(), 36, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(asnDetail.getTt_xasndeto_seq() == 0?i+1:asnDetail.getTt_xasndeto_seq() ), 84, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partnbr() == null?"": asnDetail.getTt_xasndeto_partnbr(), 117, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_supppart() == null?"":asnDetail.getTt_xasndeto_supppart(), 165, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partdesc() == null?"":asnDetail.getTt_xasndeto_partdesc(), 228, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_uom() == null?"":asnDetail.getTt_xasndeto_uom(), 308, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(asnDetail.getTt_xasndeto_spq()), 344, baseDetailHeight-height*(i%lineCount), 0);
+	        	
+	        	BigDecimal box = asnDetail.getTt_xasndeto_spq() == BigDecimal.ZERO?BigDecimal.ZERO:asnDetail.getTt_xasndeto_asnqty().divide(asnDetail.getTt_xasndeto_spq(),0,BigDecimal.ROUND_CEILING);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(box), 394, baseDetailHeight-height*(i%lineCount), 0);
+	        	
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(asnDetail.getTt_xasndeto_asnqty()), 450, baseDetailHeight-height*(i%lineCount), 0);
 	        	
 	        	
 	        	cb.endText();
@@ -66,7 +74,7 @@ public class PrintASNUtil {
 	        	{
 	                document.newPage();
 	                pageNum++;
-	                fillHeader(cb,baseFont,tempPage,pageNum,pageCount);
+	                fillHeader(cb,baseFont,tempPage,pageNum,pageCount,asn);
 	        	}
 	        }
 	        //cb.endText();
@@ -82,7 +90,7 @@ public class PrintASNUtil {
 		return new ByteArrayInputStream(outputStream.toByteArray());
 	}
 	
-	public static PdfContentByte fillHeader(PdfContentByte cb,BaseFont baseFont,PdfImportedPage tempPage, int pageNum, int pageCount)throws DocumentException, IOException
+	public static PdfContentByte fillHeader(PdfContentByte cb,BaseFont baseFont,PdfImportedPage tempPage, int pageNum, int pageCount,Asn asn)throws DocumentException, IOException
 	{
 		cb.addTemplate(tempPage,0,0);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
@@ -93,7 +101,7 @@ public class PrintASNUtil {
 		
 		cb.setFontAndSize(baseFont, 7.5f);
 		Barcode128 code128 = new Barcode128();
-        code128.setCode("ASN00000001");
+        code128.setCode(asn.getTt_xasnmstro_asnnbr());
         code128.setSize(8f);
         code128.setTextAlignment(Element.ALIGN_CENTER);
         code128.setBaseline(10f);
@@ -103,31 +111,31 @@ public class PrintASNUtil {
         //cb.stroke();
         
         //外部单据号
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "EXTNO00000001", 140, 727, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasnmstro_suppcode(), 140, 727, 0);
         //ASN
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "ASNNO00000001", 422, 727, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 727, 0);
         //供应商代码
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUP0000000001", 140, 713, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 140, 713, 0);
         //收货日期
         
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, df.format(new Date()), 422, 713, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 713, 0);
         //供应商名称
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUPPLIER SAMPLE", 140, 699, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT,"", 140, 699, 0);
         //收货部门
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "采购部", 422, 699, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 699, 0);
         //承运商			
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "CYS01", 140, 685, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 140, 685, 0);
         //收货地点
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "上海市浦东康桥工业区秀浦路426号", 422, 685, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 685, 0);
         
         //供应商名称
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "XXXXXXXXXXXX", 140, 671, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 140, 671, 0);
         //收货部门
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "XXXXXXXXXXXX部", 422, 671, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 671, 0);
         //供应商名称
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "XXXXXXXXXXXX", 140, 657, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 140, 657, 0);
         //收货部门
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "XXXXXXXXXXXX部", 422, 657, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 657, 0);
         cb.endText();
 		
         return cb;

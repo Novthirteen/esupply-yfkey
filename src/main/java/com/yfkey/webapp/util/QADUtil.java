@@ -339,6 +339,7 @@ public final class QADUtil {
 				asnDetail.setTt_xasndeto_xasndetoid(o.getString("tt_xasndeto_xasndetoid"));
 				asnDetail.setTt_xasndeto_yhdnbr(o.getString("tt_xasndeto_yhdnbr"));
 				asnDetailList.add(asnDetail);
+				i++;
 
 			}
 			asnList.add(asnDetailList);
