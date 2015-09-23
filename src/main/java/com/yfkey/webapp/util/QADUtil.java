@@ -109,8 +109,10 @@ public final class QADUtil {
 			po.setTt_xpyhmstro_yhdnbr(poDataObject.getString("tt_xpyhddeto_yhdnbr"));
 			po.setTt_xpyhmstro_priority(poDataObject.getString("tt_xpyhddeto_priority"));
 			po.setTt_xpyhmstro_startdt(poDataObject.getString("tt_xpyhddeto_startdt"));
+			po.setTt_xpyhmstro_recepttm(poDataObject.getString("tt_xpyhddeto_recepttm"));
 			po.setTt_xpyhmstro_receptdt(poDataObject.getString("tt_xpyhddeto_receptdt"));
 			po.setTt_xpyhmstro_suppcode(poDataObject.getString("tt_xpyhddeto_suppcode"));
+			po.setTt_xpyhmstro_suppname(poDataObject.getString("tt_xpyhddeto_suppname"));
 			po.setTt_xpyhmstro_currcy(poDataObject.getString("tt_xpyhddeto_currcy"));
 			po.setTt_xpyhmstro_shipto(poDataObject.getString("tt_xpyhddeto_shipto"));
 			po.setTt_xpyhmstro_stat(poDataObject.getString("tt_xpyhddeto_stat"));

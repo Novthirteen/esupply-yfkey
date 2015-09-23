@@ -15,6 +15,7 @@
 	<div class="row">
 		<div class="col-xs-4">
 			<s:label key="receipt.tt_prhmstro_receiver" cssClass="form-control" />
+			<s:hidden key="receipt.tt_prhmstro_receiver" />
 		</div>
 		<div class="col-xs-4">
 			<s:label key="receipt.tt_prhmstro_asnnbr" cssClass="form-control" />
