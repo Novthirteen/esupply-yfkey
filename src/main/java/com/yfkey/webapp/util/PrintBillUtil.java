@@ -1,11 +1,13 @@
 package com.yfkey.webapp.util;
 
+import java.awt.List;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.itextpdf.text.Document;
@@ -19,9 +21,11 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.yfkey.model.Bill;
+import com.yfkey.model.BillDetail;
 
 public class PrintBillUtil {
-	public static ByteArrayInputStream PrintBill(String localAbsolutPath, String template) throws IOException, DocumentException 
+	public static ByteArrayInputStream PrintBill(String localAbsolutPath, String template,Bill bill) throws IOException, DocumentException 
 	{
 		String templateUrl = localAbsolutPath + File.separator + "template" + File.separator + "pdf" + File.separator;
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -43,27 +47,28 @@ public class PrintBillUtil {
 			int lineCount = 26;
 	        int pageCount = (int)Math.ceil((double)max/lineCount);
 	        int pageNum = 1;
-			fillHeader(cb,baseFont,tempPage,pageNum,pageCount);
+			fillHeader(cb,baseFont,tempPage,pageNum,pageCount,bill);
 	        
 	        float height = 14.7f;
 	        float baseDetailHeight = 411;
-	        for(int i=0; i<max;i++)
+	        for(int i=0; i<bill.getBillDetailList().size();i++)
 	        {
+	        	BillDetail billDetail = bill.getBillDetailList().get(i);
 	        	cb.beginText();
 	        	cb.setFontAndSize(baseFont, 8);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "ORD0000001", 26, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "Item000000"+String.valueOf(i+1), 93, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "Rec000"+String.valueOf(i+1), 165, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(i+1), 232, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(i+1), 260, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_RIGHT, String.valueOf(i+1), 345, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, bill.getTt_suppcodei_suppcode(), 26, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_partnbr(), 93, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_voucher(), 165, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_seq()), 232, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_rcqty()), 260, baseDetailHeight-height*(i%lineCount), 0);
+	        	//cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(i+1), 345, baseDetailHeight-height*(i%lineCount), 0);
 	        	//cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "零件描述"+String.valueOf(i+1), 228, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "单位", 355, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_RIGHT, String.valueOf((i+1)*10), 434, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_RIGHT, String.valueOf((i+1)*10), 494, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "零件描述"+String.valueOf(i+1), 504, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "ASN0000000"+String.valueOf(i+1), 686, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, df.format(new Date()), 765, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_uom(), 355, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invprice()), 434, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invamt()), 494, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_partdesc(), 504, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_receiver(), 686, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_rcdate(), 765, baseDetailHeight-height*(i%lineCount), 0);
 	        	
 	        	
 	        	cb.endText();
@@ -72,7 +77,7 @@ public class PrintBillUtil {
 	        	{
 	                document.newPage();
 	                pageNum++;
-	                fillHeader(cb,baseFont,tempPage,pageNum,pageCount);
+	                fillHeader(cb,baseFont,tempPage,pageNum,pageCount,bill);
 	        	}
 
 	        }
@@ -82,8 +87,9 @@ public class PrintBillUtil {
 			return new ByteArrayInputStream(outputStream.toByteArray());
 	    }
 	
-		public static PdfContentByte fillHeader(PdfContentByte cb,BaseFont baseFont,PdfImportedPage tempPage, int pageNum, int pageCount)throws DocumentException, IOException
+		public static PdfContentByte fillHeader(PdfContentByte cb,BaseFont baseFont,PdfImportedPage tempPage, int pageNum, int pageCount,Bill bill)throws DocumentException, IOException
 		{
+		
 			cb.addTemplate(tempPage,0,0);
 			cb.beginText();
 			cb.setFontAndSize(baseFont, 9);
@@ -94,7 +100,7 @@ public class PrintBillUtil {
 				cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "采购员:", 135, 28.8f, 0);
 				cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "主管:", 363, 28.8f, 0);
 				cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "合计发票金额:", 644, 28.8f, 0);
-				cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "2074391.49", 704, 28.8f, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(bill.getTt_xprcmstro_totalamt()), 704, 28.8f, 0);
 			}
 			/*SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			cb.beginText();

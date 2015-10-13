@@ -19,7 +19,7 @@
 			<s:hidden key="asn.tt_xasnmstro_xasnmstroid" />
 		</div>
 		<div class="col-xs-4">
-			<s:label key="asn.tt_xasnmstro_stat" cssClass="form-control" />
+			<s:label key="asn.tt_xasnmstro_stat_desc" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">

@@ -32,22 +32,26 @@
 
 
 	<div id="actions" class="form-actions">
-		<s:submit type="button" cssClass="btn btn-primary"
-			action="confirmBill" key="button.confirm" theme="simple">
-			<i class="icon-confirm icon-white"></i>
-			<fmt:message key="button.confirm" />
-		</s:submit>
-		<s:submit type="button" cssClass="btn btn-primary"
-			action="agreeBill" key="button.agree" theme="simple">
-			<i class="icon-agree icon-white"></i>
-			<fmt:message key="button.agree" />
-		</s:submit>
-		<s:submit type="button" cssClass="btn btn-primary"
-			action="refuseBill" key="button.refuse" theme="simple">
-			<i class="icon-refuse icon-white"></i>
-			<fmt:message key="button.refuse" />
-		</s:submit>
+		<c:if test="${bill.tt_xprcmstro_stat.equals('1')}">
+			<s:submit type="button" cssClass="btn btn-primary"
+				action="confirmBill" key="button.confirm" theme="simple">
+				<i class="icon-confirm icon-white"></i>
+				<fmt:message key="button.confirm" />
+			</s:submit>
+		</c:if>
+		<c:if test="${bill.tt_xprcmstro_stat.equals('2')}">
+			<s:submit type="button" cssClass="btn btn-primary" action="agreeBill"
+				key="button.agree" theme="simple">
+				<i class="icon-agree icon-white"></i>
+				<fmt:message key="button.agree" />
+			</s:submit>
 
+			<s:submit type="button" cssClass="btn btn-primary"
+				action="refuseBill" key="button.refuse" theme="simple">
+				<i class="icon-refuse icon-white"></i>
+				<fmt:message key="button.refuse" />
+			</s:submit>
+		</c:if>
 		<s:submit type="button" cssClass="btn btn-primary" action="printBill"
 			key="button.print" theme="simple">
 			<i class="icon-printm icon-white"></i>
@@ -71,6 +75,8 @@
 			titleKey="billDetail.tt_xpyhddeto_partnbr" />
 		<display:column property="tt_xpyhddeto_seq" escapeXml="true"
 			titleKey="billDetail.tt_xpyhddeto_seq" />
+		<display:column property="tt_xpyhddeto_rcqty" escapeXml="true"
+			titleKey="billDetail.tt_xpyhddeto_rcqty" />	
 		<display:column property="tt_xpyhddeto_poprice" escapeXml="true"
 			titleKey="billDetail.tt_xpyhddeto_poprice" />
 		<display:column property="tt_xpyhddeto_uom" escapeXml="true"
@@ -107,19 +113,21 @@
 			<s:textfield key="bill.tt_xprcmstro_totalamt" cssClass="form-control" />
 		</div>
 		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xprcmstri_indexinvnbr" cssClass="form-control" />
+			<s:textfield key="bill.tt_xprcmstri_indexinvnbr"
+				cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-	<div class="col-xs-8">
-			<s:textfield key="bill.tt_xprcmstro_invnbr" cssClass="form-control" rows="6" />
+		<div class="col-xs-8">
+			<s:textfield key="bill.tt_xprcmstro_invnbr" cssClass="form-control"
+				rows="6" />
 		</div>
-		</div>
+	</div>
 	<div class="row">
 		<div class="col-xs-8">
 			<s:textfield key="bill.tt_xprcmstro_rmk" cssClass="form-control" />
 		</div>
-		
+
 	</div>
 
 </s:form>

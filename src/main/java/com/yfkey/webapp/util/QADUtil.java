@@ -59,6 +59,9 @@ public final class QADUtil {
 				po.setTt_xpyhmstro_xpyhmstroid(o.getString("tt_xpyhmstro_xpyhmstroid"));
 				po.setTt_xpyhmstro_conf(o.getString("tt_xpyhmstro_conf"));
 				po.setTt_xpyhmstro_print(o.getString("tt_xpyhmstro_print"));
+				po.setTt_xpyhmstro_recepttm(o.getString("tt_xpyhmstro_recepttm"));
+				
+			
 				purchaseOrderList.add(po);
 				i++;
 			}
@@ -118,6 +121,7 @@ public final class QADUtil {
 			po.setTt_xpyhmstro_stat(poDataObject.getString("tt_xpyhddeto_stat"));
 			po.setRemark(poDataObject.getString("tt_xpyhddeto_remark"));
 			po.setTt_xpyhmstro_xpyhmstroid(poDataObject.getString("tt_xpyhddeto_xpyhmstroid"));
+			po.setTt_xpyhmstro_recepttm(poDataObject.getString("tt_xpyhddeto_recepttm"));
 			poList.add(po);
 
 			int i = 1;
@@ -511,10 +515,9 @@ public final class QADUtil {
 					pod.setTt_xpyhddeto_invamt(o.getBigDecimal("tt_xpyhddeto_invamt"));
 					pod.setTt_xpyhddeto_partdesc(o.getString("tt_xpyhddeto_partdesc"));
 					pod.setTt_xpyhddeto_rcdate(o.getString("tt_xpyhddeto_rcdate"));
-					
+					pod.setTt_xpyhddeto_rcqty(o.getBigDecimal("tt_xpyhddeto_rcqty"));
 					billDetailList.add(pod);
-
-
+					
 				}
 				billList.add(billDetailList);
 			}

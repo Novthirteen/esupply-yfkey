@@ -60,8 +60,8 @@
 		sortable="true" titleKey="bill.tt_xprcmstro_totalamt" />
 	<display:column property="tt_xprcmstro_printed" escapeXml="true"
 		sortable="true" titleKey="bill.tt_xprcmstro_printed" />
-	<display:column property="tt_xprcmstro_stat" escapeXml="true"
-		sortable="true" titleKey="bill.tt_xprcmstro_stat" />
+	<display:column property="tt_xprcmstro_stat_desc" escapeXml="true"
+		sortable="true" titleKey="bill.tt_xprcmstro_stat_desc" />
 
 	<display:setProperty name="paging.banner.item_name">
 		<fmt:message key="billList.bill" />

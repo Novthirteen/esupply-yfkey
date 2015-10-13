@@ -18,8 +18,9 @@
 					key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_priority" />
+				<s:select key="purchaseOrder.tt_xpyhmstro_priority"
+					list="purchaseOrderPriorityList" listKey="label" listValue="value"
+					cssClass="form-control" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<s:textfield cssClass="form-control search-control"
@@ -32,8 +33,10 @@
 					key="purchaseOrder.tt_xpyhmstro_creator" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_stat" />
+				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
+					list="purchaseOrderStatusList" listKey="label" listValue="value"
+					cssClass="form-control" />
+
 			</div>
 			<div class="col-xs-4 search-group">
 				<s:textfield cssClass="form-control search-control"
@@ -97,10 +100,12 @@
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_startdt" />
 				<display:column property="tt_xpyhmstro_receptdt" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_receptdt" />
-				<display:column property="tt_xpyhmstro_stat" escapeXml="true"
-					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_stat" />
-				<display:column property="tt_xpyhmstro_priority" escapeXml="true"
-					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_priority" />
+				<display:column property="tt_xpyhmstro_recepttm" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_recepttm" />
+				<display:column property="tt_xpyhmstro_stat_desc" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_stat_desc" />
+				<display:column property="tt_xpyhmstro_priority_desc" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_priority_desc" />
 				<display:column property="tt_xpyhmstro_creator" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_creator" />
 

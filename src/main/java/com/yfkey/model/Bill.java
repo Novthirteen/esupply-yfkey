@@ -35,6 +35,8 @@ public class Bill extends BaseObject {
 	private String tt_xprcmstri_indexinvnbr; // 第一張发票号
 	private String tt_xprcmstro_claiminv; //索赔发票
 	private String tt_xprcmstro_type; //发票类型
+	
+	private String tt_xprcmstro_stat_desc; // 账单状态描述
 
 	List<BillDetail> billDetailList;
 
@@ -158,7 +160,13 @@ public class Bill extends BaseObject {
 		this.tt_xprcmstro_notaxamt = tt_xprcmstro_notaxamt;
 	}
 
+	public String getTt_xprcmstro_stat_desc() {
+		return tt_xprcmstro_stat_desc;
+	}
 
+	public void setTt_xprcmstro_stat_desc(String tt_xprcmstro_stat_desc) {
+		this.tt_xprcmstro_stat_desc = tt_xprcmstro_stat_desc;
+	}
 
 	public String getTt_suppcodei_suppcode() {
 		return tt_suppcodei_suppcode;

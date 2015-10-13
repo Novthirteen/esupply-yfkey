@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.springframework.security.access.AccessDecisionVoter;
+
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
@@ -30,6 +32,7 @@ import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
+import com.yfkey.model.LabelValue;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
@@ -47,7 +50,7 @@ public class PurchaseOrderAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = -569882426981216104L;
 	private List<PurchaseOrder> purchaseOrders;
-	private  List<PurchaseOrderDetail> purchaseOrderDetails;
+	private List<PurchaseOrderDetail> purchaseOrderDetails;
 	private PurchaseOrder purchaseOrder;
 	private String tt_xpyhmstro_yhdnbr;
 	private InputStream inputStream;
@@ -68,7 +71,7 @@ public class PurchaseOrderAction extends BaseAction {
 	public List<PurchaseOrderDetail> getPurchaseOrderDetails() {
 		return purchaseOrderDetails;
 	}
-	
+
 	public void setPurchaseOrderDetails(List<PurchaseOrderDetail> purchaseOrderDetails) {
 		this.purchaseOrderDetails = purchaseOrderDetails;
 	}
@@ -130,7 +133,6 @@ public class PurchaseOrderAction extends BaseAction {
 
 				if (ConnectQAD()) {
 					String userCode = this.getRequest().getRemoteUser();
-
 					String domain = getCurrentDomain();
 					ProDataGraph exDataGraph; // 输入参数
 					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
@@ -140,7 +142,7 @@ public class PurchaseOrderAction extends BaseAction {
 					ProDataObject object = exDataGraph.createProDataObject("tt_xpyhddet_in");
 
 					object.setString(0, tt_xpyhmstro_xpyhmstroid);
-					object.setString(1, "");                   //0为打印，""为查询
+					object.setString(1, ""); // 0为打印，""为查询
 
 					exDataGraph.addProDataObject(object);
 
@@ -149,10 +151,17 @@ public class PurchaseOrderAction extends BaseAction {
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 							.getProDataObjects("tt_xpyhddet_out");
+					if (outDataList != null && outDataList.size() > 0) {
+						List<Object> objList = QADUtil.ConvertToPurchaseOrderAndDetail(outDataList);
+						purchaseOrder = (PurchaseOrder) objList.get(0);
+						purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
 
-					List<Object> objList = QADUtil.ConvertToPurchaseOrderAndDetail(outDataList);
-					purchaseOrder = (PurchaseOrder) objList.get(0);
-					purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
+						// 状态描述和优先级翻译一下
+						purchaseOrder.setTt_xpyhmstro_stat_desc(
+								getPurchaseOrderStatus(purchaseOrder.getTt_xpyhmstro_stat()));
+						purchaseOrder.setTt_xpyhmstro_priority_desc(
+								getPurchaseOrderPriority(purchaseOrder.getTt_xpyhmstro_priority()));
+					}
 				}
 			} else {
 				purchaseOrder = new PurchaseOrder();
@@ -166,7 +175,6 @@ public class PurchaseOrderAction extends BaseAction {
 	}
 
 	public String shipEdit() throws IOException {
-		
 
 		try {
 
@@ -321,12 +329,10 @@ public class PurchaseOrderAction extends BaseAction {
 				}
 
 				yfkssScp.xxcreate_xasndet(exDataGraph, outputData);
-				
+
 				@SuppressWarnings("unchecked")
 				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 						.getProDataObjects("tt_xasndet_out");
-
-				
 
 			} else {
 				purchaseOrder = new PurchaseOrder();
@@ -398,14 +404,22 @@ public class PurchaseOrderAction extends BaseAction {
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhddet_in");
 
 					if (purchaseOrder != null) {
-						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr() == null?"":purchaseOrder.getTt_xpyhmstro_yhdnbr());
-						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat() == null?"":purchaseOrder.getTt_xpyhmstro_stat());
-						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt() == null?"":purchaseOrder.getTt_xpyhmstro_startdt());
-						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority() == null? "": purchaseOrder.getTt_xpyhmstro_priority());
-						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator() == null? "":purchaseOrder.getTt_xpyhmstro_creator());
-						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null?"":purchaseOrder.getTt_xpyhmstro_shipto());
-						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt()== null?"":purchaseOrder.getTt_xpyhmstro_receptdt());
-						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null?"":purchaseOrder.getTt_xpyhmstro_partnbr());
+						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_yhdnbr());
+						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_stat());
+						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_startdt());
+						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_priority());
+						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_creator());
+						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_shipto());
+						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_receptdt());
+						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_partnbr());
 					}
 
 					exDataGraph.addProDataObject(objectMstr);
@@ -462,14 +476,22 @@ public class PurchaseOrderAction extends BaseAction {
 
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhmstr_in");
 					if (purchaseOrder != null) {
-						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr() == null?"":purchaseOrder.getTt_xpyhmstro_yhdnbr());
-						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat() == null?"":purchaseOrder.getTt_xpyhmstro_stat());
-						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt() == null?"":purchaseOrder.getTt_xpyhmstro_startdt());
-						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority() == null? "": purchaseOrder.getTt_xpyhmstro_priority());
-						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator() == null? "":purchaseOrder.getTt_xpyhmstro_creator());
-						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null?"":purchaseOrder.getTt_xpyhmstro_shipto());
-						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt()== null?"":purchaseOrder.getTt_xpyhmstro_receptdt());
-						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null?"":purchaseOrder.getTt_xpyhmstro_partnbr());
+						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_yhdnbr());
+						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_stat());
+						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_startdt());
+						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_priority());
+						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_creator());
+						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_shipto());
+						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_receptdt());
+						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null ? ""
+								: purchaseOrder.getTt_xpyhmstro_partnbr());
 						objectMstr.setString(8, "0");
 
 					}
@@ -483,6 +505,12 @@ public class PurchaseOrderAction extends BaseAction {
 							.getProDataObjects("tt_xpyhmstr_out");
 
 					purchaseOrders = QADUtil.ConverToPurchaseOrder(outDataList);
+
+					// 两个描述字段翻译一下
+					for (PurchaseOrder po : purchaseOrders) {
+						po.setTt_xpyhmstro_stat_desc(getPurchaseOrderStatus(po.getTt_xpyhmstro_stat()));
+						po.setTt_xpyhmstro_priority_desc(getPurchaseOrderPriority(po.getTt_xpyhmstro_priority()));
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -566,48 +594,116 @@ public class PurchaseOrderAction extends BaseAction {
 	}
 
 	public String print() throws Exception {
-		try{
+		try {
 
-		if (ConnectQAD()) {
-			
-			ProDataGraph exDataGraph; // 输入参数
-			ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+			if (ConnectQAD()) {
 
-			
-			exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxview_xpyhddet_DSMetaData1());
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
-			ProDataObject object = exDataGraph.createProDataObject("tt_xpyhddet_in");
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxview_xpyhddet_DSMetaData1());
 
-			object.setString(0, purchaseOrder.getTt_xpyhmstro_xpyhmstroid());
-			object.setString(1, "0");                   //0为打印，""为查询
+				ProDataObject object = exDataGraph.createProDataObject("tt_xpyhddet_in");
 
+				object.setString(0, purchaseOrder.getTt_xpyhmstro_xpyhmstroid());
+				object.setString(1, "0"); // 0为打印，""为查询
 
-			exDataGraph.addProDataObject(object);
+				exDataGraph.addProDataObject(object);
 
-			yfkssScp.xxview_xpyhddet(exDataGraph, outputData);
+				yfkssScp.xxview_xpyhddet(exDataGraph, outputData);
 
-			@SuppressWarnings("unchecked")
-			List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-					.getProDataObjects("tt_xpyhddet_out");
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_xpyhddet_out");
 
-			List<Object> objList = QADUtil.ConvertToPurchaseOrderAndDetail(outDataList);
-			purchaseOrder = (PurchaseOrder) objList.get(0);
-			purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
+				List<Object> objList = QADUtil.ConvertToPurchaseOrderAndDetail(outDataList);
+				purchaseOrder = (PurchaseOrder) objList.get(0);
+				purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
 
-			purchaseOrder.setPurchaseOrderDetailList(purchaseOrderDetails);
+				purchaseOrder.setPurchaseOrderDetailList(purchaseOrderDetails);
 
-			
-			String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
-			inputStream =  PrintPurchaseOrderUtil.PrintPurchaseOrderUtil(localAbsolutPath, "PurchaseOrder.pdf", purchaseOrder);
+				String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+				inputStream = PrintPurchaseOrderUtil.PrintPurchaseOrderUtil(localAbsolutPath, "PurchaseOrder.pdf",
+						purchaseOrder);
 
-
-		fileName = "purchaseOrder_" + purchaseOrder.getTt_xpyhmstro_yhdnbr() + ".pdf";}
-		}catch (Exception e) {
+				fileName = "purchaseOrder_" + purchaseOrder.getTt_xpyhmstro_yhdnbr() + ".pdf";
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
 
+	public List<LabelValue> getPurchaseOrderStatusList() {
+		List<LabelValue> purchaseOrderStatusList = new ArrayList<LabelValue>();
+		purchaseOrderStatusList.add(new LabelValue("", getText("xpyh_status.Empty")));
+		purchaseOrderStatusList.add(new LabelValue("0", getText("xpyh_status.Forecast")));
+		purchaseOrderStatusList.add(new LabelValue("1", getText("xpyh_status.Create")));
+		purchaseOrderStatusList.add(new LabelValue("2", getText("xpyh_status.Submit")));
+		purchaseOrderStatusList.add(new LabelValue("3", getText("xpyh_status.InProcess")));
+		purchaseOrderStatusList.add(new LabelValue("4", getText("xpyh_status.Complete")));
+		purchaseOrderStatusList.add(new LabelValue("5", getText("xpyh_status.Close")));
+		purchaseOrderStatusList.add(new LabelValue("6", getText("xpyh_status.Cancel")));
 
+		return purchaseOrderStatusList;
+	}
 
+	public String getPurchaseOrderStatus(String status) {
+		String statusDesc = "";
+		switch (status) {
+		case "0":
+			statusDesc = getText("xpyh_status.Forecast");
+			break;
+		case "1":
+			statusDesc = getText("xpyh_status.Create");
+			break;
+		case "2":
+			statusDesc = getText("xpyh_status.Submit");
+			break;
+		case "3":
+			statusDesc = getText("xpyh_status.InProcess");
+			break;
+		case "4":
+			statusDesc = getText("xpyh_status.Complete");
+			break;
+		case "5":
+			statusDesc = getText("xpyh_status.Close");
+			break;
+		case "6":
+			statusDesc = getText("xpyh_status.Cancel");
+			break;
+		default:
+			break;
+		}
+
+		return statusDesc;
+	}
+
+	public List<LabelValue> getPurchaseOrderPriorityList() {
+		List<LabelValue> purchaseOrderPriorityList = new ArrayList<LabelValue>();
+		purchaseOrderPriorityList.add(new LabelValue("", getText("xpyh_priority.Empty")));
+		purchaseOrderPriorityList.add(new LabelValue("0", getText("xpyh_priority.Forecast")));
+		purchaseOrderPriorityList.add(new LabelValue("1", getText("xpyh_priority.Normal")));
+		purchaseOrderPriorityList.add(new LabelValue("2", getText("xpyh_priority.Urgent")));
+		return purchaseOrderPriorityList;
+	}
+
+	public String getPurchaseOrderPriority(String priority) {
+		String priorityDesc = "";
+		switch (priority) {
+		case "0":
+			priorityDesc = getText("xpyh_priority.Forecast");
+			break;
+		case "1":
+			priorityDesc = getText("xpyh_priority.Normal");
+			break;
+		case "2":
+			priorityDesc = getText("xpyh_priority.Urgent");
+			break;
+		default:
+			break;
+		}
+
+		return priorityDesc;
+	}
 }

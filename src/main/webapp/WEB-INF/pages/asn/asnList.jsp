@@ -16,8 +16,8 @@
 				key="asn.tt_xasnmstro_asnnbr" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="asn.tt_xasnmstro_stat" />
+			<s:select key="asn.tt_xasnmstro_stat" list="asnStatusList"
+				listKey="label" listValue="value" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
@@ -74,8 +74,8 @@
 				paramProperty="tt_xasnmstro_xasnmstroid" />
 			<display:column property="tt_xasnmstro_startdt" escapeXml="true"
 				sortable="true" titleKey="asn.tt_xasnmstro_startdt" />
-			<display:column property="tt_xasnmstro_stat" escapeXml="true"
-				sortable="true" titleKey="asn.tt_xasnmstro_stat" />
+			<display:column property="tt_xasnmstro_stat_desc" escapeXml="true"
+				sortable="true" titleKey="asn.tt_xasnmstro_stat_desc" />
 			<display:column property="tt_xasnmstro_creator" escapeXml="true"
 				sortable="true" titleKey="asn.tt_xasnmstro_creator" />
 

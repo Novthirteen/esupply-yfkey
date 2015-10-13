@@ -36,6 +36,9 @@ public class PurchaseOrder extends BaseObject {
 	private String tt_xpyhmstro_recepttm; //窗口时间
 	
 	
+	private String tt_xpyhmstro_priority_desc; //优先级描述
+	private String tt_xpyhmstro_stat_desc; //状态描述
+	
 	
 
 	private List<PurchaseOrderDetail> purchaseOrderDetailList;
@@ -212,6 +215,22 @@ public class PurchaseOrder extends BaseObject {
 
 	
 	
+	public String getTt_xpyhmstro_priority_desc() {
+		return tt_xpyhmstro_priority_desc;
+	}
+
+	public void setTt_xpyhmstro_priority_desc(String tt_xpyhmstro_priority_desc) {
+		this.tt_xpyhmstro_priority_desc = tt_xpyhmstro_priority_desc;
+	}
+
+	public String getTt_xpyhmstro_stat_desc() {
+		return tt_xpyhmstro_stat_desc;
+	}
+
+	public void setTt_xpyhmstro_stat_desc(String tt_xpyhmstro_stat_desc) {
+		this.tt_xpyhmstro_stat_desc = tt_xpyhmstro_stat_desc;
+	}
+
 	public String getTt_xpyhmstro_recepttm() {
 		return tt_xpyhmstro_recepttm;
 	}

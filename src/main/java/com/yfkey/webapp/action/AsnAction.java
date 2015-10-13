@@ -35,6 +35,7 @@ import com.yfkey.webapp.util.PrintASNUtil;
 import com.yfkey.webapp.util.QADUtil;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
+import com.yfkey.model.LabelValue;
 
 /**
  * Action for facilitating Role Management feature.
@@ -160,11 +161,13 @@ public class AsnAction extends BaseAction {
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 							.getProDataObjects("tt_xasndet_out");
-
-					List<Object> objList = QADUtil.ConvertToAsnAndDetail(outDataList);
-					asn = (Asn) objList.get(0);
-					asn.setTt_xasnmstro_xasnmstroid(tt_xasnmstro_xasnmstroid);
-					asnDetails = (List<AsnDetail>) objList.get(1);
+					if (outDataList != null && outDataList.size() > 0) {
+						List<Object> objList = QADUtil.ConvertToAsnAndDetail(outDataList);
+						asn = (Asn) objList.get(0);
+						asn.setTt_xasnmstro_xasnmstroid(tt_xasnmstro_xasnmstroid);
+						asnDetails = (List<AsnDetail>) objList.get(1);
+						asn.setTt_xasnmstro_stat_desc(getAsnStatus(asn.getTt_xasnmstro_stat()));
+					}
 				}
 			} else {
 				asn = new Asn();
@@ -300,6 +303,11 @@ public class AsnAction extends BaseAction {
 
 					asns = QADUtil.ConverToAsn(outDataList);
 
+					// asn状态字段
+					for (Asn asn : asns) {
+						asn.setTt_xasnmstro_stat_desc(getAsnStatus(asn.getTt_xasnmstro_stat()));
+					}
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -310,10 +318,10 @@ public class AsnAction extends BaseAction {
 	}
 
 	public String print() throws Exception {
-	
+
 		try {
 			if (ConnectQAD()) {
-				
+
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
@@ -337,7 +345,6 @@ public class AsnAction extends BaseAction {
 
 				asn.setAsnDetailList(asnDetails);
 
-				
 				String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
 				inputStream = PrintASNUtil.PrintASN(localAbsolutPath, "ASN.pdf", asn);
 
@@ -347,6 +354,35 @@ public class AsnAction extends BaseAction {
 			e.printStackTrace();
 		}
 		return SUCCESS;
+	}
+
+	public List<LabelValue> getAsnStatusList() {
+		List<LabelValue> asnStatusList = new ArrayList<LabelValue>();
+		asnStatusList.add(new LabelValue("", getText("xasnd_status.Empty")));
+		asnStatusList.add(new LabelValue("1", getText("xasnd_status.Create")));
+		asnStatusList.add(new LabelValue("2", getText("xasnd_status.InProcess")));
+		asnStatusList.add(new LabelValue("3", getText("xasnd_status.Close")));
+
+		return asnStatusList;
+	}
+
+	public String getAsnStatus(String status) {
+		String statusDesc = "";
+		switch (status) {
+		case "1":
+			statusDesc = getText("xasnd_status.Create");
+			break;
+		case "2":
+			statusDesc = getText("xasnd_status.InProcess");
+			break;
+		case "3":
+			statusDesc = getText("xasnd_status.Close");
+			break;
+		default:
+			break;
+		}
+
+		return statusDesc;
 	}
 
 }
