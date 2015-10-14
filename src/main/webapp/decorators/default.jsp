@@ -28,7 +28,7 @@
 <script type="text/javascript"
 	src="<c:url value='/scripts/lib/jquery.bootstrap-duallistbox.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
-
+<script type="text/javascript" src="<c:url value='/scripts/lib/bootstrap3-typeahead.js'/>"></script>
 <script>
 	var themes = {
 		"default" : "<c:url value='/styles/lib/bootstrap.min.css'/>",
@@ -144,6 +144,11 @@
 			test="${empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">
 			<%@ include file="/common/selectUserPlant.jsp"%>
 		</c:if>
+
+		<div class="well col-md-5">
+			<input id="demo3" type="text" class="col-md-12 form-control"
+				placeholder="Search cities..." autocomplete="off" />
+		</div>
 	</div>
 
 	<div id="footer" class="container navbar-fixed-bottom">
@@ -216,6 +221,21 @@
 											.text() + "]<b class='caret'></b>");
 			</c:if>
 		});
+		
+		debugger;
+		$('#demo3').typeahead({
+			ajax: {
+                url: "<c:url value="/services/api/users/getData.json"/>",
+                method: 'get',
+				preDispatch: function(e){
+					return {query: e}
+				},
+                triggerLength: 1
+            },
+            //displayField: 'name',
+            //valueField:'id',
+            //onSelect: displayResult
+        });
 	</script>
 </body>
 </html>
