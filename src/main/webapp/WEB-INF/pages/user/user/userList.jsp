@@ -92,7 +92,7 @@
 	<display:column property="mobilephone" escapeXml="true" sortable="true"
 		titleKey="user.mobilephone" url="/user/editUser?from=list"
 		paramId="username" paramProperty="username" />
-	<display:column sortProperty="enabled" sortable="true"
+	<display:column sortProperty="enabled" sortable="true" media="html"
 		titleKey="user.enabled">
 		<input type="checkbox" disabled="disabled"
 			<c:if test="${users.enabled}">checked="checked"</c:if> />
