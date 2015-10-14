@@ -1,8 +1,13 @@
 package com.yfkey.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@Entity
+@Table(name = "item")
 public class Item extends BaseObject {
 
 	/**

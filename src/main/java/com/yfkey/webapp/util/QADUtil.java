@@ -96,6 +96,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_xpyhmstroid(o.getString("tt_xpyhddeto_xpyhmstroid"));
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
 				purchaseOrderDetailList.add(pod);
+				i++;
 			}
 		}
 		return purchaseOrderDetailList;
@@ -148,7 +149,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
 				pod.setTt_xpyhddeto_shipedqty(o.getBigDecimal("tt_xpyhddeto_shipedqty"));
 				purchaseOrderDetailList.add(pod);
-
+i++;
 			}
 			poList.add(purchaseOrderDetailList);
 		}
@@ -178,6 +179,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
 
 				purchaseOrderDetailList.add(pod);
+				i++;
 
 			}
 		}
@@ -202,6 +204,7 @@ public final class QADUtil {
 				bc.setTt_bcdeto_bcdetoid(o.getString("tt_bcdeto_bcdetoid"));
 				bc.setTt_bcdeto_bcnon(o.getString("tt_bcdeto_bcnon"));
 				barcodeList.add(bc);
+				i++;
 			}
 		}
 		return barcodeList;

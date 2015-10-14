@@ -17,6 +17,7 @@ import com.yfkey.model.LabelValueComparator;
 import com.yfkey.model.Permission;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.Role;
+import com.yfkey.model.Supply;
 import com.yfkey.model.User;
 import com.yfkey.model.UserAuthority;
 import com.yfkey.service.UniversalManager;
@@ -210,6 +211,14 @@ public class UserAction extends BaseAction {
 
 		return SUCCESS;
 	}
+	
+	
+	public String editProfile() throws IOException {
+		username = this.getRequest().getRemoteUser();
+		prepare();
+
+		return SUCCESS;
+	}
 
 	/**
 	 * Default: just returns "success"
@@ -353,8 +362,21 @@ public class UserAction extends BaseAction {
 	}
 
 	private void prepareAssignPermission() {
-		List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
-				new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
+		
+		//现在供应商权限直接从供应商表里面取
+		if(permissionType != null && PermissionType.valueOf(permissionType) == PermissionType.S )
+		{
+			List<Supply> availablePermissionList = universalManager.findByHql("from Supply where spdomain = ?",
+					new Object[] { getCurrentDomain()});
+			this.availablePermissions = transferSupplyPermissionToLabelValue(availablePermissionList);
+		}
+		else{
+			List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
+					new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
+			this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
+		}
+		
+	
 
 		List<String> assignedPermissionList = universalManager
 				.findByHql("select permissionCode from UserPermission where permissionType = ? and username = ?",
@@ -363,7 +385,7 @@ public class UserAction extends BaseAction {
 								username });
 
 		this.assignedPermissions = assignedPermissionList;
-		this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
+		
 	}
 
 	private void prepareAssignRole() {
@@ -381,6 +403,17 @@ public class UserAction extends BaseAction {
 		if (permissionList != null && permissionList.size() > 0) {
 			for (Permission permission : permissionList) {
 				lvList.add(new LabelValue(permission.getName(), permission.getCode()));
+			}
+		}
+
+		return lvList;
+	}
+	
+	private List<LabelValue> transferSupplyPermissionToLabelValue(List<Supply> supplyList) {
+		List<LabelValue> lvList = new ArrayList<LabelValue>();
+		if (supplyList != null && supplyList.size() > 0) {
+			for (Supply supply : supplyList) {
+				lvList.add(new LabelValue(supply.getSpname(), supply.getSpcode()));
 			}
 		}
 

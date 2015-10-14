@@ -77,10 +77,7 @@
 			<result name="success" type="redirectAction">home</result>
 		</action>
 
-		<action name="editProfile" class="userAction" method="edit">
-			<result name="success">/WEB-INF/pages/userForm.jsp</result>
-			<result name="error">/WEB-INF/pages/home.jsp</result>
-		</action>
+	
 
 		<!-- Add additional actions here -->
 	</package>
@@ -131,6 +128,10 @@
 		<action name="saveUserRole" class="userAction" method="saveUserRole">
 			<result name="input">/WEB-INF/pages/user/user/userForm.jsp</result>
 			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
+		</action>
+		<action name="editProfile" class="userAction" method="editProfile">
+			<result name="success">/WEB-INF/pages/user/user/userProfileForm.jsp</result>
+			<result name="error">/WEB-INF/pages/home.jsp</result>
 		</action>
 	</package>
 

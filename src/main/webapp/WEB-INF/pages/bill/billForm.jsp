@@ -32,14 +32,14 @@
 
 
 	<div id="actions" class="form-actions">
-		<c:if test="${bill.tt_xprcmstro_stat.equals('1')}">
+		<c:if test="${bill.tt_xprcmstro_stat eq '1'}">
 			<s:submit type="button" cssClass="btn btn-primary"
 				action="confirmBill" key="button.confirm" theme="simple">
 				<i class="icon-confirm icon-white"></i>
 				<fmt:message key="button.confirm" />
 			</s:submit>
 		</c:if>
-		<c:if test="${bill.tt_xprcmstro_stat.equals('2')}">
+		<c:if test="${bill.tt_xprcmstro_stat eq '2'}">
 			<s:submit type="button" cssClass="btn btn-primary" action="agreeBill"
 				key="button.agree" theme="simple">
 				<i class="icon-agree icon-white"></i>

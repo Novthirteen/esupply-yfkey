@@ -1,18 +1,21 @@
 package com.yfkey.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@Entity
+@Table(name = "supply")
 public class Supply extends BaseObject {
-
-	
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -474629538708362973L;
 	private String spcode; // 供应商代码
-	private String spdesc; // 供应商描述
+	private String spname; // 供应商描述
 	private String spdomain; // 域
 
 	@Id
@@ -26,12 +29,12 @@ public class Supply extends BaseObject {
 	}
 
 	@Column(length = 200)
-	public String getSpdesc() {
-		return spdesc;
+	public String getSpname() {
+		return spname;
 	}
 
-	public void setSpdesc(String spdesc) {
-		this.spdesc = spdesc;
+	public void setSpname(String spname) {
+		this.spname = spname;
 	}
 
 	@Column(length = 20)

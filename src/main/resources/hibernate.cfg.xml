@@ -14,5 +14,8 @@
 		<mapping class="com.yfkey.model.Role" />
 		<mapping class="com.yfkey.model.RolePermission" />
 		<mapping class="com.yfkey.model.Menu" />
+		<mapping class="com.yfkey.model.Item" />
+		<mapping class="com.yfkey.model.Supply" />
+		<mapping class="com.yfkey.model.Shipto" />
     </session-factory>
 </hibernate-configuration>

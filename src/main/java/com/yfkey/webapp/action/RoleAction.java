@@ -11,6 +11,7 @@ import com.yfkey.model.LabelValue;
 import com.yfkey.model.Permission;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.Role;
+import com.yfkey.model.Supply;
 import com.yfkey.model.User;
 import com.yfkey.service.RoleManager;
 import com.yfkey.service.UniversalManager;
@@ -281,8 +282,22 @@ public class RoleAction extends BaseAction {
 	}
 
 	private void prepareAssignPermission() {
-		List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
-				new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
+		
+		
+		if(permissionType != null && PermissionType.valueOf(permissionType) == PermissionType.S )
+		{
+			List<Supply> availablePermissionList = universalManager.findByHql("from Supply where spdomain = ?",
+					new Object[] { getCurrentDomain()});
+			this.availablePermissions = transferSupplyPermissionToLabelValue(availablePermissionList);
+		}
+		else{
+			List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
+					new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
+
+			this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
+		}
+		
+	
 
 		List<String> assignedPermissionList = universalManager
 				.findByHql("select permissionCode from RolePermission where permissionType = ? and roleCode = ?",
@@ -291,7 +306,6 @@ public class RoleAction extends BaseAction {
 								code });
 
 		this.assignedPermissions = assignedPermissionList;
-		this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
 	}
 
 	private void prepareAssignUser() {
@@ -333,4 +347,17 @@ public class RoleAction extends BaseAction {
 
 		return INPUT;
 	}
+	
+	
+	private List<LabelValue> transferSupplyPermissionToLabelValue(List<Supply> supplyList) {
+		List<LabelValue> lvList = new ArrayList<LabelValue>();
+		if (supplyList != null && supplyList.size() > 0) {
+			for (Supply supply : supplyList) {
+				lvList.add(new LabelValue(supply.getSpname(), supply.getSpcode()));
+			}
+		}
+
+		return lvList;
+	}
+
 }

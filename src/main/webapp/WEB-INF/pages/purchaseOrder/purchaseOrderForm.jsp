@@ -60,21 +60,21 @@
 
 
 	<div id="actions" class="form-actions">
-		<c:if test="${purchaseOrder.tt_xpyhmstro_stat.equals('2')}">
+		<c:if test="${purchaseOrder.tt_xpyhmstro_stat  eq '2'}">
 			<s:submit type="button" cssClass="btn btn-primary" method="confirm"
 				key="button.confirm" theme="simple">
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.confirm" />
 			</s:submit>
 		</c:if>
-		<c:if test="${purchaseOrder.tt_xpyhmstro_stat.equals('3') || purchaseOrder.tt_xpyhmstro_stat.equals('4') }">
+		<c:if test="${purchaseOrder.tt_xpyhmstro_stat eq '3' || purchaseOrder.tt_xpyhmstro_stat eq '4' }">
 			<s:submit type="button" cssClass="btn btn-primary" method="close"
 				key="button.close" theme="simple">
 				<i class="icon-off icon-white"></i>
 				<fmt:message key="button.close" />
 			</s:submit>
 		</c:if>
-		<c:if test="${purchaseOrder.tt_xpyhmstro_stat.equals('2')}">
+		<c:if test="${purchaseOrder.tt_xpyhmstro_stat  eq '2'}">
 
 			<s:submit type="button" cssClass="btn" method="delete"
 				key="button.cancel" theme="simple">
