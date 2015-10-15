@@ -35,6 +35,8 @@ import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
 import com.yfkey.model.Receipt;
 import com.yfkey.model.ReceiptDetail;
+import com.yfkey.webapp.util.PrintPurchaseOrderUtil;
+import com.yfkey.webapp.util.PrintReceiptUtil;
 import com.yfkey.webapp.util.QADUtil;
 
 /**
@@ -43,7 +45,7 @@ import com.yfkey.webapp.util.QADUtil;
 public class ReceiptAction extends BaseAction {
 
 	private List<Receipt> receipts;
-	private static List<ReceiptDetail> receiptDetails;
+	private  List<ReceiptDetail> receiptDetails;
 	private Receipt receipt;
 	private String tt_prhmstri_receiver;
 	private InputStream inputStream;
@@ -57,12 +59,12 @@ public class ReceiptAction extends BaseAction {
 		this.receipts = receipts;
 	}
 
-	public static List<ReceiptDetail> getReceiptDetails() {
+	public  List<ReceiptDetail> getReceiptDetails() {
 		return receiptDetails;
 	}
 
-	public static void setReceiptDetails(List<ReceiptDetail> receiptDetails) {
-		ReceiptAction.receiptDetails = receiptDetails;
+	public  void setReceiptDetails(List<ReceiptDetail> receiptDetails) {
+		this.receiptDetails = receiptDetails;
 	}
 
 	public Receipt getReceipt() {
@@ -136,6 +138,11 @@ public class ReceiptAction extends BaseAction {
 					ProDataObject object = exDataGraph.createProDataObject("tt_prhdet_in");
 
 					object.setString(0, tt_prhmstri_receiver);
+					object.setString(1, "");
+					object.setString(2, "");
+					object.setString(3, "");
+					object.setString(4, "");
+					
 
 					exDataGraph.addProDataObject(object);
 
@@ -143,7 +150,7 @@ public class ReceiptAction extends BaseAction {
 
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhddet_out");
+							.getProDataObjects("tt_prhdet_out");
 					List<Object> objList = QADUtil.ConvertToReceiptAndDetail(outDataList);
 					receipt = (Receipt) objList.get(0);
 					receiptDetails = (List<ReceiptDetail>) objList.get(1);
@@ -221,7 +228,7 @@ public class ReceiptAction extends BaseAction {
 
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhddet_out");
+							.getProDataObjects("tt_prhdet_out");
 
 					receiptDetails = QADUtil.ConverToReceiptDetail(outDataList);
 
@@ -296,7 +303,65 @@ public class ReceiptAction extends BaseAction {
 
 	public String print() throws Exception {
 
-		return SUCCESS;
+		try{
+
+			if (ConnectQAD()) {
+				
+				String userCode = this.getRequest().getRemoteUser();
+				@SuppressWarnings("unchecked")
+				List<String> supplierCodeList = getSupplierCodeList(
+						receipt != null ? receipt.getTt_prhmstro_suppcode() : "");
+
+				String domain = getCurrentDomain();
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinqury_prhdet_DSMetaData1());
+				for (int i = 0; i < supplierCodeList.size(); i++) {
+					ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
+					String supCode = supplierCodeList.get(i);
+					object.setString(0, domain);
+					object.setString(1, supCode);
+
+					exDataGraph.addProDataObject(object);
+				}
+
+				ProDataObject object = exDataGraph.createProDataObject("tt_prhdet_in");
+
+				object.setString(0, receipt.getTt_prhmstro_receiver());
+				object.setString(1, "");
+				object.setString(2, "");
+				object.setString(3, "");
+				object.setString(4, "");
+				
+
+				exDataGraph.addProDataObject(object);
+
+				yfkssScp.xxinqury_prhdet(exDataGraph, outputData);
+	
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_prhdet_out");
+
+				List<Object> objList = QADUtil.ConvertToReceiptAndDetail(outDataList);
+				receipt = (Receipt) objList.get(0);
+				receiptDetails = (List<ReceiptDetail>) objList.get(1);
+				receipt.setReceiptDetailList(receiptDetails);
+
+			
+
+				
+				String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+				inputStream =  PrintReceiptUtil.PrintReceipt(localAbsolutPath, "Receipt.pdf", receipt);
+
+
+			fileName = "receipt_" + receipt.getTt_prhmstro_receiver() + ".pdf";}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return SUCCESS;
+	
+
 	}
 
 }

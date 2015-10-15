@@ -50,8 +50,8 @@
 		sortable="true" titleKey="bill.tt_xprcmstro_seq" />
 	<display:column property="tt_xprcmstro_voucher" escapeXml="true"
 		sortable="true" titleKey="bill.tt_xprcmstro_voucher"
-		url="/bill/editBill?from=list" paramId="tt_prhmstri_receiver"
-		paramProperty="tt_prhmstro_receiver" />
+		url="/bill/editBill?from=list" paramId="tt_xprcmstro_xprcmstroid"
+		paramProperty="tt_xprcmstro_xprcmstroid" />
 	<display:column property="tt_xprcmstro_suppcode" escapeXml="true"
 		sortable="true" titleKey="bill.tt_xprcmstro_suppcode" />
 	<display:column property="tt_xprcmstro_invdate" escapeXml="true"
@@ -60,8 +60,8 @@
 		sortable="true" titleKey="bill.tt_xprcmstro_totalamt" />
 	<display:column property="tt_xprcmstro_printed" escapeXml="true"
 		sortable="true" titleKey="bill.tt_xprcmstro_printed" />
-	<display:column property="tt_xprcmstro_stat" escapeXml="true"
-		sortable="true" titleKey="bill.tt_xprcmstro_stat" />
+	<display:column property="tt_xprcmstro_stat_desc" escapeXml="true"
+		sortable="true" titleKey="bill.tt_xprcmstro_stat_desc" />
 
 	<display:setProperty name="paging.banner.item_name">
 		<fmt:message key="billList.bill" />
@@ -72,6 +72,9 @@
 
 	<display:setProperty name="export.excel.filename" value="Bill List.xls" />
 
-
+	<display:setProperty name="export.pdf" value="false" />
+	<display:setProperty name="export.excel" value="true" />
+	<display:setProperty name="export.csv" value="false" />
+	<display:setProperty name="export.xml" value="false" />
 
 </display:table>

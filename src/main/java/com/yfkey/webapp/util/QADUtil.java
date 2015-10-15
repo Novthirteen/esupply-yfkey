@@ -11,10 +11,15 @@ import com.yfkey.model.AsnDetail;
 import com.yfkey.model.Barcode;
 import com.yfkey.model.Bill;
 import com.yfkey.model.BillDetail;
+import com.yfkey.model.Gender;
+import com.yfkey.model.LabelValue;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
 import com.yfkey.model.Receipt;
 import com.yfkey.model.ReceiptDetail;
+
+import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
 
 /**
  * Convenience class for setting and retrieving cookies.
@@ -54,6 +59,9 @@ public final class QADUtil {
 				po.setTt_xpyhmstro_xpyhmstroid(o.getString("tt_xpyhmstro_xpyhmstroid"));
 				po.setTt_xpyhmstro_conf(o.getString("tt_xpyhmstro_conf"));
 				po.setTt_xpyhmstro_print(o.getString("tt_xpyhmstro_print"));
+				po.setTt_xpyhmstro_recepttm(o.getString("tt_xpyhmstro_recepttm"));
+				
+			
 				purchaseOrderList.add(po);
 				i++;
 			}
@@ -87,6 +95,7 @@ public final class QADUtil {
 				pod.setTt_xpyhdde_creator(o.getString("tt_xpyhddeto_creator"));
 				pod.setTt_xpyhddeto_xpyhmstroid(o.getString("tt_xpyhddeto_xpyhmstroid"));
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
+				purchaseOrderDetailList.add(pod);
 			}
 		}
 		return purchaseOrderDetailList;
@@ -103,13 +112,16 @@ public final class QADUtil {
 			po.setTt_xpyhmstro_yhdnbr(poDataObject.getString("tt_xpyhddeto_yhdnbr"));
 			po.setTt_xpyhmstro_priority(poDataObject.getString("tt_xpyhddeto_priority"));
 			po.setTt_xpyhmstro_startdt(poDataObject.getString("tt_xpyhddeto_startdt"));
+			po.setTt_xpyhmstro_recepttm(poDataObject.getString("tt_xpyhddeto_recepttm"));
 			po.setTt_xpyhmstro_receptdt(poDataObject.getString("tt_xpyhddeto_receptdt"));
 			po.setTt_xpyhmstro_suppcode(poDataObject.getString("tt_xpyhddeto_suppcode"));
+			po.setTt_xpyhmstro_suppname(poDataObject.getString("tt_xpyhddeto_suppname"));
 			po.setTt_xpyhmstro_currcy(poDataObject.getString("tt_xpyhddeto_currcy"));
 			po.setTt_xpyhmstro_shipto(poDataObject.getString("tt_xpyhddeto_shipto"));
 			po.setTt_xpyhmstro_stat(poDataObject.getString("tt_xpyhddeto_stat"));
 			po.setRemark(poDataObject.getString("tt_xpyhddeto_remark"));
 			po.setTt_xpyhmstro_xpyhmstroid(poDataObject.getString("tt_xpyhddeto_xpyhmstroid"));
+			po.setTt_xpyhmstro_recepttm(poDataObject.getString("tt_xpyhddeto_recepttm"));
 			poList.add(po);
 
 			int i = 1;
@@ -228,7 +240,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_uom(o.getString("tt_xpyhddeto_uom"));
 				pod.setTt_xpyhddeto_spq(o.getBigDecimal("tt_xpyhddeto_spq"));
 				pod.setTt_xpyhddeto_toloc(o.getString("tt_xpyhddeto_toloc"));
-				//pod.setTt_xpyhddeto_delvqty(o.getBigDecimal("tt_xpyhddeto_delvqty"));
+				pod.setTt_xpyhddeto_delvqty(o.getBigDecimal("tt_xpyhddeto_delvqty"));
 				pod.setTt_xpyhddeto_openqty(o.getBigDecimal("tt_xpyhddeto_openqty"));
 				pod.setTt_xpyhddeto_xpyhmstroid(o.getString("tt_xpyhddeto_xpyhmstroid"));
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
@@ -333,6 +345,7 @@ public final class QADUtil {
 				asnDetail.setTt_xasndeto_xasndetoid(o.getString("tt_xasndeto_xasndetoid"));
 				asnDetail.setTt_xasndeto_yhdnbr(o.getString("tt_xasndeto_yhdnbr"));
 				asnDetailList.add(asnDetail);
+				i++;
 
 			}
 			asnList.add(asnDetailList);
@@ -374,6 +387,7 @@ public final class QADUtil {
 			for (ProDataObject o : proDataObjectList) {
 				ReceiptDetail receiptDetail = new ReceiptDetail();
 				receiptDetail.setTt_prhdeto_seq(i);
+				receiptDetail.setTt_prhdeto_receiver(o.getString("tt_prhdeto_receiver"));
 				receiptDetail.setTt_prhdeto_yhdnbr(o.getString("tt_prhdeto_yhdnbr"));
 				receiptDetail.setTt_prhdeto_partnbr(o.getString("tt_prhdeto_partnbr"));
 				receiptDetail.setTt_prhdeto_partdesc(o.getString("tt_prhdeto_partdesc"));
@@ -383,6 +397,8 @@ public final class QADUtil {
 				receiptDetail.setTt_prhdeto_toloc(o.getString("tt_prhdeto_toloc"));
 				receiptDetail.setTt_prhdeto_delvqty(o.getBigDecimal("tt_prhdeto_delvqty"));
 			    receiptDetail.setTt_prhdeto_revdqty(o.getBigDecimal("tt_prhdeto_revdqty"));
+			    receiptDetailList.add(receiptDetail);
+			    i++;
 			}
 		}
 		return receiptDetailList;
@@ -399,13 +415,14 @@ public final class QADUtil {
 			if (proDataObjectList != null && proDataObjectList.size() > 0) {
 				ProDataObject om = proDataObjectList.get(0);
 
-				receipt.setTt_prhmstro_receiver(om.getString("tt_prhmstro_receiver"));
-				receipt.setTt_prhmstro_suppcode(om.getString("tt_prhmstro_suppcode"));
-				receipt.setTt_prhmstro_asnnbr(om.getString("tt_prhmstro_asnnbr"));
-				receipt.setTt_prhmstro_suppcode(om.getString("tt_prhmstro_suppcode"));
-				receipt.setTt_prhmstro_rcdate(om.getString("tt_prhmstro_rcdate"));
-				receipt.setTt_prhmstro_rcuserid(om.getString("tt_prhmstro_rcuserid"));
-				receipt.setTt_prhmstro_prhmstroid(om.getString("tt_prhmstro_prhmstroid"));
+				receipt.setTt_prhmstro_receiver(om.getString("tt_prhdeto_receiver"));
+				receipt.setTt_prhmstro_suppcode(om.getString("tt_prhdeto_suppcode"));
+				receipt.setTt_prhmstro_asnnbr(om.getString("tt_prhdeto_asnnbr"));
+				receipt.setTt_prhmstro_suppcode(om.getString("tt_prhdeto_suppcode"));
+				receipt.setTt_prhmstro_rcdate(om.getString("tt_prhdeto_rcdate"));
+				receipt.setTt_prhmstro_rcuserid(om.getString("tt_prhdeto_rcuserid"));
+				receipt.setTt_prhmstro_prhmstroid(om.getString("tt_prhdeto_prhmstroid"));
+				receipt.setTt_prhmstro_shipto(om.getString("tt_prhdeto_shipto"));
 				receiptList.add(receipt);
 
 				int i = 1;
@@ -443,13 +460,13 @@ public final class QADUtil {
 					Bill bill = new Bill();
 					bill.setTt_xprcmstro_seq(i);
 					bill.setTt_xprcmstro_voucher(o.getString("tt_xprcmstro_voucher"));
-					bill.setTt_xprcmstro_suppcode(o.getString("tt_xpyhmstro_suppcode"));
+					bill.setTt_xprcmstro_suppcode(o.getString("tt_xprcmstro_suppcode"));
 					bill.setTt_xprcmstro_invdate(o.getString("tt_xprcmstro_invdate"));
 					bill.setTt_xprcmstro_totalamt(o.getBigDecimal("tt_xprcmstro_totalamt"));
 					bill.setTt_xprcmstro_printed(o.getString("tt_xprcmstro_printed"));
 					bill.setTt_xprcmstro_stat(o.getString("tt_xprcmstro_stat"));
 					bill.setTt_xprcmstro_xprcmstroid(o.getString("tt_xprcmstro_xprcmstroid"));
-				
+				    bill.setTt_xprcmstro_type(o.getString("tt_xprcmstro_type"));
 
 					billList.add(bill);
 					i++;
@@ -460,18 +477,17 @@ public final class QADUtil {
 
 		//bill det
 		public static List<Object> ConvertToBillAndDetail(List<ProDataObject> proDataObjectList) {
-			Bill po = new Bill();
+			Bill bill = new Bill();
 			List<BillDetail> billDetailList = new ArrayList<BillDetail>();
 			List<Object> billList = new ArrayList<Object>();
 
 			if (proDataObjectList != null && proDataObjectList.size() > 0) {
 				ProDataObject om = proDataObjectList.get(0);
-				Bill bill = new Bill();
+				
 				bill.setTt_xprcmstro_voucher(om.getString("tt_xpyhddeto_voucher"));
 				bill.setTt_xprcmstro_suppcode(om.getString("tt_xpyhddeto_suppcode"));
 				bill.setTt_xprcmstro_invdate(om.getString("tt_xpyhddeto_invdate"));
 				bill.setTt_xprcmstro_totalamt(om.getBigDecimal("tt_xpyhddeto_totalamt"));
-				bill.setTt_xprcmstro_printed(om.getString("tt_xpyhddeto_printed"));
 				bill.setTt_xprcmstro_stat(om.getString("tt_xpyhddeto_stat"));
 				
 				bill.setTt_xprcmstro_qty(om.getInt("tt_xpyhddeto_qty"));
@@ -481,9 +497,10 @@ public final class QADUtil {
 				bill.setTt_xprcmstro_rmk(om.getString("tt_xpyhddeto_rmk"));
 				bill.setTt_xprcmstro_claiminv(om.getString("tt_xpyhddeto_claiminv"));
 				bill.setTt_xprcmstro_claimamt(om.getBigDecimal("tt_xpyhddeto_claimamt"));
-				
+				bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_voucher"));
+				bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			
-				billList.add(po);
+				billList.add(bill);
 
 				int i = 1;
 				for (ProDataObject o : proDataObjectList) {
@@ -498,15 +515,24 @@ public final class QADUtil {
 					pod.setTt_xpyhddeto_invamt(o.getBigDecimal("tt_xpyhddeto_invamt"));
 					pod.setTt_xpyhddeto_partdesc(o.getString("tt_xpyhddeto_partdesc"));
 					pod.setTt_xpyhddeto_rcdate(o.getString("tt_xpyhddeto_rcdate"));
-					
+					pod.setTt_xpyhddeto_rcqty(o.getBigDecimal("tt_xpyhddeto_rcqty"));
 					billDetailList.add(pod);
-
-
+					
 				}
 				billList.add(billDetailList);
 			}
 
 			return billList;
-
 		}
+		
+		
+//		public  String getBillStatus(String status)
+//		{
+//		
+//			
+//		
+//			
+//		}
+
+	
 }

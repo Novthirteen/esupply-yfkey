@@ -15,9 +15,11 @@
 	<div class="row">
 		<div class="col-xs-4">
 			<s:label key="asn.tt_xasnmstro_asnnbr" cssClass="form-control" />
+			<s:label key="asn.tt_xasnmstro_xasnmstroid" />
+			<s:hidden key="asn.tt_xasnmstro_xasnmstroid" />
 		</div>
 		<div class="col-xs-4">
-			<s:label key="asn.tt_xasnmstro_stat" cssClass="form-control" />
+			<s:label key="asn.tt_xasnmstro_stat_desc" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
@@ -58,7 +60,7 @@
 
 <display:table name="asnDetails" cellspacing="0" cellpadding="0"
 	requestURI="/asnDetails" id="asnDetails"
-	class="table table-condensed table-striped table-hover" export="true">
+	class="table table-condensed table-striped table-hover" export="false">
 	<display:column property="tt_xasndeto_yhdnbr" escapeXml="true"
 		titleKey="asnDetail.tt_xasndeto_yhdnbr" />
 	<display:column property="tt_xasndeto_seq" escapeXml="true"
@@ -76,8 +78,7 @@
 	<display:column property="tt_xasndeto_asnqty" escapeXml="true"
 		titleKey="asnDetail.tt_xasndeto_asnqty" />
 
-	<display:setProperty name="export.excel.filename"
-		value="AsnDetail List.xls" />
+	
 </display:table>
 
 <script type="text/javascript">

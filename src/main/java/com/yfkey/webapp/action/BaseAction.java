@@ -22,6 +22,7 @@ import java.util.Map;
 
 import com.yfkey.qad.QADConfg;
 import com.yfkey.qad.YFKSSSCP;
+import com.yfkey.model.LabelValue;
 import com.yfkey.model.PermissionType;
 import com.yfkey.service.UniversalManager;
 
@@ -270,10 +271,13 @@ public class BaseAction extends ActionSupport {
 				"select permission_code from permission_view where permission_type = ? and username = ?",
 				new Object[] { PermissionType.S.toString(), userCode });
 		if (supplierCode !=null && ! supplierCode.trim().equals("") ) {
-			supplierCodeList = new ArrayList<String>();
+			
 			if(supplierCodeList.contains(supplierCode))
 			{
+				supplierCodeList = new ArrayList<String>();
 				supplierCodeList.add(supplierCode);
+			}else{
+				supplierCodeList = new ArrayList<String>();
 			}
 		}
 		return supplierCodeList;
@@ -283,4 +287,7 @@ public class BaseAction extends ActionSupport {
 	{
 		return this.getRequest().getSession().getAttribute(Constants.SELECTED_USER_PLANT).toString();
 	}
+	
+	
+	
 }

@@ -16,8 +16,8 @@
 				key="asn.tt_xasnmstro_asnnbr" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="asn.tt_xasnmstro_stat" />
+			<s:select key="asn.tt_xasnmstro_stat" list="asnStatusList"
+				listKey="label" listValue="value" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
@@ -46,7 +46,7 @@
 				key="asn.tt_xasnmstri_partnbr" />
 		</div>
 		<div class="col-xs-4 search-group layouttrim">
-			<s:checkbox  key="asn.isDetail" />
+			<s:checkbox key="asn.isDetail" />
 		</div>
 	</div>
 	<div class="row">
@@ -74,8 +74,8 @@
 				paramProperty="tt_xasnmstro_xasnmstroid" />
 			<display:column property="tt_xasnmstro_startdt" escapeXml="true"
 				sortable="true" titleKey="asn.tt_xasnmstro_startdt" />
-			<display:column property="tt_xasnmstro_stat" escapeXml="true"
-				sortable="true" titleKey="asn.tt_xasnmstro_stat" />
+			<display:column property="tt_xasnmstro_stat_desc" escapeXml="true"
+				sortable="true" titleKey="asn.tt_xasnmstro_stat_desc" />
 			<display:column property="tt_xasnmstro_creator" escapeXml="true"
 				sortable="true" titleKey="asn.tt_xasnmstro_creator" />
 
@@ -87,12 +87,18 @@
 			</display:setProperty>
 			<display:setProperty name="export.excel.filename"
 				value="Asn List.xls" />
+
+			<display:setProperty name="export.pdf" value="false" />
+			<display:setProperty name="export.excel" value="true" />
+			<display:setProperty name="export.csv" value="false" />
+			<display:setProperty name="export.xml" value="false" />
 		</display:table>
 	</c:when>
 	<c:otherwise>
 
 		<display:table name="asnDetails" cellspacing="0" pagesize="25"
-			defaultsort="1" cellpadding="0" requestURI="asnDetails" id="asnDetails"
+			defaultsort="1" cellpadding="0" requestURI="asnDetails"
+			id="asnDetails"
 			class="table table-condensed table-striped table-hover" export="true">
 
 			<display:column property="tt_xasndeto_seq" escapeXml="true"
@@ -123,6 +129,11 @@
 
 			<display:setProperty name="export.excel.filename"
 				value="AsnDetail List.xls" />
+
+			<display:setProperty name="export.pdf" value="false" />
+			<display:setProperty name="export.excel" value="true" />
+			<display:setProperty name="export.csv" value="false" />
+			<display:setProperty name="export.xml" value="false" />
 		</display:table>
 	</c:otherwise>
 </c:choose>

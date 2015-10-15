@@ -39,13 +39,16 @@ public class PurchaseOrderDetail extends BaseObject {
 	private String tt_xpyhddeto_lots;              				//批号
 	private BigDecimal tt_xpyhddeto_qty;    					//数量
 	private String tt_xpyhddeto_pktype;              			//包装类型
-	private boolean isexternal;              			      //包装类型
+	private String isexternal;              			      //包装类型
 	
 	
 	//发货用
 	private String tt_xpyhddeto_toloc;  					//目的库位
 	private BigDecimal tt_xpyhddeto_delvqty; 				//发货数
 	private BigDecimal tt_xpyhddeto_openqty;                //待发数
+	
+	
+	private String tt_xpyhddeto_recepttm;                   //窗口时间
 	
 	public int getTt_xpyhddeto_seq() {
 		return tt_xpyhddeto_seq;
@@ -210,14 +213,19 @@ public class PurchaseOrderDetail extends BaseObject {
 		this.tt_xpyhddeto_shipedqty = tt_xpyhddeto_shipedqty;
 	}
 	
-	public boolean getIsexternal() {
+	public String getIsexternal() {
 		return isexternal;
 	}
-	public void setIsexternal(boolean isexternal) {
+	public void setIsexternal(String isexternal) {
 		this.isexternal = isexternal;
 	}
 	
-	
+	public String getTt_xpyhddeto_recepttm() {
+		return tt_xpyhddeto_recepttm;
+	}
+	public void setTt_xpyhddeto_recepttm(String tt_xpyhddeto_recepttm) {
+		this.tt_xpyhddeto_recepttm = tt_xpyhddeto_recepttm;
+	}
 	public BigDecimal getTt_xpyhddeto_openqty() {
 		return tt_xpyhddeto_openqty;
 	}
@@ -230,6 +238,7 @@ public class PurchaseOrderDetail extends BaseObject {
 	public void setTt_xpyhddeto_toloc(String tt_xpyhddeto_toloc) {
 		this.tt_xpyhddeto_toloc = tt_xpyhddeto_toloc;
 	}
+	
 	public BigDecimal getTt_xpyhddeto_delvqty() {
 		return tt_xpyhddeto_delvqty;
 	}

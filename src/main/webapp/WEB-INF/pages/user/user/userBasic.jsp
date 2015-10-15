@@ -29,6 +29,7 @@
 				<c:when test="${user.version != 0}">
 					<s:hidden key="user.username" />
 					<s:hidden key="user.version" />
+					<s:hidden key="user.enforce_password" value="false"/>
 					<s:label key="user.username" cssClass="form-control" />
 				</c:when>
 				<c:otherwise>

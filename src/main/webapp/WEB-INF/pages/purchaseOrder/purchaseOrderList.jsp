@@ -5,147 +5,172 @@
 <meta name="menu" content="PurchaseOrderMenu" />
 </head>
 <body id="purchaseOrder">
-<h2>
-	<fmt:message key="purchaseOrderList.heading" />
-</h2>
+	<h2>
+		<fmt:message key="purchaseOrderList.heading" />
+	</h2>
 
 
-<s:form name="purchaseOrderForm" action="purchaseOrders"
-	method="post" validate="true">
-	<div class="row">
-		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
+	<s:form name="purchaseOrderForm" action="purchaseOrders" method="post"
+		validate="true">
+		<div class="row">
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
+			</div>
+			<div class="col-xs-4 search-group">
+				<s:select key="purchaseOrder.tt_xpyhmstro_priority"
+					list="purchaseOrderPriorityList" listKey="label" listValue="value"
+					cssClass="form-control" />
+			</div>
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_suppcode" />
+			</div>
 		</div>
-		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_priority" />
+		<div class="row">
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_creator" />
+			</div>
+			<div class="col-xs-4 search-group">
+				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
+					list="purchaseOrderStatusList" listKey="label" listValue="value"
+					cssClass="form-control" />
+
+			</div>
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_shipto" />
+			</div>
 		</div>
-		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_suppcode" />
+		<div class="row">
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_startdt" />
+			</div>
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_receptdt" />
+			</div>
+			<div class="col-xs-4 search-group layouttrim">
+				<s:checkbox key="purchaseOrder.isDetail" />
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_creator" />
+		<div class="row">
+			<div class="col-xs-4 search-group"></div>
+			<div class="col-xs-4 search-group layouttrim">
+				<input type="hidden" name="from" value="list" />
+				<%-- 			<s:submit type="button" cssClass="btn btn-primary" --%>
+				<%-- 				action="confirmPurchaseOrder" key="button.confirm" theme="simple"> --%>
+				<!-- 				<i class="icon-plus icon-white"></i> -->
+				<%-- 				<fmt:message key="button.confirm" /> --%>
+				<%-- 			</s:submit> --%>
+
+				<s:submit type="button" cssClass="btn" action="purchaseOrders"
+					key="button.search" theme="simple">
+					<i class="icon-search"></i>
+					<fmt:message key="button.search" />
+				</s:submit>
+			</div>
+			<div class="col-xs-4 search-group"></div>
 		</div>
-		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_stat" />
-		</div>
-		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_shipto" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_startdt" />
-		</div>
-		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control" key="purchaseOrder.tt_xpyhmstro_receptdt" />
-		</div>
-		<div class="col-xs-4 search-group layouttrim">
-			<s:checkbox key="purchaseOrder.isDetail" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 search-group">
-		</div>
-		<div class="col-xs-4 search-group layouttrim">
-			<input type="hidden" name="from" value="list" />
-<%-- 			<s:submit type="button" cssClass="btn btn-primary" --%>
-<%-- 				action="confirmPurchaseOrder" key="button.confirm" theme="simple"> --%>
-<!-- 				<i class="icon-plus icon-white"></i> -->
-<%-- 				<fmt:message key="button.confirm" /> --%>
-<%-- 			</s:submit> --%>
-		
-			<s:submit type="button" cssClass="btn" action="purchaseOrders"
-				key="button.search" theme="simple">
-				<i class="icon-search"></i>
-				<fmt:message key="button.search" />
-			</s:submit>
-		</div>	
-		<div class="col-xs-4 search-group">	
-		</div>
-	</div>
-</s:form>
+	</s:form>
 
-<c:choose>
-	<c:when test="${!purchaseOrder.isDetail}">
-		<display:table name="purchaseOrders" cellspacing="0" cellpadding="0"
-			requestURI="purchaseOrders" defaultsort="1" id="purchaseOrders"
-			pagesize="25" class="table table-condensed table-striped table-hover"
-			export="true">
+	<c:choose>
+		<c:when test="${!purchaseOrder.isDetail}">
+			<display:table name="purchaseOrders" cellspacing="0" cellpadding="0"
+				requestURI="purchaseOrders" defaultsort="1" id="purchaseOrders"
+				pagesize="25"
+				class="table table-condensed table-striped table-hover"
+				export="true">
 
 
-			<display:column property="tt_xpyhmstro_seq" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_seq" />
-			<display:column property="tt_xpyhmstro_yhdnbr" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_yhdnbr"
-				url="/purchaseOrder/editPurchaseOrder?from=list"
-				paramId="tt_xpyhmstro_xpyhmstroid" paramProperty="tt_xpyhmstro_xpyhmstroid" />
-			<display:column property="tt_xpyhmstro_suppcode" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_suppcode" />
-			<display:column property="tt_xpyhmstro_shipto" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_shipto" />
-			<display:column property="tt_xpyhmstro_startdt" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_startdt" />
-			<display:column property="tt_xpyhmstro_receptdt" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_receptdt" />
-			<display:column property="tt_xpyhmstro_stat" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_stat" />
-			<display:column property="tt_xpyhmstro_priority" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_priority" />
-			<display:column property="tt_xpyhmstro_creator" escapeXml="true"
-				sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_creator" />
+				<display:column property="tt_xpyhmstro_seq" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_seq" />
+				<display:column property="tt_xpyhmstro_yhdnbr" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_yhdnbr"
+					url="/purchaseOrder/editPurchaseOrder?from=list"
+					paramId="tt_xpyhmstro_xpyhmstroid"
+					paramProperty="tt_xpyhmstro_xpyhmstroid" />
+				<display:column property="tt_xpyhmstro_suppcode" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_suppcode" />
+				<display:column property="tt_xpyhmstro_shipto" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_shipto" />
+				<display:column property="tt_xpyhmstro_startdt" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_startdt" />
+				<display:column property="tt_xpyhmstro_receptdt" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_receptdt" />
+				<display:column property="tt_xpyhmstro_recepttm" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_recepttm" />
+				<display:column property="tt_xpyhmstro_stat_desc" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_stat_desc" />
+				<display:column property="tt_xpyhmstro_priority_desc" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_priority_desc" />
+				<display:column property="tt_xpyhmstro_creator" escapeXml="true"
+					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_creator" />
 
 
-			<display:setProperty name="paging.banner.item_name">
-				<fmt:message key="purchaseOrderList.purchaseOrder" />
-			</display:setProperty>
-			<display:setProperty name="paging.banner.items_name">
-				<fmt:message key="purchaseOrderList.purchaseOrders" />
-			</display:setProperty>
+				<display:setProperty name="paging.banner.item_name">
+					<fmt:message key="purchaseOrderList.purchaseOrder" />
+				</display:setProperty>
+				<display:setProperty name="paging.banner.items_name">
+					<fmt:message key="purchaseOrderList.purchaseOrders" />
+				</display:setProperty>
 
-			<display:setProperty name="export.excel.filename"
-				value="PurchaseOrder List.xls" />
+				<display:setProperty name="export.excel.filename"
+					value="PurchaseOrder List.xls" />
 
+				<display:setProperty name="export.pdf" value="false" />
+				<display:setProperty name="export.excel" value="true" />
+				<display:setProperty name="export.csv" value="false" />
+				<display:setProperty name="export.xml" value="false" />
 
+			</display:table>
+		</c:when>
+		<c:otherwise>
 
-		</display:table>
-	</c:when>
-	<c:otherwise>
+			<display:table name="purchaseOrderDetails" cellspacing="0"
+				pagesize="25" defaultsort="1" cellpadding="0"
+				requestURI="purchaseOrders" id="purchaseOrderDetails"
+				class="table table-condensed table-striped table-hover"
+				export="true">
 
-		<display:table name="purchaseOrderDetails" cellspacing="0" pagesize="25"  defaultsort="1"
-			cellpadding="0" requestURI="purchaseOrders" id="purchaseOrderDetails"
-			class="table table-condensed table-striped table-hover" export="true">
+				<display:column property="tt_xpyhddeto_seq" escapeXml="true"
+					sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_seq" />
+				<display:column property="tt_xpyhddeto_yhdnbr" escapeXml="true"
+					sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
+				<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
+					sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+				<display:column property="tt_xpyhddeto_partdesc" escapeXml="true"
+					sortable="true"
+					titleKey="purchaseOrderDetail.tt_xpyhddeto_partdesc" />
+				<display:column property="tt_xpyhddeto_supppart" escapeXml="true"
+					sortable="true"
+					titleKey="purchaseOrderDetail.tt_xpyhddeto_supppart" />
+				<display:column property="tt_xpyhddeto_uom" escapeXml="true"
+					sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_uom" />
+				<display:column property="tt_xpyhddeto_spq" escapeXml="true"
+					sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_spq" />
+				<display:column property="tt_xpyhddeto_reqqty" escapeXml="true"
+					sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_reqqty" />
+				<display:column property="tt_xpyhddeto_ordqty" escapeXml="true"
+					sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_ordqty" />
 
-			<display:column property="tt_xpyhddeto_seq" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_seq" />
-			<display:column property="tt_xpyhddeto_yhdnbr" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
-			<display:column property="tt_xpyhddeto_partnbr" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
-			<display:column property="tt_xpyhddeto_partdesc" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_partdesc" />
-			<display:column property="tt_xpyhddeto_supppart" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_supppart" />
-			<display:column property="tt_xpyhddeto_uom" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_uom" />
-			<display:column property="tt_xpyhddeto_spq" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_spq" />
-			<display:column property="tt_xpyhddeto_reqqty" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_reqqty" />
-			<display:column property="tt_xpyhddeto_ordqty" escapeXml="true" sortable="true"
-				titleKey="purchaseOrderDetail.tt_xpyhddeto_ordqty" />
+				<display:setProperty name="paging.banner.item_name">
+					<fmt:message key="purchaseOrderList.purchaseOrderDetail" />
+				</display:setProperty>
+				<display:setProperty name="paging.banner.items_name">
+					<fmt:message key="purchaseOrderList.purchaseOrderDetails" />
+				</display:setProperty>
 
-			<display:setProperty name="paging.banner.item_name">
-				<fmt:message key="purchaseOrderList.purchaseOrderDetail" />
-			</display:setProperty>
-			<display:setProperty name="paging.banner.items_name">
-				<fmt:message key="purchaseOrderList.purchaseOrderDetails" />
-			</display:setProperty>
+				<display:setProperty name="export.excel.filename"
+					value="PurchaseOrder List.xls" />
 
-			<display:setProperty name="export.excel.filename"
-				value="PurchaseOrder List.xls" />
-		</display:table>
-	</c:otherwise>
-</c:choose>
+				<display:setProperty name="export.pdf" value="false" />
+				<display:setProperty name="export.excel" value="true" />
+				<display:setProperty name="export.csv" value="false" />
+				<display:setProperty name="export.xml" value="false" />
+			</display:table>
+		</c:otherwise>
+	</c:choose>
 </body>

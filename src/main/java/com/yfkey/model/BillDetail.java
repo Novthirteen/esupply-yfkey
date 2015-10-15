@@ -27,7 +27,7 @@ public class BillDetail extends BaseObject {
 	private BigDecimal tt_xpyhddeto_claimamt; 					// 索赔金额
 	private String tt_xpyhddeto_xpyhddetoid;               // xprcdetr唯一标示
 
-	
+	private BigDecimal tt_xpyhddeto_rcqty;                 //入库数量
 	
 	
 	public String getTt_xpyhddeto_xpyhddetoid() {
@@ -110,7 +110,13 @@ public class BillDetail extends BaseObject {
 		this.tt_xpyhddeto_claimamt = tt_xpyhddeto_claimamt;
 	}
 	
-
+	public BigDecimal getTt_xpyhddeto_rcqty() {
+		return tt_xpyhddeto_rcqty;
+	}
+	
+	public void setTt_xpyhddeto_rcqty(BigDecimal tt_xpyhddeto_rcqty) {
+		this.tt_xpyhddeto_rcqty = tt_xpyhddeto_rcqty;
+	}
 	
 	@Override
 	public int hashCode() {

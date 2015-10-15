@@ -134,7 +134,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxexport_xpyhddet_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
 		xxexport_xpyhddet_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxexport_xpyhddet_DSMetaData1.addTable(xxexport_xpyhddet_MetaData11);
-		xxexport_xpyhddet_MetaData12 = new ProDataObjectMetaData("tt_xpyhddet_in", 10, false, 0, null, null, null);
+		xxexport_xpyhddet_MetaData12 = new ProDataObjectMetaData("tt_xpyhddet_in", 8, false, 0, null, null, null);
 		xxexport_xpyhddet_MetaData12.setFieldDesc(1, "tt_xpyhddeti_yhdnbr", 0, Parameter.PRO_CHARACTER,0,0);
 		xxexport_xpyhddet_MetaData12.setFieldDesc(2, "tt_xpyhddeti_stat", 0, Parameter.PRO_CHARACTER,1,0);
 		xxexport_xpyhddet_MetaData12.setFieldDesc(3, "tt_xpyhddeti_startdt", 0, Parameter.PRO_CHARACTER,2,0);
@@ -193,7 +193,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xprcdet_MetaData11.setFieldDesc(1, "tt_xprcdeti_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xprcdet_DSMetaData1.addTable(xxinquiry_xprcdet_MetaData11);
 		xxinquiry_xprcdet_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprcd", 2, ParameterSet.OUTPUT);
-		xxinquiry_xprcdet_MetaData21 = new ProDataObjectMetaData("tt_xprcdet_out", 19, false, 0, null, null, null);
+		xxinquiry_xprcdet_MetaData21 = new ProDataObjectMetaData("tt_xprcdet_out", 23, false, 0, null, null, null);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(1, "tt_xpyhddeto_voucher", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(2, "tt_xpyhddeto_partnbr", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(3, "tt_xpyhddeto_receiver", 0, Parameter.PRO_CHARACTER,2,0);
@@ -213,6 +213,10 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(17, "tt_xpyhddeto_rmk", 0, Parameter.PRO_CHARACTER,16,0);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(18, "tt_xpyhddeto_claiminv", 0, Parameter.PRO_CHARACTER,17,0);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(19, "tt_xpyhddeto_claimamt", 0, Parameter.PRO_DECIMAL,18,0);
+		xxinquiry_xprcdet_MetaData21.setFieldDesc(20, "tt_xpyhddeto_suppcode", 0, Parameter.PRO_CHARACTER,19,0);
+		xxinquiry_xprcdet_MetaData21.setFieldDesc(21, "tt_xpyhddeto_stat", 0, Parameter.PRO_CHARACTER,20,0);	
+		xxinquiry_xprcdet_MetaData21.setFieldDesc(22, "tt_xpyhddeto_xprcmstroid", 0, Parameter.PRO_CHARACTER,21,0);	
+		xxinquiry_xprcdet_MetaData21.setFieldDesc(23, "tt_xpyhddeto_rcqty", 0, Parameter.PRO_DECIMAL,22,0);
 		xxinquiry_xprcdet_DSMetaData2.addTable(xxinquiry_xprcdet_MetaData21);
 		xxinquiry_xprcdet_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxinquiry_xprcdet_MetaData22.setFieldDesc(1, "tt_erro_xprcdetoid", 0, Parameter.PRO_CHARACTER,0,0);
@@ -243,21 +247,22 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xprcmstr_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xprcmstr_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xprcmstr_DSMetaData1.addTable(xxinquiry_xprcmstr_MetaData11);
-		xxinquiry_xprcmstr_MetaData12 = new ProDataObjectMetaData("tt_xprcmstr_in", 4, false, 0, null, null, null);
+		xxinquiry_xprcmstr_MetaData12 = new ProDataObjectMetaData("tt_xprcmstr_in", 3, false, 0, null, null, null);
 		xxinquiry_xprcmstr_MetaData12.setFieldDesc(1, "tt_xprcmstri_voucher", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xprcmstr_MetaData12.setFieldDesc(2, "tt_xprcmstri_fromdate", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xprcmstr_MetaData12.setFieldDesc(3, "tt_xprcmstri_todate", 0, Parameter.PRO_CHARACTER,2,0);
 		xxinquiry_xprcmstr_DSMetaData1.addTable(xxinquiry_xprcmstr_MetaData12);
 		xxinquiry_xprcmstr_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprc", 2, ParameterSet.OUTPUT);
-		xxinquiry_xprcmstr_MetaData21 = new ProDataObjectMetaData("tt_xprcmstr_out", 8, false, 0, null, null, null);
+		xxinquiry_xprcmstr_MetaData21 = new ProDataObjectMetaData("tt_xprcmstr_out", 9, false, 0, null, null, null);
 		xxinquiry_xprcmstr_MetaData21.setFieldDesc(1, "tt_xprcmstro_seq", 0, Parameter.PRO_INTEGER,0,0);
 		xxinquiry_xprcmstr_MetaData21.setFieldDesc(2, "tt_xprcmstro_voucher", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xprcmstr_MetaData21.setFieldDesc(3, "tt_xprcmstro_suppcode", 0, Parameter.PRO_CHARACTER,2,0);
 		xxinquiry_xprcmstr_MetaData21.setFieldDesc(4, "tt_xprcmstro_invdate", 0, Parameter.PRO_CHARACTER,3,0);
 		xxinquiry_xprcmstr_MetaData21.setFieldDesc(5, "tt_xprcmstro_totalamt", 0, Parameter.PRO_DECIMAL,4,0);
 		xxinquiry_xprcmstr_MetaData21.setFieldDesc(6, "tt_xprcmstro_printed", 0, Parameter.PRO_CHARACTER,5,0);
-		xxinquiry_xprcmstr_MetaData21.setFieldDesc(7, "tt_xprcmstro_stat", 0, Parameter.PRO_INTEGER,6,0);
+		xxinquiry_xprcmstr_MetaData21.setFieldDesc(7, "tt_xprcmstro_stat", 0, Parameter.PRO_CHARACTER,6,0);
 		xxinquiry_xprcmstr_MetaData21.setFieldDesc(8, "tt_xprcmstro_xprcmstroid", 0, Parameter.PRO_CHARACTER,7,0);
+		xxinquiry_xprcmstr_MetaData21.setFieldDesc(9, "tt_xprcmstro_type", 0, Parameter.PRO_CHARACTER,8,0);
 		xxinquiry_xprcmstr_DSMetaData2.addTable(xxinquiry_xprcmstr_MetaData21);
 		xxinquiry_xprcmstr_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxinquiry_xprcmstr_MetaData22.setFieldDesc(1, "tt_erro_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);
@@ -351,7 +356,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(9, "tt_xpyhmstri_type", 0, Parameter.PRO_CHARACTER,8,0);
 		xxinquiry_xpyhmstr_DSMetaData1.addTable(xxinquiry_xpyhmstr_MetaData12);
 		xxinquiry_xpyhmstr_DSMetaData2 = new ProDataGraphMetaData(0, "export_xpyhmstr", 2, ParameterSet.OUTPUT);
-		xxinquiry_xpyhmstr_MetaData21 = new ProDataObjectMetaData("tt_xpyhmstr_out", 12, false, 0, null, null, null);
+		xxinquiry_xpyhmstr_MetaData21 = new ProDataObjectMetaData("tt_xpyhmstr_out", 13, false, 0, null, null, null);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(1, "tt_xpyhmstro_seq", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(2, "tt_xpyhmstro_yhdnbr", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(3, "tt_xpyhmstro_suppcode", 0, Parameter.PRO_CHARACTER,2,0);
@@ -364,6 +369,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(10, "tt_xpyhmstro_xpyhmstroid", 0, Parameter.PRO_CHARACTER,9,0);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(11, "tt_xpyhmstro_conf", 0, Parameter.PRO_CHARACTER,10,0);
 		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(12, "tt_xpyhmstro_print", 0, Parameter.PRO_CHARACTER,11,0);
+		xxinquiry_xpyhmstr_MetaData21.setFieldDesc(13, "tt_xpyhmstro_recepttm", 0, Parameter.PRO_CHARACTER,12,0);
 		xxinquiry_xpyhmstr_DSMetaData2.addTable(xxinquiry_xpyhmstr_MetaData21);
 		xxinquiry_xpyhmstr_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxinquiry_xpyhmstr_MetaData22.setFieldDesc(1, "tt_erro_xpyhmstroid", 0, Parameter.PRO_CHARACTER,0,0);
@@ -544,7 +550,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinqury_xpyhddet2_MetaData11.setFieldDesc(1, "tt_xpyhddeti_xpyhmstroid", 0, Parameter.PRO_DECIMAL,0,0);
 		xxinqury_xpyhddet2_DSMetaData1.addTable(xxinqury_xpyhddet2_MetaData11);
 		xxinqury_xpyhddet2_DSMetaData2 = new ProDataGraphMetaData(0, "export_xpyhddet", 2, ParameterSet.OUTPUT);
-		xxinqury_xpyhddet2_MetaData21 = new ProDataObjectMetaData("tt_xpyhddet_out", 18, false, 0, null, null, null);
+		xxinqury_xpyhddet2_MetaData21 = new ProDataObjectMetaData("tt_xpyhddet_out", 19, false, 0, null, null, null);
 		xxinqury_xpyhddet2_MetaData21.setFieldDesc(1, "tt_xpyhddeto_suppcode", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinqury_xpyhddet2_MetaData21.setFieldDesc(2, "tt_xpyhddeto_suppname", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinqury_xpyhddet2_MetaData21.setFieldDesc(3, "tt_xpyhddeto_shipfrom", 0, Parameter.PRO_CHARACTER,2,0);
@@ -563,6 +569,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinqury_xpyhddet2_MetaData21.setFieldDesc(16, "tt_xpyhddeto_openqty", 0, Parameter.PRO_DECIMAL,15,0);
 		xxinqury_xpyhddet2_MetaData21.setFieldDesc(17, "tt_xpyhddeto_xpyhmstroid", 0, Parameter.PRO_CHARACTER,16,0);
 		xxinqury_xpyhddet2_MetaData21.setFieldDesc(18, "tt_xpyhddeto_xpyhddetoid", 0, Parameter.PRO_CHARACTER,17,0);
+		xxinqury_xpyhddet2_MetaData21.setFieldDesc(19, "tt_xpyhddeto_recepttm", 0, Parameter.PRO_CHARACTER,18,0);	
 		xxinqury_xpyhddet2_DSMetaData2.addTable(xxinqury_xpyhddet2_MetaData21);
 		xxinqury_xpyhddet2_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxinqury_xpyhddet2_MetaData22.setFieldDesc(1, "tt_erro_xpyhddetoid", 0, Parameter.PRO_CHARACTER,0,0);
@@ -636,7 +643,7 @@ public final class YFKSSSCPImpl extends AppObject
 	static
 	{
 		xxupdate_xprcmstr_DSMetaData1 = new ProDataGraphMetaData(0, "input_xprc", 1, ParameterSet.INPUT);
-		xxupdate_xprcmstr_MetaData11 = new ProDataObjectMetaData("tt_xprcmstr_in", 9, false, 0, null, null, null);
+		xxupdate_xprcmstr_MetaData11 = new ProDataObjectMetaData("tt_xprcmstr_in", 11, false, 0, null, null, null);
 		xxupdate_xprcmstr_MetaData11.setFieldDesc(1, "tt_xprcdeti_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);
 		xxupdate_xprcmstr_MetaData11.setFieldDesc(2, "tt_xprcmstri_qty", 0, Parameter.PRO_INTEGER,1,0);
 		xxupdate_xprcmstr_MetaData11.setFieldDesc(3, "tt_xprcmstri_taxamt", 0, Parameter.PRO_DECIMAL,2,0);
@@ -644,8 +651,11 @@ public final class YFKSSSCPImpl extends AppObject
 		xxupdate_xprcmstr_MetaData11.setFieldDesc(5, "tt_xprcmstri_notaxamt", 0, Parameter.PRO_DECIMAL,4,0);
 		xxupdate_xprcmstr_MetaData11.setFieldDesc(6, "tt_xprcmstri_invnbr", 0, Parameter.PRO_CHARACTER,5,0);
 		xxupdate_xprcmstr_MetaData11.setFieldDesc(7, "tt_xprcmstri_rmk", 0, Parameter.PRO_CHARACTER,6,0);
-		xxupdate_xprcmstr_MetaData11.setFieldDesc(8, "tt_xprcmstro_stat", 0, Parameter.PRO_INTEGER,7,0);
+		xxupdate_xprcmstr_MetaData11.setFieldDesc(8, "tt_xprcmstri_stat", 0, Parameter.PRO_CHARACTER,7,0);
 		xxupdate_xprcmstr_MetaData11.setFieldDesc(9, "tt_xprcmstri_indexinvnbr", 0, Parameter.PRO_CHARACTER,8,0);
+		xxupdate_xprcmstr_MetaData11.setFieldDesc(10, "tt_xprcmstri_type", 0, Parameter.PRO_CHARACTER,9,0);
+		xxupdate_xprcmstr_MetaData11.setFieldDesc(11, "tt_xprcmstri_creator", 0, Parameter.PRO_CHARACTER,10,0);
+		
 		xxupdate_xprcmstr_DSMetaData1.addTable(xxupdate_xprcmstr_MetaData11);
 		xxupdate_xprcmstr_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprc", 2, ParameterSet.OUTPUT);
 		xxupdate_xprcmstr_MetaData21 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
@@ -744,8 +754,9 @@ public final class YFKSSSCPImpl extends AppObject
 	static
 	{
 		xxview_xpyhddet_DSMetaData1 = new ProDataGraphMetaData(0, "input_xpyhddet", 1, ParameterSet.INPUT);
-		xxview_xpyhddet_MetaData11 = new ProDataObjectMetaData("tt_xpyhddet_in", 1, false, 0, null, null, null);
+		xxview_xpyhddet_MetaData11 = new ProDataObjectMetaData("tt_xpyhddet_in", 2, false, 0, null, null, null);
 		xxview_xpyhddet_MetaData11.setFieldDesc(1, "tt_xpyhddeti_xpyhmstroid", 0, Parameter.PRO_CHARACTER,0,0);
+		xxview_xpyhddet_MetaData11.setFieldDesc(2, "tt_xpyhddeti_type", 0, Parameter.PRO_CHARACTER,1,0);
 		xxview_xpyhddet_DSMetaData1.addTable(xxview_xpyhddet_MetaData11);
 		xxview_xpyhddet_DSMetaData2 = new ProDataGraphMetaData(0, "export_xpyhddet", 2, ParameterSet.OUTPUT);
 		xxview_xpyhddet_MetaData21 = new ProDataObjectMetaData("tt_xpyhddet_out", 32, false, 0, null, null, null);

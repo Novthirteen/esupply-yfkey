@@ -33,7 +33,11 @@ public class PurchaseOrder extends BaseObject {
 	private String tt_xpyhmstro_dock;    //道口
 	
 	private String tt_xpyhmstro_type;  //类型，0是要货单，1是发货
+	private String tt_xpyhmstro_recepttm; //窗口时间
 	
+	
+	private String tt_xpyhmstro_priority_desc; //优先级描述
+	private String tt_xpyhmstro_stat_desc; //状态描述
 	
 	
 
@@ -207,6 +211,32 @@ public class PurchaseOrder extends BaseObject {
 
 	public void setTt_xpyhmstro_type(String tt_xpyhmstro_type) {
 		this.tt_xpyhmstro_type = tt_xpyhmstro_type;
+	}
+
+	
+	
+	public String getTt_xpyhmstro_priority_desc() {
+		return tt_xpyhmstro_priority_desc;
+	}
+
+	public void setTt_xpyhmstro_priority_desc(String tt_xpyhmstro_priority_desc) {
+		this.tt_xpyhmstro_priority_desc = tt_xpyhmstro_priority_desc;
+	}
+
+	public String getTt_xpyhmstro_stat_desc() {
+		return tt_xpyhmstro_stat_desc;
+	}
+
+	public void setTt_xpyhmstro_stat_desc(String tt_xpyhmstro_stat_desc) {
+		this.tt_xpyhmstro_stat_desc = tt_xpyhmstro_stat_desc;
+	}
+
+	public String getTt_xpyhmstro_recepttm() {
+		return tt_xpyhmstro_recepttm;
+	}
+
+	public void setTt_xpyhmstro_recepttm(String tt_xpyhmstro_recepttm) {
+		this.tt_xpyhmstro_recepttm = tt_xpyhmstro_recepttm;
 	}
 
 	public List<PurchaseOrderDetail> getPurchaseOrderDetailList() {

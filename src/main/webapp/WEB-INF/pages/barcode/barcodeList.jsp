@@ -38,7 +38,8 @@
 				key="purchaseOrderDetail.tt_xpyhddeto_supppart" />
 		</div>
 		<div class="col-xs-4 search-group layouttrim">
-			<s:checkbox key="purchaseOrderDetail.isexternal" />
+			<s:radio key="purchaseOrderDetail.isexternal" listValue="value" value="1" 
+				listKey="label" list="packageList"  />
 		</div>
 	</div>
 	<div class="row">

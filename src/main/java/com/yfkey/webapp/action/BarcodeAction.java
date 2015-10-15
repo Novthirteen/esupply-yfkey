@@ -28,6 +28,8 @@ import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
 import com.yfkey.model.Barcode;
+import com.yfkey.model.Gender;
+import com.yfkey.model.LabelValue;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.PurchaseOrderDetail;
 import com.yfkey.webapp.util.QADUtil;
@@ -226,7 +228,7 @@ public class BarcodeAction extends BaseAction {
 							// objectMstr.setString("tt_bcdeti_domain",
 							// value);
 							objectMstr.setString(4, pod.getTt_xpyhddeto_xpyhddetoid());
-							objectMstr.setString(5, purchaseOrderDetail.getIsexternal() ? "1" : "0");
+							objectMstr.setString(5, purchaseOrderDetail.getIsexternal());
 
 							exDataGraph.addProDataObject(objectMstr);
 						}
@@ -273,10 +275,10 @@ public class BarcodeAction extends BaseAction {
 				BaseFont baseFont = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", BaseFont.EMBEDDED);
 				// Font font = FontFactory.getFont("Times-Roman");
 				Barcode128 code128 = new Barcode128();
-				code128.setCode(barcode.getTt_bcdeto_bcnon());
+				code128.setCode(barcode.getTt_bcdeto_bcinfo1());
 				// code128.setX(0.75f);
 				// code128.setN(1.5f);
-				code128.setSize(10f);
+				code128.setSize(0.0001f);
 				code128.setTextAlignment(Element.ALIGN_LEFT);
 				// code128.setBaseline(1);
 				// code128.setBarHeight(26f);
@@ -284,63 +286,69 @@ public class BarcodeAction extends BaseAction {
 				cb.addImage(img, 150, 0, 0, 35, 50, 120);
 				cb.stroke();
 				// document.add(img);
+				
+				cb.beginText();
+				cb.setFontAndSize(baseFont, 8);
+			    cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_bcnon(), 80, 120, 0);
+				cb.endText();
+				
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PART NO.", 10, 120, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PART NO.", 10, 110, 0);
 				cb.endText();
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partnbr(), 35, 110, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partnbr(), 35, 100, 0);
 				cb.endText();
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "LOT/SERIAL NO.", 10, 100, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "LOT/SERIAL NO.", 10, 90, 0);
 				cb.endText();
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_lots(), 35, 90, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_lots(), 35, 80, 0);
 				cb.endText();
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "QUANTITY", 145, 100, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "QUANTITY", 145, 90, 0);
 				cb.endText();
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(barcode.getTt_bcdeto_qty()), 145, 90, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(barcode.getTt_bcdeto_qty()), 145, 80, 0);
 				cb.endText();
 
 				// QRCODE
 				if (barcode.getTt_bcdeto_bcinfo2() != null && !barcode.getTt_bcdeto_bcinfo2().trim().equals("")) {
 					BarcodeQRCode qrcode = new BarcodeQRCode(barcode.getTt_bcdeto_bcinfo2(), 1, 1, null);
 					Image img1 = qrcode.getImage();
-					cb.addImage(img1, 40, 0, 0, 40, 150, 50);
+					cb.addImage(img1, 40, 0, 0, 40, 140, 50);
 					cb.stroke();
 				}
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DESCRIPTION ", 10, 80, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DESCRIPTION ", 10, 70, 0);
 				cb.endText();
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partdesc(), 35, 70, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partdesc(), 35, 60, 0);
 				cb.endText();
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUPPLIER ", 10, 60, 0);
+				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUPPLIER ", 10, 50, 0);
 				cb.endText();
 
 				cb.beginText();
 				cb.setFontAndSize(baseFont, 8);
 				cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
-						barcode.getTt_bcdeto_suppname() == null ? "" : barcode.getTt_bcdeto_suppname(), 35, 50, 0);
+						barcode.getTt_bcdeto_suppname() == null ? "" : barcode.getTt_bcdeto_suppname(), 35, 40, 0);
 				cb.endText();
 
 				cb.beginText();
@@ -367,6 +375,14 @@ public class BarcodeAction extends BaseAction {
 			outputStream.close();
 		}
 
+	}
+	
+	public List<LabelValue> getPackageList() {
+		List<LabelValue> packageList = new ArrayList<LabelValue>();
+		packageList.add(new LabelValue("0", getText("package.inner")));
+		packageList.add(new LabelValue("1", getText("package.external")));
+
+		return packageList;
 	}
 
 }
