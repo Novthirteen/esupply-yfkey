@@ -57,6 +57,7 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	private boolean accountExpired;
 	private boolean accountLocked;
 	private boolean credentialsExpired;
+	private boolean enforcePassword;
 	private String createUser;
 	private Timestamp createDate;
 	private String updateUser;
@@ -237,6 +238,11 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 		return !credentialsExpired;
 	}
 
+	@Column(name = "enforce_password", nullable = false)
+	public boolean isEnforcePassword() {
+		return enforcePassword;
+	}
+	
 	@Column(name = "create_user", length = 50, nullable = false, updatable = false)
 	public String getCreateUser() {
 		return createUser;
@@ -329,6 +335,10 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 
 	public void setCredentialsExpired(boolean credentialsExpired) {
 		this.credentialsExpired = credentialsExpired;
+	}
+	
+	public void setEnforcePassword(boolean enforcePassword) {
+		this.enforcePassword = enforcePassword;
 	}
 
 	public void setCreateUser(String createUser) {
