@@ -144,11 +144,6 @@
 			test="${empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">
 			<%@ include file="/common/selectUserPlant.jsp"%>
 		</c:if>
-
-		<div class="well col-md-5">
-			<input id="demo3" type="text" class="col-md-12 form-control"
-				placeholder="Search cities..." autocomplete="off" />
-		</div>
 	</div>
 
 	<div id="footer" class="container navbar-fixed-bottom">
@@ -222,20 +217,6 @@
 			</c:if>
 		});
 		
-		debugger;
-		$('#demo3').typeahead({
-			ajax: {
-                url: "<c:url value="/services/api/users/getData.json"/>",
-                method: 'get',
-				preDispatch: function(e){
-					return {query: e}
-				},
-                triggerLength: 1
-            },
-            //displayField: 'name',
-            //valueField:'id',
-            //onSelect: displayResult
-        });
 	</script>
 </body>
 </html>

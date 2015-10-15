@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -351,9 +352,15 @@ public class PurchaseOrderAction extends BaseAction {
 	 * @return "success" if no exceptions thrown
 	 */
 	public String list() {
-		if (purchaseOrder != null) {
-			query();
+		if (purchaseOrder == null) {
+			purchaseOrder = new PurchaseOrder();
+			Date date=new Date();
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+		
+			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
+			purchaseOrder.setIsDetail(false);
 		}
+		query();
 		return SUCCESS;
 	}
 
@@ -405,21 +412,21 @@ public class PurchaseOrderAction extends BaseAction {
 
 					if (purchaseOrder != null) {
 						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_yhdnbr());
+								: purchaseOrder.getTt_xpyhmstro_yhdnbr().trim());
 						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_stat());
+								: purchaseOrder.getTt_xpyhmstro_stat().trim());
 						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_startdt());
+								: purchaseOrder.getTt_xpyhmstro_startdt().trim());
 						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_priority());
+								: purchaseOrder.getTt_xpyhmstro_priority().trim());
 						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_creator());
+								: purchaseOrder.getTt_xpyhmstro_creator().trim());
 						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_shipto());
+								: purchaseOrder.getTt_xpyhmstro_shipto().trim());
 						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_receptdt());
+								: purchaseOrder.getTt_xpyhmstro_receptdt().trim());
 						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_partnbr());
+								: purchaseOrder.getTt_xpyhmstro_partnbr().trim());
 					}
 
 					exDataGraph.addProDataObject(objectMstr);
@@ -477,21 +484,21 @@ public class PurchaseOrderAction extends BaseAction {
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhmstr_in");
 					if (purchaseOrder != null) {
 						objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_yhdnbr());
+								: purchaseOrder.getTt_xpyhmstro_yhdnbr().trim());
 						objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_stat());
+								: purchaseOrder.getTt_xpyhmstro_stat().trim());
 						objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_startdt() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_startdt());
+								: purchaseOrder.getTt_xpyhmstro_startdt().trim());
 						objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_priority() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_priority());
+								: purchaseOrder.getTt_xpyhmstro_priority().trim());
 						objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_creator() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_creator());
+								: purchaseOrder.getTt_xpyhmstro_creator().trim());
 						objectMstr.setString(5, purchaseOrder.getTt_xpyhmstro_shipto() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_shipto());
+								: purchaseOrder.getTt_xpyhmstro_shipto().trim());
 						objectMstr.setString(6, purchaseOrder.getTt_xpyhmstro_receptdt() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_receptdt());
+								: purchaseOrder.getTt_xpyhmstro_receptdt().trim());
 						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null ? ""
-								: purchaseOrder.getTt_xpyhmstro_partnbr());
+								: purchaseOrder.getTt_xpyhmstro_partnbr().trim());
 						objectMstr.setString(8, "0");
 
 					}

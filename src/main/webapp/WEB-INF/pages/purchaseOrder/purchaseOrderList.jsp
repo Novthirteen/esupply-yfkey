@@ -25,6 +25,11 @@
 			<div class="col-xs-4 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrder.tt_xpyhmstro_suppcode" />
+				
+			<input id="tt_xpyhmstro_suppcode" name="purchaseOrder.tt_xpyhmstro_suppcode" type="text" class="col-md-12 form-control"
+				placeholder="Search cities..." autocomplete="off" />
+
+
 			</div>
 		</div>
 		<div class="row">
@@ -173,4 +178,24 @@
 			</display:table>
 		</c:otherwise>
 	</c:choose>
+	
+	<script>
+debugger;
+$('#tt_xpyhmstro_suppcode').typeahead({
+	ajax: {
+        url: "<c:url value="/services/api/webServices/getSupplyData.json"/>",
+        method: 'get',
+		preDispatch: function(e){
+			return {query: e}
+		},
+        triggerLength: 1
+    },
+    //displayField: 'name',
+    //valueField:'id',
+    //onSelect: displayResult
+});
+</script>
 </body>
+
+
+

@@ -104,6 +104,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, String>implements 
 	public List<String> getData(String query)
 	{
 		List<String> data = new ArrayList<String>();
+		
 		data.add("chinese");
 		data.add("american");
 		data.add("janpenes");
