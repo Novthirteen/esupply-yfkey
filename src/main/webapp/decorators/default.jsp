@@ -144,6 +144,7 @@
 			test="${empty sessionScope.selectedUserPlant and not empty sessionScope.availableUserPlants}">
 			<%@ include file="/common/selectUserPlant.jsp"%>
 		</c:if>
+
 	</div>
 
 	<div id="footer" class="container navbar-fixed-bottom">
@@ -217,6 +218,7 @@
 			</c:if>
 		});
 		
+	
 	</script>
 </body>
 </html>

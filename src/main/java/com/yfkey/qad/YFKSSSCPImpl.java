@@ -803,7 +803,49 @@ public final class YFKSSSCPImpl extends AppObject
 	}
 	
 	
-	
+	static ProDataGraphMetaData xxview_forecast_DSMetaData1;
+
+	static ProDataObjectMetaData xxview_forecast_MetaData11;
+
+	static ProDataGraphMetaData xxview_forecast_DSMetaData2;
+
+	static ProDataObjectMetaData xxview_forecast_MetaData21;
+
+	static ProDataObjectMetaData xxview_forecast_MetaData22;
+
+
+	static
+	{
+		xxview_forecast_DSMetaData1 = new ProDataGraphMetaData(0, "input_scpfcast", 1, ParameterSet.INPUT);
+		xxview_forecast_MetaData11 = new ProDataObjectMetaData("tt_forecast_in", 4, false, 0, null, null, null);
+		xxview_forecast_MetaData11.setFieldDesc(1, "tt_forecast_sp", 0, Parameter.PRO_CHARACTER,0,0);
+		xxview_forecast_MetaData11.setFieldDesc(2, "tt_forecast_shipto", 0, Parameter.PRO_CHARACTER,1,0);
+		xxview_forecast_MetaData11.setFieldDesc(3, "tt_forecast_fcastdt", 0, Parameter.PRO_CHARACTER,2,0);
+		xxview_forecast_MetaData11.setFieldDesc(4, "tt_forecast_partnbr", 0, Parameter.PRO_CHARACTER,3,0);
+		xxview_forecast_DSMetaData1.addTable(xxview_forecast_MetaData11);
+		xxview_forecast_DSMetaData2 = new ProDataGraphMetaData(0, "export_scpfcast", 2, ParameterSet.OUTPUT);
+		xxview_forecast_MetaData21 = new ProDataObjectMetaData("tt_forecast_out", 12, false, 0, null, null, null);
+		xxview_forecast_MetaData21.setFieldDesc(1, "tt_forecast_seq", 0, Parameter.PRO_CHARACTER,0,0);
+		xxview_forecast_MetaData21.setFieldDesc(2, "tt_forecast_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
+		xxview_forecast_MetaData21.setFieldDesc(3, "tt_forecast_shipto", 0, Parameter.PRO_CHARACTER,2,0);
+		xxview_forecast_MetaData21.setFieldDesc(4, "tt_forecast_partnbr", 0, Parameter.PRO_CHARACTER,3,0);
+		xxview_forecast_MetaData21.setFieldDesc(5, "tt_forecast_partdesc", 0, Parameter.PRO_CHARACTER,4,0);
+		xxview_forecast_MetaData21.setFieldDesc(6, "tt_forecast_supppart", 0, Parameter.PRO_CHARACTER,5,0);
+		xxview_forecast_MetaData21.setFieldDesc(7, "tt_forecast_reqdt", 0, Parameter.PRO_CHARACTER,6,0);
+		xxview_forecast_MetaData21.setFieldDesc(8, "tt_forecast_currcy", 0, Parameter.PRO_CHARACTER,7,0);
+		xxview_forecast_MetaData21.setFieldDesc(9, "tt_forecast_uom", 0, Parameter.PRO_CHARACTER,8,0);
+		xxview_forecast_MetaData21.setFieldDesc(10, "tt_forecast_inerpk", 0, Parameter.PRO_DECIMAL,9,0);
+		xxview_forecast_MetaData21.setFieldDesc(11, "tt_forecast_extpk", 0, Parameter.PRO_DECIMAL,10,0);
+		xxview_forecast_MetaData21.setFieldDesc(12, "tt_forecast_fcastqty", 0, Parameter.PRO_DECIMAL,11,0);
+		xxview_forecast_DSMetaData2.addTable(xxview_forecast_MetaData21);
+		xxview_forecast_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
+		xxview_forecast_MetaData22.setFieldDesc(1, "tt_erro_xpyhddetoid", 0, Parameter.PRO_CHARACTER,0,0);
+		xxview_forecast_MetaData22.setFieldDesc(2, "tt_erro_errid", 0, Parameter.PRO_INTEGER,1,0);
+		xxview_forecast_MetaData22.setFieldDesc(3, "tt_erro_errsens", 0, Parameter.PRO_INTEGER,2,0);
+		xxview_forecast_MetaData22.setFieldDesc(4, "tt_erro_msg", 0, Parameter.PRO_CHARACTER,3,0);
+		xxview_forecast_DSMetaData2.addTable(xxview_forecast_MetaData22);
+
+	}
 
 
     //---- Constructor
@@ -1675,6 +1717,57 @@ public final class YFKSSSCPImpl extends AppObject
 
 	public static void setXxview_xpyhddet_MetaData22(ProDataObjectMetaData xxview_xpyhddet_MetaData22) {
 		YFKSSSCPImpl.xxview_xpyhddet_MetaData22 = xxview_xpyhddet_MetaData22;
+	}
+
+	
+
+	public static ProDataGraphMetaData getXxview_forecast_DSMetaData1() {
+		return xxview_forecast_DSMetaData1;
+	}
+
+
+	public static void setXxview_forecast_DSMetaData1(ProDataGraphMetaData xxview_forecast_DSMetaData1) {
+		YFKSSSCPImpl.xxview_forecast_DSMetaData1 = xxview_forecast_DSMetaData1;
+	}
+
+
+	public static ProDataObjectMetaData getXxview_forecast_MetaData11() {
+		return xxview_forecast_MetaData11;
+	}
+
+
+	public static void setXxview_forecast_MetaData11(ProDataObjectMetaData xxview_forecast_MetaData11) {
+		YFKSSSCPImpl.xxview_forecast_MetaData11 = xxview_forecast_MetaData11;
+	}
+
+
+	public static ProDataGraphMetaData getXxview_forecast_DSMetaData2() {
+		return xxview_forecast_DSMetaData2;
+	}
+
+
+	public static void setXxview_forecast_DSMetaData2(ProDataGraphMetaData xxview_forecast_DSMetaData2) {
+		YFKSSSCPImpl.xxview_forecast_DSMetaData2 = xxview_forecast_DSMetaData2;
+	}
+
+
+	public static ProDataObjectMetaData getXxview_forecast_MetaData21() {
+		return xxview_forecast_MetaData21;
+	}
+
+
+	public static void setXxview_forecast_MetaData21(ProDataObjectMetaData xxview_forecast_MetaData21) {
+		YFKSSSCPImpl.xxview_forecast_MetaData21 = xxview_forecast_MetaData21;
+	}
+
+
+	public static ProDataObjectMetaData getXxview_forecast_MetaData22() {
+		return xxview_forecast_MetaData22;
+	}
+
+
+	public static void setXxview_forecast_MetaData22(ProDataObjectMetaData xxview_forecast_MetaData22) {
+		YFKSSSCPImpl.xxview_forecast_MetaData22 = xxview_forecast_MetaData22;
 	}
 
 
@@ -2682,6 +2775,67 @@ public final class YFKSSSCPImpl extends AppObject
 
 	}
 
+	/* 
+	*/
+	public String xxview_forecast(ProDataGraph input_scpfcast, ProDataGraphHolder export_scpfcast)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		RqContext rqCtx = null;
+		com.progress.open4gl.dynamicapi.ResultSet lastResultSet = null;
+
+		if (isSessionAvailable() == false)
+			throw new Open4GLException(m_notAvailable, null);
+
+		Object outValue;
+		ParameterSet params = new ParameterSet(2);
+
+		// Set up input parameters
+		params.setDataGraphParameter(1, input_scpfcast, ParameterSet.INPUT, false);
+
+
+		// Set up input/output parameters
+
+
+		// Set up Out parameters
+		params.setDataGraphParameter(2, null, ParameterSet.OUTPUT, false);
+
+
+		// Setup local MetaSchema if any params are tables
+		MetaSchema xxview_forecast_MetaSchema = new MetaSchema();
+		xxview_forecast_MetaSchema.addProDataGraphSchema(xxview_forecast_DSMetaData1, 1, ParameterSet.INPUT , false);
+		xxview_forecast_MetaSchema.addProDataGraphSchema(xxview_forecast_DSMetaData2, 2, ParameterSet.OUTPUT , false);
+
+
+		// Set up return type
+		
+
+		// Run procedure
+		rqCtx = runProcedure("xxview_forecast.p", params, xxview_forecast_MetaSchema);
+
+
+		// Get output parameters
+		outValue = params.getOutputParameter(2);
+		export_scpfcast.setValue(outValue);
+
+
+		// Session-Managed always returns null
+		if (rqCtx != null)
+		{
+			if (!rqCtx._isStreaming())
+				rqCtx._release();
+			else
+			{
+				// If set, there's a ResultSetHolder parm
+				lastResultSet = null;
+				if (lastResultSet != null)
+					lastResultSet.setRqContext(rqCtx);
+			}
+		}
+
+		// Return output value
+		return (String)(params.getProcedureReturnValue());
+
+	}
 
 
 }

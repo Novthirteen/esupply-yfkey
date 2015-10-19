@@ -35,6 +35,7 @@ import com.yfkey.webapp.util.PrintASNUtil;
 import com.yfkey.webapp.util.QADUtil;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
+import com.yfkey.model.Item;
 import com.yfkey.model.LabelValue;
 
 /**
@@ -187,6 +188,26 @@ public class AsnAction extends BaseAction {
 	 * @return "success" if no exceptions thrown
 	 */
 	public String list() {
+
+		if (asn == null) {
+			asn = new Asn();
+			asn.setIsDetail(false);
+		}
+		
+		// autocomplete要处理一下
+		if (asn.getTt_xasnmstro_shipto() != null && !asn.getTt_xasnmstro_shipto().equals("")) {
+			String shipto = asn.getTt_xasnmstro_shipto();
+			if (shipto.contains("(")) {
+				asn.setTt_xasnmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
+			}
+		}
+		if (asn.getTt_xasnmstri_partnbr() != null && !asn.getTt_xasnmstri_partnbr().equals("")) {
+
+			String item = asn.getTt_xasnmstri_partnbr();
+			if (item.contains("(")) {
+				asn.setTt_xasnmstri_partnbr(item.substring(0, item.indexOf("(")));
+			}
+		}
 		query();
 		return SUCCESS;
 	}
@@ -221,18 +242,19 @@ public class AsnAction extends BaseAction {
 					if (asn != null) {
 
 						objectMstr.setString(0,
-								asn.getTt_xasnmstro_asnnbr() == null ? "" : asn.getTt_xasnmstro_asnnbr());
-						objectMstr.setString(1, asn.getTt_xasnmstro_stat() == null ? "" : asn.getTt_xasnmstro_stat());
+								asn.getTt_xasnmstro_asnnbr() == null ? "" : asn.getTt_xasnmstro_asnnbr().trim());
+						objectMstr.setString(1,
+								asn.getTt_xasnmstro_stat() == null ? "" : asn.getTt_xasnmstro_stat().trim());
 						objectMstr.setString(2,
-								asn.getTt_xasnmstri_fromdate() == null ? "" : asn.getTt_xasnmstri_fromdate());
+								asn.getTt_xasnmstri_fromdate() == null ? "" : asn.getTt_xasnmstri_fromdate().trim());
 						objectMstr.setString(3,
-								asn.getTt_xasnmstri_todate() == null ? "" : asn.getTt_xasnmstri_todate());
+								asn.getTt_xasnmstri_todate() == null ? "" : asn.getTt_xasnmstri_todate().trim());
 						objectMstr.setString(4,
-								asn.getTt_xasnmstro_shipto() == null ? "" : asn.getTt_xasnmstro_shipto());
+								asn.getTt_xasnmstro_shipto() == null ? "" : asn.getTt_xasnmstro_shipto().trim());
 						objectMstr.setString(5,
-								asn.getTt_xasnmstri_yhdnbr() == null ? "" : asn.getTt_xasnmstri_yhdnbr());
+								asn.getTt_xasnmstri_yhdnbr() == null ? "" : asn.getTt_xasnmstri_yhdnbr().trim());
 						objectMstr.setString(6,
-								asn.getTt_xasnmstri_partnbr() == null ? "" : asn.getTt_xasnmstri_partnbr());
+								asn.getTt_xasnmstri_partnbr() == null ? "" : asn.getTt_xasnmstri_partnbr().trim());
 
 					}
 
@@ -278,18 +300,19 @@ public class AsnAction extends BaseAction {
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xasnmstr_in");
 					if (asn != null) {
 						objectMstr.setString(0,
-								asn.getTt_xasnmstro_asnnbr() == null ? "" : asn.getTt_xasnmstro_asnnbr());
-						objectMstr.setString(1, asn.getTt_xasnmstro_stat() == null ? "" : asn.getTt_xasnmstro_stat());
+								asn.getTt_xasnmstro_asnnbr() == null ? "" : asn.getTt_xasnmstro_asnnbr().trim());
+						objectMstr.setString(1,
+								asn.getTt_xasnmstro_stat() == null ? "" : asn.getTt_xasnmstro_stat().trim());
 						objectMstr.setString(2,
-								asn.getTt_xasnmstri_fromdate() == null ? "" : asn.getTt_xasnmstri_fromdate());
+								asn.getTt_xasnmstri_fromdate() == null ? "" : asn.getTt_xasnmstri_fromdate().trim());
 						objectMstr.setString(3,
-								asn.getTt_xasnmstri_todate() == null ? "" : asn.getTt_xasnmstri_todate());
+								asn.getTt_xasnmstri_todate() == null ? "" : asn.getTt_xasnmstri_todate().trim());
 						objectMstr.setString(4,
-								asn.getTt_xasnmstro_shipto() == null ? "" : asn.getTt_xasnmstro_shipto());
+								asn.getTt_xasnmstro_shipto() == null ? "" : asn.getTt_xasnmstro_shipto().trim());
 						objectMstr.setString(5,
-								asn.getTt_xasnmstri_yhdnbr() == null ? "" : asn.getTt_xasnmstri_yhdnbr());
+								asn.getTt_xasnmstri_yhdnbr() == null ? "" : asn.getTt_xasnmstri_yhdnbr().trim());
 						objectMstr.setString(6,
-								asn.getTt_xasnmstri_partnbr() == null ? "" : asn.getTt_xasnmstri_partnbr());
+								asn.getTt_xasnmstri_partnbr() == null ? "" : asn.getTt_xasnmstri_partnbr().trim());
 
 					}
 

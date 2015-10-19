@@ -54,7 +54,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-8">
-			<s:textarea key="purchaseOrder.remark" cols="150" rows="6" />
+			<s:textarea key="purchaseOrder.remark" cols="120" rows="6" />
 		</div>
 	</div>
 

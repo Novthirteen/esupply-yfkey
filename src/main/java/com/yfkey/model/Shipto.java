@@ -14,8 +14,8 @@ public class Shipto extends BaseObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1389110748673716785L;
-	private String shcode; // 零件代码
-	private String shdesc; // 零件描述
+	private String shcode; // 收货地址
+	private String shname; // 收货地址名称
 	private String shdomain; // 域
 
 	@Id
@@ -29,12 +29,12 @@ public class Shipto extends BaseObject {
 	}
 
 	@Column(length = 200)
-	public String getShdesc() {
-		return shdesc;
+	public String getShname() {
+		return shname;
 	}
 
-	public void setShdesc(String shdesc) {
-		this.shdesc = shdesc;
+	public void setShname(String shname) {
+		this.shname = shname;
 	}
 
 	@Column(length = 20)

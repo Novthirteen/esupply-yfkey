@@ -9,8 +9,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.yfkey.model.LabelValue;
 import com.yfkey.model.Supply;
 
 
@@ -19,20 +21,20 @@ import com.yfkey.model.Supply;
  * Web Service interface so hierarchy of Generic Manager isn't carried through.
  */
 @WebService
-@Path("/webServices")
-public interface WebServiceManager {
+@Path("/supplys")
+public interface SupplyManager {
 
 	
 	@GET
 	@Path("getSupplyData")
-	public List<String> getSupplyData(String query);
+	public List<LabelValue> getSupplyData(@QueryParam("domain") String domain,@QueryParam("query") String query);
 
 	
 	@GET
 	@Path("getItemData")
-	public List<String> getItemData(String query);
+	public List<LabelValue> getItemData(@QueryParam("domain") String domain,@QueryParam("query") String query);
 	
 	@GET
 	@Path("getShiptoData")
-	public List<String> getShiptoData(String query);
+	public List<LabelValue> getShiptoData(@QueryParam("domain") String domain,@QueryParam("query") String query);
 }

@@ -174,9 +174,18 @@ public class ReceiptAction extends BaseAction {
 	 * @return "success" if no exceptions thrown
 	 */
 	public String list() {
-		if (receipt != null) {
-			query();
+		if (receipt == null) {
+			receipt = new Receipt();
+			receipt.setIsDetail(false);
 		}
+		
+		if (receipt.getTt_prhmstri_partnbr()!= null && !receipt.getTt_prhmstri_partnbr().equals("")) {
+			String item = receipt.getTt_prhmstri_partnbr();
+			if (item.contains("(")) {
+				receipt.setTt_prhmstri_partnbr(item.substring(0, item.indexOf("(")));
+			}
+		}
+		query();
 		return SUCCESS;
 	}
 
@@ -211,15 +220,15 @@ public class ReceiptAction extends BaseAction {
 					if (receipt != null) {
 
 						objectMstr.setString(0,
-								receipt.getTt_prhmstro_receiver() == null ? "" : receipt.getTt_prhmstro_receiver());
+								receipt.getTt_prhmstro_receiver() == null ? "" : receipt.getTt_prhmstro_receiver().trim());
 						objectMstr.setString(1,
-								receipt.getTt_prhmstri_fromdate() == null ? "" : receipt.getTt_prhmstri_fromdate());
+								receipt.getTt_prhmstri_fromdate() == null ? "" : receipt.getTt_prhmstri_fromdate().trim());
 						objectMstr.setString(2,
-								receipt.getTt_prhmstri_todate() == null ? "" : receipt.getTt_prhmstri_todate());
+								receipt.getTt_prhmstri_todate() == null ? "" : receipt.getTt_prhmstri_todate().trim());
 						objectMstr.setString(3,
-								receipt.getTt_prhmstri_yhdnbr() == null ? "" : receipt.getTt_prhmstri_yhdnbr());
+								receipt.getTt_prhmstri_yhdnbr() == null ? "" : receipt.getTt_prhmstri_yhdnbr().trim());
 						objectMstr.setString(4,
-								receipt.getTt_prhmstri_partnbr() == null ? "" : receipt.getTt_prhmstri_partnbr());
+								receipt.getTt_prhmstri_partnbr() == null ? "" : receipt.getTt_prhmstri_partnbr().trim());
 					}
 
 					exDataGraph.addProDataObject(objectMstr);
@@ -265,15 +274,15 @@ public class ReceiptAction extends BaseAction {
 					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_prhmstr_in");
 					if (receipt != null) {
 						objectMstr.setString(0,
-								receipt.getTt_prhmstro_receiver() == null ? "" : receipt.getTt_prhmstro_receiver());
+								receipt.getTt_prhmstro_receiver() == null ? "" : receipt.getTt_prhmstro_receiver().trim());
 						objectMstr.setString(1,
-								receipt.getTt_prhmstri_fromdate() == null ? "" : receipt.getTt_prhmstri_fromdate());
+								receipt.getTt_prhmstri_fromdate() == null ? "" : receipt.getTt_prhmstri_fromdate().trim());
 						objectMstr.setString(2,
-								receipt.getTt_prhmstri_todate() == null ? "" : receipt.getTt_prhmstri_todate());
+								receipt.getTt_prhmstri_todate() == null ? "" : receipt.getTt_prhmstri_todate().trim());
 						objectMstr.setString(3,
-								receipt.getTt_prhmstri_yhdnbr() == null ? "" : receipt.getTt_prhmstri_yhdnbr());
+								receipt.getTt_prhmstri_yhdnbr() == null ? "" : receipt.getTt_prhmstri_yhdnbr().trim());
 						objectMstr.setString(4,
-								receipt.getTt_prhmstri_partnbr() == null ? "" : receipt.getTt_prhmstri_partnbr());
+								receipt.getTt_prhmstri_partnbr() == null ? "" : receipt.getTt_prhmstri_partnbr().trim());
 
 					}
 

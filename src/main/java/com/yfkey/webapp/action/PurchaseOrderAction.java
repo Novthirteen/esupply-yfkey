@@ -356,15 +356,51 @@ public class PurchaseOrderAction extends BaseAction {
 			purchaseOrder = new PurchaseOrder();
 			Date date=new Date();
 			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-		
 			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
 			purchaseOrder.setIsDetail(false);
 		}
+		//autocomplete要处理一下
+		if(purchaseOrder.getTt_xpyhmstro_suppcode() != null && !purchaseOrder.getTt_xpyhmstro_suppcode().equals(""))
+		{
+			String suppcode= purchaseOrder.getTt_xpyhmstro_suppcode();
+			if(suppcode.contains("("))
+			{
+			purchaseOrder.setTt_xpyhmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
+			}
+		}
+		if(purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals(""))
+		{
+			String shipto= purchaseOrder.getTt_xpyhmstro_shipto();
+
+			if(shipto.contains("(")){
+			purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
+			}
+		}
+		
 		query();
+	
 		return SUCCESS;
 	}
 
 	public String shiplist() {
+		
+		if(purchaseOrder == null)
+		{
+			purchaseOrder = new PurchaseOrder();
+			
+		}
+		
+		if(purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals(""))
+		{
+			String shipto= purchaseOrder.getTt_xpyhmstro_shipto();
+
+			if(shipto.contains("(")){
+			purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
+			}
+		}
+		
+		purchaseOrder.setTt_xpyhmstro_stat("2,3");
+		
 		shipQuery();
 		return SUCCESS;
 	}
@@ -390,6 +426,10 @@ public class PurchaseOrderAction extends BaseAction {
 
 			if (ConnectQAD()) {
 				String userCode = this.getRequest().getRemoteUser();
+				
+				
+				
+				
 				@SuppressWarnings("unchecked")
 				List<String> supplierCodeList = getSupplierCodeList(
 						purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
@@ -572,7 +612,7 @@ public class PurchaseOrderAction extends BaseAction {
 				ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhmstr_in");
 				if (purchaseOrder != null) {
 					objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_yhdnbr());
-					objectMstr.setString(1, "2,3");
+					objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_stat());
 					objectMstr.setString(2, "");
 					objectMstr.setString(3, "");
 					objectMstr.setString(4, "");

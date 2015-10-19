@@ -33,8 +33,10 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="receipt.tt_prhmstri_partnbr" />
+			<fmt:message key="receipt.tt_prhmstri_partnbr" />
+				<input id="tt_prhmstri_partnbr" name="receipt.tt_prhmstri_partnbr"
+					type="text" class="col-md-12 form-control" placeholder=""
+					autocomplete="off" />
 		</div>
 		<div class="col-xs-4 search-group layouttrim">
 			<s:checkbox key="receipt.isDetail" />
@@ -139,3 +141,26 @@
 		</display:table>
 	</c:otherwise>
 </c:choose>
+
+<script>
+		$('#tt_prhmstri_partnbr')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getItemData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+	</script>
+	
+</body>

@@ -375,6 +375,15 @@ public class YFKSSSCP implements SDOFactory
 		return m_YFKSSSCPImpl.xxview_xpyhddet( input_xpyhddet,  export_xpyhddet);
 	}
 
+	/**
+	*	
+	*	
+	*/
+	public String xxview_forecast(ProDataGraph input_scpfcast, ProDataGraphHolder export_scpfcast)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		return m_YFKSSSCPImpl.xxview_forecast( input_scpfcast,  export_scpfcast);
+	}
 
 
 }

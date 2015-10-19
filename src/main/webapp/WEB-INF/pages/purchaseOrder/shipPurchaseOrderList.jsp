@@ -1,5 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<body id="shipPurchaseOrder">
 <head>
 <title><fmt:message key="shipPurchaseOrderList.title" /></title>
 <meta name="menu" content="PurchaseOrderMenu" />
@@ -18,8 +19,10 @@
 		</div>
 
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="purchaseOrder.tt_xpyhmstro_shipto" />
+			<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
+			<input id="tt_xpyhmstro_shipto"
+				name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
+				class="col-md-12 form-control" placeholder="" autocomplete="off" />
 		</div>
 	</div>
 
@@ -73,3 +76,45 @@
 
 
 </display:table>
+
+<script>
+		$('#tt_xpyhmstro_suppcode')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+
+		$('#tt_xpyhmstro_shipto')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getShiptoData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+	</script>
+	</body>
+	

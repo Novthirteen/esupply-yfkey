@@ -5,6 +5,7 @@
 <meta name="menu" content="BarcodeMenu" />
 </head>
 
+<body id="purchaseOrderDetail">
 <h2>
 	<fmt:message key="barcodeList.heading" />
 </h2>
@@ -17,19 +18,22 @@
 				key="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="purchaseOrderDetail.tt_xpyhddeto_shipto" />
+				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_shipto" />
+				<input id="tt_xpyhddeto_shipto" name="purchaseOrderDetail.tt_xpyhddeto_shipto"
+					type="text" class="col-md-12 form-control" placeholder=""
+					autocomplete="off" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
-
 			<s:textfield cssClass="form-control search-control"
 				key="purchaseOrderDetail.tt_xpyhddeto_suppcode" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+			<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+				<input id="tt_xpyhddeto_partnbr" name="purchaseOrderDetail.tt_xpyhddeto_partnbr"
+					type="text" class="col-md-12 form-control" placeholder=""
+					autocomplete="off" />
 		</div>
 	</div>
 	<div class="row">
@@ -99,4 +103,46 @@
 		</display:column>
 	</display:table>
 </s:form>
+
+<script>
+		$('#tt_xpyhddeto_shipto')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getShiptoData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+
+		$('#tt_xpyhddeto_partnbr')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getItemData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+	</script>
+	
+</body>
 

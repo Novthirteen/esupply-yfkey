@@ -81,6 +81,28 @@ public class BarcodeAction extends BaseAction {
 	 * @return "success" if no exceptions thrown
 	 */
 	public String list() {
+		if(purchaseOrderDetail == null)
+		{
+			purchaseOrderDetail = new PurchaseOrderDetail();
+		}
+		
+		if(purchaseOrderDetail.getTt_xpyhddeto_shipto() != null && ! purchaseOrderDetail.getTt_xpyhddeto_shipto().equals(""))
+		{
+			String shipto= purchaseOrderDetail.getTt_xpyhddeto_shipto();
+			if(shipto.contains("("))
+			{
+				purchaseOrderDetail.setTt_xpyhddeto_shipto(shipto.substring(0, shipto.indexOf("(")));
+			}
+		}
+		if(purchaseOrderDetail.getTt_xpyhddeto_partnbr()!= null && !purchaseOrderDetail.getTt_xpyhddeto_partnbr().equals(""))
+		{
+			String item= purchaseOrderDetail.getTt_xpyhddeto_partnbr();
+
+			if(item.contains("(")){
+				purchaseOrderDetail.setTt_xpyhddeto_partnbr(item.substring(0, item.indexOf("(")));
+			}
+		}
+		
 		query();
 		return SUCCESS;
 	}
@@ -138,10 +160,10 @@ public class BarcodeAction extends BaseAction {
 
 				ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xpyhddet_in");
 				if (purchaseOrderDetail != null) {
-					objectMstr.setString(0, purchaseOrderDetail.getTt_xpyhddeto_yhdnbr());
-					objectMstr.setString(1, purchaseOrderDetail.getTt_xpyhddeto_shipto());
-					objectMstr.setString(2, purchaseOrderDetail.getTt_xpyhddeto_partnbr());
-					objectMstr.setString(3, purchaseOrderDetail.getTt_xpyhddeto_suppcode());
+					objectMstr.setString(0, purchaseOrderDetail.getTt_xpyhddeto_yhdnbr() == null?"":purchaseOrderDetail.getTt_xpyhddeto_yhdnbr().trim());
+					objectMstr.setString(1, purchaseOrderDetail.getTt_xpyhddeto_shipto() == null?"":purchaseOrderDetail.getTt_xpyhddeto_shipto().trim());
+					objectMstr.setString(2, purchaseOrderDetail.getTt_xpyhddeto_partnbr() == null?"":purchaseOrderDetail.getTt_xpyhddeto_partnbr().trim());
+					objectMstr.setString(3, purchaseOrderDetail.getTt_xpyhddeto_suppcode() == null?"":purchaseOrderDetail.getTt_xpyhddeto_suppcode().trim());
 				}
 
 				exDataGraph.addProDataObject(objectMstr);

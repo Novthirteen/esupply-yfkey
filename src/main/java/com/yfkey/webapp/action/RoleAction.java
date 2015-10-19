@@ -97,7 +97,7 @@ public class RoleAction extends BaseAction {
 	public void setRoleManager(RoleManager roleManager) {
 		this.roleManager = roleManager;
 	}
-	
+
 	public void setUniversalManager(UniversalManager universalManager) {
 		this.universalManager = universalManager;
 	}
@@ -282,22 +282,11 @@ public class RoleAction extends BaseAction {
 	}
 
 	private void prepareAssignPermission() {
-		
-		
-		if(permissionType != null && PermissionType.valueOf(permissionType) == PermissionType.S )
-		{
-			List<Supply> availablePermissionList = universalManager.findByHql("from Supply where spdomain = ?",
-					new Object[] { getCurrentDomain()});
-			this.availablePermissions = transferSupplyPermissionToLabelValue(availablePermissionList);
-		}
-		else{
-			List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
-					new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
 
-			this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
-		}
-		
-	
+		List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
+				new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
+
+		this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
 
 		List<String> assignedPermissionList = universalManager
 				.findByHql("select permissionCode from RolePermission where permissionType = ? and roleCode = ?",
@@ -346,18 +335,6 @@ public class RoleAction extends BaseAction {
 		addActionError(getText("role.errors.existingRole", args));
 
 		return INPUT;
-	}
-	
-	
-	private List<LabelValue> transferSupplyPermissionToLabelValue(List<Supply> supplyList) {
-		List<LabelValue> lvList = new ArrayList<LabelValue>();
-		if (supplyList != null && supplyList.size() > 0) {
-			for (Supply supply : supplyList) {
-				lvList.add(new LabelValue(supply.getSpname(), supply.getSpcode()));
-			}
-		}
-
-		return lvList;
 	}
 
 }

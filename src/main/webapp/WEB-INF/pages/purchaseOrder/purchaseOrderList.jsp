@@ -23,11 +23,10 @@
 					cssClass="form-control" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_suppcode" />
-				
-			<input id="tt_xpyhmstro_suppcode" name="purchaseOrder.tt_xpyhmstro_suppcode" type="text" class="col-md-12 form-control"
-				placeholder="Search cities..." autocomplete="off" />
+				<fmt:message key="purchaseOrder.tt_xpyhmstro_suppcode" />
+				<input id="tt_xpyhmstro_suppcode"
+					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text"
+					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 
 
 			</div>
@@ -38,14 +37,17 @@
 					key="purchaseOrder.tt_xpyhmstro_creator" />
 			</div>
 			<div class="col-xs-4 search-group">
+				
 				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
 					list="purchaseOrderStatusList" listKey="label" listValue="value"
 					cssClass="form-control" />
 
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_shipto" />
+			<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
+				<input id="tt_xpyhmstro_shipto"
+					name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
+					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
 		</div>
 		<div class="row">
@@ -109,8 +111,9 @@
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_recepttm" />
 				<display:column property="tt_xpyhmstro_stat_desc" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_stat_desc" />
-				<display:column property="tt_xpyhmstro_priority_desc" escapeXml="true"
-					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_priority_desc" />
+				<display:column property="tt_xpyhmstro_priority_desc"
+					escapeXml="true" sortable="true"
+					titleKey="purchaseOrder.tt_xpyhmstro_priority_desc" />
 				<display:column property="tt_xpyhmstro_creator" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_creator" />
 
@@ -178,23 +181,46 @@
 			</display:table>
 		</c:otherwise>
 	</c:choose>
-	
+
 	<script>
-debugger;
-$('#tt_xpyhmstro_suppcode').typeahead({
-	ajax: {
-        url: "<c:url value="/services/api/webServices/getSupplyData.json"/>",
-        method: 'get',
-		preDispatch: function(e){
-			return {query: e}
-		},
-        triggerLength: 1
-    },
-    //displayField: 'name',
-    //valueField:'id',
-    //onSelect: displayResult
-});
-</script>
+		$('#tt_xpyhmstro_suppcode')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+
+		$('#tt_xpyhmstro_shipto')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getShiptoData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+	</script>
 </body>
 
 

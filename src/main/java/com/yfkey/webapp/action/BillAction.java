@@ -297,10 +297,10 @@ public class BillAction extends BaseAction {
 				ProDataObject objectMstr = exDataGraph.createProDataObject("tt_xprcmstr_in");
 				if (bill != null) {
 					objectMstr.setString(0,
-							bill.getTt_xprcmstro_voucher() == null ? "" : bill.getTt_xprcmstro_voucher());
+							bill.getTt_xprcmstro_voucher() == null ? "" : bill.getTt_xprcmstro_voucher().trim());
 					objectMstr.setString(1,
-							bill.getTt_xprcmstri_fromdate() == null ? "" : bill.getTt_xprcmstri_fromdate());
-					objectMstr.setString(2, bill.getTt_xprcmstri_todate() == null ? "" : bill.getTt_xprcmstri_todate());
+							bill.getTt_xprcmstri_fromdate() == null ? "" : bill.getTt_xprcmstri_fromdate().trim());
+					objectMstr.setString(2, bill.getTt_xprcmstri_todate() == null ? "" : bill.getTt_xprcmstri_todate().trim());
 
 				}
 

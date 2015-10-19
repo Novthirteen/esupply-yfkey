@@ -46,6 +46,7 @@ public class Supply extends BaseObject {
 		this.spdomain = spdomain;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
