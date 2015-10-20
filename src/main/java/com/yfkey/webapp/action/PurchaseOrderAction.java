@@ -354,53 +354,60 @@ public class PurchaseOrderAction extends BaseAction {
 	public String list() {
 		if (purchaseOrder == null) {
 			purchaseOrder = new PurchaseOrder();
-			Date date=new Date();
+			Date date = new Date();
 			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
 			purchaseOrder.setIsDetail(false);
 		}
-		//autocomplete要处理一下
-		if(purchaseOrder.getTt_xpyhmstro_suppcode() != null && !purchaseOrder.getTt_xpyhmstro_suppcode().equals(""))
-		{
-			String suppcode= purchaseOrder.getTt_xpyhmstro_suppcode();
-			if(suppcode.contains("("))
-			{
-			purchaseOrder.setTt_xpyhmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
+		// autocomplete要处理一下
+		if (purchaseOrder.getTt_xpyhmstro_suppcode() != null && !purchaseOrder.getTt_xpyhmstro_suppcode().equals("")) {
+			String suppcode = purchaseOrder.getTt_xpyhmstro_suppcode();
+			if (suppcode.contains("(")) {
+				purchaseOrder.setTt_xpyhmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
 			}
 		}
-		if(purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals(""))
-		{
-			String shipto= purchaseOrder.getTt_xpyhmstro_shipto();
+		if (purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals("")) {
+			String shipto = purchaseOrder.getTt_xpyhmstro_shipto();
 
-			if(shipto.contains("(")){
-			purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
+			if (shipto.contains("(")) {
+				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
 			}
 		}
-		
+		if(purchaseOrder.getTt_xpyhmstro_partnbr() != null && !purchaseOrder.getTt_xpyhmstro_partnbr().equals(""))
+		{
+			String itemcode = purchaseOrder.getTt_xpyhmstro_partnbr();
+			if(itemcode.contains("("))
+			{
+				purchaseOrder.setTt_xpyhmstro_partnbr(itemcode.substring(0, itemcode.indexOf("(")));
+			}
+		}
+
 		query();
-	
+
 		return SUCCESS;
 	}
 
 	public String shiplist() {
-		
-		if(purchaseOrder == null)
-		{
-			purchaseOrder = new PurchaseOrder();
-			
-		}
-		
-		if(purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals(""))
-		{
-			String shipto= purchaseOrder.getTt_xpyhmstro_shipto();
 
-			if(shipto.contains("(")){
-			purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
+		if (purchaseOrder == null) {
+
+			purchaseOrder = new PurchaseOrder();
+			purchaseOrder.setTt_xpyhmstro_stat("3");
+			purchaseOrder.setTt_xpyhmstro_shipto("");
+			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
+		}
+
+		if (purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals("")) {
+			String shipto = purchaseOrder.getTt_xpyhmstro_shipto();
+
+			if (shipto.contains("(")) {
+				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
 			}
 		}
 		
+
 		purchaseOrder.setTt_xpyhmstro_stat("2,3");
-		
+
 		shipQuery();
 		return SUCCESS;
 	}
@@ -426,10 +433,7 @@ public class PurchaseOrderAction extends BaseAction {
 
 			if (ConnectQAD()) {
 				String userCode = this.getRequest().getRemoteUser();
-				
-				
-				
-				
+
 				@SuppressWarnings("unchecked")
 				List<String> supplierCodeList = getSupplierCodeList(
 						purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
@@ -582,12 +586,6 @@ public class PurchaseOrderAction extends BaseAction {
 
 		if (ConnectQAD()) {
 
-			if (purchaseOrder == null) {
-				purchaseOrder = new PurchaseOrder();
-				purchaseOrder.setTt_xpyhmstro_stat("3");
-				purchaseOrder.setTt_xpyhmstro_shipto("");
-				purchaseOrder.setTt_xpyhmstro_yhdnbr("");
-			}
 			String userCode = this.getRequest().getRemoteUser();
 			@SuppressWarnings("unchecked")
 			List<String> supplierCodeList = getSupplierCodeList(
@@ -679,6 +677,100 @@ public class PurchaseOrderAction extends BaseAction {
 			e.printStackTrace();
 		}
 		return SUCCESS;
+	}
+	
+	
+	public String forecastlist() {
+
+		if (purchaseOrder == null) {
+
+			purchaseOrder = new PurchaseOrder();
+			
+			purchaseOrder.setTt_xpyhmstro_shipto("");
+			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
+		}
+		
+		//默认优先级预测，状态也为预测
+		purchaseOrder.setTt_xpyhmstro_priority("0");
+		purchaseOrder.setTt_xpyhmstro_stat("0");
+		
+		if (purchaseOrder.getTt_xpyhmstro_suppcode() != null && !purchaseOrder.getTt_xpyhmstro_suppcode().equals("")) {
+			String suppcode = purchaseOrder.getTt_xpyhmstro_suppcode();
+			if (suppcode.contains("(")) {
+				purchaseOrder.setTt_xpyhmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
+			}
+		}
+		if (purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals("")) {
+			String shipto = purchaseOrder.getTt_xpyhmstro_shipto();
+
+			if (shipto.contains("(")) {
+				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
+			}
+		}
+		if(purchaseOrder.getTt_xpyhmstro_partnbr() != null && !purchaseOrder.getTt_xpyhmstro_partnbr().equals(""))
+		{
+			String itemcode = purchaseOrder.getTt_xpyhmstro_partnbr();
+			if(itemcode.contains("("))
+			{
+				purchaseOrder.setTt_xpyhmstro_partnbr(itemcode.substring(0, itemcode.indexOf("(")));
+			}
+		}
+	
+		
+
+		forecastQuery();
+		return SUCCESS;
+	}
+	
+	
+	private void forecastQuery() {
+		if (ConnectQAD()) {
+
+			String userCode = this.getRequest().getRemoteUser();
+			@SuppressWarnings("unchecked")
+			List<String> supplierCodeList = getSupplierCodeList(
+					purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
+
+			String domain = getCurrentDomain();
+
+			ProDataGraph exDataGraph; // 输入参数
+			ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+			try {
+
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_xpyhmstr_DSMetaData1());
+				for (int i = 0; i < supplierCodeList.size(); i++) {
+					ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
+					String supCode = supplierCodeList.get(i);
+					object.setString(0, domain);
+					object.setString(1, supCode);
+
+					exDataGraph.addProDataObject(object);
+				}
+
+				ProDataObject objectMstr = exDataGraph.createProDataObject("tt_forecast_in");
+				if (purchaseOrder != null) {
+					objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_suppcode());
+					objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_shipto());
+					objectMstr.setString(2, purchaseOrder.getTt_forecast_fromdate());
+					objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_partnbr());
+					objectMstr.setString(4, purchaseOrder.getTt_forecast_enddate());
+				}
+
+				exDataGraph.addProDataObject(objectMstr);
+
+				yfkssScp.xxview_forecast(exDataGraph, outputData);
+
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_forecast_out");
+
+				purchaseOrderDetails = QADUtil.ConvertToForecastPurchaseOrderDetail(outDataList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
 	}
 
 	public List<LabelValue> getPurchaseOrderStatusList() {

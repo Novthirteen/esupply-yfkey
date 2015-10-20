@@ -349,10 +349,10 @@ public class BillAction extends BaseAction {
 			statusDesc = getText("xprc_status.Create");
 			break;
 		case "2":
-			statusDesc = getText("xprc_status.Submit");
+			statusDesc = getText("xprc_status.Cancel");
 			break;
 		case "3":
-			statusDesc = getText("xprc_status.Cancel");
+			statusDesc = getText("xprc_status.Submit");
 			break;
 		case "4":
 			statusDesc = getText("xprc_status.Close");

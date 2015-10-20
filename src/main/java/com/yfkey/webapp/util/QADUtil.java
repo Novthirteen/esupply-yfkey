@@ -529,13 +529,34 @@ i++;
 		}
 		
 		
-//		public  String getBillStatus(String status)
-//		{
-//		
-//			
-//		
-//			
-//		}
+		//预测
+		public static List<PurchaseOrderDetail> ConvertToForecastPurchaseOrderDetail(List<ProDataObject> proDataObjectList) {
+			List<PurchaseOrderDetail> purchaseOrderDetailList = new ArrayList<PurchaseOrderDetail>();
+			if (proDataObjectList != null && proDataObjectList.size() > 0) {
+				int i = 1;
+				for (ProDataObject o : proDataObjectList) {
+					PurchaseOrderDetail pod = new PurchaseOrderDetail();
+					pod.setTt_xpyhddeto_seq(i);
+					pod.setTt_xpyhddeto_suppcode(o.getString("tt_forecast_suppcode"));
+					pod.setTt_xpyhddeto_startdt(o.getString("tt_forecast_shipto"));
+					pod.setTt_xpyhddeto_partnbr(o.getString("tt_forecast_partnbr"));
+					pod.setTt_xpyhddeto_partdesc(o.getString("tt_forecast_partdesc"));
+					pod.setTt_xpyhddeto_shipto(o.getString("tt_forecast_supppart"));
+					pod.setTt_xpyhddeto_receptdt(o.getString("tt_forecast_reqdt"));
+					pod.setTt_xpyhddeto_currcy(o.getString("tt_forecast_currcy"));
+					pod.setTt_xpyhddeto_uom(o.getString("tt_forecast_uom"));
+					pod.setTt_xpyhddeto_spq(o.getBigDecimal("tt_forecast_inerpk"));
+					pod.setTt_xpyhddeto_reqqty(o.getBigDecimal("tt_forecast_extpk"));
+					pod.setTt_xpyhddeto_ordqty(o.getBigDecimal("tt_forecast_fcastqty"));
+				
+					purchaseOrderDetailList.add(pod);
+					i++;
+
+				}
+			}
+			return purchaseOrderDetailList;
+
+		}
 
 	
 }

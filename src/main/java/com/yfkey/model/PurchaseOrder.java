@@ -36,6 +36,9 @@ public class PurchaseOrder extends BaseObject {
 	private String tt_xpyhmstro_recepttm; //窗口时间
 	
 	
+	private String tt_forecast_fromdate; //开始日期
+	private String tt_forecast_enddate;  //结束日期
+	
 	private String tt_xpyhmstro_priority_desc; //优先级描述
 	private String tt_xpyhmstro_stat_desc; //状态描述
 	
@@ -212,9 +215,23 @@ public class PurchaseOrder extends BaseObject {
 	public void setTt_xpyhmstro_type(String tt_xpyhmstro_type) {
 		this.tt_xpyhmstro_type = tt_xpyhmstro_type;
 	}
+	
+	public String getTt_forecast_fromdate() {
+		return tt_forecast_fromdate;
+	}
 
-	
-	
+	public void setTt_forecast_fromdate(String tt_forecast_fromdate) {
+		this.tt_forecast_fromdate = tt_forecast_fromdate;
+	}
+
+	public String getTt_forecast_enddate() {
+		return tt_forecast_enddate;
+	}
+
+	public void setTt_forecast_enddate(String tt_forecast_enddate) {
+		this.tt_forecast_enddate = tt_forecast_enddate;
+	}
+
 	public String getTt_xpyhmstro_priority_desc() {
 		return tt_xpyhmstro_priority_desc;
 	}

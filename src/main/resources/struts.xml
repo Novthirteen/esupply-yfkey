@@ -219,6 +219,11 @@
 			<result name="input">/WEB-INF/pages/purchaseOrder/shipPurchaseOrderForm.jsp
 			</result>
 		</action>
+		<action name="forecastPurchaseOrders" class="purchaseOrderAction"
+			method="forecastlist">
+			<result name="success">/WEB-INF/pages/purchaseOrder/forecastPurchaseOrderList.jsp
+			</result>
+		</action>
 	</package>
 
 	<package name="asn" extends="default" namespace="/asn">

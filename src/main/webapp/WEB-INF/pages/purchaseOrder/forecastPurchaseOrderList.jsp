@@ -1,0 +1,144 @@
+<%@ include file="/common/taglibs.jsp"%>
+
+<head>
+<title><fmt:message key="forecastPurchaseOrderList.title" /></title>
+<meta name="menu" content="ForcastPurchaseOrderMenu" />
+</head>
+<body id="purchaseOrder">
+	<h2>
+		<fmt:message key="forecastPurchaseOrderList.heading" />
+	</h2>
+
+	<s:form name="forecastPurchaseOrderForm" action="forecastPurchaseOrders" method="post"
+		validate="true">
+		<div class="row">
+			<div class="col-xs-4 search-group">
+				<fmt:message key="purchaseOrder.tt_xpyhmstro_suppcode" />
+				<input id="tt_xpyhmstro_suppcode"
+					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text"
+					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+			</div>
+			<div class="col-xs-4 search-group">
+				<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
+				<input id="tt_xpyhmstro_shipto"
+					name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
+					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+			</div>
+			
+			<div class="col-xs-4 search-group">
+				<fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" />
+				<input id="tt_xpyhmstro_partnbr"
+					name="purchaseOrder.tt_xpyhmstro_partnbr" type="text"
+					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+			</div>
+			
+		</div>
+		<div class="row">
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_fromdt" />
+			</div>
+			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_enddt" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4 search-group"></div>
+			<div class="col-xs-4 search-group layouttrim">
+				<input type="hidden" name="from" value="list" />
+				<s:submit type="button" cssClass="btn" action="purchaseOrders"
+					key="button.search" theme="simple">
+					<i class="icon-search"></i>
+					<fmt:message key="button.search" />
+				</s:submit>
+			</div>
+			<div class="col-xs-4 search-group"></div>
+		</div>
+	</s:form>
+
+
+
+	<display:table name="forecastPurchaseOrderDetails" cellspacing="0"
+		pagesize="25" defaultsort="1" cellpadding="0"
+		requestURI="forecastPurchaseOrders" id="forecastPurchaseOrderDetails"
+		class="table table-condensed table-striped table-hover" export="true">
+
+		<display:column property="tt_xpyhddeto_seq" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_seq" />
+		<display:column property="tt_xpyhddeto_yhdnbr" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
+		<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+		<display:column property="tt_xpyhddeto_partdesc" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_partdesc" />
+		<display:column property="tt_xpyhddeto_supppart" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_supppart" />
+		<display:column property="tt_xpyhddeto_uom" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_uom" />
+		<display:column property="tt_xpyhddeto_spq" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_spq" />
+		<display:column property="tt_xpyhddeto_reqqty" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_reqqty" />
+		<display:column property="tt_xpyhddeto_ordqty" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_ordqty" />
+
+		<display:setProperty name="paging.banner.item_name">
+			<fmt:message key="purchaseOrderList.purchaseOrderDetail" />
+		</display:setProperty>
+		<display:setProperty name="paging.banner.items_name">
+			<fmt:message key="purchaseOrderList.purchaseOrderDetails" />
+		</display:setProperty>
+
+		<display:setProperty name="export.excel.filename"
+			value="PurchaseOrder List.xls" />
+
+		<display:setProperty name="export.pdf" value="false" />
+		<display:setProperty name="export.excel" value="true" />
+		<display:setProperty name="export.csv" value="false" />
+		<display:setProperty name="export.xml" value="false" />
+	</display:table>
+
+	<script>
+		$('#tt_xpyhmstro_suppcode')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+
+		$('#tt_xpyhmstro_shipto')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getShiptoData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+	</script>
+</body>
+
+
+
