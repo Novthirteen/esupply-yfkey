@@ -185,6 +185,12 @@ public class ReceiptAction extends BaseAction {
 				receipt.setTt_prhmstri_partnbr(item.substring(0, item.indexOf("(")));
 			}
 		}
+		if(receipt.getTt_prhmstro_suppcode() != null && !receipt.getTt_prhmstro_suppcode().equals("")){
+			String suppcode = receipt.getTt_prhmstro_suppcode();
+			if(suppcode.contains("(")){
+				receipt.setTt_prhmstro_suppcode(suppcode.substring(0,suppcode.indexOf("(")));
+			}
+		}
 		query();
 		return SUCCESS;
 	}

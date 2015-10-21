@@ -20,6 +20,12 @@
 			<s:textfield cssClass="form-control search-control"
 				key="receipt.tt_prhmstri_yhdnbr" />
 		</div>
+		<div class="col-xs-4 search-group">
+			<fmt:message key="receipt.tt_prhmstro_suppcode" />
+			<input id="tt_prhmstro_suppcode" name="receipt.tt_prhmstro_suppcode"
+				type="text" class="col-md-12 form-control" placeholder=""
+				autocomplete="off" />
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
@@ -30,19 +36,17 @@
 			<s:textfield cssClass="form-control search-control"
 				key="receipt.tt_prhmstri_todate" />
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-xs-4 search-group">
 			<fmt:message key="receipt.tt_prhmstri_partnbr" />
-				<input id="tt_prhmstri_partnbr" name="receipt.tt_prhmstri_partnbr"
-					type="text" class="col-md-12 form-control" placeholder=""
-					autocomplete="off" />
+			<input id="tt_prhmstri_partnbr" name="receipt.tt_prhmstri_partnbr"
+				type="text" class="col-md-12 form-control" placeholder=""
+				autocomplete="off" />
 		</div>
+	</div>
+	<div class="row">
 		<div class="col-xs-4 search-group layouttrim">
 			<s:checkbox key="receipt.isDetail" />
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-xs-4 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn" action="receipts"
@@ -143,24 +147,39 @@
 </c:choose>
 
 <script>
-		$('#tt_prhmstri_partnbr')
-				.typeahead(
-						{
-							ajax : {
-								url : "<c:url value="/services/api/supplys/getItemData.json"/>",
-								method : 'get',
-								preDispatch : function(e) {
-									return {
-										domain : "${sessionScope.selectedUserPlant}",
-										query : e
-									}
-								},
-								triggerLength : 1
-							},
-							displayField : 'label',
-							valueField : 'value'
-						//onSelect: displayResult
-						});
-	</script>
-	
+	$('#tt_prhmstri_partnbr').typeahead({
+		ajax : {
+			url : "<c:url value="/services/api/supplys/getItemData.json"/>",
+			method : 'get',
+			preDispatch : function(e) {
+				return {
+					domain : "${sessionScope.selectedUserPlant}",
+					query : e
+				}
+			},
+			triggerLength : 1
+		},
+		displayField : 'label',
+		valueField : 'value'
+	//onSelect: displayResult
+	});
+	$('#tt_prhmstro_suppcode').typeahead({
+		ajax : {
+			url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
+			method : 'get',
+			preDispatch : function(e) {
+				return {
+					domain : "${sessionScope.selectedUserPlant}",
+					usercode : "${pageContext.request.remoteUser}",
+					query : e
+				}
+			},
+			triggerLength : 1
+		},
+		displayField : 'label',
+		valueField : 'value'
+	//onSelect: displayResult
+	});
+</script>
+
 </body>

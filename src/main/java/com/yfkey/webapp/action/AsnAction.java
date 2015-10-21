@@ -208,6 +208,18 @@ public class AsnAction extends BaseAction {
 				asn.setTt_xasnmstri_partnbr(item.substring(0, item.indexOf("(")));
 			}
 		}
+		if (asn.getTt_xasnmstro_suppcode() != null && !asn.getTt_xasnmstro_suppcode().equals("")) {
+
+			String suppcode = asn.getTt_xasnmstro_suppcode();
+			if (suppcode.contains("(")) {
+				asn.setTt_xasnmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
+			}
+		}
+		
+		if(asn.getTt_xasnmstro_stat() == null || asn.getTt_xasnmstro_stat() == "")
+		{
+			asn.setTt_xasnmstro_stat("1,2");
+		}
 		query();
 		return SUCCESS;
 	}
@@ -220,10 +232,11 @@ public class AsnAction extends BaseAction {
 		if (asn != null && asn.getIsDetail()) {
 			if (ConnectQAD()) {
 				String userCode = this.getRequest().getRemoteUser();
+				String domain = getCurrentDomain();
 				@SuppressWarnings("unchecked")
 				List<String> supplierCodeList = getSupplierCodeList(asn != null ? asn.getTt_xasnmstro_suppcode() : "");
 
-				String domain = getCurrentDomain();
+			
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 				try {
@@ -278,10 +291,11 @@ public class AsnAction extends BaseAction {
 			if (ConnectQAD()) {
 
 				String userCode = this.getRequest().getRemoteUser();
+				String domain = getCurrentDomain();
 				@SuppressWarnings("unchecked")
 				List<String> supplierCodeList = getSupplierCodeList(asn != null ? asn.getTt_xasnmstro_suppcode() : "");
 
-				String domain = getCurrentDomain();
+			
 
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数

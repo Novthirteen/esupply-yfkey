@@ -44,16 +44,21 @@ public class SupplyManagerImpl extends GenericManagerImpl<User, String>implement
 	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@Override
-	public List<LabelValue> getSupplyData(String domain, String query) {
+	public List<LabelValue> getSupplyData(String domain,String usercode, String query) {
 		List<LabelValue> lvList = new ArrayList<LabelValue>();
 
-		List<Supply> supplyList = universalManager.findByHql("from Supply where spdomain = ?", new Object[] { domain });
-
-		if (supplyList != null && supplyList.size() > 0) {
-			for (Supply supply : supplyList) {
-				lvList.add(new LabelValue(supply.getSpcode() + "(" + supply.getSpname() + ")", supply.getSpcode()));
+		List<String[]> permissionCodeList = universalManager.findByNativeSql(
+				"select permission_code,permission_name from permission_view where permission_type = ? and username = ? and permission_code like ?",
+				new Object[] { PermissionType.S.toString(), usercode, domain+"%"});
+		
+		if(permissionCodeList != null && permissionCodeList.size()>0)
+		{
+			for (Object[] permission : permissionCodeList) {
+				lvList.add(new LabelValue((String)permission[1], (String)permission[0]));
 			}
+			
 		}
+		
 		return lvList;
 	}
 
@@ -76,7 +81,7 @@ public class SupplyManagerImpl extends GenericManagerImpl<User, String>implement
 	@Override
 	public List<LabelValue> getShiptoData(String domain, String query) {
 		List<LabelValue> lvList = new ArrayList<LabelValue>();
-
+		
 		List<Shipto> shiptoList = universalManager.findByHql("from Shipto where shdomain = ?", new Object[] { domain });
 
 		if (shiptoList != null && shiptoList.size() > 0) {

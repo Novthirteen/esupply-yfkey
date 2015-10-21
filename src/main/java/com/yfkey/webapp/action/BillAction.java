@@ -260,9 +260,19 @@ public class BillAction extends BaseAction {
 	}
 
 	public String list() {
-		if (bill != null) {
-			query();
+		if (bill == null) {
+			bill = new Bill();
 		}
+		
+		if(bill.getTt_xprcmstro_suppcode()!= null && !bill.getTt_xprcmstro_suppcode().equals(""))
+		{
+			String suppcode= bill.getTt_xprcmstro_suppcode();
+
+			if(suppcode.contains("(")){
+				bill.setTt_xprcmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
+			}
+		}
+		query();
 		return SUCCESS;
 	}
 
@@ -276,7 +286,7 @@ public class BillAction extends BaseAction {
 
 			String userCode = this.getRequest().getRemoteUser();
 			@SuppressWarnings("unchecked")
-			List<String> supplierCodeList = getSupplierCodeList(bill != null ? bill.getTt_suppcodei_suppcode() : "");
+			List<String> supplierCodeList = getSupplierCodeList(bill != null ? bill.getTt_xprcmstro_suppcode() : "");
 
 			String domain = getCurrentDomain();
 

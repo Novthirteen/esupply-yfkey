@@ -102,6 +102,14 @@ public class BarcodeAction extends BaseAction {
 				purchaseOrderDetail.setTt_xpyhddeto_partnbr(item.substring(0, item.indexOf("(")));
 			}
 		}
+		if(purchaseOrderDetail.getTt_xpyhddeto_suppcode()!= null && !purchaseOrderDetail.getTt_xpyhddeto_suppcode().equals(""))
+		{
+			String suppcode= purchaseOrderDetail.getTt_xpyhddeto_suppcode();
+
+			if(suppcode.contains("(")){
+				purchaseOrderDetail.setTt_xpyhddeto_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
+			}
+		}
 		
 		query();
 		return SUCCESS;
@@ -163,7 +171,7 @@ public class BarcodeAction extends BaseAction {
 					objectMstr.setString(0, purchaseOrderDetail.getTt_xpyhddeto_yhdnbr() == null?"":purchaseOrderDetail.getTt_xpyhddeto_yhdnbr().trim());
 					objectMstr.setString(1, purchaseOrderDetail.getTt_xpyhddeto_shipto() == null?"":purchaseOrderDetail.getTt_xpyhddeto_shipto().trim());
 					objectMstr.setString(2, purchaseOrderDetail.getTt_xpyhddeto_partnbr() == null?"":purchaseOrderDetail.getTt_xpyhddeto_partnbr().trim());
-					objectMstr.setString(3, purchaseOrderDetail.getTt_xpyhddeto_suppcode() == null?"":purchaseOrderDetail.getTt_xpyhddeto_suppcode().trim());
+					objectMstr.setString(3, purchaseOrderDetail.getTt_xpyhddeto_supppart() == null?"":purchaseOrderDetail.getTt_xpyhddeto_supppart().trim());
 				}
 
 				exDataGraph.addProDataObject(objectMstr);

@@ -27,7 +27,8 @@
 	</div>
 
 	<div class="row">
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-4 search-group"></div>
+		<div class="col-xs-4 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn" action="shipPurchaseOrders"
 				key="button.search" theme="simple">
@@ -87,6 +88,7 @@
 								preDispatch : function(e) {
 									return {
 										domain : "${sessionScope.selectedUserPlant}",
+										usercode : "${pageContext.request.remoteUser}",
 										query : e
 									}
 								},

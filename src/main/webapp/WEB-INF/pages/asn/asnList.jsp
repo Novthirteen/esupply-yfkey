@@ -16,18 +16,30 @@
 					key="asn.tt_xasnmstro_asnnbr" />
 			</div>
 			<div class="col-xs-4 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="asn.tt_xasnmstri_yhdnbr" />
+			</div>
+			<div class="col-xs-4 search-group">
 				<s:select key="asn.tt_xasnmstro_stat" list="asnStatusList"
 					listKey="label" listValue="value" cssClass="form-control" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="asn.tt_xasnmstro_yhnbr" />
+				<fmt:message key="asn.tt_xasnmstro_suppcode" />
+				<input id="tt_xasnmstro_suppcode" name="asn.tt_xasnmstro_suppcode"
+					type="text" class="col-md-12 form-control" placeholder=""
+					autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<fmt:message key="asn.tt_xasnmstro_shipto" />
 				<input id="tt_xasnmstro_shipto" name="asn.tt_xasnmstro_shipto"
+					type="text" class="col-md-12 form-control" placeholder=""
+					autocomplete="off" />
+			</div>
+			<div class="col-xs-4 search-group">
+				<fmt:message key="asn.tt_xasnmstri_partnbr" />
+				<input id="tt_xasnmstri_partnbr" name="asn.tt_xasnmstri_partnbr"
 					type="text" class="col-md-12 form-control" placeholder=""
 					autocomplete="off" />
 			</div>
@@ -41,20 +53,14 @@
 				<s:textfield cssClass="form-control search-control"
 					key="asn.tt_xasnmstri_todate" />
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-4 search-group">
-				<fmt:message key="asn.tt_xasnmstri_partnbr" />
-				<input id="tt_xasnmstri_partnbr" name="asn.tt_xasnmstri_partnbr"
-					type="text" class="col-md-12 form-control" placeholder=""
-					autocomplete="off" />
-			</div>
+
 			<div class="col-xs-4 search-group layouttrim">
 				<s:checkbox key="asn.isDetail" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-4 search-group"></div>
+			<div class="col-xs-4 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="asns"
 					key="button.search" theme="simple">
@@ -172,6 +178,25 @@
 								preDispatch : function(e) {
 									return {
 										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
+		$('#tt_xasnmstro_suppcode')
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										usercode : "${pageContext.request.remoteUser}",
 										query : e
 									}
 								},

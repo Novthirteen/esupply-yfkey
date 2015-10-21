@@ -2,7 +2,7 @@
 
 <head>
 <title><fmt:message key="forecastPurchaseOrderList.title" /></title>
-<meta name="menu" content="ForcastPurchaseOrderMenu" />
+<meta name="menu" content="PurchaseOrderMenu" />
 </head>
 <body id="purchaseOrder">
 	<h2>
@@ -15,7 +15,7 @@
 			<div class="col-xs-4 search-group">
 				<fmt:message key="purchaseOrder.tt_xpyhmstro_suppcode" />
 				<input id="tt_xpyhmstro_suppcode"
-					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text"
+					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text" 
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">
@@ -36,18 +36,18 @@
 		<div class="row">
 			<div class="col-xs-4 search-group">
 				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_fromdt" />
+					key="purchaseOrder.tt_xpyhmstro_fromdate" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_enddt" />
+					key="purchaseOrder.tt_xpyhmstro_enddate" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4 search-group"></div>
 			<div class="col-xs-4 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
-				<s:submit type="button" cssClass="btn" action="purchaseOrders"
+				<s:submit type="button" cssClass="btn" action="forecastPurchaseOrders"
 					key="button.search" theme="simple">
 					<i class="icon-search"></i>
 					<fmt:message key="button.search" />
@@ -57,31 +57,36 @@
 		</div>
 	</s:form>
 
-
-
-	<display:table name="forecastPurchaseOrderDetails" cellspacing="0"
-		pagesize="25" defaultsort="1" cellpadding="0"
-		requestURI="forecastPurchaseOrders" id="forecastPurchaseOrderDetails"
-		class="table table-condensed table-striped table-hover" export="true">
+		<display:table name="purchaseOrderDetails" cellspacing="0"
+				pagesize="25" defaultsort="1" cellpadding="0"
+				requestURI="forecastPurchaseOrders" id="purchaseOrderDetails"
+				class="table table-condensed table-striped table-hover"
+				export="true">
 
 		<display:column property="tt_xpyhddeto_seq" escapeXml="true"
 			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_seq" />
-		<display:column property="tt_xpyhddeto_yhdnbr" escapeXml="true"
-			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
+		<display:column property="tt_xpyhddeto_suppcode" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_suppcode" />
+		<display:column property="tt_xpyhddeto_shipto" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_shipto" />
 		<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
 			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
 		<display:column property="tt_xpyhddeto_partdesc" escapeXml="true"
 			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_partdesc" />
 		<display:column property="tt_xpyhddeto_supppart" escapeXml="true"
 			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_supppart" />
+		<display:column property="tt_xpyhddeto_receptdt" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_receptdt" />
+		<display:column property="tt_xpyhddeto_currcy" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_currcy" />
 		<display:column property="tt_xpyhddeto_uom" escapeXml="true"
 			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_uom" />
-		<display:column property="tt_xpyhddeto_spq" escapeXml="true"
-			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_spq" />
-		<display:column property="tt_xpyhddeto_reqqty" escapeXml="true"
-			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_reqqty" />
-		<display:column property="tt_xpyhddeto_ordqty" escapeXml="true"
-			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_ordqty" />
+		<display:column property="tt_xpyhddeto_innnerqty" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_innnerqty" />
+		<display:column property="tt_xpyhddeto_externalqty" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_externalqty" />
+		<display:column property="tt_forecast_fcastqty" escapeXml="true"
+			sortable="true" titleKey="purchaseOrderDetail.tt_forecast_fcastqty" />
 
 		<display:setProperty name="paging.banner.item_name">
 			<fmt:message key="purchaseOrderList.purchaseOrderDetail" />
@@ -109,6 +114,7 @@
 								preDispatch : function(e) {
 									return {
 										domain : "${sessionScope.selectedUserPlant}",
+										usercode : "${pageContext.request.remoteUser}",
 										query : e
 									}
 								},
@@ -137,6 +143,25 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
+		
+		$('#tt_xpyhmstro_partnbr')
+		.typeahead(
+				{
+					ajax : {
+						url : "<c:url value="/services/api/supplys/getItemData.json"/>",
+						method : 'get',
+						preDispatch : function(e) {
+							return {
+								domain : "${sessionScope.selectedUserPlant}",
+								query : e
+							}
+						},
+						triggerLength : 3
+					},
+					displayField : 'label',
+					valueField : 'value'
+				//onSelect: displayResult
+				});
 	</script>
 </body>
 

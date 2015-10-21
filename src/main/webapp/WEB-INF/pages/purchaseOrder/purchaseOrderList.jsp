@@ -59,20 +59,20 @@
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrder.tt_xpyhmstro_receptdt" />
 			</div>
+			<div class="col-xs-4 search-group">
+			<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+				<input id="tt_xpyhddeto_partnbr" name="purchaseOrderDetail.tt_xpyhddeto_partnbr"
+					type="text" class="col-md-12 form-control" placeholder=""
+					autocomplete="off" />
+		</div>
+			
+		</div>
+		<div class="row">
 			<div class="col-xs-4 search-group layouttrim">
 				<s:checkbox key="purchaseOrder.isDetail" />
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-4 search-group"></div>
 			<div class="col-xs-4 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
-				<%-- 			<s:submit type="button" cssClass="btn btn-primary" --%>
-				<%-- 				action="confirmPurchaseOrder" key="button.confirm" theme="simple"> --%>
-				<!-- 				<i class="icon-plus icon-white"></i> -->
-				<%-- 				<fmt:message key="button.confirm" /> --%>
-				<%-- 			</s:submit> --%>
-
 				<s:submit type="button" cssClass="btn" action="purchaseOrders"
 					key="button.search" theme="simple">
 					<i class="icon-search"></i>
@@ -192,6 +192,7 @@
 								preDispatch : function(e) {
 									return {
 										domain : "${sessionScope.selectedUserPlant}",
+										usercode : "${pageContext.request.remoteUser}",
 										query : e
 									}
 								},
@@ -220,6 +221,26 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
+		
+		$('#tt_xpyhmstro_suppcode')
+ 		.typeahead(
+ 				{
+ 					ajax : {
+ 						url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
+ 						method : 'get',
+ 						preDispatch : function(e) {
+ 							return {
+ 								domain : "${sessionScope.selectedUserPlant}",
+ 								usercode : "${pageContext.request.remoteUser}",
+ 								query : e
+ 							}
+ 						},
+ 						triggerLength : 1
+ 					},
+ 					displayField : 'label',
+ 					valueField : 'value'
+ 				//onSelect: displayResult
+ 				});
 	</script>
 </body>
 

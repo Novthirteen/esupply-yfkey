@@ -266,11 +266,12 @@ public class BaseAction extends ActionSupport {
 	protected List<String> getSupplierCodeList(String supplierCode) {
 
 		String userCode = this.getRequest().getRemoteUser();
+		String domain = this.getCurrentDomain();
 		List<String> supplierCodeList = new ArrayList<String>();
 		@SuppressWarnings("unchecked")
 		List<String> permissionCodeList = universalManager.findByNativeSql(
-				"select permission_code from permission_view where permission_type = ? and username = ?",
-				new Object[] { PermissionType.S.toString(), userCode });
+				"select permission_code from permission_view where permission_type = ? and username = ? and permission_code like ?",
+				new Object[] { PermissionType.S.toString(), userCode, domain+"%"});
 		
 		if(permissionCodeList != null && permissionCodeList.size()>0)
 		{

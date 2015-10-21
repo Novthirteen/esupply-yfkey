@@ -52,6 +52,7 @@ public class PurchaseOrderAction extends BaseAction {
 	private static final long serialVersionUID = -569882426981216104L;
 	private List<PurchaseOrder> purchaseOrders;
 	private List<PurchaseOrderDetail> purchaseOrderDetails;
+	private List<PurchaseOrderDetail> forecastPurchaseOrderDetails;
 	private PurchaseOrder purchaseOrder;
 	private String tt_xpyhmstro_yhdnbr;
 	private InputStream inputStream;
@@ -75,6 +76,16 @@ public class PurchaseOrderAction extends BaseAction {
 
 	public void setPurchaseOrderDetails(List<PurchaseOrderDetail> purchaseOrderDetails) {
 		this.purchaseOrderDetails = purchaseOrderDetails;
+	}
+
+	
+	
+	public List<PurchaseOrderDetail> getForcastPurchaseOrderDetails() {
+		return forecastPurchaseOrderDetails;
+	}
+
+	public void setForcastPurchaseOrderDetails(List<PurchaseOrderDetail> forecastPurchaseOrderDetails) {
+		this.forecastPurchaseOrderDetails = forecastPurchaseOrderDetails;
 	}
 
 	public PurchaseOrder getPurchaseOrder() {
@@ -357,6 +368,7 @@ public class PurchaseOrderAction extends BaseAction {
 			Date date = new Date();
 			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
+		
 			purchaseOrder.setIsDetail(false);
 		}
 		// autocomplete要处理一下
@@ -382,6 +394,11 @@ public class PurchaseOrderAction extends BaseAction {
 			}
 		}
 
+		if(purchaseOrder.getTt_xpyhmstro_stat() == null || purchaseOrder.getTt_xpyhmstro_stat().equals(""))
+		{
+			purchaseOrder.setTt_xpyhmstro_stat("2,3");
+		}
+		
 		query();
 
 		return SUCCESS;
@@ -505,11 +522,12 @@ public class PurchaseOrderAction extends BaseAction {
 			if (ConnectQAD()) {
 
 				String userCode = this.getRequest().getRemoteUser();
+				String domain = getCurrentDomain();
 				@SuppressWarnings("unchecked")
 				List<String> supplierCodeList = getSupplierCodeList(
 						purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
 
-				String domain = getCurrentDomain();
+			
 
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
@@ -737,7 +755,7 @@ public class PurchaseOrderAction extends BaseAction {
 			ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 			try {
 
-				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_xpyhmstr_DSMetaData1());
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxview_forecast_DSMetaData1());
 				for (int i = 0; i < supplierCodeList.size(); i++) {
 					ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
 					String supCode = supplierCodeList.get(i);
@@ -749,11 +767,11 @@ public class PurchaseOrderAction extends BaseAction {
 
 				ProDataObject objectMstr = exDataGraph.createProDataObject("tt_forecast_in");
 				if (purchaseOrder != null) {
-					objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_suppcode());
-					objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_shipto());
-					objectMstr.setString(2, purchaseOrder.getTt_forecast_fromdate());
-					objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_partnbr());
-					objectMstr.setString(4, purchaseOrder.getTt_forecast_enddate());
+					objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_suppcode() == null? "":purchaseOrder.getTt_xpyhmstro_suppcode());
+					objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_shipto() == null? "":purchaseOrder.getTt_xpyhmstro_shipto() );
+					objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_fromdate() == null? "": purchaseOrder.getTt_xpyhmstro_fromdate());
+					objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_partnbr() == null?"":purchaseOrder.getTt_xpyhmstro_partnbr());
+					objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_enddate() == null?"":purchaseOrder.getTt_xpyhmstro_enddate());
 				}
 
 				exDataGraph.addProDataObject(objectMstr);

@@ -806,6 +806,8 @@ public final class YFKSSSCPImpl extends AppObject
 	static ProDataGraphMetaData xxview_forecast_DSMetaData1;
 
 	static ProDataObjectMetaData xxview_forecast_MetaData11;
+	
+	static ProDataObjectMetaData xxview_forecast_MetaData12;
 
 	static ProDataGraphMetaData xxview_forecast_DSMetaData2;
 
@@ -817,12 +819,18 @@ public final class YFKSSSCPImpl extends AppObject
 	static
 	{
 		xxview_forecast_DSMetaData1 = new ProDataGraphMetaData(0, "input_scpfcast", 1, ParameterSet.INPUT);
-		xxview_forecast_MetaData11 = new ProDataObjectMetaData("tt_forecast_in", 4, false, 0, null, null, null);
-		xxview_forecast_MetaData11.setFieldDesc(1, "tt_forecast_sp", 0, Parameter.PRO_CHARACTER,0,0);
-		xxview_forecast_MetaData11.setFieldDesc(2, "tt_forecast_shipto", 0, Parameter.PRO_CHARACTER,1,0);
-		xxview_forecast_MetaData11.setFieldDesc(3, "tt_forecast_fcastdt", 0, Parameter.PRO_CHARACTER,2,0);
-		xxview_forecast_MetaData11.setFieldDesc(4, "tt_forecast_partnbr", 0, Parameter.PRO_CHARACTER,3,0);
+	
+		xxview_forecast_MetaData11 = new ProDataObjectMetaData("tt_suppcode_in", 2, false, 0, null, null, null);
+		xxview_forecast_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
+		xxview_forecast_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxview_forecast_DSMetaData1.addTable(xxview_forecast_MetaData11);
+		xxview_forecast_MetaData12 = new ProDataObjectMetaData("tt_forecast_in", 5, false, 0, null, null, null);
+		xxview_forecast_MetaData12.setFieldDesc(1, "tt_forecast_sp", 0, Parameter.PRO_CHARACTER,0,0);
+		xxview_forecast_MetaData12.setFieldDesc(2, "tt_forecast_shipto", 0, Parameter.PRO_CHARACTER,1,0);
+		xxview_forecast_MetaData12.setFieldDesc(3, "tt_forecast_fcastdt", 0, Parameter.PRO_CHARACTER,2,0);
+		xxview_forecast_MetaData12.setFieldDesc(4, "tt_forecast_partnbr", 0, Parameter.PRO_CHARACTER,3,0);
+		xxview_forecast_MetaData12.setFieldDesc(5, "tt_forecast_fenddt", 0, Parameter.PRO_CHARACTER,4,0);
+		xxview_forecast_DSMetaData1.addTable(xxview_forecast_MetaData12);
 		xxview_forecast_DSMetaData2 = new ProDataGraphMetaData(0, "export_scpfcast", 2, ParameterSet.OUTPUT);
 		xxview_forecast_MetaData21 = new ProDataObjectMetaData("tt_forecast_out", 12, false, 0, null, null, null);
 		xxview_forecast_MetaData21.setFieldDesc(1, "tt_forecast_seq", 0, Parameter.PRO_CHARACTER,0,0);

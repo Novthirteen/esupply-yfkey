@@ -27,7 +27,7 @@ public interface SupplyManager {
 	
 	@GET
 	@Path("getSupplyData")
-	public List<LabelValue> getSupplyData(@QueryParam("domain") String domain,@QueryParam("query") String query);
+	public List<LabelValue> getSupplyData(@QueryParam("domain") String domain,@QueryParam("usercode") String usercode,@QueryParam("query") String query);
 
 	
 	@GET
