@@ -43,6 +43,7 @@
 				<interceptor-ref name="profiling" />
 				<interceptor-ref name="scopedModelDriven" />
 				<interceptor-ref name="modelDriven" />
+
 				<interceptor-ref name="checkbox" />
 				<interceptor-ref name="staticParams" />
 				<interceptor-ref name="params">
@@ -55,6 +56,11 @@
 				<interceptor-ref name="workflow">
 					<param name="excludeMethods">input,back,cancel,browse</param>
 				</interceptor-ref>
+				
+			</interceptor-stack>
+			<interceptor-stack name="fileUploadStack">
+				<interceptor-ref name="fileUpload" />
+				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
 
@@ -77,7 +83,12 @@
 			<result name="success" type="redirectAction">home</result>
 		</action>
 
-	
+		<action name="uploadFile" class="fileUploadAction" method="upload">
+			<interceptor-ref name="fileUploadStack" />
+			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
+			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
+			<result name="cancel" type="redirectAction">home</result>
+		</action>
 
 		<!-- Add additional actions here -->
 	</package>
@@ -130,7 +141,8 @@
 			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
 		</action>
 		<action name="editProfile" class="userAction" method="editProfile">
-			<result name="success">/WEB-INF/pages/user/user/userProfileForm.jsp</result>
+			<result name="success">/WEB-INF/pages/user/user/userProfileForm.jsp
+			</result>
 			<result name="error">/WEB-INF/pages/home.jsp</result>
 		</action>
 	</package>
@@ -149,7 +161,7 @@
 			<result name="success">/WEB-INF/pages/admin/userList.jsp</result>
 		</action>
 	</package>
-	
+
 	<!-- Add additional actions here -->
 	<package name="purchaseOrder" extends="default" namespace="/purchaseOrder">
 		<action name="purchaseOrders" class="purchaseOrderAction"
@@ -197,7 +209,7 @@
 				<param name="bufferSize">4096</param>
 			</result>
 		</action>
-		
+
 		<action name="editShipPurchaseOrder" class="purchaseOrderAction"
 			method="shipEdit">
 			<result name="success">/WEB-INF/pages/purchaseOrder/shipPurchaseOrderForm.jsp
@@ -246,7 +258,7 @@
 			</result>
 		</action>
 	</package>
-	
+
 	<package name="barcode" extends="default" namespace="/barcode">
 		<action name="barcodes" class="barcodeAction" method="list">
 			<result name="success">/WEB-INF/pages/barcode/barcodeList.jsp
@@ -281,8 +293,8 @@
 			</result>
 		</action>
 	</package>
-	
-	
+
+
 	<package name="receipt" extends="default" namespace="/receipt">
 		<action name="receipts" class="receiptAction" method="list">
 			<result name="success">/WEB-INF/pages/receipt/receiptList.jsp
@@ -303,7 +315,7 @@
 			</result>
 		</action>
 	</package>
-	
+
 	<package name="bill" extends="default" namespace="/bill">
 		<action name="bills" class="billAction" method="list">
 			<result name="success">/WEB-INF/pages/bill/billList.jsp
@@ -323,22 +335,19 @@
 				<param name="bufferSize">4096</param>
 			</result>
 		</action>
-		<action name="agreeBill" class="billAction"
-			method="agree">
+		<action name="agreeBill" class="billAction" method="agree">
 			<result name="success">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
-		<action name="refuseBill" class="billAction"
-			method="refuse">
+		<action name="refuseBill" class="billAction" method="refuse">
 			<result name="success">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
-			<action name="confirmBill" class="billAction"
-			method="confirm">
+		<action name="confirmBill" class="billAction" method="confirm">
 			<result name="success">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp

@@ -39,8 +39,8 @@
             <i class="icon-ok icon-white"></i>
             <fmt:message key="button.done"/>
         </a>
-        <a class="btn btn-default" href="selectFile" >
-            <i class="icon-upload"></i>
-            Upload Another
-        </a>
+<!--         <a class="btn btn-default" href="selectFile" > -->
+<!--             <i class="icon-upload"></i> -->
+<!--             Upload Another -->
+<!--         </a> -->
     </div>

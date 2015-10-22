@@ -32,6 +32,8 @@ import com.yfkey.model.Gender;
 import com.yfkey.model.LabelValue;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.PurchaseOrderDetail;
+import com.yfkey.webapp.util.PrintBarcodeUtil;
+import com.yfkey.webapp.util.PrintPurchaseOrderUtil;
 import com.yfkey.webapp.util.QADUtil;
 
 /**
@@ -274,7 +276,13 @@ public class BarcodeAction extends BaseAction {
 
 				List<Barcode> barcodeList = QADUtil.ConvertToBarcode(outDataList);
 
-				printBarcode(barcodeList);
+				//printBarcode(barcodeList);
+				
+				String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+				inputStream = PrintBarcodeUtil.printBarcode(localAbsolutPath, barcodeList,
+						userCode);
+
+				fileName = "barcode.pdf";
 
 			} catch (Exception e) {
 				// catch
@@ -283,129 +291,129 @@ public class BarcodeAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	public void printBarcode(List<Barcode> barcodeList) throws Exception {
-
-		String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
-		Rectangle pagesize = new Rectangle(226.771653f, 170.078740f);
-		Document document = new Document(pagesize, 2f, 5f, 10f, 1f);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try {
-
-			// step 2
-			PdfWriter writer = PdfWriter.getInstance(document, baos);
-			// step 3
-			document.open();
-			PdfContentByte cb = writer.getDirectContent();
-			int i = 0;
-
-			for (Barcode barcode : barcodeList) {
-				if (i != 0) {
-					document.newPage();
-				}
-				BaseFont baseFont = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", BaseFont.EMBEDDED);
-				// Font font = FontFactory.getFont("Times-Roman");
-				Barcode128 code128 = new Barcode128();
-				code128.setCode(barcode.getTt_bcdeto_bcinfo1());
-				// code128.setX(0.75f);
-				// code128.setN(1.5f);
-				code128.setSize(0.0001f);
-				code128.setTextAlignment(Element.ALIGN_LEFT);
-				// code128.setBaseline(1);
-				// code128.setBarHeight(26f);
-				Image img = code128.createImageWithBarcode(cb, null, null);
-				cb.addImage(img, 150, 0, 0, 35, 50, 120);
-				cb.stroke();
-				// document.add(img);
-				
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 8);
-			    cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_bcnon(), 80, 120, 0);
-				cb.endText();
-				
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PART NO.", 10, 110, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partnbr(), 35, 100, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "LOT/SERIAL NO.", 10, 90, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_lots(), 35, 80, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "QUANTITY", 145, 90, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(barcode.getTt_bcdeto_qty()), 145, 80, 0);
-				cb.endText();
-
-				// QRCODE
-				if (barcode.getTt_bcdeto_bcinfo2() != null && !barcode.getTt_bcdeto_bcinfo2().trim().equals("")) {
-					BarcodeQRCode qrcode = new BarcodeQRCode(barcode.getTt_bcdeto_bcinfo2(), 1, 1, null);
-					Image img1 = qrcode.getImage();
-					cb.addImage(img1, 40, 0, 0, 40, 140, 50);
-					cb.stroke();
-				}
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DESCRIPTION ", 10, 70, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partdesc(), 35, 60, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 7);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUPPLIER ", 10, 50, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
-						barcode.getTt_bcdeto_suppname() == null ? "" : barcode.getTt_bcdeto_suppname(), 35, 40, 0);
-				cb.endText();
-
-				cb.beginText();
-				cb.setFontAndSize(baseFont, 8);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED DATE: " + barcode.getTt_bcdeto_date(), 10, 10,
-						0);
-				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED USER: " + this.getRequest().getRemoteUser(), 110,
-						10, 0);
-				cb.endText();
-
-				i++;
-			}
-
-		} catch (Exception e) {
-			// catch
-		} finally {
-			document.close();
-			HttpServletResponse response = this.getResponse();
-			ServletOutputStream outputStream = response.getOutputStream();
-			baos.writeTo(outputStream);
-			response.setHeader("Content-Disposition", "attachment; filename=\"barcode.pdf\"");
-			response.setContentType("application/pdf");
-			outputStream.flush();
-			outputStream.close();
-		}
-
-	}
+//	public void printBarcode(List<Barcode> barcodeList) throws Exception {
+//
+//		String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+//		Rectangle pagesize = new Rectangle(226.771653f, 170.078740f);
+//		Document document = new Document(pagesize, 2f, 5f, 10f, 1f);
+//		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//		try {
+//
+//			// step 2
+//			PdfWriter writer = PdfWriter.getInstance(document, baos);
+//			// step 3
+//			document.open();
+//			PdfContentByte cb = writer.getDirectContent();
+//			int i = 0;
+//
+//			for (Barcode barcode : barcodeList) {
+//				if (i != 0) {
+//					document.newPage();
+//				}
+//				BaseFont baseFont = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", BaseFont.EMBEDDED);
+//				// Font font = FontFactory.getFont("Times-Roman");
+//				Barcode128 code128 = new Barcode128();
+//				code128.setCode(barcode.getTt_bcdeto_bcinfo1());
+//				// code128.setX(0.75f);
+//				// code128.setN(1.5f);
+//				code128.setSize(0.0001f);
+//				code128.setTextAlignment(Element.ALIGN_LEFT);
+//				// code128.setBaseline(1);
+//				// code128.setBarHeight(26f);
+//				Image img = code128.createImageWithBarcode(cb, null, null);
+//				cb.addImage(img, 150, 0, 0, 35, 50, 120);
+//				cb.stroke();
+//				// document.add(img);
+//				
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 8);
+//			    cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_bcnon(), 80, 120, 0);
+//				cb.endText();
+//				
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 7);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PART NO.", 10, 110, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 8);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partnbr(), 35, 100, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 7);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "LOT/SERIAL NO.", 10, 90, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 8);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_lots(), 35, 80, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 7);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "QUANTITY", 145, 90, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 8);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(barcode.getTt_bcdeto_qty()), 145, 80, 0);
+//				cb.endText();
+//
+//				// QRCODE
+//				if (barcode.getTt_bcdeto_bcinfo2() != null && !barcode.getTt_bcdeto_bcinfo2().trim().equals("")) {
+//					BarcodeQRCode qrcode = new BarcodeQRCode(barcode.getTt_bcdeto_bcinfo2(), 1, 1, null);
+//					Image img1 = qrcode.getImage();
+//					cb.addImage(img1, 40, 0, 0, 40, 140, 50);
+//					cb.stroke();
+//				}
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 7);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DESCRIPTION ", 10, 70, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 8);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, barcode.getTt_bcdeto_partdesc(), 35, 60, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 7);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUPPLIER ", 10, 50, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 8);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
+//						barcode.getTt_bcdeto_suppname() == null ? "" : barcode.getTt_bcdeto_suppname(), 35, 40, 0);
+//				cb.endText();
+//
+//				cb.beginText();
+//				cb.setFontAndSize(baseFont, 8);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED DATE: " + barcode.getTt_bcdeto_date(), 10, 10,
+//						0);
+//				cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED USER: " + this.getRequest().getRemoteUser(), 110,
+//						10, 0);
+//				cb.endText();
+//
+//				i++;
+//			}
+//
+//		} catch (Exception e) {
+//			// catch
+//		} finally {
+//			document.close();
+//			HttpServletResponse response = this.getResponse();
+//			ServletOutputStream outputStream = response.getOutputStream();
+//			baos.writeTo(outputStream);
+//			response.setHeader("Content-Disposition", "attachment; filename=\"barcode.pdf\"");
+//			response.setContentType("application/pdf");
+//			outputStream.flush();
+//			outputStream.close();
+//		}
+//
+//	}
 	
 	public List<LabelValue> getPackageList() {
 		List<LabelValue> packageList = new ArrayList<LabelValue>();
