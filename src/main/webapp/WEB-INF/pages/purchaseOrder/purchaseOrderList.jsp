@@ -60,8 +60,8 @@
 					key="purchaseOrder.tt_xpyhmstro_receptdt" />
 			</div>
 			<div class="col-xs-4 search-group">
-			<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
-				<input id="tt_xpyhddeto_partnbr" name="purchaseOrderDetail.tt_xpyhddeto_partnbr"
+			<fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" />
+				<input id="tt_xpyhmstro_partnbr" name="purchaseOrder.tt_xpyhmstro_partnbr"
 					type="text" class="col-md-12 form-control" placeholder=""
 					autocomplete="off" />
 		</div>
@@ -222,16 +222,15 @@
 						//onSelect: displayResult
 						});
 		
-		$('#tt_xpyhmstro_suppcode')
+		$('#tt_xpyhmstro_partnbr')
  		.typeahead(
  				{
  					ajax : {
- 						url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
+ 						url : "<c:url value="/services/api/supplys/getItemData.json"/>",
  						method : 'get',
  						preDispatch : function(e) {
  							return {
  								domain : "${sessionScope.selectedUserPlant}",
- 								usercode : "${pageContext.request.remoteUser}",
  								query : e
  							}
  						},

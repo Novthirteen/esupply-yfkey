@@ -78,8 +78,6 @@ public class PurchaseOrderAction extends BaseAction {
 		this.purchaseOrderDetails = purchaseOrderDetails;
 	}
 
-	
-	
 	public List<PurchaseOrderDetail> getForcastPurchaseOrderDetails() {
 		return forecastPurchaseOrderDetails;
 	}
@@ -317,6 +315,7 @@ public class PurchaseOrderAction extends BaseAction {
 
 	public String ship() {
 		try {
+
 			String userCode = this.getRequest().getRemoteUser();
 			if (ConnectQAD()) {
 
@@ -368,7 +367,7 @@ public class PurchaseOrderAction extends BaseAction {
 			Date date = new Date();
 			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
-		
+
 			purchaseOrder.setIsDetail(false);
 		}
 		// autocomplete要处理一下
@@ -385,20 +384,17 @@ public class PurchaseOrderAction extends BaseAction {
 				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
 			}
 		}
-		if(purchaseOrder.getTt_xpyhmstro_partnbr() != null && !purchaseOrder.getTt_xpyhmstro_partnbr().equals(""))
-		{
+		if (purchaseOrder.getTt_xpyhmstro_partnbr() != null && !purchaseOrder.getTt_xpyhmstro_partnbr().equals("")) {
 			String itemcode = purchaseOrder.getTt_xpyhmstro_partnbr();
-			if(itemcode.contains("("))
-			{
+			if (itemcode.contains("(")) {
 				purchaseOrder.setTt_xpyhmstro_partnbr(itemcode.substring(0, itemcode.indexOf("(")));
 			}
 		}
 
-		if(purchaseOrder.getTt_xpyhmstro_stat() == null || purchaseOrder.getTt_xpyhmstro_stat().equals(""))
-		{
+		if (purchaseOrder.getTt_xpyhmstro_stat() == null || purchaseOrder.getTt_xpyhmstro_stat().equals("")) {
 			purchaseOrder.setTt_xpyhmstro_stat("2,3");
 		}
-		
+
 		query();
 
 		return SUCCESS;
@@ -421,7 +417,6 @@ public class PurchaseOrderAction extends BaseAction {
 				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
 			}
 		}
-		
 
 		purchaseOrder.setTt_xpyhmstro_stat("2,3");
 
@@ -526,8 +521,6 @@ public class PurchaseOrderAction extends BaseAction {
 				@SuppressWarnings("unchecked")
 				List<String> supplierCodeList = getSupplierCodeList(
 						purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
-
-			
 
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
@@ -696,22 +689,21 @@ public class PurchaseOrderAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
-	
-	
+
 	public String forecastlist() {
 
 		if (purchaseOrder == null) {
 
 			purchaseOrder = new PurchaseOrder();
-			
+
 			purchaseOrder.setTt_xpyhmstro_shipto("");
 			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
 		}
-		
-		//默认优先级预测，状态也为预测
+
+		// 默认优先级预测，状态也为预测
 		purchaseOrder.setTt_xpyhmstro_priority("0");
 		purchaseOrder.setTt_xpyhmstro_stat("0");
-		
+
 		if (purchaseOrder.getTt_xpyhmstro_suppcode() != null && !purchaseOrder.getTt_xpyhmstro_suppcode().equals("")) {
 			String suppcode = purchaseOrder.getTt_xpyhmstro_suppcode();
 			if (suppcode.contains("(")) {
@@ -725,22 +717,17 @@ public class PurchaseOrderAction extends BaseAction {
 				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
 			}
 		}
-		if(purchaseOrder.getTt_xpyhmstro_partnbr() != null && !purchaseOrder.getTt_xpyhmstro_partnbr().equals(""))
-		{
+		if (purchaseOrder.getTt_xpyhmstro_partnbr() != null && !purchaseOrder.getTt_xpyhmstro_partnbr().equals("")) {
 			String itemcode = purchaseOrder.getTt_xpyhmstro_partnbr();
-			if(itemcode.contains("("))
-			{
+			if (itemcode.contains("(")) {
 				purchaseOrder.setTt_xpyhmstro_partnbr(itemcode.substring(0, itemcode.indexOf("(")));
 			}
 		}
-	
-		
 
 		forecastQuery();
 		return SUCCESS;
 	}
-	
-	
+
 	private void forecastQuery() {
 		if (ConnectQAD()) {
 
@@ -767,11 +754,16 @@ public class PurchaseOrderAction extends BaseAction {
 
 				ProDataObject objectMstr = exDataGraph.createProDataObject("tt_forecast_in");
 				if (purchaseOrder != null) {
-					objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_suppcode() == null? "":purchaseOrder.getTt_xpyhmstro_suppcode());
-					objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_shipto() == null? "":purchaseOrder.getTt_xpyhmstro_shipto() );
-					objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_fromdate() == null? "": purchaseOrder.getTt_xpyhmstro_fromdate());
-					objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_partnbr() == null?"":purchaseOrder.getTt_xpyhmstro_partnbr());
-					objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_enddate() == null?"":purchaseOrder.getTt_xpyhmstro_enddate());
+					objectMstr.setString(0, purchaseOrder.getTt_xpyhmstro_suppcode() == null ? ""
+							: purchaseOrder.getTt_xpyhmstro_suppcode());
+					objectMstr.setString(1, purchaseOrder.getTt_xpyhmstro_shipto() == null ? ""
+							: purchaseOrder.getTt_xpyhmstro_shipto());
+					objectMstr.setString(2, purchaseOrder.getTt_xpyhmstro_fromdate() == null ? ""
+							: purchaseOrder.getTt_xpyhmstro_fromdate());
+					objectMstr.setString(3, purchaseOrder.getTt_xpyhmstro_partnbr() == null ? ""
+							: purchaseOrder.getTt_xpyhmstro_partnbr());
+					objectMstr.setString(4, purchaseOrder.getTt_xpyhmstro_enddate() == null ? ""
+							: purchaseOrder.getTt_xpyhmstro_enddate());
 				}
 
 				exDataGraph.addProDataObject(objectMstr);
@@ -862,5 +854,23 @@ public class PurchaseOrderAction extends BaseAction {
 		}
 
 		return priorityDesc;
+	}
+
+	private String checkShipQty(List<PurchaseOrderDetail> purchaseOrderDetailList) {
+		Boolean hasError = false;
+		for (PurchaseOrderDetail d : purchaseOrderDetailList) {
+			if (d.getTt_xpyhddeto_delvqty().compareTo(BigDecimal.ZERO) < 0) {
+				addActionError(getText("发货数不能小于0"));
+				hasError = true;
+			} else if (d.getTt_xpyhddeto_delvqty().compareTo(d.getTt_xpyhddeto_openqty()) < 0) {
+				addActionError(getText("发货数大于待发数"));
+				hasError = true;
+			}
+		}
+		if (hasError) {
+			return INPUT;
+		} else {
+			return SUCCESS;
+		}
 	}
 }
