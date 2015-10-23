@@ -68,6 +68,7 @@
 		titleKey="role.name" url="/user/editRole?from=list" paramId="code"
 		paramProperty="code" />
 
+	<display:setProperty name="paging.banner.placement" value="both" />
 	<display:setProperty name="paging.banner.item_name">
 		<fmt:message key="roleList.role" />
 	</display:setProperty>
