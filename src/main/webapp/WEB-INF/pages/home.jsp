@@ -13,14 +13,6 @@
 		<fmt:message key="home.message" />
 	</p>
 
-<ul class="glassList">
-    <li>
-        <a href="<c:url value='user/editProfile'/>"><fmt:message key="menu.user"/></a>
-    </li>
-<!--       <li> -->
-<%--         <a href="<c:url value='/uploadFile'/>"><fmt:message key="menu.selectFile"/></a> --%>
-<!--     </li> -->
-</ul>
 	<ul class="glassList">
 		<li><a href="<c:url value='/user/editProfile'/>"><fmt:message
 					key="menu.user" /></a></li>

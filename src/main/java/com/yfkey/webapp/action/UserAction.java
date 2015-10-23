@@ -467,6 +467,7 @@ public class UserAction extends BaseAction implements Preparable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void prepareAssignPermission() {
 
 		if(permissionType != null && PermissionType.valueOf(permissionType) == PermissionType.S)
@@ -496,6 +497,7 @@ public class UserAction extends BaseAction implements Preparable {
 								username });
 
 		this.assignedPermissions = assignedPermissionList;
+		}
 	}
 
 	private void prepareAssignRole() {
