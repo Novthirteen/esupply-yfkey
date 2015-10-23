@@ -98,6 +98,7 @@
 			<c:if test="${users.enabled}">checked="checked"</c:if> />
 	</display:column>
 
+	<display:setProperty name="paging.banner.placement" value="both" />
 	<display:setProperty name="paging.banner.item_name">
 		<fmt:message key="roleList.role" />
 	</display:setProperty>

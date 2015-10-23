@@ -109,12 +109,12 @@ public class UniversalDaoHibernate implements UniversalDao {
 	public void save(Object object) throws PrincipalNullException {
 		if (object instanceof Auditable) {
 			((Auditable) object).setCreateDate(new Timestamp((new Date()).getTime()));
-			((Auditable) object).setCreateUser(SecurityContextHelper.getRemoteUser());
+			((Auditable) object).setCreateUser(SecurityContextHelper.getRemoteUserName());
 			((Auditable) object).setUpdateDate(((Auditable) object).getCreateDate());
 			((Auditable) object).setUpdateUser(((Auditable) object).getCreateUser());
 		} else if (object instanceof Traceable) {
 			((Traceable) object).setCreateDate(new Timestamp((new Date()).getTime()));
-			((Traceable) object).setCreateUser(SecurityContextHelper.getRemoteUser());
+			((Traceable) object).setCreateUser(SecurityContextHelper.getRemoteUserName());
 		}
 
 		if (object instanceof Versionable) {
@@ -134,7 +134,7 @@ public class UniversalDaoHibernate implements UniversalDao {
 
 		if (object instanceof Auditable) {
 			((Auditable) object).setUpdateDate(new Timestamp((new Date()).getTime()));
-			((Auditable) object).setUpdateUser(SecurityContextHelper.getRemoteUser());
+			((Auditable) object).setUpdateUser(SecurityContextHelper.getRemoteUserName());
 		}
 
 		Session sess = getSession();
@@ -203,14 +203,26 @@ public class UniversalDaoHibernate implements UniversalDao {
 	}
 
 	public List findByHql(String hql) {
-		return findByHql(hql, (Object[]) null);
+		return findByHql(hql, (Object[]) null, null);
+	}
+	
+	public List findByHql(String hql, Integer maxResults) {
+		return findByHql(hql, (Object[]) null, maxResults);
 	}
 
 	public List findByHql(String hql, Object queryParam) {
-		return findByHql(hql, new Object[] { queryParam });
+		return findByHql(hql, new Object[] { queryParam }, null);
+	}
+	
+	public List findByHql(String hql, Object queryParam, Integer maxResults) {
+		return findByHql(hql, new Object[] { queryParam }, maxResults);
+	}
+	
+	public List findByHql(String hql, Object[] queryParams) {
+		return findByHql(hql, queryParams, null);
 	}
 
-	public List findByHql(String hql, Object[] queryParams) {
+	public List findByHql(String hql, Object[] queryParams, Integer maxResults) {
 		Session sess = getSession();
 		Query query = sess.createQuery(hql);
 
@@ -218,6 +230,10 @@ public class UniversalDaoHibernate implements UniversalDao {
 			for (int i = 0; i < queryParams.length; i++) {
 				query.setParameter(i, queryParams[i]);
 			}
+		}
+		
+		if (maxResults != null) {
+			query.setMaxResults(maxResults);
 		}
 
 		return query.list();

@@ -1,31 +1,23 @@
-<%@ include file="/common/taglibs.jsp" %>
+<%@ include file="/common/taglibs.jsp"%>
 
 <head>
-    <title><fmt:message key="userProfile.title"/></title>
-    <meta name="menu" content="UserMenu"/>
+<title><fmt:message key="userProfile.title" /></title>
+<meta name="menu" content="Home" />
 </head>
 
-<s:form name="userForm" action="saveUser" method="post" validate="false"
-	cssClass="well" autocomplete="off">
+<s:form name="userForm" action="saveUserProfile" method="post"
+	validate="false" cssClass="well" autocomplete="off">
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
 		<div class="col-xs-6">
-			<c:choose>
-				<c:when test="${user.version != 0}">
-					<s:hidden key="user.username" />
-					<s:hidden key="user.version" />
-					<s:hidden key="user.enforce_password" />
-					<s:hidden key="user.enabled" />
-					<s:hidden key="user.accountExpired" />
-					<s:hidden key="user.accountLocked" />
-					<s:hidden key="user.credentialsExpired" />
-					<s:label key="user.username" cssClass="form-control" />
-				</c:when>
-				<c:otherwise>
-					<s:textfield key="user.username" required="true"
-						cssClass="form-control" />
-				</c:otherwise>
-			</c:choose>
+			<s:hidden key="user.username" />
+			<s:hidden key="user.version" />
+			<s:hidden key="user.enforcePassword" />
+			<s:hidden key="user.enabled" />
+			<s:hidden key="user.accountExpired" />
+			<s:hidden key="user.accountLocked" />
+			<s:hidden key="user.credentialsExpired" />
+			<s:label key="user.username" cssClass="form-control" />
 		</div>
 		<div class="col-xs-6"></div>
 	</div>
@@ -86,7 +78,7 @@
 	</div>
 
 	<div id="actions" class="form-group form-actions">
-		<s:submit type="button" cssClass="btn btn-primary" method="save"
+		<s:submit type="button" cssClass="btn btn-primary"
 			key="button.save" theme="simple">
 			<i class="icon-ok icon-white"></i>
 			<fmt:message key="button.save" />

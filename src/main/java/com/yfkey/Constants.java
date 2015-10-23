@@ -106,4 +106,14 @@ public final class Constants {
      * The name of the user menu list, a request-scoped attribute
      */
     public static final String USER_MENUS = "userMenus";
+    
+    /**
+     * Check user should change password or not , a session-scoped attribute
+     */
+    public static final String FORCE_CHANGE_PASSWORD_CHECK = "forceChangePasswordCheck";
+    
+    /**
+     * Force change password flag , a session-scoped attribute
+     */
+    public static final String FORCE_CHANGE_PASSWORD = "forceChangePassword";
 }

@@ -22,12 +22,12 @@
 		<div class="col-xs-4 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn btn-default btn-sm"
-				action="users" key="button.search" theme="simple">
+				action="roles" key="button.search" theme="simple">
 				<i class="icon-search"></i>
 				<fmt:message key="button.search" />
 			</s:submit>
 			<s:submit type="button" cssClass="btn btn-primary btn-sm"
-				action="editUser" key="button.add" theme="simple">
+				action="editRole" key="button.add" theme="simple">
 				<i class="icon-plus icon-white"></i>
 				<fmt:message key="button.add" />
 			</s:submit>
@@ -68,6 +68,7 @@
 		titleKey="role.name" url="/user/editRole?from=list" paramId="code"
 		paramProperty="code" />
 
+	<display:setProperty name="paging.banner.placement" value="both" />
 	<display:setProperty name="paging.banner.item_name">
 		<fmt:message key="roleList.role" />
 	</display:setProperty>

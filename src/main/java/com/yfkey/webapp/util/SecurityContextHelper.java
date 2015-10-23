@@ -12,7 +12,7 @@ import com.yfkey.model.UserMenu;
 
 public class SecurityContextHelper {
 
-	public static String getRemoteUser() throws PrincipalNullException {
+	public static String getRemoteUserName() throws PrincipalNullException {
 		SecurityContext context = SecurityContextHolder.getContext();
 
 		if (context != null && context.getAuthentication() != null && context.getAuthentication().getPrincipal() != null
@@ -42,6 +42,17 @@ public class SecurityContextHelper {
 			return ((User) context.getAuthentication().getPrincipal()).getAuthoriedPlants();
 		} else {
 			return null;
+		}
+	}
+	
+	public static User getRemoteUser() throws PrincipalNullException {
+		SecurityContext context = SecurityContextHolder.getContext();
+
+		if (context != null && context.getAuthentication() != null && context.getAuthentication().getPrincipal() != null
+				&& context.getAuthentication().getPrincipal() instanceof User) {
+			return (User) context.getAuthentication().getPrincipal();
+		} else {
+			throw new PrincipalNullException();
 		}
 	}
 }

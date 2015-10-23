@@ -1,6 +1,8 @@
 package com.yfkey.service.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebService;
@@ -14,6 +16,7 @@ import com.yfkey.dao.UserDao;
 import com.yfkey.exception.PrincipalNullException;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.User;
+import com.yfkey.model.UserPasswordLog;
 import com.yfkey.model.UserPermission;
 import com.yfkey.model.UserRole;
 import com.yfkey.service.UniversalManager;
@@ -32,6 +35,30 @@ public class UserManagerImpl extends GenericManagerImpl<User, String>implements 
 
 	@Autowired
 	private UserDao userDao;
+	
+	public void saveUser(User user) throws PrincipalNullException {
+		this.universalManager.save(user);
+		
+		if (user.isEnforcePassword()) {
+			UserPasswordLog userPasswordLog = new UserPasswordLog();
+			userPasswordLog.setUsername(user.getUsername());
+			userPasswordLog.setPassword(user.getPassword());
+			userPasswordLog.setCreateDate(new Timestamp((new Date()).getTime()));
+			this.universalManager.save(userPasswordLog);
+		}
+	}
+	
+	public void updateUser(User user, boolean passwordChange) throws PrincipalNullException {
+		this.universalManager.update(user);
+		
+		if (passwordChange && user.isEnforcePassword()) {
+			UserPasswordLog userPasswordLog = new UserPasswordLog();
+			userPasswordLog.setUsername(user.getUsername());
+			userPasswordLog.setPassword(user.getPassword());
+			userPasswordLog.setCreateDate(new Timestamp((new Date()).getTime()));
+			this.universalManager.save(userPasswordLog);
+		}
+	}
 	
 	@Override
 	public void saveUserPermission(String username, PermissionType permissionType, List<String> assignedPermissions)
@@ -72,8 +99,21 @@ public class UserManagerImpl extends GenericManagerImpl<User, String>implements 
 	public void deleteUser(String username) {
 		this.universalManager.executeByHql("delete from UserPermission where username = ?", new Object[] { username });
 		this.universalManager.executeByHql("delete from UserRole where username = ?", new Object[] { username });
+		this.universalManager.executeByHql("delete from UserPasswordLog where username = ?", new Object[] { username });
 
 		this.universalManager.remove(User.class, username);
 	}
 	
+	
+	public void saveUserPassword(String username, String password) throws PrincipalNullException {
+		User user = this.userDao.get(username);
+		user.setPassword(password);
+		this.universalManager.update(user);
+		
+		UserPasswordLog userPasswordLog = new UserPasswordLog();
+		userPasswordLog.setUsername(username);
+		userPasswordLog.setPassword(password);
+		userPasswordLog.setCreateDate(new Timestamp((new Date()).getTime()));
+		this.universalManager.save(userPasswordLog);
+	}
 }

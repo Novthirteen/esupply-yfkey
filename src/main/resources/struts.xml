@@ -78,6 +78,12 @@
 			<result name="success">/WEB-INF/pages/home.jsp</result>
 			<result name="error">/WEB-INF/pages/login.jsp</result>
 		</action>
+		
+		<action name="savePassword" class="userAction" method="savePassword">
+			<result name="input">/WEB-INF/pages/home.jsp</result>
+			<result name="success">/WEB-INF/pages/home.jsp</result>
+			<result name="error">/WEB-INF/pages/home.jsp</result>
+		</action>
 
 		<action name="selectUserPlant" class="userAction" method="selectUserPlant">
 			<result name="success" type="redirectAction">home</result>
@@ -127,7 +133,7 @@
 			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
 			<result name="input">/WEB-INF/pages/user/user/userList.jsp</result>
 		</action>
-		<action name="saveUser" class="userAction" method="save">
+		<action name="saveUser" class="userAction" method="saveUser">
 			<result name="cancel" type="redirectAction">users</result>
 			<result name="input">/WEB-INF/pages/user/user/userForm.jsp</result>
 			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
@@ -144,6 +150,11 @@
 			<result name="success">/WEB-INF/pages/user/user/userProfileForm.jsp
 			</result>
 			<result name="error">/WEB-INF/pages/home.jsp</result>
+		</action>
+		<action name="saveUserProfile" class="userAction" method="saveUserProfile">
+			<result name="cancel" type="redirectAction">home</result>
+			<result name="input">/WEB-INF/pages/user/user/userProfileForm.jsp</result>
+			<result name="success">/WEB-INF/pages/user/user/userProfileForm.jsp</result>
 		</action>
 	</package>
 

@@ -94,15 +94,31 @@ public class UniversalManagerImpl implements UniversalManager {
 	public List findByHql(String hql) {
 		return dao.findByHql(hql);
 	}
+	
+	@Override
+	public List findByHql(String hql, Integer maxResults) {
+		return dao.findByHql(hql, maxResults);
+	}
 
 	@Override
 	public List findByHql(String hql, Object queryParam) {
 		return dao.findByHql(hql, queryParam);
 	}
+	
+	@Override
+	public List findByHql(String hql, Object queryParam, Integer maxResults) {
+		return dao.findByHql(hql, queryParam, maxResults);
+	}
 
 	@Override
 	public List findByHql(String hql, Object[] queryParams) {
 		return dao.findByHql(hql, queryParams);
+	}
+
+
+	@Override
+	public List findByHql(String hql, Object[] queryParams, Integer maxResults) {
+		return dao.findByHql(hql, queryParams, maxResults);
 	}
 
 	@Override
