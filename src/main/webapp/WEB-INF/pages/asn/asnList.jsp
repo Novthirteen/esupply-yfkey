@@ -90,6 +90,7 @@
 				<display:column property="tt_xasnmstro_creator" escapeXml="true"
 					sortable="true" titleKey="asn.tt_xasnmstro_creator" />
 
+				<display:setProperty name="paging.banner.placement" value="both" />
 				<display:setProperty name="paging.banner.item_name">
 					<fmt:message key="asnList.asn" />
 				</display:setProperty>
@@ -132,6 +133,7 @@
 				<display:column property="tt_xasndeto_asnqty" escapeXml="true"
 					sortable="true" titleKey="asnDetail.tt_xasndeto_asnqty" />
 
+				<display:setProperty name="paging.banner.placement" value="both" />
 				<display:setProperty name="paging.banner.item_name">
 					<fmt:message key="asnList.asnDetail" />
 				</display:setProperty>

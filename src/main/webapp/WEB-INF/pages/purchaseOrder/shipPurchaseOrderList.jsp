@@ -68,6 +68,7 @@
 	<display:column property="tt_xpyhmstro_print" escapeXml="true"
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_print" />
 
+	<display:setProperty name="paging.banner.placement" value="both" />
 	<display:setProperty name="paging.banner.item_name">
 		<fmt:message key="purchaseOrderList.purchaseOrder" />
 	</display:setProperty>

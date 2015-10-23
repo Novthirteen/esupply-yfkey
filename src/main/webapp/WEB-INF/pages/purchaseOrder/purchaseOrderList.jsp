@@ -37,14 +37,14 @@
 					key="purchaseOrder.tt_xpyhmstro_creator" />
 			</div>
 			<div class="col-xs-4 search-group">
-				
+
 				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
 					list="purchaseOrderStatusList" listKey="label" listValue="value"
 					cssClass="form-control" />
 
 			</div>
 			<div class="col-xs-4 search-group">
-			<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
+				<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
 				<input id="tt_xpyhmstro_shipto"
 					name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
@@ -60,12 +60,12 @@
 					key="purchaseOrder.tt_xpyhmstro_receptdt" />
 			</div>
 			<div class="col-xs-4 search-group">
-			<fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" />
-				<input id="tt_xpyhmstro_partnbr" name="purchaseOrder.tt_xpyhmstro_partnbr"
-					type="text" class="col-md-12 form-control" placeholder=""
-					autocomplete="off" />
-		</div>
-			
+				<fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" />
+				<input id="tt_xpyhmstro_partnbr"
+					name="purchaseOrder.tt_xpyhmstro_partnbr" type="text"
+					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+			</div>
+
 		</div>
 		<div class="row">
 			<div class="col-xs-4 search-group layouttrim">
@@ -117,7 +117,7 @@
 				<display:column property="tt_xpyhmstro_creator" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_creator" />
 
-
+				<display:setProperty name="paging.banner.placement" value="both" />
 				<display:setProperty name="paging.banner.item_name">
 					<fmt:message key="purchaseOrderList.purchaseOrder" />
 				</display:setProperty>
@@ -164,6 +164,7 @@
 				<display:column property="tt_xpyhddeto_ordqty" escapeXml="true"
 					sortable="true" titleKey="purchaseOrderDetail.tt_xpyhddeto_ordqty" />
 
+				<display:setProperty name="paging.banner.placement" value="both" />
 				<display:setProperty name="paging.banner.item_name">
 					<fmt:message key="purchaseOrderList.purchaseOrderDetail" />
 				</display:setProperty>
@@ -221,25 +222,25 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
-		
+
 		$('#tt_xpyhmstro_partnbr')
- 		.typeahead(
- 				{
- 					ajax : {
- 						url : "<c:url value="/services/api/supplys/getItemData.json"/>",
- 						method : 'get',
- 						preDispatch : function(e) {
- 							return {
- 								domain : "${sessionScope.selectedUserPlant}",
- 								query : e
- 							}
- 						},
- 						triggerLength : 1
- 					},
- 					displayField : 'label',
- 					valueField : 'value'
- 				//onSelect: displayResult
- 				});
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getItemData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
 	</script>
 </body>
 

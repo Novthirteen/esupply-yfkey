@@ -82,6 +82,7 @@
 			<display:column property="tt_prhmstro_rcuserid" escapeXml="true"
 				sortable="true" titleKey="receipt.tt_prhmstro_rcuserid" />
 
+			<display:setProperty name="paging.banner.placement" value="both" />
 			<display:setProperty name="paging.banner.item_name">
 				<fmt:message key="receiptList.receipt" />
 			</display:setProperty>
@@ -129,6 +130,7 @@
 			<display:column property="tt_prhdeto_revdqty" escapeXml="true"
 				sortable="true" titleKey="receiptDetail.tt_prhdeto_revdqty" />
 
+			<display:setProperty name="paging.banner.placement" value="both" />
 			<display:setProperty name="paging.banner.item_name">
 				<fmt:message key="receiptList.receiptDetail" />
 			</display:setProperty>

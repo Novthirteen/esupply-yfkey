@@ -362,6 +362,22 @@ public class UserAction extends BaseAction {
 
 	private void prepareAssignPermission() {
 
+		if(permissionType != null && PermissionType.valueOf(permissionType) == PermissionType.S)
+		{
+			String domain = this.getCurrentDomain();
+			List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ? and code like ?",
+					new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U ,domain + "%"});
+			this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
+
+			List<String> assignedPermissionList = universalManager
+					.findByHql("select permissionCode from UserPermission where permissionType = ? and username = ? and permissionCode like ?",
+							new Object[] {
+									permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U,
+									username,domain + "%" });
+			this.assignedPermissions = assignedPermissionList;
+			
+		}else{
+			
 		List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
 				new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
 		this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
@@ -373,6 +389,7 @@ public class UserAction extends BaseAction {
 								username });
 
 		this.assignedPermissions = assignedPermissionList;
+		}
 
 	}
 

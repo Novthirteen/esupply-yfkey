@@ -283,6 +283,22 @@ public class RoleAction extends BaseAction {
 
 	private void prepareAssignPermission() {
 
+		if(permissionType != null && PermissionType.valueOf(permissionType) == PermissionType.S)
+		{
+			String domain = this.getCurrentDomain();
+			List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ? and code like ?",
+					new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U ,domain + "%"});
+
+			this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
+
+			List<String> assignedPermissionList = universalManager
+					.findByHql("select permissionCode from RolePermission where permissionType = ? and roleCode = ? and permissionCode like ?",
+							new Object[] {
+									permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U,
+									code ,domain + "%" });
+
+			this.assignedPermissions = assignedPermissionList;
+		}else{
 		List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
 				new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
 
@@ -295,6 +311,7 @@ public class RoleAction extends BaseAction {
 								code });
 
 		this.assignedPermissions = assignedPermissionList;
+		}
 	}
 
 	private void prepareAssignUser() {

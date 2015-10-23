@@ -88,6 +88,7 @@
 		<display:column property="tt_forecast_fcastqty" escapeXml="true"
 			sortable="true" titleKey="purchaseOrderDetail.tt_forecast_fcastqty" />
 
+		<display:setProperty name="paging.banner.placement" value="both" />
 		<display:setProperty name="paging.banner.item_name">
 			<fmt:message key="purchaseOrderList.purchaseOrderDetail" />
 		</display:setProperty>

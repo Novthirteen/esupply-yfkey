@@ -65,6 +65,7 @@
 		<display:column property="tt_xprcmstro_stat_desc" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_stat_desc" />
 
+		<display:setProperty name="paging.banner.placement" value="both" />
 		<display:setProperty name="paging.banner.item_name">
 			<fmt:message key="billList.bill" />
 		</display:setProperty>
