@@ -122,7 +122,9 @@
 			</c:if>
 		</div>
 		
+		<c:if test="${empty sessionScope.forceChangePassword}">
 		<%@ include file="/common/messages.jsp"%>
+		</c:if>
 		<div class="row">
 			<c:if test="${pageContext.request.remoteUser != null}">
 				<%@ include file="/common/menu.jsp"%>

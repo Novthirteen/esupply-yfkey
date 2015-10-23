@@ -27,9 +27,9 @@
 		<div class="col-xs-6">
 			<c:choose>
 				<c:when test="${user.version != 0}">
+					<input type="hidden" name="username" value="${user.username}" />
 					<s:hidden key="user.username" />
 					<s:hidden key="user.version" />
-					<s:hidden key="user.enforce_password" value="false"/>
 					<s:label key="user.username" cssClass="form-control" />
 				</c:when>
 				<c:otherwise>
@@ -116,6 +116,11 @@
 				id="user.credentialsExpired" theme="simple" fieldValue="true" />
 			<fmt:message key="user.credentialsExpired" />
 		</div>
+		<div class="col-xs-3">
+			<s:checkbox key="user.enforcePassword"
+				id="user.enforcePassword" theme="simple" fieldValue="true" />
+			<fmt:message key="user.enforcePassword" />
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
@@ -129,7 +134,7 @@
 	</div>
 	<hr>
 	<div id="actions" class="form-group form-actions">
-		<s:submit type="button" cssClass="btn btn-primary" method="save"
+		<s:submit type="button" cssClass="btn btn-primary"
 			key="button.save" theme="simple">
 			<i class="icon-ok icon-white"></i>
 			<fmt:message key="button.save" />

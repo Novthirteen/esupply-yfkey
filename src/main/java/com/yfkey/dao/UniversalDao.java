@@ -35,10 +35,16 @@ public interface UniversalDao {
 	void executeByNativeSql(String sql, Object[] params);
 
 	List findByHql(String hql);
+	
+	List findByHql(String hql, Integer maxResults);
 
 	List findByHql(String hql, Object queryParam);
+	
+	List findByHql(String hql, Object queryParam, Integer maxResults);
 
 	List findByHql(String hql, Object[] queryParams);
+	
+	List findByHql(String hql, Object[] queryParams, Integer maxResults);
 
 	List findByNativeSql(String sql);
 

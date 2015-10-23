@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.internal.util.StringHelper;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 
+import com.opensymphony.xwork2.Preparable;
 import com.yfkey.model.LabelValue;
 import com.yfkey.model.Permission;
 import com.yfkey.model.PermissionType;
@@ -19,7 +20,7 @@ import com.yfkey.service.UniversalManager;
 /**
  * Action for facilitating Role Management feature.
  */
-public class RoleAction extends BaseAction {
+public class RoleAction extends BaseAction implements Preparable {
 
 	/**
 	 * 
@@ -270,7 +271,11 @@ public class RoleAction extends BaseAction {
 		roles = universalManager.findByHql(hql, args.toArray());
 	}
 
-	private void prepare() {
+	public void prepare() {
+		if (StringHelper.isEmpty(code)) {
+			code = this.getRequest().getParameter("code");
+		}
+		
 		if (role == null && StringHelper.isNotEmpty(code)) {
 			role = (Role) this.universalManager.get(Role.class, code);
 		}

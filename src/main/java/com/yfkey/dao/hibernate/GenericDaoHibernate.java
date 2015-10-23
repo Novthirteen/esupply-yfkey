@@ -163,12 +163,12 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 	public void save(T object) throws PrincipalNullException {
 		if (object instanceof Auditable) {
 			((Auditable) object).setCreateDate(new Timestamp((new Date()).getTime()));
-			((Auditable) object).setCreateUser(SecurityContextHelper.getRemoteUser());
+			((Auditable) object).setCreateUser(SecurityContextHelper.getRemoteUserName());
 			((Auditable) object).setUpdateDate(((Auditable) object).getCreateDate());
 			((Auditable) object).setUpdateUser(((Auditable) object).getCreateUser());
 		} else if (object instanceof Traceable) {
 			((Traceable) object).setCreateDate(new Timestamp((new Date()).getTime()));
-			((Traceable) object).setCreateUser(SecurityContextHelper.getRemoteUser());
+			((Traceable) object).setCreateUser(SecurityContextHelper.getRemoteUserName());
 		}
 
 		if (object instanceof Versionable) {
@@ -188,7 +188,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 	public void update(T object) throws PrincipalNullException {
 		if (object instanceof Auditable) {
 			((Auditable) object).setUpdateDate(new Timestamp((new Date()).getTime()));
-			((Auditable) object).setUpdateUser(SecurityContextHelper.getRemoteUser());
+			((Auditable) object).setUpdateUser(SecurityContextHelper.getRemoteUserName());
 		}
 
 		Session sess = getSession();

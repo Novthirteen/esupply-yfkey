@@ -1,25 +1,35 @@
 package com.yfkey.webapp.action;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.yfkey.model.Gender;
+import com.opensymphony.xwork2.Preparable;
 import com.yfkey.Constants;
+import com.yfkey.exception.PrincipalNullException;
+import com.yfkey.exception.UserPasswordNotValidException;
+import com.yfkey.model.Gender;
 import com.yfkey.model.LabelValue;
 import com.yfkey.model.LabelValueComparator;
 import com.yfkey.model.Permission;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.Role;
-import com.yfkey.model.Supply;
 import com.yfkey.model.User;
 import com.yfkey.model.UserAuthority;
+import com.yfkey.model.UserPasswordLog;
 import com.yfkey.service.UniversalManager;
 import com.yfkey.service.UserManager;
 import com.yfkey.util.NativeSqlRepository;
@@ -28,7 +38,7 @@ import com.yfkey.webapp.util.SecurityContextHelper;
 /**
  * Action for facilitating User Management feature.
  */
-public class UserAction extends BaseAction {
+public class UserAction extends BaseAction implements Preparable {
 	private static final long serialVersionUID = 6776558938712115191L;
 	private List<User> users;
 	private User user;
@@ -139,8 +149,41 @@ public class UserAction extends BaseAction {
 		return genderList;
 	}
 
-	public String home() {
-		if (this.getRequest().getSession().getAttribute(Constants.SELECTED_USER_PLANT) == null) {
+	public String home() throws PrincipalNullException {
+		HttpSession session = this.getRequest().getSession();
+		if (session.getAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK) == null) {
+			try {
+				user = SecurityContextHelper.getRemoteUser();
+			} catch (PrincipalNullException e) {
+				return ERROR;
+			}
+
+			if (user.isEnforcePassword()) {
+				List<UserPasswordLog> userPasswordLogList = this.universalManager.findByHql(
+						"from UserPasswordLog where username = ? order by createDate desc", user.getUsername(), 1);
+
+				if (userPasswordLogList != null && userPasswordLogList.size() > 0) {
+					Calendar cal = Calendar.getInstance();
+					cal.add(Calendar.MONTH, -3);
+
+					if (userPasswordLogList.get(0).getCreateDate().compareTo(cal.getTime()) < 0) {
+						user.setConfirmPassword(user.getPassword());
+						session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
+					}
+				} else {
+					UserPasswordLog userPasswordLog = new UserPasswordLog();
+					userPasswordLog.setUsername(user.getUsername());
+					userPasswordLog.setPassword(user.getPassword());
+					userPasswordLog.setCreateDate(new Timestamp((new Date()).getTime()));
+
+					this.universalManager.save(userPasswordLog);
+				}
+			}
+
+			session.setAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK, true);
+		}
+
+		if (session.getAttribute(Constants.SELECTED_USER_PLANT) == null) {
 			Collection<UserAuthority> userPlants = SecurityContextHelper.getRemoteUserPlants();
 
 			if (CollectionHelper.isEmpty(userPlants)) {
@@ -148,11 +191,10 @@ public class UserAction extends BaseAction {
 				return ERROR;
 			} else {
 				if (userPlants.size() == 1) {
-					this.getRequest().getSession().setAttribute(Constants.SELECTED_USER_PLANT,
-							userPlants.iterator().next().getAuthority());
+					session.setAttribute(Constants.SELECTED_USER_PLANT, userPlants.iterator().next().getAuthority());
 				}
 
-				if (this.getRequest().getSession().getAttribute(Constants.AVAILABLE_USER_PLANTS) == null) {
+				if (session.getAttribute(Constants.AVAILABLE_USER_PLANTS) == null) {
 					List<LabelValue> availableUserPlants = new ArrayList<LabelValue>();
 					for (UserAuthority userAuthority : userPlants) {
 						availableUserPlants
@@ -161,7 +203,7 @@ public class UserAction extends BaseAction {
 
 					availableUserPlants.sort(labelValueComparator);
 
-					this.getRequest().getSession().setAttribute(Constants.AVAILABLE_USER_PLANTS, availableUserPlants);
+					session.setAttribute(Constants.AVAILABLE_USER_PLANTS, availableUserPlants);
 				}
 			}
 		}
@@ -245,15 +287,15 @@ public class UserAction extends BaseAction {
 	 * @throws Exception
 	 *             when setting "access denied" fails on response
 	 */
-	public String save() throws Exception {
+	public String saveUser() throws Exception {
 		try {
 			List<Object> args = new ArrayList<Object>();
 			args.add(user.getUsername());
 			if (user.getVersion() == 0) {
 				if (!universalManager.exists(User.class, user.getUsername())) {
-					user.setPassword(passwordEncoder.encode(user.getPassword()));
-					universalManager.save(user);
-					saveMessage(getText("user.created", args));
+					this.encodePassword(user);
+					this.userManager.saveUser(user);
+					saveMessage(getText("user.added", args));
 				} else {
 					return showUserExistsException();
 				}
@@ -262,11 +304,18 @@ public class UserAction extends BaseAction {
 				final String currentPassword = (String) this.universalManager
 						.findByNativeSql(NativeSqlRepository.SELECT_USER_PASSWORD_STATEMENT, user.getUsername()).get(0);
 				if (!currentPassword.equals(user.getPassword())) {
-					user.setPassword(passwordEncoder.encode(user.getPassword()));
+					this.encodePassword(user);
+					this.userManager.updateUser(user, true);
+				} else {
+					this.userManager.updateUser(user, false);
 				}
-				universalManager.update(user);
+
 				saveMessage(getText("user.updated", args));
 			}
+		} catch (UserPasswordNotValidException ex) {
+			addActionError(ex.getMessage());
+			prepare();
+			return INPUT;
 		} catch (HibernateOptimisticLockingFailureException ex) {
 			saveErrorForStaleObjectStateException();
 			prepare();
@@ -280,7 +329,39 @@ public class UserAction extends BaseAction {
 		prepare();
 		return SUCCESS;
 	}
+	
+	public String saveUserProfile() throws Exception {
+		try {
+			List<Object> args = new ArrayList<Object>();
+			args.add(user.getUsername());
+			final String currentPassword = (String) this.universalManager
+					.findByNativeSql(NativeSqlRepository.SELECT_USER_PASSWORD_STATEMENT, user.getUsername()).get(0);
+			if (!currentPassword.equals(user.getPassword())) {
+				this.encodePassword(user);
+				this.userManager.updateUser(user, true);
+			} else {
+				this.userManager.updateUser(user, false);
+			}
 
+			saveMessage(getText("user.updated", args));
+		} catch (UserPasswordNotValidException ex) {
+			addActionError(ex.getMessage());
+			prepare();
+			return INPUT;
+		} catch (HibernateOptimisticLockingFailureException ex) {
+			saveErrorForStaleObjectStateException();
+			prepare();
+			return INPUT;
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			prepare();
+			return INPUT;
+		}
+
+		prepare();
+		return SUCCESS;
+	}
+	
 	/**
 	 * Fetch all users from database and put into local "users" variable for
 	 * retrieval in the UI.
@@ -324,6 +405,28 @@ public class UserAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	public String savePassword() {
+		try {
+			user.setUsername(username);
+			List<Object> args = new ArrayList<Object>();
+			args.add(user.getUsername());
+			user.setEnforcePassword(true);
+			encodePassword(user);
+			this.userManager.saveUserPassword(user.getUsername(), user.getPassword());
+			saveMessage(getText("user.passwordChanged", args));
+		} catch (UserPasswordNotValidException ex) {
+			addActionError(ex.getMessage());
+			return ERROR;
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			return ERROR;
+		}
+		
+		this.getRequest().getSession().removeAttribute(Constants.FORCE_CHANGE_PASSWORD);
+		prepare();
+		return SUCCESS;
+	}
+
 	private void query() {
 		String hql = "from User where 1=1 ";
 		List<Object> args = new ArrayList<Object>();
@@ -348,11 +451,15 @@ public class UserAction extends BaseAction {
 		users = universalManager.findByHql(hql, args.toArray());
 	}
 
-	private void prepare() {
+	public void prepare() {
+		if (StringHelper.isEmpty(username)) {
+			username = this.getRequest().getParameter("username");
+		}
+		
 		if (user == null && StringHelper.isNotEmpty(username)) {
 			user = (User) this.universalManager.get(User.class, username);
 		}
-
+		
 		if (user != null && user.getVersion() != 0) {
 			user.setConfirmPassword(user.getPassword());
 			prepareAssignPermission();
@@ -373,7 +480,6 @@ public class UserAction extends BaseAction {
 								username });
 
 		this.assignedPermissions = assignedPermissionList;
-
 	}
 
 	private void prepareAssignRole() {
@@ -414,5 +520,76 @@ public class UserAction extends BaseAction {
 		addActionError(getText("user.errors.existingUser", args));
 
 		return INPUT;
+	}
+
+	private void encodePassword(User user) throws UserPasswordNotValidException {
+		String password = user.getPassword().trim();
+		if (user.isEnforcePassword()) {
+			if (password.length() < 8) {
+				throw new UserPasswordNotValidException(getText("user.password.error.minlength"));
+			}
+
+			if (containLetterTypes(password) < 3) {
+				throw new UserPasswordNotValidException(getText("user.password.error.letterTypes"));
+			}
+
+			List<UserPasswordLog> userPasswordLogList = this.universalManager.findByHql(
+					"from UserPasswordLog where username = ? order by createDate desc", user.getUsername(), 3);
+
+			if (userPasswordLogList != null && userPasswordLogList.size() > 0) {
+				for (UserPasswordLog userPasswordLog : userPasswordLogList) {
+					if (passwordEncoder.matches(password, userPasswordLog.getPassword())) {
+						throw new UserPasswordNotValidException(getText("user.password.error.passwordAge"));
+					}
+				}
+			}
+		}
+
+		user.setPassword(passwordEncoder.encode(password));
+	}
+
+	private int containLetterTypes(String str) {
+		int letterTypes = 0;
+		if (containDigit(str)) {
+			letterTypes++;
+		}
+
+		if (containSmallLetter(str)) {
+			letterTypes++;
+		}
+
+		if (containCapitalLetter(str)) {
+			letterTypes++;
+		}
+
+		if (containSpecialLetter(str)) {
+			letterTypes++;
+		}
+
+		return letterTypes;
+	}
+
+	private boolean containDigit(String str) {
+		String regex = ".*[0-9]+.*";
+		Matcher m = Pattern.compile(regex).matcher(str);
+		return m.matches();
+	}
+
+	private boolean containSmallLetter(String str) {
+		String regex = ".*[a-z]+.*";
+		Matcher m = Pattern.compile(regex).matcher(str);
+		return m.matches();
+	}
+
+	private boolean containCapitalLetter(String str) {
+		String regex = ".*[A-Z]+.*";
+		Matcher m = Pattern.compile(regex).matcher(str);
+		return m.matches();
+	}
+
+	private boolean containSpecialLetter(String str) {
+		String regex = ".*[^a-zA-Z0-9]+.*";
+		Matcher m = Pattern.compile(regex).matcher(str);
+		return m.matches();
 	}
 }

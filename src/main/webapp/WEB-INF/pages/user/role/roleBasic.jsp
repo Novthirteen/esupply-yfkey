@@ -27,6 +27,7 @@
 		<div class="col-xs-4">
 			<c:choose>
 				<c:when test="${role.version != 0}">
+					<input type="hidden" name="code" value="${role.code}" />
 					<s:hidden key="role.code" />
 					<s:hidden key="role.version" />
 					<s:label key="role.code" cssClass="form-control" />

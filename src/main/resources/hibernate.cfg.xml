@@ -17,5 +17,6 @@
 		<mapping class="com.yfkey.model.Item" />
 		<mapping class="com.yfkey.model.Supply" />
 		<mapping class="com.yfkey.model.Shipto" />
+		<mapping class="com.yfkey.model.UserPasswordLog" />
     </session-factory>
 </hibernate-configuration>
