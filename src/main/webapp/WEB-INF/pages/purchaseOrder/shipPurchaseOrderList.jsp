@@ -20,7 +20,7 @@
 
 		<div class="col-xs-4 search-group">
 			<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
-			<input id="tt_xpyhmstro_shipto"
+			<input id="tt_xpyhmstro_shipto" value="${purchaseOrder.tt_xpyhmstro_shipto}" 
 				name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
 				class="col-md-12 form-control" placeholder="" autocomplete="off" />
 		</div>

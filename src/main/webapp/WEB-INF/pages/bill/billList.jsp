@@ -31,10 +31,17 @@
 			<div class="col-xs-4 search-group">
 				<fmt:message key="bill.tt_xprcmstro_suppcode" />
 				<input id="tt_xprcmstro_suppcode" name="bill.tt_xprcmstro_suppcode"
-					type="text" class="col-md-12 form-control" placeholder=""
-					autocomplete="off" />
+					value="${bill.tt_xprcmstro_suppcode}" type="text"
+					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
-			<div class="col-xs-4 search-group" layouttrim>
+			<div class="col-xs-4 search-group">
+
+				<s:select key="bill.tt_xprcmstro_stat"
+					list="billStatusList" listKey="label" listValue="value"
+					cssClass="form-control" />
+
+			</div>
+			<div class="col-xs-4 search-group layouttrim" >
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="bills"
 					key="button.search" theme="simple">

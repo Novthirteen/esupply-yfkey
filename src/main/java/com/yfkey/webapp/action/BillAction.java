@@ -142,7 +142,7 @@ public class BillAction extends BaseAction {
 	public String confirm() {
 		try {
 			if (ConnectQAD()) {
-				Update(bill,"0","");
+				Update(bill, "4", "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -153,7 +153,7 @@ public class BillAction extends BaseAction {
 	public String refuse() {
 		try {
 			if (ConnectQAD()) {
-				Update(bill,"2","");
+				Update(bill, "3", "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -164,7 +164,7 @@ public class BillAction extends BaseAction {
 	public String agree() {
 		try {
 			if (ConnectQAD()) {
-				Update(bill,"1","");
+				Update(bill, "6", "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,7 +175,7 @@ public class BillAction extends BaseAction {
 	public String print() {
 		try {
 			if (ConnectQAD()) {
-				
+
 				String userCode = this.getRequest().getRemoteUser();
 
 				String domain = getCurrentDomain();
@@ -202,15 +202,13 @@ public class BillAction extends BaseAction {
 					billDetails = (List<BillDetail>) objList.get(1);
 					bill.setBillDetailList(billDetails);
 				}
-				
 
 				String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
-				inputStream = PrintBillUtil.PrintBill(localAbsolutPath, "Bill.pdf",
-						bill);
+				inputStream = PrintBillUtil.PrintBill(localAbsolutPath, "Bill.pdf", bill);
 
 				fileName = "bill_" + bill.getTt_xprcmstro_xprcmstroid() + ".pdf";
-				
-				Update(bill,"1","0");
+
+				Update(bill, bill.getTt_xprcmstro_stat(), "0");
 
 			}
 		} catch (Exception e) {
@@ -218,12 +216,8 @@ public class BillAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	private void Update(Bill b,String satus,String isPrint)
-	{
+
+	private void Update(Bill b, String satus, String isPrint) {
 		String userCode = this.getRequest().getRemoteUser();
 
 		ProDataGraph exDataGraph; // 输入参数
@@ -234,17 +228,32 @@ public class BillAction extends BaseAction {
 
 			ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
 
-			object.setString(0, b.getTt_xprcmstro_xprcmstroid());
-			object.setInt(1, 0);
-			object.setBigDecimal(2, BigDecimal.ZERO);
-			object.setString(3, "");
-			object.setBigDecimal(4, BigDecimal.ZERO);
-			object.setString(5, "");
-			object.setString(6, "");
-			object.setString(7, satus);
-			object.setString(8, "");
-			object.setString(9, isPrint); // ""为确认，0为打印
-			object.setString(10, userCode);
+			// 提交状态同时提交信息
+			if (satus == "4") {
+				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
+				object.setInt(1, b.getTt_xprcmstro_qty());
+				object.setBigDecimal(2, bill.getTt_xprcmstro_taxamt());
+				object.setString(3, bill.getTt_xprcmstro_invdate());
+				object.setBigDecimal(4, bill.getTt_xprcmstro_notaxamt());
+				object.setString(5, bill.getTt_xprcmstro_invnbr());
+				object.setString(6, bill.getTt_xprcmstro_rmk());
+				object.setString(7, satus);
+				object.setString(8, bill.getTt_xprcmstro_indexinvnbr());
+				object.setString(9, isPrint); // ""为确认，0为打印
+				object.setString(10, userCode);
+			} else {
+				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
+				object.setInt(1, 0);
+				object.setBigDecimal(2, BigDecimal.ZERO);
+				object.setString(3, "");
+				object.setBigDecimal(4, BigDecimal.ZERO);
+				object.setString(5, "");
+				object.setString(6, "");
+				object.setString(7, satus);
+				object.setString(8, "");
+				object.setString(9, isPrint); // ""为确认，0为打印
+				object.setString(10, userCode);
+			}
 
 			exDataGraph.addProDataObject(object);
 
@@ -263,15 +272,17 @@ public class BillAction extends BaseAction {
 		if (bill == null) {
 			bill = new Bill();
 		}
-		
-		if(bill.getTt_xprcmstro_suppcode()!= null && !bill.getTt_xprcmstro_suppcode().equals(""))
-		{
-			String suppcode= bill.getTt_xprcmstro_suppcode();
 
-			if(suppcode.contains("(")){
+		if (bill.getTt_xprcmstro_suppcode() != null && !bill.getTt_xprcmstro_suppcode().equals("")) {
+			String suppcode = bill.getTt_xprcmstro_suppcode();
+
+			if (suppcode.contains("(")) {
 				bill.setTt_xprcmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
 			}
 		}
+//		if (bill.getTt_xprcmstro_stat() == null || bill.getTt_xprcmstro_stat().equals("")) {
+//			bill.setTt_xprcmstro_stat(("3,4,6"));
+//		}
 		query();
 		return SUCCESS;
 	}
@@ -310,8 +321,9 @@ public class BillAction extends BaseAction {
 							bill.getTt_xprcmstro_voucher() == null ? "" : bill.getTt_xprcmstro_voucher().trim());
 					objectMstr.setString(1,
 							bill.getTt_xprcmstri_fromdate() == null ? "" : bill.getTt_xprcmstri_fromdate().trim());
-					objectMstr.setString(2, bill.getTt_xprcmstri_todate() == null ? "" : bill.getTt_xprcmstri_todate().trim());
-
+					objectMstr.setString(2,
+							bill.getTt_xprcmstri_todate() == null ? "" : bill.getTt_xprcmstri_todate().trim());
+					objectMstr.setString(3, bill.getTt_xprcmstro_stat() == null ? "3,4,6" : bill.getTt_xprcmstro_stat());
 				}
 
 				exDataGraph.addProDataObject(objectMstr);
@@ -334,19 +346,18 @@ public class BillAction extends BaseAction {
 
 		}
 	}
-	
-
 
 	public List<LabelValue> getBillStatusList() {
-		List<LabelValue> receiptStatusList = new ArrayList<LabelValue>();
-		receiptStatusList.add(new LabelValue("", getText("xprc_status.Empty")));
-		receiptStatusList.add(new LabelValue("0", getText("xprc_status.Initial")));
-		receiptStatusList.add(new LabelValue("1", getText("xprc_status.Create")));
-		receiptStatusList.add(new LabelValue("2", getText("xprc_status.Submit")));
-		receiptStatusList.add(new LabelValue("3", getText("xprc_status.Cancel")));
-		receiptStatusList.add(new LabelValue("4", getText("xprc_status.Close")));
-
-		return receiptStatusList;
+		List<LabelValue> billStatusList = new ArrayList<LabelValue>();
+		billStatusList.add(new LabelValue("", getText("xprc_status.Empty")));
+		billStatusList.add(new LabelValue("0", getText("xprc_status.Initial")));
+		billStatusList.add(new LabelValue("1", getText("xprc_status.Create")));
+		billStatusList.add(new LabelValue("2", getText("xprc_status.Cancel")));
+		billStatusList.add(new LabelValue("3", getText("xprc_status.Submit")));
+		billStatusList.add(new LabelValue("4", getText("xprc_status.Confirm")));
+		billStatusList.add(new LabelValue("5", getText("xprc_status.Close")));
+        billStatusList.add(new LabelValue("6", getText("xprc_status.InProcess")));
+		return billStatusList;
 	}
 
 	public String getBillStatus(String status) {
@@ -365,7 +376,13 @@ public class BillAction extends BaseAction {
 			statusDesc = getText("xprc_status.Submit");
 			break;
 		case "4":
+			statusDesc = getText("xprc_status.Confirm");
+			break;
+		case "5":
 			statusDesc = getText("xprc_status.Close");
+			break;
+		case "6":
+			statusDesc = getText("xprc_status.InProcess");
 			break;
 		default:
 			break;
@@ -373,4 +390,5 @@ public class BillAction extends BaseAction {
 
 		return statusDesc;
 	}
+
 }

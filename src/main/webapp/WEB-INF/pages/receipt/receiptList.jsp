@@ -22,7 +22,7 @@
 		</div>
 		<div class="col-xs-4 search-group">
 			<fmt:message key="receipt.tt_prhmstro_suppcode" />
-			<input id="tt_prhmstro_suppcode" name="receipt.tt_prhmstro_suppcode"
+			<input id="tt_prhmstro_suppcode" name="receipt.tt_prhmstro_suppcode"  value="${receipt.tt_prhmstro_suppcode}" 
 				type="text" class="col-md-12 form-control" placeholder=""
 				autocomplete="off" />
 		</div>
@@ -38,7 +38,7 @@
 		</div>
 		<div class="col-xs-4 search-group">
 			<fmt:message key="receipt.tt_prhmstri_partnbr" />
-			<input id="tt_prhmstri_partnbr" name="receipt.tt_prhmstri_partnbr"
+			<input id="tt_prhmstri_partnbr" name="receipt.tt_prhmstri_partnbr"  value="${receipt.tt_prhmstri_partnbr}" 
 				type="text" class="col-md-12 form-control" placeholder=""
 				autocomplete="off" />
 		</div>

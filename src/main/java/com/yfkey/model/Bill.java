@@ -32,7 +32,7 @@ public class Bill extends BaseObject {
 	private BigDecimal tt_xprcmstro_notaxamt; // 不含税金额
 	private String tt_xprcmstro_invnbr; // 发票号
 	private String tt_xprcmstro_rmk; // 备注
-	private String tt_xprcmstri_indexinvnbr; // 第一張发票号
+	private String tt_xprcmstro_indexinvnbr; // 第一張发票号
 	private String tt_xprcmstro_claiminv; //索赔发票
 	private String tt_xprcmstro_type; //发票类型
 	
@@ -176,12 +176,12 @@ public class Bill extends BaseObject {
 		this.tt_suppcodei_suppcode = tt_suppcodei_suppcode;
 	}
 
-	public String getTt_xprcmstri_indexinvnbr() {
-		return tt_xprcmstri_indexinvnbr;
+	public String getTt_xprcmstro_indexinvnbr() {
+		return tt_xprcmstro_indexinvnbr;
 	}
 
-	public void setTt_xprcmstri_indexinvnbr(String tt_xprcmstri_indexinvnbr) {
-		this.tt_xprcmstri_indexinvnbr = tt_xprcmstri_indexinvnbr;
+	public void setTt_xprcmstro_indexinvnbr(String tt_xprcmstri_indexinvnbr) {
+		this.tt_xprcmstro_indexinvnbr = tt_xprcmstri_indexinvnbr;
 	}
 
 	

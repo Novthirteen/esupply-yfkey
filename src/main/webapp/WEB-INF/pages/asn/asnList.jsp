@@ -27,21 +27,21 @@
 		<div class="row">
 			<div class="col-xs-4 search-group">
 				<fmt:message key="asn.tt_xasnmstro_suppcode" />
-				<input id="tt_xasnmstro_suppcode" name="asn.tt_xasnmstro_suppcode"
+				<input id="tt_xasnmstro_suppcode" name="asn.tt_xasnmstro_suppcode" value="${asn.tt_xasnmstro_suppcode}" 
 					type="text" class="col-md-12 form-control" placeholder=""
 					autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<fmt:message key="asn.tt_xasnmstro_shipto" />
-				<input id="tt_xasnmstro_shipto" name="asn.tt_xasnmstro_shipto"
+				<input id="tt_xasnmstro_shipto" name="asn.tt_xasnmstro_shipto" value="${asn.tt_xasnmstro_shipto}" 
 					type="text" class="col-md-12 form-control" placeholder=""
 					autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<fmt:message key="asn.tt_xasnmstri_partnbr" />
 				<input id="tt_xasnmstri_partnbr" name="asn.tt_xasnmstri_partnbr"
-					type="text" class="col-md-12 form-control" placeholder=""
-					autocomplete="off" />
+					value="${asn.tt_xasnmstri_partnbr}" type="text"
+					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
 		</div>
 		<div class="row">

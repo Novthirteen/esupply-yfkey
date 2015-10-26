@@ -20,13 +20,13 @@
 			<div class="col-xs-4 search-group">
 				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_shipto" />
 				<input id="tt_xpyhddeto_shipto"
-					name="purchaseOrderDetail.tt_xpyhddeto_shipto" type="text"
+					name="purchaseOrderDetail.tt_xpyhddeto_shipto" type="text" value="${purchaseOrderDetail.tt_xpyhddeto_shipto}" 
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
 				<input id="tt_xpyhddeto_partnbr"
-					name="purchaseOrderDetail.tt_xpyhddeto_partnbr" type="text"
+					name="purchaseOrderDetail.tt_xpyhddeto_partnbr" type="text" value="${purchaseOrderDetail.tt_xpyhddeto_partnbr}" 
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
 		</div>
@@ -35,6 +35,7 @@
 				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_suppcode" />
 				<input id="tt_xpyhddeto_suppcode"
 					name="purchaseOrderDetail.tt_xpyhddeto_suppcode" type="text"
+					value="${purchaseOrderDetail.tt_xpyhddeto_suppcode}"
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">

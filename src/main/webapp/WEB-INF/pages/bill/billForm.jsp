@@ -32,14 +32,14 @@
 
 
 	<div id="actions" class="form-actions">
-		<c:if test="${bill.tt_xprcmstro_stat eq '1'}">
+		<c:if test="${bill.tt_xprcmstro_stat eq '3'}">
 			<s:submit type="button" cssClass="btn btn-primary"
 				action="confirmBill" key="button.confirm" theme="simple">
 				<i class="icon-confirm icon-white"></i>
 				<fmt:message key="button.confirm" />
 			</s:submit>
 		</c:if>
-		<c:if test="${bill.tt_xprcmstro_stat eq '2'}">
+		<c:if test="${bill.tt_xprcmstro_stat eq '4'}">
 			<s:submit type="button" cssClass="btn btn-primary" action="agreeBill"
 				key="button.agree" theme="simple">
 				<i class="icon-agree icon-white"></i>
@@ -113,7 +113,7 @@
 			<s:textfield key="bill.tt_xprcmstro_totalamt" cssClass="form-control" />
 		</div>
 		<div class="col-xs-4">
-			<s:textfield key="bill.tt_xprcmstri_indexinvnbr"
+			<s:textfield key="bill.tt_xprcmstro_indexinvnbr"
 				cssClass="form-control" />
 		</div>
 	</div>
