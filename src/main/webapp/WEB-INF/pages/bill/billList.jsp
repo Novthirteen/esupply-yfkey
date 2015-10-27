@@ -15,15 +15,11 @@
 				<s:textfield cssClass="form-control search-control"
 					key="bill.tt_xprcmstro_voucher" />
 			</div>
-
-
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="bill.tt_xprcmstri_fromdate" />
+				<s:textfield cssClass="form-control search-control" id="tt_xprcmstri_fromdate" key="bill.tt_xprcmstri_fromdate" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="bill.tt_xprcmstri_todate" />
+				<s:textfield cssClass="form-control search-control" id="tt_xprcmstri_todate" key="bill.tt_xprcmstri_todate" />
 			</div>
 		</div>
 
@@ -110,5 +106,19 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
+		
+		$('#tt_xprcmstri_fromdate').datepicker({
+		    format: "yyyymmdd",
+		    language:  "${pageContext.response.locale}",
+		    autoclose: true,
+		    todayHighlight: true
+		});
+		
+		$('#tt_xprcmstri_todate').datepicker({
+		    format: "yyyymmdd",
+		    language:  "${pageContext.response.locale}",
+		    autoclose: true,
+		    todayHighlight: true
+		});
 	</script>
 </body>

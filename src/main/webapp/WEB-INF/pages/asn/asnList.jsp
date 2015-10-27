@@ -46,12 +46,10 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="asn.tt_xasnmstri_fromdate" />
+				<s:textfield cssClass="form-control search-control" id="tt_xasnmstri_fromdate" key="asn.tt_xasnmstri_fromdate" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="asn.tt_xasnmstri_todate" />
+				<s:textfield cssClass="form-control search-control" id="tt_xasnmstri_todate" key="asn.tt_xasnmstri_todate" />
 			</div>
 
 			<div class="col-xs-4 search-group layouttrim">
@@ -208,6 +206,20 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
+		
+		$('#tt_xasnmstri_fromdate').datepicker({
+		    format: "yyyymmdd",
+		    language:  "${pageContext.response.locale}",
+		    autoclose: true,
+		    todayHighlight: true
+		});
+		
+		$('#tt_xasnmstri_todate').datepicker({
+		    format: "yyyymmdd",
+		    language:  "${pageContext.response.locale}",
+		    autoclose: true,
+		    todayHighlight: true
+		});
 	</script>
 
 

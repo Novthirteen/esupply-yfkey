@@ -29,12 +29,11 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="receipt.tt_prhmstri_fromdate" />
+			
+			<s:textfield cssClass="form-control search-control" id="tt_prhmstri_fromdate" key="receipt.tt_prhmstri_fromdate" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="receipt.tt_prhmstri_todate" />
+			<s:textfield cssClass="form-control search-control" id="tt_prhmstri_todate" key="receipt.tt_prhmstri_todate" />
 		</div>
 		<div class="col-xs-4 search-group">
 			<fmt:message key="receipt.tt_prhmstri_partnbr" />
@@ -181,6 +180,20 @@
 		displayField : 'label',
 		valueField : 'value'
 	//onSelect: displayResult
+	});
+	
+	$('#tt_prhmstri_fromdate').datepicker({
+	    format: "yyyymmdd",
+	    language:  "${pageContext.response.locale}",
+	    autoclose: true,
+	    todayHighlight: true
+	});
+	
+	$('#tt_prhmstri_todate').datepicker({
+	    format: "yyyymmdd",
+	    language:  "${pageContext.response.locale}",
+	    autoclose: true,
+	    todayHighlight: true
 	});
 </script>
 

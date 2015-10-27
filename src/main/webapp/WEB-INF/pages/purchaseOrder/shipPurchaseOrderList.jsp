@@ -60,11 +60,18 @@
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_shipto" />
 	<display:column property="tt_xpyhmstro_priority" escapeXml="true"
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_priority" />
-
-
-	<display:column property="tt_xpyhmstro_conf" escapeXml="true"
-		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_conf" />
-
+	<c:choose>
+		<c:when test="${purchaseOrder.tt_xpyhmstro_conf eq '0'}">
+			<fmt:message key="common.no" />
+			<%-- 	<display:column property="tt_xpyhmstro_conf" escapeXml="true" --%>
+			<%-- 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_conf" /> --%>
+		</c:when>
+		<c:otherwise>
+			<fmt:message key="common.yes" />
+		</c:otherwise>
+		
+	</c:choose>
+	
 	<display:column property="tt_xpyhmstro_print" escapeXml="true"
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_print" />
 

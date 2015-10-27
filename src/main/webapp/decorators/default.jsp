@@ -16,6 +16,8 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/styles/lib/bootstrap-duallistbox.min.css'/>" />
 <link rel="stylesheet" type="text/css" media="all"
+	href="<c:url value='/styles/lib/bootstrap-datepicker3.min.css'/>" />
+<link rel="stylesheet" type="text/css" media="all"
 	href="<c:url value='/styles/style.css'/>" />
 <decorator:head />
 
@@ -28,7 +30,12 @@
 <script type="text/javascript"
 	src="<c:url value='/scripts/lib/jquery.bootstrap-duallistbox.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/lib/bootstrap3-typeahead.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/scripts/lib/bootstrap3-typeahead.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/scripts/lib/bootstrap-datepicker.min.js'/>"></script>
+<script type="text/javascript" charset="UTF-8"
+	src="<c:url value='/scripts/lib/locales/bootstrap-datepicker.zh_CN.min.js'/>"></script>
 <script>
 	var themes = {
 		"default" : "<c:url value='/styles/lib/bootstrap.min.css'/>",
@@ -121,25 +128,25 @@
 				</div>
 			</c:if>
 		</div>
-		
+
 		<c:if test="${empty sessionScope.forceChangePassword}">
-		<%@ include file="/common/messages.jsp"%>
+			<%@ include file="/common/messages.jsp"%>
 		</c:if>
 		<div class="row">
 			<c:if test="${pageContext.request.remoteUser != null}">
 				<%@ include file="/common/menu.jsp"%>
-        	</c:if>	
-	        <c:choose>
-			   <c:when test="${pageContext.request.remoteUser != null}">  
-			   		<div class="col-sm-10 col-md-10">
+			</c:if>
+			<c:choose>
+				<c:when test="${pageContext.request.remoteUser != null}">
+					<div class="col-sm-10 col-md-10">
 						<decorator:body />
 					</div>
-			   </c:when>
-			   <c:otherwise> 
+				</c:when>
+				<c:otherwise>
 					<div class="col-sm-12 col-md-12">
 						<decorator:body />
 					</div>
-			   </c:otherwise>
+				</c:otherwise>
 			</c:choose>
 		</div>
 		<c:if
@@ -180,11 +187,14 @@
 				var language = $(this).attr("data-language");
 				location.href = "<c:url value='/home?locale='/>" + language;
 			});
-			
-			$(".plant-link").click(function() {
-				var plant = $(this).attr("data-plant");
-				location.href = "<c:url value='/selectUserPlant?plantCode='/>" + plant;
-			});
+
+			$(".plant-link")
+					.click(
+							function() {
+								var plant = $(this).attr("data-plant");
+								location.href = "<c:url value='/selectUserPlant?plantCode='/>"
+										+ plant;
+							});
 
 			<c:choose>
 			<c:when test="${not empty sessionScope.theme}">
@@ -219,8 +229,6 @@
 											.text() + "]<b class='caret'></b>");
 			</c:if>
 		});
-		
-	
 	</script>
 </body>
 </html>

@@ -35,12 +35,10 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_fromdate" />
+				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_fromdate" key="purchaseOrder.tt_xpyhmstro_fromdate" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_enddate" />
+				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_enddate" key="purchaseOrder.tt_xpyhmstro_enddate" />
 			</div>
 		</div>
 		<div class="row">
@@ -163,6 +161,20 @@
 					valueField : 'value'
 				//onSelect: displayResult
 				});
+		
+		$('#tt_xpyhmstro_fromdate').datepicker({
+		    format: "yyyymmdd",
+		    language:  "${pageContext.response.locale}",
+		    autoclose: true,
+		    todayHighlight: true
+		});
+		
+		$('#tt_xpyhmstro_enddate').datepicker({
+		    format: "yyyymmdd",
+		    language:  "${pageContext.response.locale}",
+		    autoclose: true,
+		    todayHighlight: true
+		});
 	</script>
 </body>
 

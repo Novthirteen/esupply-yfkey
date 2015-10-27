@@ -50,12 +50,11 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_startdt" />
+				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_startdt" key="purchaseOrder.tt_xpyhmstro_startdt" />
 			</div>
+		
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_receptdt" />
+				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_receptdt" key="purchaseOrder.tt_xpyhmstro_receptdt" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" />
@@ -242,6 +241,20 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
+		
+		$('#tt_xpyhmstro_startdt').datepicker({
+		    format: "yyyymmdd",
+		    language:  "${pageContext.response.locale}",
+		    autoclose: true,
+		    todayHighlight: true
+		});
+		
+		$('#tt_xpyhmstro_receptdt').datepicker({
+		    format: "yyyymmdd",
+		    language:  "${pageContext.response.locale}",
+		    autoclose: true,
+		    todayHighlight: true
+		});
 	</script>
 </body>
 
