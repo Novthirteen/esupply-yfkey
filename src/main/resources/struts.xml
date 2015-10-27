@@ -195,19 +195,19 @@
 			method="confirm">
 			<result name="success">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
 			</result>
-			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
+			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderList.jsp
 			</result>
 		</action>
 		<action name="closePurchaseOder" class="purchaseOrderAction"
 			method="close">
-			<result name="success">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
+			<result name="success">/WEB-INF/pages/purchaseOrder/purchaseOrderList.jsp
 			</result>
 			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
 			</result>
 		</action>
 		<action name="deletePurchaseOder" class="purchaseOrderAction"
 			method="delete">
-			<result name="success">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
+			<result name="success">/WEB-INF/pages/purchaseOrder/purchaseOrderList.jsp
 			</result>
 			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
 			</result>
@@ -347,19 +347,19 @@
 			</result>
 		</action>
 		<action name="agreeBill" class="billAction" method="agree">
-			<result name="success">/WEB-INF/pages/bill/billForm.jsp
+			<result name="success">/WEB-INF/pages/bill/billList.jsp
 			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
 		<action name="refuseBill" class="billAction" method="refuse">
-			<result name="success">/WEB-INF/pages/bill/billForm.jsp
+			<result name="success">/WEB-INF/pages/bill/billList.jsp
 			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
 		<action name="confirmBill" class="billAction" method="confirm">
-			<result name="success">/WEB-INF/pages/bill/billForm.jsp
+			<result name="success">/WEB-INF/pages/bill/billList.jsp
 			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>

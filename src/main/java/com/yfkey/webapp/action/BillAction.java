@@ -350,9 +350,9 @@ public class BillAction extends BaseAction {
 	public List<LabelValue> getBillStatusList() {
 		List<LabelValue> billStatusList = new ArrayList<LabelValue>();
 		billStatusList.add(new LabelValue("", getText("xprc_status.Empty")));
-		billStatusList.add(new LabelValue("0", getText("xprc_status.Initial")));
-		billStatusList.add(new LabelValue("1", getText("xprc_status.Create")));
-		billStatusList.add(new LabelValue("2", getText("xprc_status.Cancel")));
+//		billStatusList.add(new LabelValue("0", getText("xprc_status.Initial")));
+//		billStatusList.add(new LabelValue("1", getText("xprc_status.Create")));
+//		billStatusList.add(new LabelValue("2", getText("xprc_status.Cancel")));
 		billStatusList.add(new LabelValue("3", getText("xprc_status.Submit")));
 		billStatusList.add(new LabelValue("4", getText("xprc_status.Confirm")));
 		billStatusList.add(new LabelValue("5", getText("xprc_status.Close")));
@@ -363,15 +363,15 @@ public class BillAction extends BaseAction {
 	public String getBillStatus(String status) {
 		String statusDesc = "";
 		switch (status) {
-		case "0":
-			statusDesc = getText("xprc_status.Initial");
-			break;
-		case "1":
-			statusDesc = getText("xprc_status.Create");
-			break;
-		case "2":
-			statusDesc = getText("xprc_status.Cancel");
-			break;
+//		case "0":
+//			statusDesc = getText("xprc_status.Initial");
+//			break;
+//		case "1":
+//			statusDesc = getText("xprc_status.Create");
+//			break;
+//		case "2":
+//			statusDesc = getText("xprc_status.Cancel");
+//			break;
 		case "3":
 			statusDesc = getText("xprc_status.Submit");
 			break;

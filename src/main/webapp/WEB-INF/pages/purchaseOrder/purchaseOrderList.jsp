@@ -27,8 +27,6 @@
 				<input id="tt_xpyhmstro_suppcode"
 					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text" value="${purchaseOrder.tt_xpyhmstro_suppcode}" 
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
-
-
 			</div>
 		</div>
 		<div class="row">
@@ -71,6 +69,8 @@
 		<div class="row">
 			<div class="col-xs-4 search-group layouttrim">
 				<s:checkbox key="purchaseOrder.isDetail" />
+			</div>
+			<div>
 			</div>
 			<div class="col-xs-4 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
