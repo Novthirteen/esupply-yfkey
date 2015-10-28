@@ -13,27 +13,27 @@
 	validate="true" cssClass="well form-horizontal" autocomplete="off">
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="receipt.tt_prhmstro_receiver" cssClass="form-control" />
 			<s:hidden key="receipt.tt_prhmstro_receiver" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="receipt.tt_prhmstro_asnnbr" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="receipt.tt_prhmstro_suppcode" cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="receipt.tt_prhmstro_shipto" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="receipt.tt_prhmstro_rcdate" cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="receipt.tt_prhmstro_rcuserid" cssClass="form-control" />
 		</div>
 	</div>

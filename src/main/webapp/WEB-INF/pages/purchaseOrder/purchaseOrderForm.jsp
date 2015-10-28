@@ -14,39 +14,39 @@
 	autocomplete="off">
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="purchaseOrder.tt_xpyhmstro_yhdnbr"
 				cssClass="form-control" />
 			<s:hidden key="purchaseOrder.tt_xpyhmstro_xpyhmstroid" />
 			<s:hidden key="purchaseOrder.tt_xpyhmstro_stat" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="purchaseOrder.tt_xpyhmstro_priority_desc"
 				cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="purchaseOrder.tt_xpyhmstro_startdt"
 				cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="purchaseOrder.tt_xpyhmstro_receptdt"
 				cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="purchaseOrder.tt_xpyhmstro_suppcode"
 				cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="purchaseOrder.tt_xpyhmstro_shipto"
 				cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="purchaseOrder.tt_xpyhmstro_stat_desc"
 				cssClass="form-control" />
 		</div>
