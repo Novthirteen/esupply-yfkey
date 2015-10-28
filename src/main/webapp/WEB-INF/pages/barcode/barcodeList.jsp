@@ -44,7 +44,7 @@
 			</div>
 			<div class="col-xs-4 search-group layouttrim">
 				<s:radio key="purchaseOrderDetail.isexternal" listValue="value"
-					value="1" listKey="label" list="packageList" />
+					value="0" listKey="label" list="packageList" />
 			</div>
 		</div>
 		<div class="row">

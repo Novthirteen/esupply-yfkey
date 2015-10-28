@@ -280,9 +280,9 @@ public class BillAction extends BaseAction {
 				bill.setTt_xprcmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
 			}
 		}
-//		if (bill.getTt_xprcmstro_stat() == null || bill.getTt_xprcmstro_stat().equals("")) {
-//			bill.setTt_xprcmstro_stat(("3,4,6"));
-//		}
+		if (bill.getTt_xprcmstro_stat() == null || bill.getTt_xprcmstro_stat().equals("")) {
+			bill.setTt_xprcmstro_stat(("3,4,6"));
+		}
 		query();
 		return SUCCESS;
 	}
