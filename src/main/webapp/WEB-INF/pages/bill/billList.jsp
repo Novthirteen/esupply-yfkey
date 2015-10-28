@@ -63,8 +63,19 @@
 			sortable="true" titleKey="bill.tt_xprcmstro_invdate" />
 		<display:column property="tt_xprcmstro_totalamt" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_totalamt" />
-		<display:column property="tt_xprcmstro_printed" escapeXml="true"
-			sortable="true" titleKey="bill.tt_xprcmstro_printed" />
+	
+		<display:column titleKey="bill.tt_xprcmstro_printed" escapeXml="true"
+		sortable="true">
+		<c:choose>
+			<c:when test="${bill.tt_xprcmstro_printed eq '0'}">
+				<fmt:message key="common.no" />
+			</c:when>
+			<c:otherwise>
+				<fmt:message key="common.yes" />
+			</c:otherwise>
+		</c:choose>
+	</display:column>	
+		
 		<display:column property="tt_xprcmstro_stat_desc" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_stat_desc" />
 

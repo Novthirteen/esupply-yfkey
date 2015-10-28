@@ -1,5 +1,7 @@
 package com.yfkey.webapp.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -476,7 +478,7 @@ public final class QADUtil {
 	}
 
 	// bill det
-	public static List<Object> ConvertToBillAndDetail(List<ProDataObject> proDataObjectList) {
+	public static List<Object> ConvertToBillAndDetail(List<ProDataObject> proDataObjectList) throws ParseException {
 		Bill bill = new Bill();
 		List<BillDetail> billDetailList = new ArrayList<BillDetail>();
 		List<Object> billList = new ArrayList<Object>();
@@ -486,7 +488,7 @@ public final class QADUtil {
 
 			bill.setTt_xprcmstro_voucher(om.getString("tt_xpyhddeto_voucher"));
 			bill.setTt_xprcmstro_suppcode(om.getString("tt_xpyhddeto_suppcode"));
-			bill.setTt_xprcmstro_invdate(om.getString("tt_xpyhddeto_invdate"));
+	
 			bill.setTt_xprcmstro_totalamt(om.getBigDecimal("tt_xpyhddeto_totalamt"));
 			bill.setTt_xprcmstro_stat(om.getString("tt_xpyhddeto_stat"));
 
@@ -501,6 +503,15 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			bill.setTt_xprcmstro_indexinvnbr(om.getString("tt_xpyhddeto_indexinvnbr"));
 
+			//日期转一下格式
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
+			String dstr=om.getString("tt_xpyhddeto_invdate");  
+			java.util.Date invDate=sdf.parse(dstr);  
+			
+			SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");  
+			String InvDateStr=sdft.format(invDate);  
+			bill.setTt_xprcmstro_invdate(InvDateStr);
+			
 			billList.add(bill);
 
 			int i = 1;

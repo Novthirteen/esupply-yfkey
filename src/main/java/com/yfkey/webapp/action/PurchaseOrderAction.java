@@ -831,7 +831,7 @@ public class PurchaseOrderAction extends BaseAction {
 	public List<LabelValue> getPurchaseOrderPriorityList() {
 		List<LabelValue> purchaseOrderPriorityList = new ArrayList<LabelValue>();
 		purchaseOrderPriorityList.add(new LabelValue("", getText("xpyh_priority.Empty")));
-		purchaseOrderPriorityList.add(new LabelValue("0", getText("xpyh_priority.Forecast")));
+//		purchaseOrderPriorityList.add(new LabelValue("0", getText("xpyh_priority.Forecast")));
 		purchaseOrderPriorityList.add(new LabelValue("1", getText("xpyh_priority.Normal")));
 		purchaseOrderPriorityList.add(new LabelValue("2", getText("xpyh_priority.Urgent")));
 		return purchaseOrderPriorityList;
@@ -840,9 +840,9 @@ public class PurchaseOrderAction extends BaseAction {
 	public String getPurchaseOrderPriority(String priority) {
 		String priorityDesc = "";
 		switch (priority) {
-		case "0":
-			priorityDesc = getText("xpyh_priority.Forecast");
-			break;
+//		case "0":
+//			priorityDesc = getText("xpyh_priority.Forecast");
+//			break;
 		case "1":
 			priorityDesc = getText("xpyh_priority.Normal");
 			break;

@@ -27,10 +27,10 @@
 		<div class="col-xs-6">
 			<c:choose>
 				<c:when test="${user.version != 0}">
-					<input type="hidden" name="username" value="${user.username}" />
+					<%-- <input type="hidden" name="username" value="${user.username}" /> --%>
 					<s:hidden key="user.username" />
 					<s:hidden key="user.version" />
-					<s:label key="user.username" cssClass="form-control" />
+					<s:textfield key="user.username" cssClass="form-control" readonly="true"/>
 				</c:when>
 				<c:otherwise>
 					<s:textfield key="user.username" required="true"

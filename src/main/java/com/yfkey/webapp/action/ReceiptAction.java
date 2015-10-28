@@ -10,7 +10,9 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -177,6 +179,23 @@ public class ReceiptAction extends BaseAction {
 		if (receipt == null) {
 			receipt = new Receipt();
 			receipt.setIsDetail(false);
+			
+			
+			
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			Date date=new Date();
+			
+			Calendar fca=Calendar.getInstance();
+			fca.setTime(date);
+			fca.add(Calendar.MONTH, -1);
+			String fromDate = sdf.format(fca.getTime());
+			
+			Calendar tca=Calendar.getInstance();
+			tca.setTime(date);
+			String toDate = sdf.format(tca.getTime());
+			
+			receipt.setTt_prhmstri_fromdate(fromDate);
+			receipt.setTt_prhmstri_todate(toDate);
 		}
 		
 		if (receipt.getTt_prhmstri_partnbr()!= null && !receipt.getTt_prhmstri_partnbr().equals("")) {

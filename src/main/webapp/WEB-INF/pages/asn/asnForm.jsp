@@ -13,28 +13,28 @@
 	cssClass="well form-horizontal" autocomplete="off">
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="asn.tt_xasnmstro_asnnbr" cssClass="form-control" />
 			<s:label key="asn.tt_xasnmstro_xasnmstroid" />
 			<s:hidden key="asn.tt_xasnmstro_xasnmstroid" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="asn.tt_xasnmstro_stat_desc" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="asn.tt_xasnmstro_suppcode" cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="asn.tt_xasnmstro_shipto" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="asn.tt_xasnmstro_startdt" cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="asn.tt_xasnmstro_creator" cssClass="form-control" />
 		</div>
 	</div>

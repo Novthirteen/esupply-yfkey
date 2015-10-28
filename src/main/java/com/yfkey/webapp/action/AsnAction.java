@@ -10,7 +10,9 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -192,6 +194,20 @@ public class AsnAction extends BaseAction {
 		if (asn == null) {
 			asn = new Asn();
 			asn.setIsDetail(false);
+			
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			Date date=new Date();
+			Calendar fca=Calendar.getInstance();
+			fca.setTime(date);
+			fca.add(Calendar.MONTH, -1);
+			String fromDate = sdf.format(fca.getTime());
+			
+			Calendar tca=Calendar.getInstance();
+			tca.setTime(date);
+			String toDate = sdf.format(tca.getTime());
+			
+			asn.setTt_xasnmstri_fromdate(fromDate);
+			asn.setTt_xasnmstri_todate(toDate);
 		}
 		
 		// autocomplete要处理一下

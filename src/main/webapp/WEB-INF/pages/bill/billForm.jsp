@@ -13,58 +13,58 @@
 	cssClass="well form-horizontal" autocomplete="off">
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="bill.tt_xprcmstro_voucher" cssClass="form-control" />
 			<s:hidden key="bill.tt_xprcmstro_xprcmstroid" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="bill.tt_xprcmstro_invdate" cssClass="form-control" />
 			
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="bill.tt_xprcmstro_totalamt" cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:label key="bill.tt_xprcmstro_claimamt" cssClass="form-control" />
 		</div>
 	</div>
 	
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:textfield key="bill.tt_xprcmstro_qty" cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			
 			<s:textfield cssClass="form-control search-control" id="tt_xprcmstro_invdate" key="bill.tt_xprcmstro_invdate" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:textfield key="bill.tt_xprcmstro_taxamt" cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:textfield key="bill.tt_xprcmstro_notaxamt" cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:textfield key="bill.tt_xprcmstro_totalamt" cssClass="form-control" />
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 search-group">
 			<s:textfield key="bill.tt_xprcmstro_indexinvnbr"
 				cssClass="form-control" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-8">
+		<div class="col-xs-8 search-group">
 			<s:textfield key="bill.tt_xprcmstro_invnbr" cssClass="form-control"
 				rows="6" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-8">
+		<div class="col-xs-8 search-group">
 			<s:textfield key="bill.tt_xprcmstro_rmk" cssClass="form-control" />
 		</div>
 
@@ -130,10 +130,6 @@
 		<display:column property="tt_xpyhddeto_rcdate" escapeXml="true"
 			titleKey="billDetail.tt_xpyhddeto_rcdate" />
 	</display:table>
-
-
-	
-
 </s:form>
 
 

@@ -20,7 +20,8 @@
 
 		<div class="col-xs-4 search-group">
 			<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
-			<input id="tt_xpyhmstro_shipto" value="${purchaseOrder.tt_xpyhmstro_shipto}" 
+			<input id="tt_xpyhmstro_shipto"
+				value="${purchaseOrder.tt_xpyhmstro_shipto}"
 				name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
 				class="col-md-12 form-control" placeholder="" autocomplete="off" />
 		</div>
@@ -41,12 +42,9 @@
 
 
 <display:table name="purchaseOrders" cellspacing="0" cellpadding="0"
-	requestURI="purchaseOrders" defaultsort="1" id="purchaseOrders"
+	requestURI="shipPurchaseOrders" defaultsort="1" id="purchaseOrder"
 	pagesize="25" class="table table-condensed table-striped table-hover"
 	export="false">
-
-
-
 	<display:column property="tt_xpyhmstro_yhdnbr" escapeXml="true"
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_yhdnbr"
 		url="/purchaseOrder/editShipPurchaseOrder?from=list"
@@ -58,22 +56,42 @@
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_receptdt" />
 	<display:column property="tt_xpyhmstro_shipto" escapeXml="true"
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_shipto" />
-	<display:column property="tt_xpyhmstro_priority" escapeXml="true"
-		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_priority" />
-	<c:choose>
-		<c:when test="${purchaseOrder.tt_xpyhmstro_conf eq '0'}">
-			<fmt:message key="common.no" />
-			<%-- 	<display:column property="tt_xpyhmstro_conf" escapeXml="true" --%>
-			<%-- 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_conf" /> --%>
-		</c:when>
-		<c:otherwise>
-			<fmt:message key="common.yes" />
-		</c:otherwise>
-		
-	</c:choose>
+	<display:column titleKey="purchaseOrder.tt_xpyhmstro_priority" escapeXml="true"
+		sortable="true">
+		<c:choose>
+			<c:when test="${purchaseOrder.tt_xpyhmstro_priority eq '1'}">
+				<fmt:message key="xpyh_priority.Normal" />
+			</c:when>
+			<c:when test="${purchaseOrder.tt_xpyhmstro_priority eq '2'}">
+				<fmt:message key="xpyh_priority.Urgent" />
+				</c:when>
+				
+		</c:choose>
+	</display:column>
 	
-	<display:column property="tt_xpyhmstro_print" escapeXml="true"
-		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_print" />
+	<display:column titleKey="purchaseOrder.tt_xpyhmstro_conf" escapeXml="true"
+		sortable="true">
+		<c:choose>
+			<c:when test="${purchaseOrder.tt_xpyhmstro_conf eq '0'}">
+				<fmt:message key="common.no" />
+			</c:when>
+			<c:otherwise>
+				<fmt:message key="common.yes" />
+			</c:otherwise>
+		</c:choose>
+	</display:column>
+	<display:column titleKey="purchaseOrder.tt_xpyhmstro_print" escapeXml="true"
+		sortable="true">
+		<c:choose>
+			<c:when test="${purchaseOrder.tt_xpyhmstro_print eq '0'}">
+				<fmt:message key="common.no" />
+			</c:when>
+			<c:otherwise>
+				<fmt:message key="common.yes" />
+			</c:otherwise>
+		</c:choose>
+	</display:column>
+	
 
 	<display:setProperty name="paging.banner.placement" value="both" />
 	<display:setProperty name="paging.banner.item_name">
@@ -87,44 +105,40 @@
 </display:table>
 
 <script>
-		$('#tt_xpyhmstro_suppcode')
-				.typeahead(
-						{
-							ajax : {
-								url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
-								method : 'get',
-								preDispatch : function(e) {
-									return {
-										domain : "${sessionScope.selectedUserPlant}",
-										usercode : "${pageContext.request.remoteUser}",
-										query : e
-									}
-								},
-								triggerLength : 1
-							},
-							displayField : 'label',
-							valueField : 'value'
-						//onSelect: displayResult
-						});
+	$('#tt_xpyhmstro_suppcode').typeahead({
+		ajax : {
+			url : "<c:url value="/services/api/supplys/getSupplyData.json"/>",
+			method : 'get',
+			preDispatch : function(e) {
+				return {
+					domain : "${sessionScope.selectedUserPlant}",
+					usercode : "${pageContext.request.remoteUser}",
+					query : e
+				}
+			},
+			triggerLength : 1
+		},
+		displayField : 'label',
+		valueField : 'value'
+	//onSelect: displayResult
+	});
 
-		$('#tt_xpyhmstro_shipto')
-				.typeahead(
-						{
-							ajax : {
-								url : "<c:url value="/services/api/supplys/getShiptoData.json"/>",
-								method : 'get',
-								preDispatch : function(e) {
-									return {
-										domain : "${sessionScope.selectedUserPlant}",
-										query : e
-									}
-								},
-								triggerLength : 1
-							},
-							displayField : 'label',
-							valueField : 'value'
-						//onSelect: displayResult
-						});
-	</script>
-	</body>
-	
+	$('#tt_xpyhmstro_shipto').typeahead({
+		ajax : {
+			url : "<c:url value="/services/api/supplys/getShiptoData.json"/>",
+			method : 'get',
+			preDispatch : function(e) {
+				return {
+					domain : "${sessionScope.selectedUserPlant}",
+					query : e
+				}
+			},
+			triggerLength : 1
+		},
+		displayField : 'label',
+		valueField : 'value'
+	//onSelect: displayResult
+	});
+</script>
+</body>
+

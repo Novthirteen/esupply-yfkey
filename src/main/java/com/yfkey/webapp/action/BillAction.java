@@ -92,6 +92,7 @@ public class BillAction extends BaseAction {
 		return billDetails;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String edit() throws IOException {
 
 		try {
@@ -172,6 +173,7 @@ public class BillAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String print() {
 		try {
 			if (ConnectQAD()) {
