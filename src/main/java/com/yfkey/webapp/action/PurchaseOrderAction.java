@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDecisionVoter;
 
 import com.lowagie.text.Document;
@@ -31,12 +32,16 @@ import com.progress.open4gl.Parameter;
 import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
+import com.yfkey.exception.ShipQtyNotValidException;
+import com.yfkey.exception.UserPasswordNotValidException;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
 import com.yfkey.model.LabelValue;
 import com.yfkey.model.PermissionType;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
+import com.yfkey.model.User;
+import com.yfkey.model.UserPasswordLog;
 import com.yfkey.webapp.util.PrintASNUtil;
 import com.yfkey.webapp.util.PrintPurchaseOrderUtil;
 import com.yfkey.webapp.util.QADUtil;
@@ -313,9 +318,9 @@ public class PurchaseOrderAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	public String ship() {
+	public String ship() throws Exception {
 		try {
-
+			checkShipQty(purchaseOrderDetails);
 			String userCode = this.getRequest().getRemoteUser();
 			if (ConnectQAD()) {
 
@@ -349,8 +354,14 @@ public class PurchaseOrderAction extends BaseAction {
 				purchaseOrder = new PurchaseOrder();
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ShipQtyNotValidException ex) {
+			addActionError(ex.getMessage());
+			tt_xpyhddeti_xpyhmstroid = purchaseOrder.getTt_xpyhmstro_xpyhmstroid();
+			shipEdit();
+			return INPUT;
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			return INPUT;
 		}
 		return SUCCESS;
 	}
@@ -856,21 +867,21 @@ public class PurchaseOrderAction extends BaseAction {
 		return priorityDesc;
 	}
 
-	private String checkShipQty(List<PurchaseOrderDetail> purchaseOrderDetailList) {
-		Boolean hasError = false;
+	
+	private void checkShipQty(List<PurchaseOrderDetail> purchaseOrderDetailList) throws ShipQtyNotValidException {
+	
 		for (PurchaseOrderDetail d : purchaseOrderDetailList) {
+			List<Object> args = new ArrayList<Object>();
+		
 			if (d.getTt_xpyhddeto_delvqty().compareTo(BigDecimal.ZERO) < 0) {
-				addActionError(getText("发货数不能小于0"));
-				hasError = true;
-			} else if (d.getTt_xpyhddeto_delvqty().compareTo(d.getTt_xpyhddeto_openqty()) < 0) {
-				addActionError(getText("发货数大于待发数"));
-				hasError = true;
+				args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
+				throw new ShipQtyNotValidException(getText("purchaseOrder.shipqty_less_than_zero",args));
+			} else if (d.getTt_xpyhddeto_delvqty().compareTo(d.getTt_xpyhddeto_openqty()) > 0) {
+				args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
+				throw new ShipQtyNotValidException(getText("purchaseOrder.openqty_less_than_shipqty",args));
+				
 			}
 		}
-		if (hasError) {
-			return INPUT;
-		} else {
-			return SUCCESS;
-		}
+		
 	}
 }
