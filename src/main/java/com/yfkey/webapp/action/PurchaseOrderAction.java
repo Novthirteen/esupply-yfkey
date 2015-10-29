@@ -786,7 +786,7 @@ public class PurchaseOrderAction extends BaseAction {
 	public List<LabelValue> getPurchaseOrderStatusList() {
 		List<LabelValue> purchaseOrderStatusList = new ArrayList<LabelValue>();
 		purchaseOrderStatusList.add(new LabelValue("", getText("xpyh_status.Empty")));
-		purchaseOrderStatusList.add(new LabelValue("0", getText("xpyh_status.Forecast")));
+//		purchaseOrderStatusList.add(new LabelValue("0", getText("xpyh_status.Forecast")));
 		purchaseOrderStatusList.add(new LabelValue("1", getText("xpyh_status.Create")));
 		purchaseOrderStatusList.add(new LabelValue("2", getText("xpyh_status.Submit")));
 		purchaseOrderStatusList.add(new LabelValue("3", getText("xpyh_status.InProcess")));
@@ -800,9 +800,9 @@ public class PurchaseOrderAction extends BaseAction {
 	public String getPurchaseOrderStatus(String status) {
 		String statusDesc = "";
 		switch (status) {
-		case "0":
-			statusDesc = getText("xpyh_status.Forecast");
-			break;
+//		case "0":
+//			statusDesc = getText("xpyh_status.Forecast");
+//			break;
 		case "1":
 			statusDesc = getText("xpyh_status.Create");
 			break;

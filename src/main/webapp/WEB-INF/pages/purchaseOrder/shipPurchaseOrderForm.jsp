@@ -15,50 +15,50 @@
 	
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
-		<div class="col-xs-4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_yhdnbr"
-				cssClass="form-control" />
+			<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_yhdnbr"
+				cssClass="form-control" readonly="true" />
 		</div>
-		<div class="col-xs-4"></div>
+			<div class="col-xs-4 search-group"></div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_suppcode"
-				cssClass="form-control" />
+		<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_suppcode"
+				cssClass="form-control" readonly="true" />
 		</div>
-		<div class="col-xs-4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_suppname"
-				cssClass="form-control" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_shipfrom"
-				cssClass="form-control" />
-		</div>
-		<div class="col-xs-4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_shipto"
-				cssClass="form-control" />
+			<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_suppname"
+				cssClass="form-control" readonly="true" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_carrier"
-				cssClass="form-control" />
+			<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_shipfrom"
+				cssClass="form-control" readonly="true" />
 		</div>
-		<div class="col-xs-4">
-			<s:label key="purchaseOrder.tt_xpyhmstro_dock"
-				cssClass="form-control" />
+			<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_shipto"
+				cssClass="form-control" readonly="true" />
+		</div>
+	</div>
+	<div class="row">
+			<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_carrier"
+				cssClass="form-control" readonly="true" />
+		</div>
+			<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_dock"
+				cssClass="form-control" readonly="true" />
 		</div>
 
 	</div>
 	<div class="row">
-		<div class="col-xs-8">
+		<div class="col-xs-8 search-group">
 			<s:textarea key="purchaseOrder.remark" cols="120" rows="6" />
 		</div>
 	</div>
 
-
+	<hr>
 	<div id="actions" class="form-actions">
 		<s:submit type="button" cssClass="btn btn-primary"
 			action="shipPurchaseOder" key="button.confirm" theme="simple">
@@ -72,7 +72,8 @@
 			<fmt:message key="button.back" />
 		</s:submit>
 	</div>
-
+	<hr>
+	
 	<display:table name="purchaseOrderDetails" cellspacing="0"
 		cellpadding="0"  id="purchaseOrderDetail"
 		class="table table-condensed table-striped table-hover" export="false">
@@ -96,7 +97,7 @@
 			titleKey="purchaseOrderDetail.tt_xpyhddeto_openqty" />
 		<display:column titleKey="purchaseOrderDetail.tt_xpyhddeto_delvqty">
 			
-			<input type="text" style="margin: 0px; width: 200px;"
+			<input type="text" style="margin: 0px; width: 100px;"
 				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum - 1}].tt_xpyhddeto_delvqty"
 				value="${purchaseOrderDetail.tt_xpyhddeto_delvqty}" class="text medium" />
 			<input type="hidden"
@@ -106,7 +107,7 @@
 		
 		<display:column titleKey="purchaseOrderDetail.line_remark">
 		
-		<input type="text" style="margin: 0px; width: 200px;"
+		<input type="text" style="margin: 0px; width: 100px;"
 				name="purchaseOrderDetails[${purchaseOrderDetail_rowNum - 1}].line_remark"
 				value="${purchaseOrderDetail.line_remark}" class="text medium" />
 				</display:column>

@@ -14,23 +14,26 @@
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:label key="bill.tt_xprcmstro_voucher" cssClass="form-control" />
+			<s:textfield key="bill.tt_xprcmstro_voucher" cssClass="form-control" readonly="true" />
 			<s:hidden key="bill.tt_xprcmstro_xprcmstroid" />
+			<s:hidden key="bill.tt_xprcmstro_type" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:label key="bill.tt_xprcmstro_invdate" cssClass="form-control" />
+			<s:textfield key="bill.tt_xprcmstro_invdate" cssClass="form-control" readonly="true" />
 			
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:label key="bill.tt_xprcmstro_totalamt" cssClass="form-control" />
+			<s:textfield key="bill.tt_xprcmstro_totalamt" cssClass="form-control" readonly="true" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:label key="bill.tt_xprcmstro_claimamt" cssClass="form-control" />
+			<s:textfield key="bill.tt_xprcmstro_claimamt" cssClass="form-control" readonly="true" />
 		</div>
 	</div>
-	
+
+<%-- 	<c:set var="type" value="${bill.tt_xprcmstro_type}"/> --%>
+<%-- 	<c:if test="${type eq '0'}"> --%>
 	<div class="row">
 		<div class="col-xs-4 search-group">
 			<s:textfield key="bill.tt_xprcmstro_qty" cssClass="form-control" />
@@ -69,8 +72,8 @@
 		</div>
 
 	</div>
-
-
+<%-- </c:if> --%>
+	<hr>
 	<div id="actions" class="form-actions">
 		<c:if test="${bill.tt_xprcmstro_stat eq '3'}">
 			<s:submit type="button" cssClass="btn btn-primary"

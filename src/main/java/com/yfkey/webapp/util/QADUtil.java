@@ -502,6 +502,7 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_voucher"));
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			bill.setTt_xprcmstro_indexinvnbr(om.getString("tt_xpyhddeto_indexinvnbr"));
+			//bill.setTt_xprcmstro_type("0");                  //后面要加字段
 
 			//日期转一下格式
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  

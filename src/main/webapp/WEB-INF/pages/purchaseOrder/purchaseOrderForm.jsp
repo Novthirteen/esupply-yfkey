@@ -15,51 +15,52 @@
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:label key="purchaseOrder.tt_xpyhmstro_yhdnbr"
-				cssClass="form-control" />
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_yhdnbr"
+				cssClass="form-control" readonly="true" />
 			<s:hidden key="purchaseOrder.tt_xpyhmstro_xpyhmstroid" />
 			<s:hidden key="purchaseOrder.tt_xpyhmstro_stat" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:label key="purchaseOrder.tt_xpyhmstro_priority_desc"
-				cssClass="form-control" />
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_priority_desc"
+				cssClass="form-control" readonly="true" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:label key="purchaseOrder.tt_xpyhmstro_startdt"
-				cssClass="form-control" />
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_startdt"
+				cssClass="form-control" readonly="true" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:label key="purchaseOrder.tt_xpyhmstro_receptdt"
-				cssClass="form-control" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 search-group">
-			<s:label key="purchaseOrder.tt_xpyhmstro_suppcode"
-				cssClass="form-control" />
-		</div>
-		<div class="col-xs-4 search-group">
-			<s:label key="purchaseOrder.tt_xpyhmstro_shipto"
-				cssClass="form-control" />
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_receptdt"
+				cssClass="form-control" readonly="true" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:label key="purchaseOrder.tt_xpyhmstro_stat_desc"
-				cssClass="form-control" />
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_suppcode"
+				cssClass="form-control" readonly="true" />
+		</div>
+		<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_shipto"
+				cssClass="form-control" readonly="true" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 search-group">
+			<s:textfield key="purchaseOrder.tt_xpyhmstro_stat_desc"
+				cssClass="form-control" readonly="true" />
 		</div>
 
 	</div>
 	<div class="row">
-		<div class="col-xs-8">
-			<s:label key="purchaseOrder.remark" cssClass="form-control" />
+		<div class="col-xs-8 search-group">
+			<s:textfield key="purchaseOrder.remark" cssClass="form-control"
+				readonly="true" />
 		</div>
 	</div>
 
-
-	<div id="actions" class="form-actions">
+	<hr>
+	<div id="actions" class="form-group form-actions">
 		<c:if test="${purchaseOrder.tt_xpyhmstro_stat  eq '2'}">
 			<s:submit type="button" cssClass="btn btn-primary" method="confirm"
 				key="button.confirm" theme="simple">
@@ -67,7 +68,8 @@
 				<fmt:message key="button.confirm" />
 			</s:submit>
 		</c:if>
-		<c:if test="${purchaseOrder.tt_xpyhmstro_stat eq '3' || purchaseOrder.tt_xpyhmstro_stat eq '4' }">
+		<c:if
+			test="${purchaseOrder.tt_xpyhmstro_stat eq '3' || purchaseOrder.tt_xpyhmstro_stat eq '4' }">
 			<s:submit type="button" cssClass="btn btn-primary" method="close"
 				key="button.close" theme="simple">
 				<i class="icon-off icon-white"></i>
@@ -96,7 +98,7 @@
 		</s:submit>
 
 	</div>
-
+	<hr>
 
 	<display:table name="purchaseOrderDetails" cellspacing="0"
 		cellpadding="0" requestURI="editPurchaseOrder"

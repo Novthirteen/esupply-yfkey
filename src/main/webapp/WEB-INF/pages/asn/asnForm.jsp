@@ -14,34 +14,38 @@
 	<input type="hidden" name="from" value="${param.from}" />
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:label key="asn.tt_xasnmstro_asnnbr" cssClass="form-control" />
-			<s:label key="asn.tt_xasnmstro_xasnmstroid" />
+			<s:textfield key="asn.tt_xasnmstro_asnnbr" cssClass="form-control"
+				readonly="true" />
 			<s:hidden key="asn.tt_xasnmstro_xasnmstroid" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:label key="asn.tt_xasnmstro_stat_desc" cssClass="form-control" />
+			<s:textfield key="asn.tt_xasnmstro_stat_desc" cssClass="form-control"
+				readonly="true" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:label key="asn.tt_xasnmstro_suppcode" cssClass="form-control" />
+			<s:textfield key="asn.tt_xasnmstro_suppcode" cssClass="form-control"
+				readonly="true" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:label key="asn.tt_xasnmstro_shipto" cssClass="form-control" />
+			<s:textfield key="asn.tt_xasnmstro_shipto" cssClass="form-control"
+				readonly="true" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
-			<s:label key="asn.tt_xasnmstro_startdt" cssClass="form-control" />
+			<s:textfield key="asn.tt_xasnmstro_startdt" cssClass="form-control"
+				readonly="true" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:label key="asn.tt_xasnmstro_creator" cssClass="form-control" />
+			<s:textfield key="asn.tt_xasnmstro_creator" cssClass="form-control"
+				readonly="true" />
 		</div>
 	</div>
 
-
-	<div id="actions" class="form-actions">
-
+	<hr>
+	<div id="actions" class="form-group form-actions">
 		<s:submit type="button" cssClass="btn btn-primary" action="printAsn"
 			key="button.print" theme="simple">
 			<i class="icon-print icon-white"></i>
@@ -78,7 +82,7 @@
 	<display:column property="tt_xasndeto_asnqty" escapeXml="true"
 		titleKey="asnDetail.tt_xasndeto_asnqty" />
 
-	
+
 </display:table>
 
 <script type="text/javascript">

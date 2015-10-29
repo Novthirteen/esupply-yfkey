@@ -16,10 +16,12 @@
 					key="bill.tt_xprcmstro_voucher" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control" id="tt_xprcmstri_fromdate" key="bill.tt_xprcmstri_fromdate" />
+				<s:textfield cssClass="form-control search-control"
+					id="tt_xprcmstri_fromdate" key="bill.tt_xprcmstri_fromdate" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control" id="tt_xprcmstri_todate" key="bill.tt_xprcmstri_todate" />
+				<s:textfield cssClass="form-control search-control"
+					id="tt_xprcmstri_todate" key="bill.tt_xprcmstri_todate" />
 			</div>
 		</div>
 
@@ -32,12 +34,11 @@
 			</div>
 			<div class="col-xs-4 search-group">
 
-				<s:select key="bill.tt_xprcmstro_stat"
-					list="billStatusList" listKey="label" listValue="value"
-					cssClass="form-control" />
+				<s:select key="bill.tt_xprcmstro_stat" list="billStatusList"
+					listKey="label" listValue="value" cssClass="form-control" />
 
 			</div>
-			<div class="col-xs-4 search-group layouttrim" >
+			<div class="col-xs-4 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="bills"
 					key="button.search" theme="simple">
@@ -57,25 +58,38 @@
 			sortable="true" titleKey="bill.tt_xprcmstro_voucher"
 			url="/bill/editBill?from=list" paramId="tt_xprcmstro_xprcmstroid"
 			paramProperty="tt_xprcmstro_xprcmstroid" />
+<%-- 		<display:column titleKey="bill.tt_xprcmstro_type" escapeXml="true" --%>
+<%-- 			sortable="true"> --%>
+<%-- 			<c:choose> --%>
+<%-- 				<c:when test="${bill.tt_xprcmstro_type eq '0'}"> --%>
+<%-- 					<fmt:message key="xprcmstro_type.Normal" /> --%>
+<%-- 				</c:when> --%>
+<%-- 				<c:when test="${bill.tt_xprcmstro_type eq '1'}"> --%>
+<%-- 					<fmt:message key="xprcmstro_type.Claim" /> --%>
+<%-- 				</c:when> --%>
+<%-- 			</c:choose> --%>
+<%-- 		</display:column> --%>
+		
+		
 		<display:column property="tt_xprcmstro_suppcode" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_suppcode" />
 		<display:column property="tt_xprcmstro_invdate" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_invdate" />
 		<display:column property="tt_xprcmstro_totalamt" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_totalamt" />
-	
+
 		<display:column titleKey="bill.tt_xprcmstro_printed" escapeXml="true"
-		sortable="true">
-		<c:choose>
-			<c:when test="${bill.tt_xprcmstro_printed eq '0'}">
-				<fmt:message key="common.no" />
-			</c:when>
-			<c:otherwise>
-				<fmt:message key="common.yes" />
-			</c:otherwise>
-		</c:choose>
-	</display:column>	
-		
+			sortable="true">
+			<c:choose>
+				<c:when test="${bill.tt_xprcmstro_printed eq '0'}">
+					<fmt:message key="common.no" />
+				</c:when>
+				<c:otherwise>
+					<fmt:message key="common.yes" />
+				</c:otherwise>
+			</c:choose>
+		</display:column>
+
 		<display:column property="tt_xprcmstro_stat_desc" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_stat_desc" />
 
@@ -117,19 +131,19 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
-		
+
 		$('#tt_xprcmstri_fromdate').datepicker({
-		    format: "yyyymmdd",
-		    language:  "${pageContext.response.locale}",
-		    autoclose: true,
-		    todayHighlight: true
+			format : "yyyymmdd",
+			language : "${pageContext.response.locale}",
+			autoclose : true,
+			todayHighlight : true
 		});
-		
+
 		$('#tt_xprcmstri_todate').datepicker({
-		    format: "yyyymmdd",
-		    language:  "${pageContext.response.locale}",
-		    autoclose: true,
-		    todayHighlight: true
+			format : "yyyymmdd",
+			language : "${pageContext.response.locale}",
+			autoclose : true,
+			todayHighlight : true
 		});
 	</script>
 </body>
