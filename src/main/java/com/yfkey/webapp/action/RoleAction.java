@@ -14,8 +14,10 @@ import com.yfkey.model.PermissionType;
 import com.yfkey.model.Role;
 import com.yfkey.model.Supply;
 import com.yfkey.model.User;
+import com.yfkey.model.UserAuthority;
 import com.yfkey.service.RoleManager;
 import com.yfkey.service.UniversalManager;
+import com.yfkey.webapp.util.SecurityContextHelper;
 
 /**
  * Action for facilitating Role Management feature.
@@ -37,6 +39,11 @@ public class RoleAction extends BaseAction implements Preparable {
 	private List<String> assignedUsers;
 	private RoleManager roleManager;
 	private UniversalManager universalManager;
+	private Boolean canSave;
+	private Boolean canDelete;
+	private Boolean canAssignRolePermission;
+	private Boolean canAssignRoleUser;
+
 
 	/**
 	 * Holder for roles to display on list screen
@@ -103,6 +110,39 @@ public class RoleAction extends BaseAction implements Preparable {
 		this.universalManager = universalManager;
 	}
 
+	
+	public Boolean getCanSave() {
+		return canSave;
+	}
+
+	public void setCanSave(Boolean canSave) {
+		this.canSave = canSave;
+	}
+
+	public Boolean getCanDelete() {
+		return canDelete;
+	}
+
+	public void setCanDelete(Boolean canDelete) {
+		this.canDelete = canDelete;
+	}
+
+	public Boolean getCanAssignRolePermission() {
+		return canAssignRolePermission;
+	}
+
+	public void setCanAssignRolePermission(Boolean canAssignRolePermission) {
+		this.canAssignRolePermission = canAssignRolePermission;
+	}
+
+	public Boolean getCanAssignRoleUser() {
+		return canAssignRoleUser;
+	}
+
+	public void setCanAssignRoleUser(Boolean canAssignRoleUser) {
+		this.canAssignRoleUser = canAssignRoleUser;
+	}
+
 	public List<LabelValue> getPermissionTypeList() {
 		List<LabelValue> permissionTypeList = new ArrayList<LabelValue>();
 		permissionTypeList.add(new LabelValue(PermissionType.U.toString(), getText("permission.url")));
@@ -150,6 +190,32 @@ public class RoleAction extends BaseAction implements Preparable {
 			role = new Role();
 		}
 
+		
+		// 按钮权限
+		canSave = false;
+		canDelete = false;
+		canAssignRolePermission = false;
+		canAssignRoleUser = false;
+		List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
+		if (userButtons != null && userButtons.size() > 0) {
+			for (UserAuthority u : userButtons) {
+				if (!canSave && u.getAuthority().equals("SaveRole")) {
+					canSave = true;
+				}
+				if (!canDelete && u.getAuthority().equals("DeleteRole")) {
+					canDelete = true;
+				}
+				if(!canAssignRolePermission && u.getAuthority().equals("AssignUserPermission"))
+				{
+					canAssignRolePermission = true;
+				}
+				if(!canAssignRoleUser && u.getAuthority().equals("AssignRoleUser"))
+				{
+					canAssignRoleUser = true;
+				}
+			}
+		}
+		
 		return SUCCESS;
 	}
 

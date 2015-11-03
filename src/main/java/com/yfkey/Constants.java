@@ -116,4 +116,8 @@ public final class Constants {
      * Force change password flag , a session-scoped attribute
      */
     public static final String FORCE_CHANGE_PASSWORD = "forceChangePassword";
+    /**
+     * Buttons user authorized a session-scoped attribute
+     */
+    public static final String AVAILABLE_USER_BUTTONS = "availableUserButtons";
 }

@@ -26,12 +26,13 @@
 	</div>
 	<hr>
 	<div id="actions" class="form-group form-actions">
-		<s:submit type="button" cssClass="btn btn-primary"
-			action="saveRolePermission" key="button.save" theme="simple">
-			<i class="icon-ok icon-white"></i>
-			<fmt:message key="button.save" />
-		</s:submit>
-
+		<c:if test="${canAssignRolePermission}">
+			<s:submit type="button" cssClass="btn btn-primary"
+				action="saveRolePermission" key="button.save" theme="simple">
+				<i class="icon-ok icon-white"></i>
+				<fmt:message key="button.save" />
+			</s:submit>
+		</c:if>
 		<s:submit type="button" cssClass="btn" method="cancel"
 			key="button.cancel" theme="simple">
 			<i class="icon-remove"></i>

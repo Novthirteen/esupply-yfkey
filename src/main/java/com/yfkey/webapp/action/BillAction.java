@@ -29,6 +29,8 @@ import com.progress.open4gl.ProDataException;
 import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
+import com.yfkey.exception.BillConfirmNotValidException;
+import com.yfkey.exception.ShipQtyNotValidException;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
 import com.yfkey.model.Bill;
@@ -39,9 +41,11 @@ import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
 import com.yfkey.model.Receipt;
 import com.yfkey.model.ReceiptDetail;
+import com.yfkey.model.UserAuthority;
 import com.yfkey.webapp.util.PrintBillUtil;
 import com.yfkey.webapp.util.PrintPurchaseOrderUtil;
 import com.yfkey.webapp.util.QADUtil;
+import com.yfkey.webapp.util.SecurityContextHelper;
 
 /**
  * Action for facilitating Role Management feature.
@@ -59,6 +63,10 @@ public class BillAction extends BaseAction {
 
 	private InputStream inputStream;
 	private String fileName;
+	
+	private Boolean canConfirmBill;
+	private Boolean canAgreeBill;
+	private Boolean canRefuseBill;
 
 	public Bill getBill() {
 		return bill;
@@ -92,6 +100,30 @@ public class BillAction extends BaseAction {
 		return billDetails;
 	}
 
+	public Boolean getCanConfirmBill() {
+		return canConfirmBill;
+	}
+
+	public void setCanConfirmBill(Boolean canConfirmBill) {
+		this.canConfirmBill = canConfirmBill;
+	}
+
+	public Boolean getCanAgreeBill() {
+		return canAgreeBill;
+	}
+
+	public void setCanAgreeBill(Boolean canAgreeBill) {
+		this.canAgreeBill = canAgreeBill;
+	}
+
+	public Boolean getCanRefuseBill() {
+		return canRefuseBill;
+	}
+
+	public void setCanRefuseBill(Boolean canRefuseBill) {
+		this.canRefuseBill = canRefuseBill;
+	}
+
 	@SuppressWarnings("unchecked")
 	public String edit() throws IOException {
 
@@ -99,6 +131,26 @@ public class BillAction extends BaseAction {
 
 			if (tt_xprcmstro_xprcmstroid != null) {
 
+				// 按钮权限
+				canConfirmBill = false;
+				canAgreeBill = false;
+				canRefuseBill = false;
+				List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
+				if (userButtons != null && userButtons.size() > 0) {
+					for (UserAuthority u : userButtons) {
+						if (!canConfirmBill && u.getAuthority().equals("ConfirmBill")) {
+							canConfirmBill = true;
+						}
+						if (!canAgreeBill && u.getAuthority().equals("AgreeBill")) {
+							canAgreeBill = true;
+						}
+						if(!canRefuseBill && u.getAuthority().equals("RefuseBill"))
+						{
+							canRefuseBill = true;
+						}
+					}
+				}
+				
 				if (ConnectQAD()) {
 					String userCode = this.getRequest().getRemoteUser();
 
@@ -140,15 +192,21 @@ public class BillAction extends BaseAction {
 
 	}
 
-	public String confirm() {
+	public String confirm() throws Exception {
 		try {
+			//checkConfirmBill(bill);
 			if (ConnectQAD()) {
 				Update(bill, "4", "");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			return SUCCESS;
+//		} catch (BillConfirmNotValidException ex) {
+//			addActionError(ex.getMessage());
+//			edit();
+//			return INPUT;
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			return INPUT;
 		}
-		return SUCCESS;
 	}
 
 	public String refuse() {
@@ -156,10 +214,11 @@ public class BillAction extends BaseAction {
 			if (ConnectQAD()) {
 				Update(bill, "3", "");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			return SUCCESS;
+		} catch  (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			return INPUT;
 		}
-		return SUCCESS;
 	}
 
 	public String agree() {
@@ -167,20 +226,19 @@ public class BillAction extends BaseAction {
 			if (ConnectQAD()) {
 				Update(bill, "6", "");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			return SUCCESS;
+		}catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			return INPUT;
 		}
-		return SUCCESS;
+	
 	}
 
-	@SuppressWarnings("unchecked")
+
 	public String print() {
 		try {
 			if (ConnectQAD()) {
 
-				String userCode = this.getRequest().getRemoteUser();
-
-				String domain = getCurrentDomain();
 				ProDataGraph exDataGraph; // 输入参数
 				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
@@ -188,7 +246,7 @@ public class BillAction extends BaseAction {
 
 				ProDataObject object = exDataGraph.createProDataObject("tt_xprcdet_in");
 
-				object.setString(0, tt_xprcmstro_xprcmstroid);
+				object.setString(0, bill.getTt_xprcmstro_xprcmstroid());
 
 				exDataGraph.addProDataObject(object);
 
@@ -216,7 +274,7 @@ public class BillAction extends BaseAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return SUCCESS;
+		return "success";
 	}
 
 	private void Update(Bill b, String satus, String isPrint) {
@@ -393,4 +451,19 @@ public class BillAction extends BaseAction {
 		return statusDesc;
 	}
 
+	
+	private void checkConfirmBill(Bill bill) throws BillConfirmNotValidException {
+		
+		
+			List<Object> args = new ArrayList<Object>();
+		    if(bill.getTt_xprcmstro_invdate() == null || bill.getTt_xprcmstro_invdate().equals(""))
+		    {
+		    	throw new BillConfirmNotValidException(getText("bill.invdate_empty"));
+		    }
+		    
+		    if(bill.getTt_xprcmstro_qty()== 0)
+		    {
+		    	throw new BillConfirmNotValidException(getText("bill.qty_empty"));
+		    }
+	}
 }

@@ -30,7 +30,8 @@
 					<%-- <input type="hidden" name="username" value="${user.username}" /> --%>
 					<s:hidden key="user.username" />
 					<s:hidden key="user.version" />
-					<s:textfield key="user.username" cssClass="form-control" readonly="true"/>
+					<s:textfield key="user.username" cssClass="form-control"
+						readonly="true" />
 				</c:when>
 				<c:otherwise>
 					<s:textfield key="user.username" required="true"
@@ -117,8 +118,8 @@
 			<fmt:message key="user.credentialsExpired" />
 		</div>
 		<div class="col-xs-3">
-			<s:checkbox key="user.enforcePassword"
-				id="user.enforcePassword" theme="simple" fieldValue="true" />
+			<s:checkbox key="user.enforcePassword" id="user.enforcePassword"
+				theme="simple" fieldValue="true" />
 			<fmt:message key="user.enforcePassword" />
 		</div>
 	</div>
@@ -134,13 +135,14 @@
 	</div>
 	<hr>
 	<div id="actions" class="form-group form-actions">
-		<s:submit type="button" cssClass="btn btn-primary"
-			key="button.save" theme="simple">
-			<i class="icon-ok icon-white"></i>
-			<fmt:message key="button.save" />
-		</s:submit>
-
-		<c:if test="${user.version != 0}">
+		<c:if test="${canSave}">
+			<s:submit type="button" cssClass="btn btn-primary" key="button.save"
+				theme="simple">
+				<i class="icon-ok icon-white"></i>
+				<fmt:message key="button.save" />
+			</s:submit>
+		</c:if>
+		<c:if test="${canDelete && user.version != 0}">
 			<s:submit type="button" cssClass="btn btn-danger" method="delete"
 				key="button.delete" onclick="return confirmMessage(msgDelConfirm)"
 				theme="simple">

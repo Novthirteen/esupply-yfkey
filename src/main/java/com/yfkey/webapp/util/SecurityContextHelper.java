@@ -45,6 +45,17 @@ public class SecurityContextHelper {
 		}
 	}
 	
+	public static Collection<UserAuthority> getRemoteUserButtons() {
+		SecurityContext context = SecurityContextHolder.getContext();
+
+		if (context != null && context.getAuthentication() != null && context.getAuthentication().getPrincipal() != null
+				&& context.getAuthentication().getPrincipal() instanceof User) {
+			return ((User) context.getAuthentication().getPrincipal()).getAuthoriedButtons();
+		} else {
+			return null;
+		}
+	}
+	
 	public static User getRemoteUser() throws PrincipalNullException {
 		SecurityContext context = SecurityContextHolder.getContext();
 

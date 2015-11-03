@@ -41,10 +41,12 @@ import com.yfkey.model.PermissionType;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
 import com.yfkey.model.User;
+import com.yfkey.model.UserAuthority;
 import com.yfkey.model.UserPasswordLog;
 import com.yfkey.webapp.util.PrintASNUtil;
 import com.yfkey.webapp.util.PrintPurchaseOrderUtil;
 import com.yfkey.webapp.util.QADUtil;
+import com.yfkey.webapp.util.SecurityContextHelper;
 
 /**
  * Action for facilitating Role Management feature.
@@ -65,6 +67,9 @@ public class PurchaseOrderAction extends BaseAction {
 	private String tt_xpyhmstro_xpyhmstroid;
 
 	private String tt_xpyhddeti_xpyhmstroid;
+	private Boolean canConfirmOrder;
+	private Boolean canCancelOrder;
+	private Boolean canCloseOrder;
 
 	/**
 	 * Holder for purchaseOrders to display on list screen
@@ -130,6 +135,30 @@ public class PurchaseOrderAction extends BaseAction {
 	public void setTt_xpyhddeti_xpyhmstroid(String tt_xpyhddeti_xpyhmstroid) {
 		this.tt_xpyhddeti_xpyhmstroid = tt_xpyhddeti_xpyhmstroid;
 	}
+	
+	public Boolean getCanConfirmOrder() {
+		return canConfirmOrder;
+	}
+
+	public void setCanConfirmOrder(Boolean canConfirmOrder) {
+		this.canConfirmOrder = canConfirmOrder;
+	}
+
+	public Boolean getCanCancelOrder() {
+		return canCancelOrder;
+	}
+
+	public void setCanCancelOrder(Boolean canCancelOrder) {
+		this.canCancelOrder = canCancelOrder;
+	}
+
+	public Boolean getCanCloseOrder() {
+		return canCloseOrder;
+	}
+
+	public void setCanCloseOrder(Boolean canCloseOrder) {
+		this.canCloseOrder = canCloseOrder;
+	}
 
 	/**
 	 * Grab the purchaseOrder from the database based on the "purchaseOrderName"
@@ -145,6 +174,26 @@ public class PurchaseOrderAction extends BaseAction {
 		try {
 
 			if (tt_xpyhmstro_xpyhmstroid != null) {
+				
+				// 按钮权限
+				canConfirmOrder = false;
+				canCancelOrder = false;
+				canCloseOrder = false;
+				List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
+				if (userButtons != null && userButtons.size() > 0) {
+					for (UserAuthority u : userButtons) {
+						if (!canConfirmOrder && u.getAuthority().equals("ConfirmPurchaseOrder")) {
+							canConfirmOrder = true;
+						}
+						if (!canCancelOrder && u.getAuthority().equals("CancelPurchaseOrder")) {
+							canCancelOrder = true;
+						}
+						if(!canCloseOrder && u.getAuthority().equals("ClosePurchaseOrder"))
+						{
+							canCloseOrder = true;
+						}
+					}
+				}
 
 				if (ConnectQAD()) {
 					String userCode = this.getRequest().getRemoteUser();

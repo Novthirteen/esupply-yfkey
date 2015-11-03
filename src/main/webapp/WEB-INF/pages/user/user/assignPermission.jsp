@@ -20,19 +20,19 @@
 		<div class="col-xs-10">
 			<s:select key="user.assignUserPermission" id="availablePermissions"
 				name="assignedPermissions" list="availablePermissions"
-				listValue="label" listKey="value"
-				multiple="true" size="10">
+				listValue="label" listKey="value" multiple="true" size="10">
 			</s:select>
 		</div>
 	</div>
 	<hr>
 	<div id="actions" class="form-group form-actions">
-		<s:submit type="button" cssClass="btn btn-primary" action="saveUserPermission" 
-			key="button.save" theme="simple">
-			<i class="icon-ok icon-white"></i>
-			<fmt:message key="button.save" />
-		</s:submit>
-		
+		<c:if test="${canAssignUserPermission}">
+			<s:submit type="button" cssClass="btn btn-primary"
+				action="saveUserPermission" key="button.save" theme="simple">
+				<i class="icon-ok icon-white"></i>
+				<fmt:message key="button.save" />
+			</s:submit>
+		</c:if>
 		<s:submit type="button" cssClass="btn" method="cancel"
 			key="button.cancel" theme="simple">
 			<i class="icon-remove"></i>

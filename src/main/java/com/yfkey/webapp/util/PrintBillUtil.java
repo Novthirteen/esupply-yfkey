@@ -43,7 +43,7 @@ public class PrintBillUtil {
 			
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			
-			int max= 100;
+			int max= bill.getBillDetailList().size();
 			int lineCount = 26;
 	        int pageCount = (int)Math.ceil((double)max/lineCount);
 	        int pageNum = 1;
@@ -51,24 +51,24 @@ public class PrintBillUtil {
 	        
 	        float height = 14.7f;
 	        float baseDetailHeight = 411;
-	        for(int i=0; i<bill.getBillDetailList().size();i++)
+	        for(int i=0; i<max;i++)
 	        {
 	        	BillDetail billDetail = bill.getBillDetailList().get(i);
 	        	cb.beginText();
 	        	cb.setFontAndSize(baseFont, 8);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, bill.getTt_suppcodei_suppcode(), 26, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_partnbr(), 93, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_voucher(), 165, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, bill.getTt_suppcodei_suppcode()== null?"":bill.getTt_suppcodei_suppcode(), 26, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_partnbr() == null?"":billDetail.getTt_xpyhddeto_partnbr(), 93, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_voucher() == null?"": billDetail.getTt_xpyhddeto_voucher(), 165, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_seq()), 232, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_rcqty()), 260, baseDetailHeight-height*(i%lineCount), 0);
 	        	//cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(i+1), 345, baseDetailHeight-height*(i%lineCount), 0);
-	        	//cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "零件描述"+String.valueOf(i+1), 228, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_uom(), 355, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invprice()), 434, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invamt()), 494, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_partdesc(), 504, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_receiver(), 686, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_rcdate(), 765, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_poprice()), 298, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_uom()== null?"":billDetail.getTt_xpyhddeto_uom(), 355, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invprice()), 414, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invamt()), 474, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_partdesc()== null?"":billDetail.getTt_xpyhddeto_partdesc(), 504, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_receiver()== null?"": billDetail.getTt_xpyhddeto_receiver(), 686, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_rcdate()== null?"":billDetail.getTt_xpyhddeto_rcdate(), 765, baseDetailHeight-height*(i%lineCount), 0);
 	        	
 	        	
 	        	cb.endText();

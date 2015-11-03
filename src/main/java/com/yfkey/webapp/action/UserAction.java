@@ -53,6 +53,10 @@ public class UserAction extends BaseAction implements Preparable {
 	private UniversalManager universalManager;
 	private PasswordEncoder passwordEncoder;
 	private LabelValueComparator labelValueComparator = new LabelValueComparator();
+	private Boolean canSave;
+	private Boolean canDelete;
+	private Boolean canAssignUserPermission;
+	private Boolean canAssignUserRole;
 
 	/**
 	 * Holder for users to display on list screen
@@ -129,6 +133,38 @@ public class UserAction extends BaseAction implements Preparable {
 
 	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
+	}
+
+	public Boolean getCanSave() {
+		return canSave;
+	}
+
+	public void setCanSave(Boolean canSave) {
+		this.canSave = canSave;
+	}
+
+	public Boolean getCanDelete() {
+		return canDelete;
+	}
+
+	public void setCanDelete(Boolean canDelete) {
+		this.canDelete = canDelete;
+	}
+
+	public Boolean getCanAssignUserPermission() {
+		return canAssignUserPermission;
+	}
+
+	public void setCanAssignUserPermission(Boolean canAssignUserPermission) {
+		this.canAssignUserPermission = canAssignUserPermission;
+	}
+
+	public Boolean getCanAssignUserRole() {
+		return canAssignUserRole;
+	}
+
+	public void setCanAssignUserRole(Boolean canAssignUserRole) {
+		this.canAssignUserRole = canAssignUserRole;
 	}
 
 	public List<LabelValue> getPermissionTypeList() {
@@ -245,10 +281,36 @@ public class UserAction extends BaseAction implements Preparable {
 	 *             response.sendError()
 	 */
 	public String edit() throws IOException {
+
 		if (username != null) {
 			prepare();
 		} else {
 			user = new User();
+		}
+
+		// 按钮权限
+		canSave = false;
+		canDelete = false;
+		canAssignUserPermission = false;
+		canAssignUserRole = false;
+		List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
+		if (userButtons != null && userButtons.size() > 0) {
+			for (UserAuthority u : userButtons) {
+				if (!canSave && u.getAuthority().equals("SaveUser")) {
+					canSave = true;
+				}
+				if (!canDelete && u.getAuthority().equals("DeleteUser")) {
+					canDelete = true;
+				}
+				if(!canAssignUserPermission && u.getAuthority().equals("AssignUserPermission"))
+				{
+					canAssignUserPermission = true;
+				}
+				if(!canAssignUserRole && u.getAuthority().equals("AssignUserRole"))
+				{
+					canAssignUserRole = true;
+				}
+			}
 		}
 
 		return SUCCESS;
@@ -329,7 +391,7 @@ public class UserAction extends BaseAction implements Preparable {
 		prepare();
 		return SUCCESS;
 	}
-	
+
 	public String saveUserProfile() throws Exception {
 		try {
 			List<Object> args = new ArrayList<Object>();
@@ -361,7 +423,7 @@ public class UserAction extends BaseAction implements Preparable {
 		prepare();
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * Fetch all users from database and put into local "users" variable for
 	 * retrieval in the UI.
@@ -421,7 +483,7 @@ public class UserAction extends BaseAction implements Preparable {
 			saveErrorForUnexpectException(ex);
 			return ERROR;
 		}
-		
+
 		this.getRequest().getSession().removeAttribute(Constants.FORCE_CHANGE_PASSWORD);
 		prepare();
 		return SUCCESS;
@@ -451,15 +513,17 @@ public class UserAction extends BaseAction implements Preparable {
 		users = universalManager.findByHql(hql, args.toArray());
 	}
 
+	@SuppressWarnings("unused")
 	public void prepare() {
+
 		if (StringHelper.isEmpty(username)) {
 			username = this.getRequest().getParameter("username");
 		}
-		
+
 		if (user == null && StringHelper.isNotEmpty(username)) {
 			user = (User) this.universalManager.get(User.class, username);
 		}
-		
+
 		if (user != null && user.getVersion() != 0) {
 			user.setConfirmPassword(user.getPassword());
 			prepareAssignPermission();
@@ -470,33 +534,37 @@ public class UserAction extends BaseAction implements Preparable {
 	@SuppressWarnings("unchecked")
 	private void prepareAssignPermission() {
 
-		if(permissionType != null && PermissionType.valueOf(permissionType) == PermissionType.S)
-		{
+		if (permissionType != null && PermissionType.valueOf(permissionType) == PermissionType.S) {
 			String domain = this.getCurrentDomain();
-			List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ? and code like ?",
-					new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U ,domain + "%"});
+			List<Permission> availablePermissionList = universalManager
+					.findByHql("from Permission where type = ? and code like ?",
+							new Object[] {
+									permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U,
+									domain + "%" });
 			this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
 
 			List<String> assignedPermissionList = universalManager
-					.findByHql("select permissionCode from UserPermission where permissionType = ? and username = ? and permissionCode like ?",
+					.findByHql(
+							"select permissionCode from UserPermission where permissionType = ? and username = ? and permissionCode like ?",
 							new Object[] {
 									permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U,
-									username,domain + "%" });
+									username, domain + "%" });
 			this.assignedPermissions = assignedPermissionList;
-			
-		}else{
-			
-		List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
-				new Object[] { permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
-		this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
 
-		List<String> assignedPermissionList = universalManager
-				.findByHql("select permissionCode from UserPermission where permissionType = ? and username = ?",
-						new Object[] {
-								permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U,
-								username });
+		} else {
 
-		this.assignedPermissions = assignedPermissionList;
+			List<Permission> availablePermissionList = universalManager.findByHql("from Permission where type = ?",
+					new Object[] {
+							permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U });
+			this.availablePermissions = transferPermissionToLabelValue(availablePermissionList);
+
+			List<String> assignedPermissionList = universalManager
+					.findByHql("select permissionCode from UserPermission where permissionType = ? and username = ?",
+							new Object[] {
+									permissionType != null ? PermissionType.valueOf(permissionType) : PermissionType.U,
+									username });
+
+			this.assignedPermissions = assignedPermissionList;
 		}
 	}
 

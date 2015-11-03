@@ -33,7 +33,8 @@
 					<s:label key="role.code" cssClass="form-control" />
 				</c:when>
 				<c:otherwise>
-					<s:textfield key="role.code" required="true" cssClass="form-control" />
+					<s:textfield key="role.code" required="true"
+						cssClass="form-control" />
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -45,13 +46,14 @@
 	</div>
 	<hr>
 	<div id="actions" class="form-group form-actions">
-		<s:submit type="button" cssClass="btn btn-primary" method="save"
-			key="button.save" theme="simple">
-			<i class="icon-ok icon-white"></i>
-			<fmt:message key="button.save" />
-		</s:submit>
-
-		<c:if test="${role.version != 0}">
+		<c:if test="${canSave}">
+			<s:submit type="button" cssClass="btn btn-primary" method="save"
+				key="button.save" theme="simple">
+				<i class="icon-ok icon-white"></i>
+				<fmt:message key="button.save" />
+			</s:submit>
+		</c:if>
+		<c:if test="${canDelete && role.version != 0}">
 			<s:submit type="button" cssClass="btn btn-danger" method="delete"
 				key="button.delete" onclick="return confirmMessage(msgDelConfirm)"
 				theme="simple">

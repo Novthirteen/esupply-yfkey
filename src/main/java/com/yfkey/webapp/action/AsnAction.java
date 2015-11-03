@@ -232,10 +232,10 @@ public class AsnAction extends BaseAction {
 			}
 		}
 		
-		if(asn.getTt_xasnmstro_stat() == null || asn.getTt_xasnmstro_stat() == "")
-		{
-			asn.setTt_xasnmstro_stat("1,2");
-		}
+//		if(asn.getTt_xasnmstro_stat() == null || asn.getTt_xasnmstro_stat().equals(""))
+//		{
+//			asn.setTt_xasnmstro_stat("1,2");
+//		}
 		query();
 		return SUCCESS;
 	}
