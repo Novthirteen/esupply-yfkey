@@ -301,6 +301,8 @@ public class BillAction extends BaseAction {
 				object.setString(8, bill.getTt_xprcmstro_indexinvnbr());
 				object.setString(9, isPrint); // ""为确认，0为打印
 				object.setString(10, userCode);
+				object.setBigDecimal(11, bill.getTt_xpyhddeto_disamt());
+				object.setBigDecimal(12, bill.getTt_xprcmstro_claimamt());
 			} else {
 				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
 				object.setInt(1, 0);
@@ -313,6 +315,8 @@ public class BillAction extends BaseAction {
 				object.setString(8, "");
 				object.setString(9, isPrint); // ""为确认，0为打印
 				object.setString(10, userCode);
+				object.setBigDecimal(11,  BigDecimal.ZERO);
+				object.setBigDecimal(12,  BigDecimal.ZERO);
 			}
 
 			exDataGraph.addProDataObject(object);

@@ -37,6 +37,10 @@ public class Bill extends BaseObject {
 	private String tt_xprcmstro_type; //发票类型
 	
 	private String tt_xprcmstro_stat_desc; // 账单状态描述
+	
+	private BigDecimal tt_xpyhddeto_disamt; //返点金额
+	
+	private BigDecimal tt_xpyhddeto_invoiceamt; //发票金额
 
 	List<BillDetail> billDetailList;
 
@@ -217,6 +221,23 @@ public class Bill extends BaseObject {
 
 	public void setTt_xprcmstro_type(String tt_xprcmstro_type) {
 		this.tt_xprcmstro_type = tt_xprcmstro_type;
+	}
+
+	
+	public BigDecimal getTt_xpyhddeto_disamt() {
+		return tt_xpyhddeto_disamt;
+	}
+
+	public void setTt_xpyhddeto_disamt(BigDecimal tt_xpyhddeto_disamt) {
+		this.tt_xpyhddeto_disamt = tt_xpyhddeto_disamt;
+	}
+
+	public BigDecimal getTt_xpyhddeto_invoiceamt() {
+		return tt_xpyhddeto_invoiceamt;
+	}
+
+	public void setTt_xpyhddeto_invoiceamt(BigDecimal tt_xpyhddeto_invoiceamt) {
+		this.tt_xpyhddeto_invoiceamt = tt_xpyhddeto_invoiceamt;
 	}
 
 	@Override

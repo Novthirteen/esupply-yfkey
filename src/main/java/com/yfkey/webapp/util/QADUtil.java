@@ -1,5 +1,6 @@
 package com.yfkey.webapp.util;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -502,6 +503,10 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_voucher"));
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			bill.setTt_xprcmstro_indexinvnbr(om.getString("tt_xpyhddeto_indexinvnbr"));
+			bill.setTt_xpyhddeto_disamt(om.getBigDecimal("tt_xpyhddeto_disamt"));
+			
+			BigDecimal invoiceAmount = bill.getTt_xprcmstro_notaxamt().add(bill.getTt_xprcmstro_taxamt());
+			bill.setTt_xpyhddeto_invoiceamt(invoiceAmount);
 			//bill.setTt_xprcmstro_type("0");                  //后面要加字段
 
 			//日期转一下格式
