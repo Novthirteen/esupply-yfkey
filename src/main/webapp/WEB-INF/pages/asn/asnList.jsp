@@ -11,54 +11,50 @@
 
 	<s:form name="asnForm" action="asns" method="post" validate="true">
 		<div class="row">
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="asn.tt_xasnmstro_asnnbr" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="asn.tt_xasnmstri_yhdnbr" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:select key="asn.tt_xasnmstro_stat" list="asnStatusList"
 					listKey="label" listValue="value" cssClass="form-control" />
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-4 search-group">
-				<fmt:message key="asn.tt_xasnmstro_suppcode" />
+			<div class="col-xs-3 search-group">
+				<label class="control-label"><fmt:message key="asn.tt_xasnmstro_suppcode" /></label>
 				<input id="tt_xasnmstro_suppcode" name="asn.tt_xasnmstro_suppcode" value="${asn.tt_xasnmstro_suppcode}" 
 					type="text" class="col-md-12 form-control" placeholder=""
 					autocomplete="off" />
 			</div>
-			<div class="col-xs-4 search-group">
-				<fmt:message key="asn.tt_xasnmstro_shipto" />
+		</div>
+		<div class="row">
+			<div class="col-xs-3 search-group">
+				<label class="control-label"><fmt:message key="asn.tt_xasnmstro_shipto" /></label>
 				<input id="tt_xasnmstro_shipto" name="asn.tt_xasnmstro_shipto" value="${asn.tt_xasnmstro_shipto}" 
 					type="text" class="col-md-12 form-control" placeholder=""
 					autocomplete="off" />
 			</div>
-			<div class="col-xs-4 search-group">
-				<fmt:message key="asn.tt_xasnmstri_partnbr" />
+			<div class="col-xs-3 search-group">
+				<label class="control-label"><fmt:message key="asn.tt_xasnmstri_partnbr" /></label>
 				<input id="tt_xasnmstri_partnbr" name="asn.tt_xasnmstri_partnbr"
 					value="${asn.tt_xasnmstri_partnbr}" type="text"
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control" id="tt_xasnmstri_fromdate" key="asn.tt_xasnmstri_fromdate" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control" id="tt_xasnmstri_todate" key="asn.tt_xasnmstri_todate" />
-			</div>
-
-			<div class="col-xs-4 search-group layouttrim">
-				<s:checkbox key="asn.isDetail" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4 search-group"></div>
-			<div class="col-xs-4 search-group layouttrim">
+			<div class="col-xs-3 search-group layouttrim">
+				<s:checkbox key="asn.isDetail" />
+			</div>
+			<div class="col-xs-3 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="asns"
 					key="button.search" theme="simple">
@@ -67,6 +63,7 @@
 				</s:submit>
 			</div>
 		</div>
+
 	</s:form>
 
 	<c:choose>

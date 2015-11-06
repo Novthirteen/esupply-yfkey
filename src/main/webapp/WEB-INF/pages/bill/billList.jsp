@@ -11,34 +11,35 @@
 <body id="bill">
 	<s:form name="billForm" action="bills" method="post" validate="true">
 		<div class="row">
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="bill.tt_xprcmstro_voucher" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					id="tt_xprcmstri_fromdate" key="bill.tt_xprcmstri_fromdate" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					id="tt_xprcmstri_todate" key="bill.tt_xprcmstri_todate" />
 			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-4 search-group">
-				<fmt:message key="bill.tt_xprcmstro_suppcode" />
+			<div class="col-xs-3 search-group">
+				<label class="control-label"><fmt:message key="bill.tt_xprcmstro_suppcode" /></label>
 				<input id="tt_xprcmstro_suppcode" name="bill.tt_xprcmstro_suppcode"
 					value="${bill.tt_xprcmstro_suppcode}" type="text"
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
-			<div class="col-xs-4 search-group">
+		</div>
+
+		<div class="row">
+			
+			<div class="col-xs-3 search-group">
 
 				<s:select key="bill.tt_xprcmstro_stat" list="billStatusList"
 					listKey="label" listValue="value" cssClass="form-control" />
 
 			</div>
-			<div class="col-xs-4 search-group layouttrim">
+			<div class="col-xs-3 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="bills"
 					key="button.search" theme="simple">

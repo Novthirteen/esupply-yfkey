@@ -5,48 +5,45 @@
 <meta name="menu" content="ReceiptMenu" />
 </head>
 
-<h2>
+<h4>
 	<fmt:message key="receiptList.heading" />
-</h2>
+</h4>
 
 <s:form name="receiptForm" action="receipts" method="post"
 	validate="true">
 	<div class="row">
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="receipt.tt_prhmstro_receiver" />
 		</div>
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="receipt.tt_prhmstri_yhdnbr" />
 		</div>
-		<div class="col-xs-4 search-group">
-			<fmt:message key="receipt.tt_prhmstro_suppcode" />
+		<div class="col-xs-3 search-group">
+			<label class="control-label"><fmt:message key="receipt.tt_prhmstro_suppcode" /></label>
 			<input id="tt_prhmstro_suppcode" name="receipt.tt_prhmstro_suppcode"  value="${receipt.tt_prhmstro_suppcode}" 
 				type="text" class="col-md-12 form-control" placeholder=""
 				autocomplete="off" />
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 search-group">
-			
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control" id="tt_prhmstri_fromdate" key="receipt.tt_prhmstri_fromdate" />
 		</div>
-		<div class="col-xs-4 search-group">
+	</div>
+	<div class="row">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control" id="tt_prhmstri_todate" key="receipt.tt_prhmstri_todate" />
 		</div>
-		<div class="col-xs-4 search-group">
-			<fmt:message key="receipt.tt_prhmstri_partnbr" />
+		<div class="col-xs-3 search-group">
+			<label class="control-label"><fmt:message key="receipt.tt_prhmstri_partnbr" /></label>
 			<input id="tt_prhmstri_partnbr" name="receipt.tt_prhmstri_partnbr"  value="${receipt.tt_prhmstri_partnbr}" 
 				type="text" class="col-md-12 form-control" placeholder=""
 				autocomplete="off" />
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 search-group layouttrim">
+		<div class="col-xs-3 search-group layouttrim">
 			<s:checkbox key="receipt.isDetail" />
 		</div>
-		<div class="col-xs-4 search-group layouttrim">
+		<div class="col-xs-3 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn" action="receipts"
 				key="button.search" theme="simple">

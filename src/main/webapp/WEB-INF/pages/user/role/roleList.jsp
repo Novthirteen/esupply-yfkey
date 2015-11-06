@@ -13,13 +13,13 @@
 	cssClass="form-horizontal">
 
 	<div class="row">
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control" key="role.code" />
 		</div>
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control" key="role.name" />
 		</div>
-		<div class="col-xs-4 search-group layouttrim">
+		<div class="col-xs-3 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn btn-default btn-sm"
 				action="roles" key="button.search" theme="simple">
@@ -35,13 +35,13 @@
 	</div>
 
 	<%-- 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<s:textfield key="role.code" cssClass="form-control" />
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<s:textfield key="role.name" cssClass="form-control" />
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn btn-default btn-sm"
 					action="roles" key="button.search" theme="simple">

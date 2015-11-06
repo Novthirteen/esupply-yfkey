@@ -36,7 +36,6 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-3 search-group">
-
 				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
 					list="purchaseOrderStatusList" listKey="label" listValue="value"
 					cssClass="form-control search-control" />
@@ -74,13 +73,11 @@
 					value="${purchaseOrder.tt_xpyhmstro_partnbr}"
 					class="form-control search-control" placeholder="" autocomplete="off" />
 			</div>
-			<div class="col-xs-3 search-group">
+			<div class="col-xs-3 search-group layouttrim">
 				<s:checkbox key="purchaseOrder.isDetail" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3 search-group">
-			</div>
 			<div class="col-xs-3 search-group">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="purchaseOrders"

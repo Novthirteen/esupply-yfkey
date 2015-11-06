@@ -56,7 +56,7 @@
 	themesheet.appendTo('head');
 </script>
 </head>
-<body
+<body class="main"
 	<decorator:getProperty property="body.id" writeEntireProperty="true"/>
 	<decorator:getProperty property="body.class" writeEntireProperty="true"/>>
 	<c:set var="currentMenu" scope="request">
