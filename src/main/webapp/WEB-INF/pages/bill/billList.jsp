@@ -5,9 +5,9 @@
 <meta name="menu" content="BillMenu" />
 </head>
 
-<h2>
+<h4>
 	<fmt:message key="billList.heading" />
-</h2>
+</h4>
 <body id="bill">
 	<s:form name="billForm" action="bills" method="post" validate="true">
 		<div class="row">

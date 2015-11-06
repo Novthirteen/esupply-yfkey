@@ -5,9 +5,9 @@
 <meta name="menu" content="ViewRoles" />
 </head>
 
-<h2>
+<h4>
 	<fmt:message key="roleList.heading" />
-</h2>
+</h4>
 
 <s:form name="roleForm" action="roles" method="post"
 	cssClass="form-horizontal">

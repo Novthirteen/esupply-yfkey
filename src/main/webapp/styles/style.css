@@ -1,5 +1,10 @@
 body {
+	
     /* padding-top: 80px; */
+}
+
+.main{
+	font-size: 12px;
 }
 
 .navbar-brand {
@@ -314,14 +319,17 @@ span.pagelinks {
 .panel-body { padding:0px; }
 .panel-body table tr td { padding-left: 15px }
 .panel-body .table {margin-bottom: 0px; }
+.panel-title a{font-size:14px;}
 
-#accordion{min-hight:768px !important;}
+
+#accordion{min-hight:768px !important;  font-size:14px !important; }
 #accordion a:hover {color:#FF0000; text-decoration: none }
 .selected { color:#FF0000 !important; }
 
-.search-group{padding-left:5% !important;}
-.search-control{width:75%;}
-.layouttrim{line-height:5.5;}
+.form-group{margin-bottom: 5px !important;}
+.search-group{padding-left:3% !important; max-height:}
+.search-control{width:75%; padding:0px !important; height:20px !important;}
+.layouttrim{line-height:4.7; height:30px;}
 
 fieldset.checkbox{display:block;}
 fieldset label {  display: inline-block;max-width: 100%;margin-bottom: 5px;font-weight: 700;font-weight: bold !important;}

@@ -6,30 +6,27 @@
 </head>
 
 
-<h2>
+<h4>
 	<fmt:message key="userList.heading" />
-</h2>
+</h4>
 
 <s:form name="userForm" action="users" method="post"
 	cssClass="form-horizontal">
 
 	<div class="row">
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="user.username" />
 		</div>
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="user.firstName" />
 		</div>
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="user.lastName" />
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 search-group"></div>
-		<div class="col-xs-4 search-group layouttrim">
+		<div class="col-xs-3 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn btn-default btn-sm"
 				action="users" key="button.search" theme="simple">
@@ -42,7 +39,6 @@
 				<fmt:message key="button.add" />
 			</s:submit>
 		</div>
-		<div class="col-xs-4 search-group"></div>
 	</div>
 	<%-- 	<div class="row">
 			<div class="col-xs-3">

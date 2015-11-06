@@ -5,73 +5,83 @@
 <meta name="menu" content="PurchaseOrderMenu" />
 </head>
 <body id="purchaseOrder">
-	<h2>
+	<h4>
 		<fmt:message key="purchaseOrderList.heading" />
-	</h2>
+	</h4>
 
 
 	<s:form name="purchaseOrderForm" action="purchaseOrders" method="post"
 		validate="true">
 		<div class="row">
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:select key="purchaseOrder.tt_xpyhmstro_priority"
 					list="purchaseOrderPriorityList" listKey="label" listValue="value"
-					cssClass="form-control" />
+					cssClass="form-control search-control" />
 			</div>
-			<div class="col-xs-4 search-group">
-				<fmt:message key="purchaseOrder.tt_xpyhmstro_suppcode" />
+			<div class="col-xs-3 search-group">
+				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_suppcode" /></label>
 				<input id="tt_xpyhmstro_suppcode"
 					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text" value="${purchaseOrder.tt_xpyhmstro_suppcode}" 
-					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrder.tt_xpyhmstro_creator" />
 			</div>
-			<div class="col-xs-4 search-group">
+			
+		</div>
+		<div class="row">
+			<div class="col-xs-3 search-group">
 
 				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
 					list="purchaseOrderStatusList" listKey="label" listValue="value"
-					cssClass="form-control" />
+					cssClass="form-control search-control" />
 
 			</div>
-			<div class="col-xs-4 search-group">
-				<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
+			<div class="col-xs-3 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrder.tt_xpyhmstro_creator" />
+			</div>
+			<div class="col-xs-3 search-group">
+				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
+					list="purchaseOrderStatusList" listKey="label" listValue="value"
+					cssClass="form-control search-control" />
+			</div>
+			<div class="col-xs-3 search-group">
+				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" /></label>
 				<input id="tt_xpyhmstro_shipto"
 					name="purchaseOrder.tt_xpyhmstro_shipto" type="text"  value="${purchaseOrder.tt_xpyhmstro_shipto}" 
-					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+					class="form-control search-control" placeholder="" autocomplete="off" />
 			</div>
+			
 		</div>
 		<div class="row">
-			<div class="col-xs-4 search-group">
-				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_startdt" key="purchaseOrder.tt_xpyhmstro_startdt" />
+			<div class="col-xs-3 search-group">
+				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_startdt" 
+					key="purchaseOrder.tt_xpyhmstro_startdt" />
 			</div>
-		
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_receptdt" key="purchaseOrder.tt_xpyhmstro_receptdt" />
 			</div>
-			<div class="col-xs-4 search-group">
-				<fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" />
+			<div class="col-xs-3 search-group">
+				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" /></label>
 				<input id="tt_xpyhmstro_partnbr"
 					name="purchaseOrder.tt_xpyhmstro_partnbr" type="text"
 					value="${purchaseOrder.tt_xpyhmstro_partnbr}"
-					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+					class="form-control search-control" placeholder="" autocomplete="off" />
 			</div>
-
-		</div>
-		<div class="row">
-			<div class="col-xs-4 search-group layouttrim">
+			<div class="col-xs-3 search-group">
 				<s:checkbox key="purchaseOrder.isDetail" />
 			</div>
-			<div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3 search-group">
 			</div>
-			<div class="col-xs-4 search-group layouttrim">
+			<div class="col-xs-3 search-group">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="purchaseOrders"
 					key="button.search" theme="simple">
@@ -79,7 +89,6 @@
 					<fmt:message key="button.search" />
 				</s:submit>
 			</div>
-			<div class="col-xs-4 search-group"></div>
 		</div>
 	</s:form>
 
