@@ -135,7 +135,7 @@ public class PurchaseOrderAction extends BaseAction {
 	public void setTt_xpyhddeti_xpyhmstroid(String tt_xpyhddeti_xpyhmstroid) {
 		this.tt_xpyhddeti_xpyhmstroid = tt_xpyhddeti_xpyhmstroid;
 	}
-	
+
 	public Boolean getCanConfirmOrder() {
 		return canConfirmOrder;
 	}
@@ -174,7 +174,7 @@ public class PurchaseOrderAction extends BaseAction {
 		try {
 
 			if (tt_xpyhmstro_xpyhmstroid != null) {
-				
+
 				// 按钮权限
 				canConfirmOrder = false;
 				canCancelOrder = false;
@@ -188,8 +188,7 @@ public class PurchaseOrderAction extends BaseAction {
 						if (!canCancelOrder && u.getAuthority().equals("CancelPurchaseOrder")) {
 							canCancelOrder = true;
 						}
-						if(!canCloseOrder && u.getAuthority().equals("ClosePurchaseOrder"))
-						{
+						if (!canCloseOrder && u.getAuthority().equals("ClosePurchaseOrder")) {
 							canCloseOrder = true;
 						}
 					}
@@ -491,29 +490,18 @@ public class PurchaseOrderAction extends BaseAction {
 	private void query() {
 
 		if (purchaseOrder != null && purchaseOrder.getIsDetail()) {
-			// purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
-			// PurchaseOrderDetail podet = new PurchaseOrderDetail();
-			// podet.setTt_xpyhddeto_seq(new BigDecimal(20));
-			// podet.setTt_xpyhddeto_yhdnbr("ORD000001");
-			// podet.setTt_xpyhddeto_partnbr("1000002");
-			// podet.setTt_xpyhddeto_partdesc("螺母");
-			// podet.setTt_xpyhddeto_spq(new BigDecimal(100));
-			// podet.setTt_xpyhddeto_uom("件");
-			// podet.setTt_xpyhddeto_reqqty(new BigDecimal(2000));
-			// podet.setTt_xpyhddeto_ordqty(new BigDecimal(2000));
-			// purchaseOrderDetails.add(podet);
+			try {
+				if (ConnectQAD()) {
+					String userCode = this.getRequest().getRemoteUser();
 
-			if (ConnectQAD()) {
-				String userCode = this.getRequest().getRemoteUser();
+					@SuppressWarnings("unchecked")
+					List<String> supplierCodeList = getSupplierCodeList(
+							purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
 
-				@SuppressWarnings("unchecked")
-				List<String> supplierCodeList = getSupplierCodeList(
-						purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
+					String domain = getCurrentDomain();
+					ProDataGraph exDataGraph; // 输入参数
+					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
-				String domain = getCurrentDomain();
-				ProDataGraph exDataGraph; // 输入参数
-				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
-				try {
 					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxexport_xpyhddet_DSMetaData1());
 					for (int i = 0; i < supplierCodeList.size(); i++) {
 						ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
@@ -554,37 +542,25 @@ public class PurchaseOrderAction extends BaseAction {
 							.getProDataObjects("tt_xpyhddet_out");
 
 					purchaseOrderDetails = QADUtil.ConvertToPurchaseOrderDetail(outDataList);
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
-
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		} else {
 
-			// purchaseOrders = new ArrayList<PurchaseOrder>();
-			// PurchaseOrder po = new PurchaseOrder();
-			// po.setTt_xpyhmstro_yhdnbr("ORD000001");
-			// po.setTt_xpyhmstro_priority("High");
-			// po.setTt_xpyhmstro_creator("admin");
-			// po.setTt_xpyhmstro_receptdt("20150901");
-			// po.setTt_xpyhmstro_startdt("20150831");
-			// po.setTt_xpyhmstro_seq(1);
-			// po.setTt_xpyhmstro_suppcode("ADKJ");
-			// po.setTt_xpyhmstro_shipto("秀浦路426号");
-			// purchaseOrders.add(po);
+			try {
 
-			if (ConnectQAD()) {
+				if (ConnectQAD()) {
 
-				String userCode = this.getRequest().getRemoteUser();
-				String domain = getCurrentDomain();
-				@SuppressWarnings("unchecked")
-				List<String> supplierCodeList = getSupplierCodeList(
-						purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
+					String userCode = this.getRequest().getRemoteUser();
+					String domain = getCurrentDomain();
+					@SuppressWarnings("unchecked")
+					List<String> supplierCodeList = getSupplierCodeList(
+							purchaseOrder != null ? purchaseOrder.getTt_xpyhmstro_suppcode() : "");
 
-				ProDataGraph exDataGraph; // 输入参数
-				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
-				try {
+					ProDataGraph exDataGraph; // 输入参数
+					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
 					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_xpyhmstr_DSMetaData1());
 					for (int i = 0; i < supplierCodeList.size(); i++) {
@@ -633,11 +609,11 @@ public class PurchaseOrderAction extends BaseAction {
 						po.setTt_xpyhmstro_stat_desc(getPurchaseOrderStatus(po.getTt_xpyhmstro_stat()));
 						po.setTt_xpyhmstro_priority_desc(getPurchaseOrderPriority(po.getTt_xpyhmstro_priority()));
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
-
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+
 		}
 	}
 
@@ -846,7 +822,8 @@ public class PurchaseOrderAction extends BaseAction {
 	public List<LabelValue> getPurchaseOrderStatusList() {
 		List<LabelValue> purchaseOrderStatusList = new ArrayList<LabelValue>();
 		purchaseOrderStatusList.add(new LabelValue("", getText("xpyh_status.Empty")));
-//		purchaseOrderStatusList.add(new LabelValue("0", getText("xpyh_status.Forecast")));
+		// purchaseOrderStatusList.add(new LabelValue("0",
+		// getText("xpyh_status.Forecast")));
 		purchaseOrderStatusList.add(new LabelValue("1", getText("xpyh_status.Create")));
 		purchaseOrderStatusList.add(new LabelValue("2", getText("xpyh_status.Submit")));
 		purchaseOrderStatusList.add(new LabelValue("3", getText("xpyh_status.InProcess")));
@@ -860,9 +837,9 @@ public class PurchaseOrderAction extends BaseAction {
 	public String getPurchaseOrderStatus(String status) {
 		String statusDesc = "";
 		switch (status) {
-//		case "0":
-//			statusDesc = getText("xpyh_status.Forecast");
-//			break;
+		// case "0":
+		// statusDesc = getText("xpyh_status.Forecast");
+		// break;
 		case "1":
 			statusDesc = getText("xpyh_status.Create");
 			break;
@@ -891,7 +868,8 @@ public class PurchaseOrderAction extends BaseAction {
 	public List<LabelValue> getPurchaseOrderPriorityList() {
 		List<LabelValue> purchaseOrderPriorityList = new ArrayList<LabelValue>();
 		purchaseOrderPriorityList.add(new LabelValue("", getText("xpyh_priority.Empty")));
-//		purchaseOrderPriorityList.add(new LabelValue("0", getText("xpyh_priority.Forecast")));
+		// purchaseOrderPriorityList.add(new LabelValue("0",
+		// getText("xpyh_priority.Forecast")));
 		purchaseOrderPriorityList.add(new LabelValue("1", getText("xpyh_priority.Normal")));
 		purchaseOrderPriorityList.add(new LabelValue("2", getText("xpyh_priority.Urgent")));
 		return purchaseOrderPriorityList;
@@ -900,9 +878,9 @@ public class PurchaseOrderAction extends BaseAction {
 	public String getPurchaseOrderPriority(String priority) {
 		String priorityDesc = "";
 		switch (priority) {
-//		case "0":
-//			priorityDesc = getText("xpyh_priority.Forecast");
-//			break;
+		// case "0":
+		// priorityDesc = getText("xpyh_priority.Forecast");
+		// break;
 		case "1":
 			priorityDesc = getText("xpyh_priority.Normal");
 			break;
@@ -916,21 +894,20 @@ public class PurchaseOrderAction extends BaseAction {
 		return priorityDesc;
 	}
 
-	
 	private void checkShipQty(List<PurchaseOrderDetail> purchaseOrderDetailList) throws ShipQtyNotValidException {
-	
+
 		for (PurchaseOrderDetail d : purchaseOrderDetailList) {
 			List<Object> args = new ArrayList<Object>();
-		
+
 			if (d.getTt_xpyhddeto_delvqty().compareTo(BigDecimal.ZERO) < 0) {
 				args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
-				throw new ShipQtyNotValidException(getText("purchaseOrder.shipqty_less_than_zero",args));
+				throw new ShipQtyNotValidException(getText("purchaseOrder.shipqty_less_than_zero", args));
 			} else if (d.getTt_xpyhddeto_delvqty().compareTo(d.getTt_xpyhddeto_openqty()) > 0) {
 				args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
-				throw new ShipQtyNotValidException(getText("purchaseOrder.openqty_less_than_shipqty",args));
-				
+				throw new ShipQtyNotValidException(getText("purchaseOrder.openqty_less_than_shipqty", args));
+
 			}
 		}
-		
+
 	}
 }

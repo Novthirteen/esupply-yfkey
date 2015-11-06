@@ -41,6 +41,8 @@ public class Bill extends BaseObject {
 	private BigDecimal tt_xpyhddeto_disamt; //返点金额
 	
 	private BigDecimal tt_xpyhddeto_invoiceamt; //发票金额
+	
+	private String tt_xprcmstro_createdate;   //创建日期
 
 	List<BillDetail> billDetailList;
 
@@ -238,6 +240,14 @@ public class Bill extends BaseObject {
 
 	public void setTt_xpyhddeto_invoiceamt(BigDecimal tt_xpyhddeto_invoiceamt) {
 		this.tt_xpyhddeto_invoiceamt = tt_xpyhddeto_invoiceamt;
+	}
+	
+	public String getTt_xprcmstro_createdate() {
+		return tt_xprcmstro_createdate;
+	}
+
+	public void setTt_xprcmstro_createdate(String tt_xprcmstro_createdate) {
+		this.tt_xprcmstro_createdate = tt_xprcmstro_createdate;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
-body {
+body .home {
     /* padding-top: 80px; */
+    font-size:12px !important; 
 }
 
 .navbar-brand {

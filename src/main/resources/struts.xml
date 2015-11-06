@@ -347,20 +347,17 @@
 			</result>
 		</action>
 		<action name="agreeBill" class="billAction" method="agree">
-			<result name="success">/WEB-INF/pages/bill/billList.jsp
-			</result>
+			<result name="success" type="redirectAction">bills</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
 		<action name="refuseBill" class="billAction" method="refuse">
-			<result name="success">/WEB-INF/pages/bill/billList.jsp
-			</result>
+			<result name="success" type="redirectAction">bills</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
 		<action name="confirmBill" class="billAction" method="confirm">
-			<result name="success">/WEB-INF/pages/bill/billList.jsp
-			</result>
+			<result name="success" type="redirectAction">bills</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>

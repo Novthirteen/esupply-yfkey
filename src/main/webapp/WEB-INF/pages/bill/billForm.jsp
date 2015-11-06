@@ -20,7 +20,7 @@
 			<s:hidden key="bill.tt_xprcmstro_type" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield key="bill.tt_xprcmstro_invdate" cssClass="form-control"
+			<s:textfield key="bill.tt_xprcmstro_createdate" cssClass="form-control"
 				readonly="true" />
 
 		</div>
@@ -40,7 +40,7 @@
 
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xprcmstro_qty" cssClass="form-control"  />
+					<s:textfield key="bill.tt_xprcmstro_qty" cssClass="form-control" />
 				</div>
 				<div class="col-xs-4 search-group">
 
@@ -50,28 +50,27 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xprcmstro_notaxamt"
-						cssClass="form-control"  onChange="javascript:calcTotalamt();" />
+					<s:textfield key="bill.tt_xprcmstro_taxamt" cssClass="form-control"
+						onChange="javascript:calcTotalamt();" />
 				</div>
-					<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xprcmstro_taxamt" cssClass="form-control"  onChange="javascript:calcTotalamt();" />
+			    <div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xprcmstro_notaxamt"
+						cssClass="form-control" onChange="javascript:calcTotalamt();" />
 				</div>
 			</div>
-				<div class="row">
+			<div class="row">
 				<div class="col-xs-4 search-group">
 					<s:textfield key="bill.tt_xprcmstro_claimamt"
-						cssClass="form-control"/>
-<%-- 					<s:hidden key="bill.tt_xprcmstro_claimamt" /> --%>
+						cssClass="form-control" readonly="true" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xpyhddeto_disamt"
-						cssClass="form-control"  />
+					<s:textfield key="bill.tt_xpyhddeto_disamt" cssClass="form-control" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
 					<s:textfield key="bill.tt_xpyhddeto_invoiceamt"
-						cssClass="form-control" readonly="true"/>
+						cssClass="form-control" readonly="true" />
 				</div>
 				<div class="col-xs-4 search-group">
 					<s:textfield key="bill.tt_xprcmstro_indexinvnbr"
@@ -94,51 +93,49 @@
 		<c:otherwise>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_qty" cssClass="form-control"
+					<s:textfield key="bill.tt_xprcmstro_qty" cssClass="form-control"
 						readonly="true" />
 				</div>
 				<div class="col-xs-4 search-group">
-
-					<s:label cssClass="form-control search-control"
+					<s:textfield cssClass="form-control search-control" readonly="true" 
 						id="tt_xprcmstro_invdate" key="bill.tt_xprcmstro_invdate" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_taxamt" cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_taxamt" readonly="true"  cssClass="form-control" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_notaxamt" cssClass="form-control" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_claimamt"
-						cssClass="form-control" readonly="true" />
-				</div>
-				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xpyhddeto_disamt"
-						cssClass="form-control"  />
+					<s:textfield key="bill.tt_xprcmstro_notaxamt" readonly="true" cssClass="form-control" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xpyhddeto_invoiceamt" cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_claimamt" readonly="true"
+						cssClass="form-control" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_indexinvnbr"
+					<s:textfield key="bill.tt_xpyhddeto_disamt" readonly="true" cssClass="form-control" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xpyhddeto_invoiceamt" readonly="true" cssClass="form-control" />
+				</div>
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xprcmstro_indexinvnbr" readonly="true" 
 						cssClass="form-control" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-8 search-group">
-					<s:label key="bill.tt_xprcmstro_invnbr" cssClass="form-control"
+					<s:textfield key="bill.tt_xprcmstro_invnbr" cssClass="form-control" readonly="true" 
 						rows="6" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-8 search-group">
-					<s:label key="bill.tt_xprcmstro_rmk" cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_rmk" readonly="true"  cssClass="form-control" />
 				</div>
 
 			</div>
@@ -174,11 +171,13 @@
 				</s:submit>
 			</c:if>
 		</c:if>
+
 		<s:submit type="button" cssClass="btn btn-primary" action="printBill"
 			key="button.print" theme="simple">
 			<i class="icon-print icon-white"></i>
 			<fmt:message key="button.print" />
 		</s:submit>
+
 		<s:submit type="button" cssClass="btn" method="cancel"
 			key="button.back" theme="simple">
 			<i class=" icon-arrow-left"></i>
@@ -229,13 +228,13 @@
 		autoclose : true,
 		todayHighlight : true
 	});
-	
-	function calcTotalamt() {
-		 var notaxamt = $('#editBill_bill_tt_xprcmstro_notaxamt').val();
-		 var taxamt = $('#editBill_bill_tt_xprcmstro_taxamt').val();
 
-		 var totalamt = Number(notaxamt) + Number(taxamt);
-		 $('#editBill_bill_tt_xpyhddeto_invoiceamt').val(totalamt);
-	   }
+	function calcTotalamt() {
+		var notaxamt = $('#editBill_bill_tt_xprcmstro_notaxamt').val();
+		var taxamt = $('#editBill_bill_tt_xprcmstro_taxamt').val();
+
+		var totalamt = Number(notaxamt) + Number(taxamt);
+		$('#editBill_bill_tt_xpyhddeto_invoiceamt').val(totalamt);
+	}
 </script>
 
