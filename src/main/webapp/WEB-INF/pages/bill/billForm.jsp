@@ -20,7 +20,7 @@
 			<s:hidden key="bill.tt_xprcmstro_type" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield key="bill.tt_xprcmstro_invdate" cssClass="form-control"
+			<s:textfield key="bill.tt_xprcmstro_createdate" cssClass="form-control"
 				readonly="true" />
 
 		</div>
@@ -31,12 +31,12 @@
 				readonly="true" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield key="bill.tt_xprcmstro_claimamt" cssClass="form-control"
+			<s:textfield key="bill.tt_xpyhddeto_claiminv" cssClass="form-control"
 				readonly="true" />
 		</div>
 	</div>
 	<c:choose>
-		<c:when test="${!bill.tt_xprcmstro_stat eq '3'}">
+		<c:when test="${bill.tt_xprcmstro_stat eq '3'}">
 
 			<div class="row">
 				<div class="col-xs-4 search-group">
@@ -50,17 +50,27 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xprcmstro_taxamt" cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_taxamt" cssClass="form-control"
+						onChange="javascript:calcTotalamt();" />
 				</div>
-				<div class="col-xs-4 search-group">
+			    <div class="col-xs-4 search-group">
 					<s:textfield key="bill.tt_xprcmstro_notaxamt"
-						cssClass="form-control" />
+						cssClass="form-control" onChange="javascript:calcTotalamt();" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xprcmstro_totalamt"
-						cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_claimamt"
+						cssClass="form-control" readonly="true" />
+				</div>
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xpyhddeto_disamt" cssClass="form-control" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xpyhddeto_invoiceamt"
+						cssClass="form-control" readonly="true" />
 				</div>
 				<div class="col-xs-4 search-group">
 					<s:textfield key="bill.tt_xprcmstro_indexinvnbr"
@@ -83,45 +93,49 @@
 		<c:otherwise>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_qty" cssClass="form-control"
+					<s:textfield key="bill.tt_xprcmstro_qty" cssClass="form-control"
 						readonly="true" />
 				</div>
 				<div class="col-xs-4 search-group">
-
-					<s:label cssClass="form-control search-control"
-						id="tt_xprcmstro_invdate" key="bill.tt_xprcmstro_invdate"
-					 />
+					<s:textfield cssClass="form-control search-control" readonly="true" 
+						id="tt_xprcmstro_invdate" key="bill.tt_xprcmstro_invdate" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_taxamt" cssClass="form-control"
-						 />
+					<s:textfield key="bill.tt_xprcmstro_taxamt" readonly="true"  cssClass="form-control" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_notaxamt"
+					<s:textfield key="bill.tt_xprcmstro_notaxamt" readonly="true" cssClass="form-control" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xprcmstro_claimamt" readonly="true"
+						cssClass="form-control" />
+				</div>
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xpyhddeto_disamt" readonly="true" cssClass="form-control" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xpyhddeto_invoiceamt" readonly="true" cssClass="form-control" />
+				</div>
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xprcmstro_indexinvnbr" readonly="true" 
 						cssClass="form-control" />
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_totalamt"
-						cssClass="form-control"  />
-				</div>
-				<div class="col-xs-4 search-group">
-					<s:label key="bill.tt_xprcmstro_indexinvnbr"
-						cssClass="form-control"  />
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-xs-8 search-group">
-					<s:label key="bill.tt_xprcmstro_invnbr" cssClass="form-control"
+					<s:textfield key="bill.tt_xprcmstro_invnbr" cssClass="form-control" readonly="true" 
 						rows="6" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-8 search-group">
-					<s:label key="bill.tt_xprcmstro_rmk" cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_rmk" readonly="true"  cssClass="form-control" />
 				</div>
 
 			</div>
@@ -132,7 +146,7 @@
 	<hr>
 	<div id="actions" class="form-actions">
 		<c:if test="${bill.tt_xprcmstro_stat eq '3'}">
-			<c:if test="${canConfirmBill} ">
+			<c:if test="${canConfirmBill}">
 				<s:submit type="button" cssClass="btn btn-primary"
 					action="confirmBill" key="button.confirm" theme="simple">
 					<i class="icon-confirm icon-white"></i>
@@ -141,7 +155,7 @@
 			</c:if>
 		</c:if>
 		<c:if test="${bill.tt_xprcmstro_stat eq '4'}">
-			<c:if test="${canAgreeBill} ">
+			<c:if test="${canAgreeBill}">
 				<s:submit type="button" cssClass="btn btn-primary"
 					action="agreeBill" key="button.agree" theme="simple">
 					<i class="icon-agree icon-white"></i>
@@ -149,7 +163,7 @@
 				</s:submit>
 			</c:if>
 
-			<c:if test="${canRefuseBill} ">
+			<c:if test="${canRefuseBill}">
 				<s:submit type="button" cssClass="btn btn-primary"
 					action="refuseBill" key="button.refuse" theme="simple">
 					<i class="icon-refuse icon-white"></i>
@@ -157,11 +171,13 @@
 				</s:submit>
 			</c:if>
 		</c:if>
+
 		<s:submit type="button" cssClass="btn btn-primary" action="printBill"
 			key="button.print" theme="simple">
 			<i class="icon-print icon-white"></i>
 			<fmt:message key="button.print" />
 		</s:submit>
+
 		<s:submit type="button" cssClass="btn" method="cancel"
 			key="button.back" theme="simple">
 			<i class=" icon-arrow-left"></i>
@@ -212,4 +228,13 @@
 		autoclose : true,
 		todayHighlight : true
 	});
+
+	function calcTotalamt() {
+		var notaxamt = $('#editBill_bill_tt_xprcmstro_notaxamt').val();
+		var taxamt = $('#editBill_bill_tt_xprcmstro_taxamt').val();
+
+		var totalamt = Number(notaxamt) + Number(taxamt);
+		$('#editBill_bill_tt_xpyhddeto_invoiceamt').val(totalamt);
+	}
 </script>
+

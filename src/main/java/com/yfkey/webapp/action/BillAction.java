@@ -30,6 +30,7 @@ import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
 import com.yfkey.exception.BillConfirmNotValidException;
+import com.yfkey.exception.QadException;
 import com.yfkey.exception.ShipQtyNotValidException;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
@@ -203,31 +204,47 @@ public class BillAction extends BaseAction {
 //			addActionError(ex.getMessage());
 //			edit();
 //			return INPUT;
+		}  catch (QadException ex) {
+			addActionError(ex.getMessage());
+			tt_xprcmstro_xprcmstroid = bill.getTt_xprcmstro_xprcmstroid();
+			edit();
+			return INPUT;
 		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
 			return INPUT;
 		}
 	}
 
-	public String refuse() {
+	public String refuse() throws Exception {
 		try {
 			if (ConnectQAD()) {
 				Update(bill, "3", "");
 			}
 			return SUCCESS;
-		} catch  (Exception ex) {
+		} catch (QadException ex) {
+			addActionError(ex.getMessage());
+			tt_xprcmstro_xprcmstroid = bill.getTt_xprcmstro_xprcmstroid();
+			edit();
+			return INPUT;
+		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
 			return INPUT;
 		}
+	
 	}
 
-	public String agree() {
+	public String agree() throws Exception {
 		try {
 			if (ConnectQAD()) {
 				Update(bill, "6", "");
 			}
 			return SUCCESS;
-		}catch (Exception ex) {
+		}catch (QadException ex) {
+			addActionError(ex.getMessage());
+			tt_xprcmstro_xprcmstroid = bill.getTt_xprcmstro_xprcmstroid();
+			edit();
+			return INPUT;
+		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
 			return INPUT;
 		}
@@ -277,19 +294,19 @@ public class BillAction extends BaseAction {
 		return "success";
 	}
 
-	private void Update(Bill b, String satus, String isPrint) {
+	private void Update(Bill b, String status, String isPrint) throws ProDataException, Exception {
 		String userCode = this.getRequest().getRemoteUser();
 
 		ProDataGraph exDataGraph; // 输入参数
 		ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
-		try {
+		
 			exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxupdate_xprcmstr_DSMetaData1());
 
 			ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
 
 			// 提交状态同时提交信息
-			if (satus == "4") {
+			if (status == "4") {
 				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
 				object.setInt(1, b.getTt_xprcmstro_qty());
 				object.setBigDecimal(2, bill.getTt_xprcmstro_taxamt());
@@ -297,11 +314,30 @@ public class BillAction extends BaseAction {
 				object.setBigDecimal(4, bill.getTt_xprcmstro_notaxamt());
 				object.setString(5, bill.getTt_xprcmstro_invnbr());
 				object.setString(6, bill.getTt_xprcmstro_rmk());
-				object.setString(7, satus);
+				object.setString(7, status);
 				object.setString(8, bill.getTt_xprcmstro_indexinvnbr());
 				object.setString(9, isPrint); // ""为确认，0为打印
 				object.setString(10, userCode);
-			} else {
+				object.setBigDecimal(11, bill.getTt_xpyhddeto_disamt());
+				object.setBigDecimal(12, bill.getTt_xprcmstro_claimamt());
+			} 
+			else if(status.equals("6"))
+			{
+				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
+				object.setInt(1, 0);
+				object.setBigDecimal(2, bill.getTt_xprcmstro_taxamt());
+				object.setString(3,"");
+				object.setBigDecimal(4, bill.getTt_xprcmstro_notaxamt());
+				object.setString(5, "");
+				object.setString(6, "");
+				object.setString(7, status);
+				object.setString(8, "");
+				object.setString(9, isPrint); // ""为确认，0为打印
+				object.setString(10, userCode);
+				object.setBigDecimal(11, bill.getTt_xpyhddeto_disamt());
+				object.setBigDecimal(12, bill.getTt_xprcmstro_claimamt());
+			}
+			else {
 				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
 				object.setInt(1, 0);
 				object.setBigDecimal(2, BigDecimal.ZERO);
@@ -309,22 +345,31 @@ public class BillAction extends BaseAction {
 				object.setBigDecimal(4, BigDecimal.ZERO);
 				object.setString(5, "");
 				object.setString(6, "");
-				object.setString(7, satus);
+				object.setString(7, status);
 				object.setString(8, "");
 				object.setString(9, isPrint); // ""为确认，0为打印
 				object.setString(10, userCode);
+				object.setBigDecimal(11,  BigDecimal.ZERO);
+				object.setBigDecimal(12,  BigDecimal.ZERO);
 			}
 
 			exDataGraph.addProDataObject(object);
 
 			yfkssScp.xxupdate_xprcmstr(exDataGraph, outputData);
-		} catch (ProDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
+			List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+					.getProDataObjects("tt_err_out");
+			if(outDataList != null && outDataList.size()>0)
+			{
+				if(getRequest().getLocale().toString().equals("zh_CN"))
+				{
+				throw new QadException((String)outDataList.get(0).get("tt_erro_msg")); 
+				}else{
+					throw new QadException((String)outDataList.get(1).get("tt_erro_msg")); 
+				}
+			}
+			
+		
 
 	}
 
