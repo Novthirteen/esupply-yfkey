@@ -188,7 +188,7 @@
 
 
 	<display:table name="billDetails" cellspacing="0" cellpadding="0"
-		requestURI="/billDetails" id="billDetail"
+		requestURI="editBill" id="billDetail" pagesize="25" 
 		class="table table-condensed table-striped table-hover" export="false">
 		<display:column property="tt_xpyhddeto_receiver" escapeXml="false"
 			titleKey="billDetail.tt_xpyhddeto_receiver" />
@@ -210,6 +210,14 @@
 			titleKey="billDetail.tt_xpyhddeto_partdesc" />
 		<display:column property="tt_xpyhddeto_rcdate" escapeXml="true"
 			titleKey="billDetail.tt_xpyhddeto_rcdate" />
+			
+				<display:setProperty name="paging.banner.placement" value="both" />
+		<display:setProperty name="paging.banner.item_name">
+			<fmt:message key="bill.billDetail" />
+		</display:setProperty>
+		<display:setProperty name="paging.banner.items_name">
+			<fmt:message key="bill.billDetails" />
+		</display:setProperty>
 	</display:table>
 </s:form>
 

@@ -20,13 +20,15 @@
 			<div class="col-xs-4 search-group">
 				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_shipto" />
 				<input id="tt_xpyhddeto_shipto"
-					name="purchaseOrderDetail.tt_xpyhddeto_shipto" type="text" value="${purchaseOrderDetail.tt_xpyhddeto_shipto}" 
+					name="purchaseOrderDetail.tt_xpyhddeto_shipto" type="text"
+					value="${purchaseOrderDetail.tt_xpyhddeto_shipto}"
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
 				<input id="tt_xpyhddeto_partnbr"
-					name="purchaseOrderDetail.tt_xpyhddeto_partnbr" type="text" value="${purchaseOrderDetail.tt_xpyhddeto_partnbr}" 
+					name="purchaseOrderDetail.tt_xpyhddeto_partnbr" type="text"
+					value="${purchaseOrderDetail.tt_xpyhddeto_partnbr}"
 					class="col-md-12 form-control" placeholder="" autocomplete="off" />
 			</div>
 		</div>
@@ -67,8 +69,8 @@
 		</div>
 
 		<display:table name="purchaseOrderDetails" cellspacing="0"
-			cellpadding="0" id="purchaseOrderDetail"
-			class="table table-condensed table-striped table-hover"
+			pagesize="25" defaultsort="1" cellpadding="0" id="purchaseOrderDetail"
+			class="table table-condensed table-striped table-hover" requestURI="barcodes"
 			export="false">
 
 			<display:column property="tt_xpyhddeto_seq" escapeXml="true"
@@ -108,6 +110,14 @@
 					name="purchaseOrderDetails[${purchaseOrderDetail_rowNum- 1}].tt_xpyhddeto_qty"
 					value="${purchaseOrderDetail.tt_xpyhddeto_qty}" class="text medium" />
 			</display:column>
+
+			<display:setProperty name="paging.banner.placement" value="both" />
+			<display:setProperty name="paging.banner.item_name">
+				<fmt:message key="purchaseOrderList.purchaseOrderDetail" />
+			</display:setProperty>
+			<display:setProperty name="paging.banner.items_name">
+				<fmt:message key="purchaseOrderList.purchaseOrderDetails" />
+			</display:setProperty>
 		</display:table>
 	</s:form>
 
