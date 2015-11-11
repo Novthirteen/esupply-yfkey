@@ -464,7 +464,6 @@ public class PurchaseOrderAction extends BaseAction {
 		if (purchaseOrder == null) {
 
 			purchaseOrder = new PurchaseOrder();
-			purchaseOrder.setTt_xpyhmstro_stat("3");
 			purchaseOrder.setTt_xpyhmstro_shipto("");
 			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
 		}
@@ -477,7 +476,7 @@ public class PurchaseOrderAction extends BaseAction {
 			}
 		}
 
-		purchaseOrder.setTt_xpyhmstro_stat("2,3");
+		purchaseOrder.setTt_xpyhmstro_stat("3");
 
 		shipQuery();
 		return SUCCESS;

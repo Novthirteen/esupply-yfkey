@@ -21,28 +21,37 @@
 				key="receipt.tt_prhmstri_yhdnbr" />
 		</div>
 		<div class="col-xs-3 search-group">
-			<label class="control-label"><fmt:message key="receipt.tt_prhmstro_suppcode" /></label>
-			<input id="tt_prhmstro_suppcode" name="receipt.tt_prhmstro_suppcode"  value="${receipt.tt_prhmstro_suppcode}" 
-				type="text" class="col-md-12 form-control" placeholder=""
+			<label class="control-label"><fmt:message
+					key="receipt.tt_prhmstro_suppcode" /></label> <input
+				id="tt_prhmstro_suppcode" name="receipt.tt_prhmstro_suppcode"
+				value="${receipt.tt_prhmstro_suppcode}" type="text"
+				class="col-md-12 form-control search-control" placeholder=""
 				autocomplete="off" />
 		</div>
 		<div class="col-xs-3 search-group">
-			<s:textfield cssClass="form-control search-control" id="tt_prhmstri_fromdate" key="receipt.tt_prhmstri_fromdate" />
+			<s:textfield cssClass="form-control search-control"
+				id="tt_prhmstri_fromdate" key="receipt.tt_prhmstri_fromdate" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-3 search-group">
-			<s:textfield cssClass="form-control search-control" id="tt_prhmstri_todate" key="receipt.tt_prhmstri_todate" />
+			<s:textfield cssClass="form-control search-control"
+				id="tt_prhmstri_todate" key="receipt.tt_prhmstri_todate" />
 		</div>
 		<div class="col-xs-3 search-group">
-			<label class="control-label"><fmt:message key="receipt.tt_prhmstri_partnbr" /></label>
-			<input id="tt_prhmstri_partnbr" name="receipt.tt_prhmstri_partnbr"  value="${receipt.tt_prhmstri_partnbr}" 
-				type="text" class="col-md-12 form-control" placeholder=""
+			<label class="control-label"><fmt:message
+					key="receipt.tt_prhmstri_partnbr" /></label> <input
+				id="tt_prhmstri_partnbr" name="receipt.tt_prhmstri_partnbr"
+				value="${receipt.tt_prhmstri_partnbr}" type="text"
+				class="col-md-12 form-control search-control" placeholder=""
 				autocomplete="off" />
 		</div>
 		<div class="col-xs-3 search-group layouttrim">
 			<s:checkbox key="receipt.isDetail" />
 		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3 search-group"></div>
 		<div class="col-xs-3 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn" action="receipts"
@@ -53,7 +62,7 @@
 		</div>
 	</div>
 </s:form>
-
+<hr>
 <c:choose>
 	<c:when test="${!receipt.isDetail}">
 		<display:table name="receipts" cellspacing="0" cellpadding="0"
@@ -178,19 +187,19 @@
 		valueField : 'value'
 	//onSelect: displayResult
 	});
-	
+
 	$('#tt_prhmstri_fromdate').datepicker({
-	    format: "yyyymmdd",
-	    language:  "${pageContext.response.locale}",
-	    autoclose: true,
-	    todayHighlight: true
+		format : "yyyymmdd",
+		language : "${pageContext.response.locale}",
+		autoclose : true,
+		todayHighlight : true
 	});
-	
+
 	$('#tt_prhmstri_todate').datepicker({
-	    format: "yyyymmdd",
-	    language:  "${pageContext.response.locale}",
-	    autoclose: true,
-	    todayHighlight: true
+		format : "yyyymmdd",
+		language : "${pageContext.response.locale}",
+		autoclose : true,
+		todayHighlight : true
 	});
 </script>
 

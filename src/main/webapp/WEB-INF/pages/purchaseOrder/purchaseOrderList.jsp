@@ -35,16 +35,7 @@
 			
 		</div>
 		<div class="row">
-			<div class="col-xs-3 search-group">
-				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
-					list="purchaseOrderStatusList" listKey="label" listValue="value"
-					cssClass="form-control search-control" />
-
-			</div>
-			<div class="col-xs-3 search-group">
-				<s:textfield cssClass="form-control search-control"
-					key="purchaseOrder.tt_xpyhmstro_creator" />
-			</div>
+		
 			<div class="col-xs-3 search-group">
 				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
 					list="purchaseOrderStatusList" listKey="label" listValue="value"
@@ -56,9 +47,6 @@
 					name="purchaseOrder.tt_xpyhmstro_shipto" type="text"  value="${purchaseOrder.tt_xpyhmstro_shipto}" 
 					class="form-control search-control" placeholder="" autocomplete="off" />
 			</div>
-			
-		</div>
-		<div class="row">
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_startdt" 
 					key="purchaseOrder.tt_xpyhmstro_startdt" />
@@ -66,6 +54,9 @@
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_receptdt" key="purchaseOrder.tt_xpyhmstro_receptdt" />
 			</div>
+		</div>
+		<div class="row">
+			
 			<div class="col-xs-3 search-group">
 				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" /></label>
 				<input id="tt_xpyhmstro_partnbr"
@@ -78,7 +69,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3 search-group">
+			<div class="col-xs-3 search-group"></div>
+			<div class="col-xs-4 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="purchaseOrders"
 					key="button.search" theme="simple">
@@ -88,7 +80,7 @@
 			</div>
 		</div>
 	</s:form>
-
+	<hr>
 	<c:choose>
 		<c:when test="${!purchaseOrder.isDetail}">
 			<display:table name="purchaseOrders" cellspacing="0" cellpadding="0"

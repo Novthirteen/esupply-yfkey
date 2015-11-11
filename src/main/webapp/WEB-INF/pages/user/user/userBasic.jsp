@@ -28,7 +28,7 @@
 			<c:choose>
 				<c:when test="${user.version != 0}">
 					<%-- <input type="hidden" name="username" value="${user.username}" /> --%>
-					<s:hidden key="user.username" />
+				
 					<s:hidden key="user.version" />
 					<s:textfield key="user.username" cssClass="form-control"
 						readonly="true" />

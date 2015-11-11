@@ -13,23 +13,23 @@
 <s:form name="purchaseOrderForm" action="shipPurchaseOrders"
 	method="post" validate="true">
 	<div class="row">
-		<div class="col-xs-4 search-group">
+		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
 		</div>
 
-		<div class="col-xs-4 search-group">
-			<fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" />
+		<div class="col-xs-3 search-group">
+			<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" /></label>
 			<input id="tt_xpyhmstro_shipto"
 				value="${purchaseOrder.tt_xpyhmstro_shipto}"
 				name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
-				class="col-md-12 form-control" placeholder="" autocomplete="off" />
+				class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-xs-4 search-group"></div>
-		<div class="col-xs-4 search-group layouttrim">
+		<div class="col-xs-3 search-group"></div>
+		<div class="col-xs-3 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn" action="shipPurchaseOrders"
 				key="button.search" theme="simple">
@@ -40,7 +40,7 @@
 	</div>
 </s:form>
 
-
+<hr>
 <display:table name="purchaseOrders" cellspacing="0" cellpadding="0"
 	requestURI="shipPurchaseOrders" defaultsort="1" id="purchaseOrder"
 	pagesize="25" class="table table-condensed table-striped table-hover"

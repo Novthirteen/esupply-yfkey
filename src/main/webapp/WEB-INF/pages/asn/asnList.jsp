@@ -21,39 +21,45 @@
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:select key="asn.tt_xasnmstro_stat" list="asnStatusList"
-					listKey="label" listValue="value" cssClass="form-control" />
+					listKey="label" listValue="value" cssClass="form-control search-control" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="asn.tt_xasnmstro_suppcode" /></label>
-				<input id="tt_xasnmstro_suppcode" name="asn.tt_xasnmstro_suppcode" value="${asn.tt_xasnmstro_suppcode}" 
-					type="text" class="col-md-12 form-control" placeholder=""
-					autocomplete="off" />
+				<label class="control-label"><fmt:message
+						key="asn.tt_xasnmstro_suppcode" /></label> <input
+					id="tt_xasnmstro_suppcode" name="asn.tt_xasnmstro_suppcode"
+					value="${asn.tt_xasnmstro_suppcode}" type="text"
+					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="asn.tt_xasnmstro_shipto" /></label>
-				<input id="tt_xasnmstro_shipto" name="asn.tt_xasnmstro_shipto" value="${asn.tt_xasnmstro_shipto}" 
-					type="text" class="col-md-12 form-control" placeholder=""
+				<label class="control-label"><fmt:message
+						key="asn.tt_xasnmstro_shipto" /></label> <input id="tt_xasnmstro_shipto"
+					name="asn.tt_xasnmstro_shipto" value="${asn.tt_xasnmstro_shipto}"
+					type="text" class="col-md-12 form-control search-control" placeholder=""
 					autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="asn.tt_xasnmstri_partnbr" /></label>
-				<input id="tt_xasnmstri_partnbr" name="asn.tt_xasnmstri_partnbr"
+				<label class="control-label"><fmt:message
+						key="asn.tt_xasnmstri_partnbr" /></label> <input
+					id="tt_xasnmstri_partnbr" name="asn.tt_xasnmstri_partnbr"
 					value="${asn.tt_xasnmstri_partnbr}" type="text"
-					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<s:textfield cssClass="form-control search-control" id="tt_xasnmstri_fromdate" key="asn.tt_xasnmstri_fromdate" />
+				<s:textfield cssClass="form-control search-control"
+					id="tt_xasnmstri_fromdate" key="asn.tt_xasnmstri_fromdate" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<s:textfield cssClass="form-control search-control" id="tt_xasnmstri_todate" key="asn.tt_xasnmstri_todate" />
+				<s:textfield cssClass="form-control search-control"
+					id="tt_xasnmstri_todate" key="asn.tt_xasnmstri_todate" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-3 search-group layouttrim">
 				<s:checkbox key="asn.isDetail" />
 			</div>
+		
 			<div class="col-xs-3 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="asns"
@@ -63,9 +69,8 @@
 				</s:submit>
 			</div>
 		</div>
-
 	</s:form>
-
+	<hr>
 	<c:choose>
 		<c:when test="${!asn.isDetail}">
 			<display:table name="asns" cellspacing="0" cellpadding="0"
@@ -203,19 +208,19 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
-		
+
 		$('#tt_xasnmstri_fromdate').datepicker({
-		    format: "yyyymmdd",
-		    language:  "${pageContext.response.locale}",
-		    autoclose: true,
-		    todayHighlight: true
+			format : "yyyymmdd",
+			language : "${pageContext.response.locale}",
+			autoclose : true,
+			todayHighlight : true
 		});
-		
+
 		$('#tt_xasnmstri_todate').datepicker({
-		    format: "yyyymmdd",
-		    language:  "${pageContext.response.locale}",
-		    autoclose: true,
-		    todayHighlight: true
+			format : "yyyymmdd",
+			language : "${pageContext.response.locale}",
+			autoclose : true,
+			todayHighlight : true
 		});
 	</script>
 

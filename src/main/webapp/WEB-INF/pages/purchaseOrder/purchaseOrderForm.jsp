@@ -89,11 +89,11 @@
 				</s:submit>
 			</c:if>
 		</c:if>
-		<s:submit type="button" cssClass="btn btn-primary"
-			action="printPurchaseOder" key="button.print" theme="simple">
-			<i class="icon-print icon-white"></i>
-			<fmt:message key="button.print" />
-		</s:submit>
+<%-- 		<s:submit type="button" cssClass="btn btn-primary" --%>
+<%-- 			action="printPurchaseOder" key="button.print" theme="simple"> --%>
+<!-- 			<i class="icon-print icon-white"></i> -->
+<%-- 			<fmt:message key="button.print" /> --%>
+<%-- 		</s:submit> --%>
 
 		<s:submit type="button" cssClass="btn" method="cancel"
 			key="button.back" theme="simple">

@@ -18,27 +18,27 @@
 					key="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_shipto" />
+				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_shipto" /></label>
 				<input id="tt_xpyhddeto_shipto"
 					name="purchaseOrderDetail.tt_xpyhddeto_shipto" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_shipto}"
-					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">
-				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" />
+				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" /></label>
 				<input id="tt_xpyhddeto_partnbr"
 					name="purchaseOrderDetail.tt_xpyhddeto_partnbr" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_partnbr}"
-					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4 search-group">
-				<fmt:message key="purchaseOrderDetail.tt_xpyhddeto_suppcode" />
+				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_suppcode" /></label>
 				<input id="tt_xpyhddeto_suppcode"
 					name="purchaseOrderDetail.tt_xpyhddeto_suppcode" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_suppcode}"
-					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<s:textfield cssClass="form-control search-control"
@@ -67,6 +67,7 @@
 
 			</div>
 		</div>
+		<hr>
 
 		<display:table name="purchaseOrderDetails" cellspacing="0"
 			pagesize="25" defaultsort="1" cellpadding="0" id="purchaseOrderDetail"

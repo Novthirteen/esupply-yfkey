@@ -23,22 +23,29 @@
 				<s:textfield cssClass="form-control search-control"
 					id="tt_xprcmstri_todate" key="bill.tt_xprcmstri_todate" />
 			</div>
+
+		</div>
+
+		<div class="row">
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="bill.tt_xprcmstro_suppcode" /></label>
-				<input id="tt_xprcmstro_suppcode" name="bill.tt_xprcmstro_suppcode"
+				<label class="control-label"><fmt:message
+						key="bill.tt_xprcmstro_suppcode" /></label> <input
+					id="tt_xprcmstro_suppcode" name="bill.tt_xprcmstro_suppcode"
 					value="${bill.tt_xprcmstro_suppcode}" type="text"
-					class="col-md-12 form-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
+			</div>
+			<div class="col-xs-3 search-group">
+
+				<s:select key="bill.tt_xprcmstro_stat" list="billStatusList"
+					listKey="label" listValue="value"
+					cssClass="form-control search-control" />
+
 			</div>
 		</div>
 
 		<div class="row">
-			
-			<div class="col-xs-3 search-group">
-
-				<s:select key="bill.tt_xprcmstro_stat" list="billStatusList"
-					listKey="label" listValue="value" cssClass="form-control" />
-
-			</div>
+			<div class="col-xs-3 search-group"></div>
 			<div class="col-xs-3 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="bills"
@@ -49,7 +56,7 @@
 			</div>
 		</div>
 	</s:form>
-
+	<hr>
 	<display:table name="bills" cellspacing="0" cellpadding="0"
 		requestURI="bills" defaultsort="1" id="bills" pagesize="25"
 		class="table table-condensed table-striped table-hover" export="true">
@@ -59,19 +66,19 @@
 			sortable="true" titleKey="bill.tt_xprcmstro_voucher"
 			url="/bill/editBill?from=list" paramId="tt_xprcmstro_xprcmstroid"
 			paramProperty="tt_xprcmstro_xprcmstroid" />
-<%-- 		<display:column titleKey="bill.tt_xprcmstro_type" escapeXml="true" --%>
-<%-- 			sortable="true"> --%>
-<%-- 			<c:choose> --%>
-<%-- 				<c:when test="${bill.tt_xprcmstro_type eq '0'}"> --%>
-<%-- 					<fmt:message key="xprcmstro_type.Normal" /> --%>
-<%-- 				</c:when> --%>
-<%-- 				<c:when test="${bill.tt_xprcmstro_type eq '1'}"> --%>
-<%-- 					<fmt:message key="xprcmstro_type.Claim" /> --%>
-<%-- 				</c:when> --%>
-<%-- 			</c:choose> --%>
-<%-- 		</display:column> --%>
-		
-		
+		<%-- 		<display:column titleKey="bill.tt_xprcmstro_type" escapeXml="true" --%>
+		<%-- 			sortable="true"> --%>
+		<%-- 			<c:choose> --%>
+		<%-- 				<c:when test="${bill.tt_xprcmstro_type eq '0'}"> --%>
+		<%-- 					<fmt:message key="xprcmstro_type.Normal" /> --%>
+		<%-- 				</c:when> --%>
+		<%-- 				<c:when test="${bill.tt_xprcmstro_type eq '1'}"> --%>
+		<%-- 					<fmt:message key="xprcmstro_type.Claim" /> --%>
+		<%-- 				</c:when> --%>
+		<%-- 			</c:choose> --%>
+		<%-- 		</display:column> --%>
+
+
 		<display:column property="tt_xprcmstro_suppcode" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_suppcode" />
 		<display:column property="tt_xprcmstro_invdate" escapeXml="true"
