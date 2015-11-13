@@ -297,11 +297,12 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xpyhddet_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xpyhddet_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xpyhddet_DSMetaData1.addTable(xxinquiry_xpyhddet_MetaData11);
-		xxinquiry_xpyhddet_MetaData12 = new ProDataObjectMetaData("tt_xpyhddet_in", 4, false, 0, null, null, null);
+		xxinquiry_xpyhddet_MetaData12 = new ProDataObjectMetaData("tt_xpyhddet_in", 5, false, 0, null, null, null);
 		xxinquiry_xpyhddet_MetaData12.setFieldDesc(1, "tt_xpyhddeti_yhdnbr", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xpyhddet_MetaData12.setFieldDesc(2, "tt_xpyhddeti_shipto", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xpyhddet_MetaData12.setFieldDesc(3, "tt_xpyhddeti_partnbr", 0, Parameter.PRO_CHARACTER,2,0);
 		xxinquiry_xpyhddet_MetaData12.setFieldDesc(4, "tt_xpyhddeti_supppart", 0, Parameter.PRO_CHARACTER,3,0);
+		xxinquiry_xpyhddet_MetaData12.setFieldDesc(5, "tt_xpyhddeti_asn", 0, Parameter.PRO_CHARACTER,4,0);
 		xxinquiry_xpyhddet_DSMetaData1.addTable(xxinquiry_xpyhddet_MetaData12);
 		xxinquiry_xpyhddet_DSMetaData2 = new ProDataGraphMetaData(0, "export_xpyhddet", 2, ParameterSet.OUTPUT);
 		xxinquiry_xpyhddet_MetaData21 = new ProDataObjectMetaData("tt_xpyhddet_out", 13, false, 0, null, null, null);

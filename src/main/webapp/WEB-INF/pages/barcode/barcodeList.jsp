@@ -13,46 +13,50 @@
 	<s:form name="barcodeForm" action="barcodes" method="post"
 		validate="true">
 		<div class="row">
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
+				<s:textfield cssClass="form-control search-control"
+					key="purchaseOrderDetail.tt_xpyhddeto_asn" />
+			</div>
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_shipto" /></label>
 				<input id="tt_xpyhddeto_shipto"
 					name="purchaseOrderDetail.tt_xpyhddeto_shipto" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_shipto}"
 					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" /></label>
 				<input id="tt_xpyhddeto_partnbr"
 					name="purchaseOrderDetail.tt_xpyhddeto_partnbr" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_partnbr}"
 					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
+			
 		</div>
 		<div class="row">
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_suppcode" /></label>
 				<input id="tt_xpyhddeto_suppcode"
 					name="purchaseOrderDetail.tt_xpyhddeto_suppcode" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_suppcode}"
 					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
 			</div>
-			<div class="col-xs-4 search-group">
+			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrderDetail.tt_xpyhddeto_supppart" />
 			</div>
-			<div class="col-xs-4 search-group layouttrim">
+			
+			<div class="col-xs-3 search-group layouttrim">
 				<s:radio key="purchaseOrderDetail.isexternal" listValue="value"
 					value="0" listKey="label" list="packageList" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4 search-group"></div>
-			<div class="col-xs-4 search-group layouttrim">
-
+			<div class="col-xs-3 search-group layouttrim">
 				<s:submit type="button" cssClass="btn btn-primary" action="barcodes"
 					key="button.search" theme="simple">
 					<i class="icon-search icon-white"></i>

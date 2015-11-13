@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -617,19 +618,6 @@ public class PurchaseOrderAction extends BaseAction {
 	}
 
 	private void shipQuery() {
-
-		// purchaseOrders = new ArrayList<PurchaseOrder>();
-		// PurchaseOrder po = new PurchaseOrder();
-		// po.setTt_xpyhmstro_yhdnbr("ORD000001");
-		// po.setTt_xpyhmstro_priority("High");
-		// po.setTt_xpyhmstro_creator("admin");
-		// po.setTt_xpyhmstro_receptdt("20150901");
-		// po.setTt_xpyhmstro_startdt("20150831");
-		// po.setTt_xpyhmstro_seq(1);
-		// po.setTt_xpyhmstro_suppcode("ADKJ");
-		// po.setTt_xpyhmstro_shipto("秀浦路426号");
-		// purchaseOrders.add(po);
-
 		if (ConnectQAD()) {
 
 			String userCode = this.getRequest().getRemoteUser();
@@ -733,6 +721,24 @@ public class PurchaseOrderAction extends BaseAction {
 
 			purchaseOrder.setTt_xpyhmstro_shipto("");
 			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
+			
+			
+					
+					
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			Date date=new Date();
+			Calendar fca=Calendar.getInstance();
+			fca.setTime(date);
+			fca.add(Calendar.WEEK_OF_MONTH, -2);
+			String fromDate = sdf.format(fca.getTime());
+			
+			Calendar tca=Calendar.getInstance();
+			tca.setTime(date);
+			String toDate = sdf.format(tca.getTime());
+			
+			purchaseOrder.setTt_xpyhmstro_fromdate(fromDate);
+			purchaseOrder.setTt_xpyhmstro_enddate(toDate);
+			
 		}
 
 		// 默认优先级预测，状态也为预测

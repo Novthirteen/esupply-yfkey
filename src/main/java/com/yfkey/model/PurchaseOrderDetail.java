@@ -51,6 +51,8 @@ public class PurchaseOrderDetail extends BaseObject {
 	private String tt_xpyhddeto_recepttm;                   //窗口时间
 	private BigDecimal tt_forecast_fcastqty;                //预测数
 	
+	private String tt_xpyhddeto_asn;	                   //asn
+	
 	public int getTt_xpyhddeto_seq() {
 		return tt_xpyhddeto_seq;
 	}
@@ -247,8 +249,12 @@ public class PurchaseOrderDetail extends BaseObject {
 		this.tt_xpyhddeto_delvqty = tt_xpyhddeto_delvqty;
 	}
 	
-	
-	
+	public String getTt_xpyhddeto_asn() {
+		return tt_xpyhddeto_asn;
+	}
+	public void setTt_xpyhddeto_asn(String tt_xpyhddeto_asn) {
+		this.tt_xpyhddeto_asn = tt_xpyhddeto_asn;
+	}
 	public BigDecimal getTt_forecast_fcastqty() {
 		return tt_forecast_fcastqty;
 	}

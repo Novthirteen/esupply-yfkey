@@ -110,6 +110,7 @@ public class BarcodeAction extends BaseAction {
 				purchaseOrderDetail.setTt_xpyhddeto_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
 			}
 		}
+		
 
 		query();
 		return SUCCESS;
@@ -176,6 +177,8 @@ public class BarcodeAction extends BaseAction {
 							: purchaseOrderDetail.getTt_xpyhddeto_partnbr().trim());
 					objectMstr.setString(3, purchaseOrderDetail.getTt_xpyhddeto_supppart() == null ? ""
 							: purchaseOrderDetail.getTt_xpyhddeto_supppart().trim());
+					objectMstr.setString(4, purchaseOrderDetail.getTt_xpyhddeto_asn() == null ? ""
+							: purchaseOrderDetail.getTt_xpyhddeto_asn().trim());
 				}
 
 				exDataGraph.addProDataObject(objectMstr);
