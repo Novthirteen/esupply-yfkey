@@ -13,6 +13,7 @@
                 <value>classpath:jdbc.properties</value>
                 <value>classpath:mail.properties</value>
                 <value>classpath:hibernate.properties</value>
+                 <value>classpath:qad.properties</value>
             </list>
         </property>
         <property name="systemPropertiesMode">

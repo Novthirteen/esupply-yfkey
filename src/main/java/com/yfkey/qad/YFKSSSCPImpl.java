@@ -1832,7 +1832,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxcreate_xasndet.p", params, xxcreate_xasndet_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxcreate_xasndet.p", params, xxcreate_xasndet_MetaSchema);
 
 
 		// Get output parameters
@@ -1894,7 +1894,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxexport_xasndet.p", params, xxexport_xasndet_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxexport_xasndet.p", params, xxexport_xasndet_MetaSchema);
 
 
 		// Get output parameters
@@ -1956,7 +1956,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxexport_xpyhddet.p", params, xxexport_xpyhddet_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxexport_xpyhddet.p", params, xxexport_xpyhddet_MetaSchema);
 
 
 		// Get output parameters
@@ -2018,7 +2018,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxinquiry_xprcdet.p", params, xxinquiry_xprcdet_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxinquiry_xprcdet.p", params, xxinquiry_xprcdet_MetaSchema);
 
 
 		// Get output parameters
@@ -2080,7 +2080,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxinquiry_xprcmstr.p", params, xxinquiry_xprcmstr_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxinquiry_xprcmstr.p", params, xxinquiry_xprcmstr_MetaSchema);
 
 
 		// Get output parameters
@@ -2142,7 +2142,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxinquiry_xpyhddet.p", params, xxinquiry_xpyhddet_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxinquiry_xpyhddet.p", params, xxinquiry_xpyhddet_MetaSchema);
 
 
 		// Get output parameters
@@ -2204,7 +2204,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure(QADConfg.m_QadFilePath+"xxinquiry_xpyhmstr.p", params, xxinquiry_xpyhmstr_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() + "xxinquiry_xpyhmstr.p", params, xxinquiry_xpyhmstr_MetaSchema);
 
 
 		// Get output parameters
@@ -2266,7 +2266,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxinqury_prhdet.p", params, xxinqury_prhdet_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxinqury_prhdet.p", params, xxinqury_prhdet_MetaSchema);
 
 
 		// Get output parameters
@@ -2328,7 +2328,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxinqury_prhmstr.p", params, xxinqury_prhmstr_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxinqury_prhmstr.p", params, xxinqury_prhmstr_MetaSchema);
 
 
 		// Get output parameters
@@ -2390,7 +2390,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxinqury_xasnmstr.p", params, xxinqury_xasnmstr_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxinqury_xasnmstr.p", params, xxinqury_xasnmstr_MetaSchema);
 
 
 		// Get output parameters
@@ -2452,7 +2452,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxinqury_xpyhddet2.p", params, xxinqury_xpyhddet2_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxinqury_xpyhddet2.p", params, xxinqury_xpyhddet2_MetaSchema);
 
 
 		// Get output parameters
@@ -2514,7 +2514,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxprint_barcode.p", params, xxprint_barcode_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxprint_barcode.p", params, xxprint_barcode_MetaSchema);
 
 
 		// Get output parameters
@@ -2576,7 +2576,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxupdate_xprcmstr.p", params, xxupdate_xprcmstr_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxupdate_xprcmstr.p", params, xxupdate_xprcmstr_MetaSchema);
 
 
 		// Get output parameters
@@ -2638,7 +2638,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxupdate_xpyhmstr.p", params, xxupdate_xpyhmstr_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxupdate_xpyhmstr.p", params, xxupdate_xpyhmstr_MetaSchema);
 
 
 		// Get output parameters
@@ -2700,7 +2700,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxview_xasndet.p", params, xxview_xasndet_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxview_xasndet.p", params, xxview_xasndet_MetaSchema);
 
 
 		// Get output parameters
@@ -2762,7 +2762,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxview_xpyhddet.p", params, xxview_xpyhddet_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxview_xpyhddet.p", params, xxview_xpyhddet_MetaSchema);
 
 
 		// Get output parameters
@@ -2824,7 +2824,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 
 		// Run procedure
-		rqCtx = runProcedure("xxview_forecast.p", params, xxview_forecast_MetaSchema);
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxview_forecast.p", params, xxview_forecast_MetaSchema);
 
 
 		// Get output parameters

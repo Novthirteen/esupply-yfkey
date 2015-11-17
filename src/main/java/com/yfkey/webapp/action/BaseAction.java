@@ -108,6 +108,7 @@ public class BaseAction extends ActionSupport {
 	 */
 
 	protected static YFKSSSCP yfkssScp;
+	private static String yfkssScpLock = "yfkssScpLock";
 
 	public String cancel() {
 		return CANCEL;
@@ -252,7 +253,13 @@ public class BaseAction extends ActionSupport {
 	protected static boolean ConnectQAD() {
 		try {
 
-			yfkssScp = new YFKSSSCP(new Connection(QADConfg.m_AppSrvUrl, "", "", null));
+			if (yfkssScp == null) {
+				synchronized (yfkssScpLock) {
+					if (yfkssScp == null) {
+						yfkssScp = new YFKSSSCP(new Connection(QADConfg.getQadServerUrl(), "", "", null));
+					}
+				}
+			}
 			if (yfkssScp != null) {
 				return true;
 			} else {
@@ -318,7 +325,7 @@ public class BaseAction extends ActionSupport {
 			if (!supplierCodeList.contains(supplierCode.toUpperCase())) {
 				List<Object> args = new ArrayList<Object>();
 				args.add(supplierCode);
-				throw new SupplierAuthorityException(getText("supplier.no.authority",args));
+				throw new SupplierAuthorityException(getText("supplier.no.authority", args));
 			}
 		}
 

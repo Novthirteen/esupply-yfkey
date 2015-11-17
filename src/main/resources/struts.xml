@@ -99,6 +99,27 @@
 			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
 			<result name="cancel" type="redirectAction">home</result>
 		</action>
+		
+		<action name="uploadTest" class="fileUploadAction" method="uploadTest">
+			<interceptor-ref name="fileUploadStack" />
+			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
+			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
+			<result name="cancel" type="redirectAction">home</result>
+		</action>
+		
+		<action name="uploadProd" class="fileUploadAction" method="uploadProd">
+			<interceptor-ref name="fileUploadStack" />
+			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
+			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
+			<result name="cancel" type="redirectAction">home</result>
+		</action>
+		
+		<action name="uploadTraining" class="fileUploadAction" method="uploadTraining">
+			<interceptor-ref name="fileUploadStack" />
+			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
+			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
+			<result name="cancel" type="redirectAction">home</result>
+		</action>
 
 		<!-- Add additional actions here -->
 	</package>

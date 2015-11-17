@@ -2,6 +2,7 @@ package com.yfkey.webapp.action;
 
 import org.apache.struts2.ServletActionContext;
 import com.yfkey.Constants;
+import com.yfkey.qad.QADConfg;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +26,57 @@ public class FileUploadAction extends BaseAction {
     public String list()
     {
     	return SUCCESS;
+    }
+    
+    public String uploadTest() throws Exception{
+    	return uploadQad(QADConfg.getQadUploadPathTest());
+    }
+    
+    public String uploadProd() throws Exception{
+    	return uploadQad(QADConfg.getQadUploadPathProd());
+    }
+    
+    public String uploadTraining() throws Exception{
+    	return uploadQad(QADConfg.getQadUploadPathTraining());
+    }
+    
+    public String uploadQad(String uploadDir) throws Exception {
+        if (this.cancel != null) {
+            return "cancel";
+        }
+
+        // write the file to the file specified
+        File dirPath = new File(uploadDir);
+
+        if (!dirPath.exists()) {
+            dirPath.mkdirs();
+        }
+
+        //retrieve the file data
+        InputStream stream = new FileInputStream(file);
+
+        //write the file to the file specified
+        OutputStream bos = new FileOutputStream(uploadDir + fileFileName);
+        int bytesRead;
+        byte[] buffer = new byte[8192];
+
+        while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
+            bos.write(buffer, 0, bytesRead);
+        }
+
+        bos.close();
+        stream.close();
+
+        // place the data into the request for retrieval on next page
+        getRequest().setAttribute("location", dirPath.getAbsolutePath()
+                + Constants.FILE_SEP + fileFileName);
+
+        String link = getRequest().getContextPath() + "/resources" + "/"
+                + getRequest().getRemoteUser() + "/";
+
+        getRequest().setAttribute("link", link + fileFileName);
+
+        return SUCCESS;
     }
     /**
      * Upload the file
