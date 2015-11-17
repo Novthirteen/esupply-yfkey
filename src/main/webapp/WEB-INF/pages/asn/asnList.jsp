@@ -183,7 +183,7 @@
 										query : e
 									}
 								},
-								triggerLength : 1
+								triggerLength : 5
 							},
 							displayField : 'label',
 							valueField : 'value'

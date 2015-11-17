@@ -89,6 +89,10 @@
 			<result name="success" type="redirectAction">home</result>
 		</action>
 
+		 <action name="selectFile" class="fileUploadAction" method="list">
+            <result name="success">/WEB-INF/pages/uploadForm.jsp</result>
+        </action>
+
 		<action name="uploadFile" class="fileUploadAction" method="upload">
 			<interceptor-ref name="fileUploadStack" />
 			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>

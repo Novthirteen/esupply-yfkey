@@ -6,7 +6,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 import com.yfkey.Constants;
+import com.yfkey.exception.SupplierAuthorityException;
+import com.yfkey.exception.UserPasswordNotValidException;
 import com.yfkey.model.User;
+import com.yfkey.model.UserPasswordLog;
 import com.yfkey.service.MailEngine;
 import com.yfkey.service.RoleManager;
 import com.yfkey.service.UserManager;
@@ -103,7 +106,7 @@ public class BaseAction extends ActionSupport {
 	 *
 	 * @return "cancel"
 	 */
-	
+
 	protected static YFKSSSCP yfkssScp;
 
 	public String cancel() {
@@ -226,8 +229,6 @@ public class BaseAction extends ActionSupport {
 	public void setSave(String save) {
 		this.save = save;
 	}
-	
-	
 
 	public UniversalManager getUniversalManager() {
 		return universalManager;
@@ -247,7 +248,7 @@ public class BaseAction extends ActionSupport {
 		args.add(ex.getMessage());
 		addActionError(getText("errors.unexpectError", args));
 	}
-	
+
 	protected static boolean ConnectQAD() {
 		try {
 
@@ -271,35 +272,55 @@ public class BaseAction extends ActionSupport {
 		@SuppressWarnings("unchecked")
 		List<String> permissionCodeList = universalManager.findByNativeSql(
 				"select permission_code from permission_view where permission_type = ? and username = ? and permission_code like ?",
-				new Object[] { PermissionType.S.toString(), userCode, domain+"%"});
-		
-		if(permissionCodeList != null && permissionCodeList.size()>0)
-		{
-			for(String code : permissionCodeList)
-			{
-				
+				new Object[] { PermissionType.S.toString(), userCode, domain + "%" });
+
+		if (permissionCodeList != null && permissionCodeList.size() > 0) {
+			for (String code : permissionCodeList) {
+
 				String[] codeArray = code.split("_");
 				supplierCodeList.add(codeArray[1]);
 			}
 		}
-		if (supplierCode !=null && ! supplierCode.trim().equals("") ) {
-			
-			if(supplierCodeList.contains(supplierCode))
-			{
+		if (supplierCode != null && !supplierCode.trim().equals("")) {
+
+			if (supplierCodeList.contains(supplierCode)) {
 				supplierCodeList = new ArrayList<String>();
 				supplierCodeList.add(supplierCode);
-			}else{
+			} else {
 				supplierCodeList = new ArrayList<String>();
 			}
 		}
 		return supplierCodeList;
 	}
-	
-	protected String getCurrentDomain()
-	{
+
+	protected String getCurrentDomain() {
 		return this.getRequest().getSession().getAttribute(Constants.SELECTED_USER_PLANT).toString();
 	}
-	
-	
-	
+
+	protected void checkSupplier(String supplierCode) throws SupplierAuthorityException {
+		String userCode = this.getRequest().getRemoteUser();
+		String domain = this.getCurrentDomain();
+		List<String> supplierCodeList = new ArrayList<String>();
+		@SuppressWarnings("unchecked")
+		List<String> permissionCodeList = universalManager.findByNativeSql(
+				"select permission_code from permission_view where permission_type = ? and username = ? and permission_code like ?",
+				new Object[] { PermissionType.S.toString(), userCode, domain + "%" });
+
+		if (permissionCodeList != null && permissionCodeList.size() > 0) {
+			for (String code : permissionCodeList) {
+
+				String[] codeArray = code.split("_");
+				supplierCodeList.add(codeArray[1].toUpperCase());
+			}
+		}
+		if (supplierCode != null && !supplierCode.trim().equals("")) {
+
+			if (!supplierCodeList.contains(supplierCode.toUpperCase())) {
+				List<Object> args = new ArrayList<Object>();
+				args.add(supplierCode);
+				throw new SupplierAuthorityException(getText("supplier.no.authority",args));
+			}
+		}
+
+	}
 }

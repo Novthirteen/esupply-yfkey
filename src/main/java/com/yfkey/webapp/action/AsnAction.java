@@ -35,6 +35,7 @@ import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
 import com.yfkey.webapp.util.PrintASNUtil;
 import com.yfkey.webapp.util.QADUtil;
+import com.yfkey.exception.SupplierAuthorityException;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
 import com.yfkey.model.Item;
@@ -114,32 +115,7 @@ public class AsnAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	public String edit() throws IOException {
 
-		// try {
-		// if (ConnectQAD()) {
-		// String userCode = this.getRequest().getRemoteUser();
-		//
-		// String domain = "YFKSH";
-		// ProDataGraph exDataGraph; // 输入参数
-		// ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
-		//
-		// exDataGraph = new
-		// ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxview_xasnddet_DSMetaData1());
-		//
-		// ProDataObject object =
-		// exDataGraph.createProDataObject("tt_xasnddet_in");
-		//
-		// object.setString(0, tt_xasnddeti_xasnmstroid);
-		//
-		// exDataGraph.addProDataObject(object);
-		//
-		// yfkssScp.xxview_xasnddet(exDataGraph, outputData);
-		// }
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// return SUCCESS;
-
-		// if a asnCode is passed in
+	
 		try {
 
 			if (tt_xasnmstro_xasnmstroid != null) {
@@ -170,6 +146,8 @@ public class AsnAction extends BaseAction {
 						asn.setTt_xasnmstro_xasnmstroid(tt_xasnmstro_xasnmstroid);
 						asnDetails = (List<AsnDetail>) objList.get(1);
 						asn.setTt_xasnmstro_stat_desc(getAsnStatus(asn.getTt_xasnmstro_stat()));
+						
+						checkSupplier(asn.getTt_xasnmstro_suppcode());
 					}
 				}
 			} else {
@@ -177,6 +155,26 @@ public class AsnAction extends BaseAction {
 				asnDetails = new ArrayList<AsnDetail>();
 			}
 
+		}catch (SupplierAuthorityException ex) {
+			addActionError(ex.getMessage());
+			
+			asn = new Asn();
+			asn.setIsDetail(false);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			Date date=new Date();
+			Calendar fca=Calendar.getInstance();
+			fca.setTime(date);
+			fca.add(Calendar.MONTH, -1);
+			String fromDate = sdf.format(fca.getTime());
+			
+			Calendar tca=Calendar.getInstance();
+			tca.setTime(date);
+			String toDate = sdf.format(tca.getTime());
+			
+			asn.setTt_xasnmstri_fromdate(fromDate);
+			asn.setTt_xasnmstri_todate(toDate);
+			
+			return INPUT;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

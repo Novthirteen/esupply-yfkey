@@ -16,8 +16,11 @@
 	<ul class="glassList">
 		<li><a href="<c:url value='/user/editProfile'/>"><fmt:message
 					key="menu.user" /></a></li>
+		<li>
+        	<a href="<c:url value='/selectFile'/>"><fmt:message key="menu.selectFile"/></a>
+    	</li>
 	</ul>
-
+	
 	<c:if test="${not empty sessionScope.forceChangePassword}">
 		<div class="modal fade" id="changePasswordModal" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

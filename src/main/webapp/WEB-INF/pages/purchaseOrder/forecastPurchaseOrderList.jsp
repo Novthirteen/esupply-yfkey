@@ -161,7 +161,7 @@
 										query : e
 									}
 								},
-								triggerLength : 3
+								triggerLength : 5
 							},
 							displayField : 'label',
 							valueField : 'value'

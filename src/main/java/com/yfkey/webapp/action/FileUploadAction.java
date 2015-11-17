@@ -19,6 +19,13 @@ public class FileUploadAction extends BaseAction {
     private String fileFileName;
     private String name;
 
+    
+    
+    
+    public String list()
+    {
+    	return SUCCESS;
+    }
     /**
      * Upload the file
      *

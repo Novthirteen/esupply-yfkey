@@ -44,7 +44,7 @@
 				</div>
 				<div class="col-xs-4 search-group">
 
-					<s:textfield cssClass="form-control search-control"
+					<s:textfield cssClass="form-control"
 						id="tt_xprcmstro_invdate" key="bill.tt_xprcmstro_invdate" />
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 						readonly="true" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:textfield cssClass="form-control search-control" readonly="true" 
+					<s:textfield cssClass="form-control" readonly="true" 
 						id="tt_xprcmstro_invdate" key="bill.tt_xprcmstro_invdate" />
 				</div>
 			</div>

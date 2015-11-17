@@ -33,7 +33,9 @@ import com.progress.open4gl.Parameter;
 import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
+import com.yfkey.exception.QadException;
 import com.yfkey.exception.ShipQtyNotValidException;
+import com.yfkey.exception.SupplierAuthorityException;
 import com.yfkey.exception.UserPasswordNotValidException;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
@@ -220,6 +222,9 @@ public class PurchaseOrderAction extends BaseAction {
 						purchaseOrder = (PurchaseOrder) objList.get(0);
 						purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
 
+						
+						checkSupplier(purchaseOrder.getTt_xpyhmstro_suppcode());
+						
 						// 状态描述和优先级翻译一下
 						purchaseOrder.setTt_xpyhmstro_stat_desc(
 								getPurchaseOrderStatus(purchaseOrder.getTt_xpyhmstro_stat()));
@@ -231,6 +236,16 @@ public class PurchaseOrderAction extends BaseAction {
 				purchaseOrder = new PurchaseOrder();
 			}
 
+		}  catch (SupplierAuthorityException ex) {
+			addActionError(ex.getMessage());
+			
+			purchaseOrder = new PurchaseOrder();
+			Date date = new Date();
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
+			purchaseOrder.setIsDetail(false);
+			
+			return INPUT;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -274,11 +289,22 @@ public class PurchaseOrderAction extends BaseAction {
 					List<Object> objList = QADUtil.ConvertToShipPurchaseOrderAndDetail(outDataList);
 					purchaseOrder = (PurchaseOrder) objList.get(0);
 					purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
+					
+					checkSupplier(purchaseOrder.getTt_xpyhmstro_suppcode());
 				}
 			} else {
 				purchaseOrder = new PurchaseOrder();
 			}
 
+		}  catch (SupplierAuthorityException ex) {
+			addActionError(ex.getMessage());
+			
+			purchaseOrder = new PurchaseOrder();
+			purchaseOrder.setTt_xpyhmstro_shipto("");
+			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
+			purchaseOrder.setTt_xpyhmstro_stat("3");
+			
+			return INPUT;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -727,13 +753,14 @@ public class PurchaseOrderAction extends BaseAction {
 					
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 			Date date=new Date();
+			
 			Calendar fca=Calendar.getInstance();
 			fca.setTime(date);
-			fca.add(Calendar.WEEK_OF_MONTH, -2);
 			String fromDate = sdf.format(fca.getTime());
 			
 			Calendar tca=Calendar.getInstance();
 			tca.setTime(date);
+			tca.add(Calendar.WEEK_OF_MONTH, 2);
 			String toDate = sdf.format(tca.getTime());
 			
 			purchaseOrder.setTt_xpyhmstro_fromdate(fromDate);

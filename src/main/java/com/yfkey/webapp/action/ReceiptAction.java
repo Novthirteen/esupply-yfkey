@@ -30,6 +30,7 @@ import com.progress.open4gl.Parameter;
 import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
+import com.yfkey.exception.SupplierAuthorityException;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
 import com.yfkey.model.PermissionType;
@@ -154,8 +155,16 @@ public class ReceiptAction extends BaseAction {
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 							.getProDataObjects("tt_prhdet_out");
 					List<Object> objList = QADUtil.ConvertToReceiptAndDetail(outDataList);
+					if(objList == null || objList.size() == 0)
+					{
+						List<Object> args = new ArrayList<Object>();
+						args.add("");
+						throw new SupplierAuthorityException(getText("supplier.no.authority",args));
+					}
 					receipt = (Receipt) objList.get(0);
 					receiptDetails = (List<ReceiptDetail>) objList.get(1);
+					
+				
 
 				}
 			} else {
@@ -163,6 +172,27 @@ public class ReceiptAction extends BaseAction {
 				receiptDetails = new ArrayList<ReceiptDetail>();
 			}
 
+		} catch (SupplierAuthorityException ex) {
+			addActionError(ex.getMessage());
+			
+			receipt = new Receipt();
+			receipt.setIsDetail(false);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			Date date=new Date();
+			
+			Calendar fca=Calendar.getInstance();
+			fca.setTime(date);
+			fca.add(Calendar.MONTH, -1);
+			String fromDate = sdf.format(fca.getTime());
+			
+			Calendar tca=Calendar.getInstance();
+			tca.setTime(date);
+			String toDate = sdf.format(tca.getTime());
+			
+			receipt.setTt_prhmstri_fromdate(fromDate);
+			receipt.setTt_prhmstri_todate(toDate);
+			
+			return INPUT;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -67,7 +67,7 @@ public class SupplyManagerImpl extends GenericManagerImpl<User, String>implement
 	public List<LabelValue> getItemData(String domain, String query) {
 		List<LabelValue> lvList = new ArrayList<LabelValue>();
 
-		List<Item> itemList = universalManager.findByHql("from Item where itemdomain = ?", new Object[] { domain });
+		List<Item> itemList = universalManager.findByHql("from Item where itemdomain = ? and (itemcode like ? or itemdesc like ?)", new Object[] { domain,"%"+query+"%","%"+query+"%"});
 
 		if (itemList != null && itemList.size() > 0) {
 			for (Item item : itemList) {
@@ -82,7 +82,7 @@ public class SupplyManagerImpl extends GenericManagerImpl<User, String>implement
 	public List<LabelValue> getShiptoData(String domain, String query) {
 		List<LabelValue> lvList = new ArrayList<LabelValue>();
 		
-		List<Shipto> shiptoList = universalManager.findByHql("from Shipto where shdomain = ?", new Object[] { domain });
+		List<Shipto> shiptoList = universalManager.findByHql("from Shipto where shdomain = ? ", new Object[] { domain });
 
 		if (shiptoList != null && shiptoList.size() > 0) {
 			for (Shipto shipto : shiptoList) {

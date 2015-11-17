@@ -10,7 +10,9 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -32,6 +34,7 @@ import com.progress.open4gl.ProDataObject;
 import com.yfkey.exception.BillConfirmNotValidException;
 import com.yfkey.exception.QadException;
 import com.yfkey.exception.ShipQtyNotValidException;
+import com.yfkey.exception.SupplierAuthorityException;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
 import com.yfkey.model.Bill;
@@ -179,6 +182,8 @@ public class BillAction extends BaseAction {
 						billDetails = (List<BillDetail>) objList.get(1);
 
 						bill.setTt_xprcmstro_stat_desc(getBillStatus(bill.getTt_xprcmstro_stat()));
+						
+						checkSupplier(bill.getTt_xprcmstro_suppcode());
 					}
 				}
 			} else {
@@ -186,6 +191,12 @@ public class BillAction extends BaseAction {
 				billDetails = new ArrayList<BillDetail>();
 			}
 
+		} catch (SupplierAuthorityException ex) {
+			addActionError(ex.getMessage());
+			
+			bill = new Bill();
+			
+			return INPUT;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
