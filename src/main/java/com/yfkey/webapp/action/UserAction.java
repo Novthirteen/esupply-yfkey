@@ -512,31 +512,30 @@ public class UserAction extends BaseAction implements Preparable {
 			user.setConfirmPassword(user.getPassword());
 			prepareAssignPermission();
 			prepareAssignRole();
-			
-			
-			// 按钮权限
-			canSave = false;
-			canDelete = false;
-			canAssignUserPermission = false;
-			canAssignUserRole = false;
-			
-			List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
-			if (userButtons != null && userButtons.size() > 0) {
-				for (UserAuthority u : userButtons) {
-					if (!canSave && u.getAuthority().equals("SaveUser")) {
-						canSave = true;
-					}
-					if (!canDelete && u.getAuthority().equals("DeleteUser")) {
-						canDelete = true;
-					}
-					if(!canAssignUserPermission && u.getAuthority().equals("AssignUserPermission"))
-					{
-						canAssignUserPermission = true;
-					}
-					if(!canAssignUserRole && u.getAuthority().equals("AssignUserRole"))
-					{
-						canAssignUserRole = true;
-					}
+		}
+		
+		// 按钮权限
+		canSave = false;
+		canDelete = false;
+		canAssignUserPermission = false;
+		canAssignUserRole = false;
+		
+		List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
+		if (userButtons != null && userButtons.size() > 0) {
+			for (UserAuthority u : userButtons) {
+				if (!canSave && u.getAuthority().equals("SaveUser")) {
+					canSave = true;
+				}
+				if (!canDelete && u.getAuthority().equals("DeleteUser")) {
+					canDelete = true;
+				}
+				if(!canAssignUserPermission && u.getAuthority().equals("AssignUserPermission"))
+				{
+					canAssignUserPermission = true;
+				}
+				if(!canAssignUserRole && u.getAuthority().equals("AssignUserRole"))
+				{
+					canAssignUserRole = true;
 				}
 			}
 		}
