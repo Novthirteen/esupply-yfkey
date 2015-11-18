@@ -191,30 +191,7 @@ public class RoleAction extends BaseAction implements Preparable {
 		}
 
 		
-		// 按钮权限
-		canSave = false;
-		canDelete = false;
-		canAssignRolePermission = false;
-		canAssignRoleUser = false;
-		List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
-		if (userButtons != null && userButtons.size() > 0) {
-			for (UserAuthority u : userButtons) {
-				if (!canSave && u.getAuthority().equals("SaveRole")) {
-					canSave = true;
-				}
-				if (!canDelete && u.getAuthority().equals("DeleteRole")) {
-					canDelete = true;
-				}
-				if(!canAssignRolePermission && u.getAuthority().equals("AssignUserPermission"))
-				{
-					canAssignRolePermission = true;
-				}
-				if(!canAssignRoleUser && u.getAuthority().equals("AssignRoleUser"))
-				{
-					canAssignRoleUser = true;
-				}
-			}
-		}
+	
 		
 		return SUCCESS;
 	}
@@ -287,6 +264,9 @@ public class RoleAction extends BaseAction implements Preparable {
 
 	public String saveRolePermission() {
 		try {
+			if (getRequest().getParameter("assignedPermissions") == null) {
+				assignedPermissions = null;
+			}
 			this.roleManager.saveRolePermission(code, PermissionType.valueOf(permissionType), assignedPermissions);
 		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
@@ -303,6 +283,9 @@ public class RoleAction extends BaseAction implements Preparable {
 
 	public String saveRoleUser() {
 		try {
+			if (getRequest().getParameter("assignedUsers") == null) {
+				assignedUsers = null;
+			}
 			this.roleManager.saveRoleUser(code, assignedUsers);
 		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
@@ -349,6 +332,32 @@ public class RoleAction extends BaseAction implements Preparable {
 		if (role != null && role.getVersion() != 0) {
 			prepareAssignPermission();
 			prepareAssignUser();
+			
+			
+			// 按钮权限
+			canSave = false;
+			canDelete = false;
+			canAssignRolePermission = false;
+			canAssignRoleUser = false;
+			List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
+			if (userButtons != null && userButtons.size() > 0) {
+				for (UserAuthority u : userButtons) {
+					if (!canSave && u.getAuthority().equals("SaveRole")) {
+						canSave = true;
+					}
+					if (!canDelete && u.getAuthority().equals("DeleteRole")) {
+						canDelete = true;
+					}
+					if(!canAssignRolePermission && u.getAuthority().equals("AssignUserPermission"))
+					{
+						canAssignRolePermission = true;
+					}
+					if(!canAssignRoleUser && u.getAuthority().equals("AssignRoleUser"))
+					{
+						canAssignRoleUser = true;
+					}
+				}
+			}
 		}
 	}
 
