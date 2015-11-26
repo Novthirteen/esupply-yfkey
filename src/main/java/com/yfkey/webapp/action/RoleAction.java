@@ -267,7 +267,8 @@ public class RoleAction extends BaseAction implements Preparable {
 			if (getRequest().getParameter("assignedPermissions") == null) {
 				assignedPermissions = null;
 			}
-			this.roleManager.saveRolePermission(code, PermissionType.valueOf(permissionType), assignedPermissions);
+			String domain = this.getCurrentDomain();
+			this.roleManager.saveRolePermission(code, domain,PermissionType.valueOf(permissionType), assignedPermissions);
 		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
 			prepare();

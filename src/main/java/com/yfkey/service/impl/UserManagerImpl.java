@@ -61,10 +61,10 @@ public class UserManagerImpl extends GenericManagerImpl<User, String>implements 
 	}
 	
 	@Override
-	public void saveUserPermission(String username, PermissionType permissionType, List<String> assignedPermissions)
+	public void saveUserPermission(String username,String domain, PermissionType permissionType, List<String> assignedPermissions)
 			throws PrincipalNullException {
-		this.universalManager.executeByHql("delete from UserPermission where username = ? and permissionType = ?",
-				new Object[] { username, permissionType });
+		this.universalManager.executeByHql("delete from UserPermission where username = ? and permissionType = ?  and permissionCode like ?",
+				new Object[] { username, permissionType ,domain+"%"});
 
 		if (!CollectionHelper.isEmpty(assignedPermissions)) {
 			for (String assignedPermission : assignedPermissions) {

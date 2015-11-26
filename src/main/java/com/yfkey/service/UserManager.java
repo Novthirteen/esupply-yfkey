@@ -14,7 +14,7 @@ import com.yfkey.model.User;
  *         <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
 public interface UserManager extends GenericManager<User, String> {
-	void saveUserPermission(String username, PermissionType permissionType, List<String> assignedPermissions)
+	void saveUserPermission(String username,String domain, PermissionType permissionType, List<String> assignedPermissions)
 			throws PrincipalNullException;
 	
 	void saveUser(User user) throws PrincipalNullException;

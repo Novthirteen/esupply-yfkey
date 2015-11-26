@@ -418,7 +418,8 @@ public class UserAction extends BaseAction implements Preparable {
 			if (getRequest().getParameter("assignedPermissions") == null) {
 				assignedPermissions = null;
 			}
-			this.userManager.saveUserPermission(username, PermissionType.valueOf(permissionType), assignedPermissions);
+			String domain = this.getCurrentDomain();
+			this.userManager.saveUserPermission(username, domain,PermissionType.valueOf(permissionType), assignedPermissions);
 		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
 			prepare();
