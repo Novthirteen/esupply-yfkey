@@ -2,13 +2,16 @@ package com.yfkey.webapp.action;
 
 import org.apache.struts2.ServletActionContext;
 import com.yfkey.Constants;
+import com.yfkey.model.UserAuthority;
 import com.yfkey.qad.QADConfg;
+import com.yfkey.webapp.util.SecurityContextHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 /**
  * Sample action that shows how to do file upload with Struts 2.
@@ -20,11 +23,58 @@ public class FileUploadAction extends BaseAction {
     private String fileFileName;
     private String name;
 
-    
-    
-    
-    public String list()
+    private Boolean canUploadTest;
+	private Boolean canUploadProd;
+	private Boolean canUploadTraining;
+	
+	
+
+    public Boolean getCanUploadTest() {
+		return canUploadTest;
+	}
+
+	public void setCanUploadTest(Boolean canUploadTest) {
+		this.canUploadTest = canUploadTest;
+	}
+
+	public Boolean getCanUploadProd() {
+		return canUploadProd;
+	}
+
+	public void setCanUploadProd(Boolean canUploadProd) {
+		this.canUploadProd = canUploadProd;
+	}
+
+	public Boolean getCanUploadTraining() {
+		return canUploadTraining;
+	}
+
+	public void setCanUploadTraining(Boolean canUploadTraining) {
+		this.canUploadTraining = canUploadTraining;
+	}
+
+	public String list()
     {
+		// 按钮权限
+    	canUploadTest = false;
+    	canUploadProd = false;
+    	canUploadTraining = false;
+		
+    	List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
+		if (userButtons != null && userButtons.size() > 0) {
+			for (UserAuthority u : userButtons) {
+				if (!canUploadTest && u.getAuthority().equals("UploadTest")) {
+					canUploadTest = true;
+				}
+				if (!canUploadProd && u.getAuthority().equals("UploadProd")) {
+					canUploadProd = true;
+				}
+				if(!canUploadTraining && u.getAuthority().equals("UploadTraining"))
+				{
+					canUploadTraining = true;
+				}
+			}
+		}
     	return SUCCESS;
     }
     
@@ -41,6 +91,10 @@ public class FileUploadAction extends BaseAction {
     }
     
     public String uploadQad(String uploadDir) throws Exception {
+    	
+    
+		
+		
         if (this.cancel != null) {
             return "cancel";
         }

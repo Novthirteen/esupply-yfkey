@@ -27,9 +27,15 @@ public class RoleManagerImpl extends GenericManagerImpl<Role, String>implements 
 	@Override
 	public void saveRolePermission(String roleCode,String domain, PermissionType permissionType, List<String> assignedPermissions)
 			throws PrincipalNullException {
+		if(permissionType.equals(PermissionType.S))
+		{
 		this.universalManager.executeByHql("delete from RolePermission where roleCode = ? and permissionType = ?  and permissionCode like ?",
 				new Object[] { roleCode, permissionType ,domain+"%"});
-
+		}else{
+			
+			this.universalManager.executeByHql("delete from RolePermission where roleCode = ? and permissionType = ? ",
+					new Object[] { roleCode, permissionType});
+		}
 		if (!CollectionHelper.isEmpty(assignedPermissions)) {
 			for (String assignedPermission : assignedPermissions) {
 				RolePermission rolePermission = new RolePermission();

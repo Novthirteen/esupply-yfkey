@@ -17,6 +17,8 @@
 			<s:hidden key="user.accountExpired" />
 			<s:hidden key="user.accountLocked" />
 			<s:hidden key="user.credentialsExpired" />
+			<s:hidden key="user.lastName" />
+			<s:hidden key="user.firstName" />
 			<s:label key="user.username" cssClass="form-control" />
 		</div>
 		<div class="col-xs-6"></div>
@@ -34,11 +36,11 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<s:textfield key="user.lastName" required="true"
+			<s:label key="user.lastName" 
 				cssClass="form-control" />
 		</div>
 		<div class="col-xs-6">
-			<s:textfield key="user.firstName" required="true"
+			<s:label key="user.firstName" 
 				cssClass="form-control" />
 		</div>
 	</div>

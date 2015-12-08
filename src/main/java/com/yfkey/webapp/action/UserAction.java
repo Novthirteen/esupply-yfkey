@@ -226,9 +226,9 @@ public class UserAction extends BaseAction implements Preparable {
 				addActionError(getText("user.noAvailablePlant"));
 				return ERROR;
 			} else {
-				if (userPlants.size() == 1) {
+				//if (userPlants.size() == 1) {
 					session.setAttribute(Constants.SELECTED_USER_PLANT, userPlants.iterator().next().getAuthority());
-				}
+				//}
 
 				if (session.getAttribute(Constants.AVAILABLE_USER_PLANTS) == null) {
 					List<LabelValue> availableUserPlants = new ArrayList<LabelValue>();
