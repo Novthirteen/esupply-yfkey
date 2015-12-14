@@ -76,7 +76,7 @@
 	<hr>
 
 	<display:table name="purchaseOrderDetails" cellspacing="0"
-		cellpadding="0" id="purchaseOrderDetail"
+		cellpadding="0" id="purchaseOrderDetail" 
 		class="table table-condensed table-striped table-hover" export="false">
 
 

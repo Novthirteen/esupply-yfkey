@@ -113,6 +113,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, String>implements 
 	public void saveUserPassword(String username, String password) throws PrincipalNullException {
 		User user = this.userDao.get(username);
 		user.setPassword(password);
+		user.setNeedUpdatePassword(false);
 		this.universalManager.update(user);
 		
 		UserPasswordLog userPasswordLog = new UserPasswordLog();

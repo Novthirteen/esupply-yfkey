@@ -17,8 +17,10 @@
 			<s:hidden key="user.accountExpired" />
 			<s:hidden key="user.accountLocked" />
 			<s:hidden key="user.credentialsExpired" />
+			<s:hidden key="user.needUpdatePassword" />
 			<s:hidden key="user.lastName" />
 			<s:hidden key="user.firstName" />
+			<s:hidden key="user.domain" />
 			<s:label key="user.username" cssClass="form-control" />
 		</div>
 		<div class="col-xs-6"></div>

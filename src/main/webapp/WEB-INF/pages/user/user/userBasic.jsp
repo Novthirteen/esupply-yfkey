@@ -28,7 +28,7 @@
 			<c:choose>
 				<c:when test="${user.version != 0}">
 					<input type="hidden" name="username" value="${user.username}" />
-				
+
 					<s:hidden key="user.version" />
 					<s:textfield key="user.username" cssClass="form-control"
 						readonly="true" />
@@ -39,7 +39,12 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-		<div class="col-xs-6"></div>
+	<div class="col-xs-4">
+			<s:select key="user.domain" id="domain" name="user.domain"
+				list="%{#session.availableUserPlants}" listValue="label"
+				listKey="value" cssStyle="width:200px;">
+			</s:select>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
@@ -89,6 +94,7 @@
 			<s:textfield key="user.address" cssClass="form-control" />
 		</div>
 	</div>
+	
 	<div class="row">
 		<div class="col-xs-12">
 			<label class="control-label"> <fmt:message
@@ -121,6 +127,11 @@
 			<s:checkbox key="user.enforcePassword" id="user.enforcePassword"
 				theme="simple" fieldValue="true" />
 			<fmt:message key="user.enforcePassword" />
+		</div>
+		<div class="col-xs-3">
+			<s:checkbox key="user.needUpdatePassword"
+				id="user.needUpdatePassword" theme="simple" fieldValue="true" />
+			<fmt:message key="user.needUpdatePassword" />
 		</div>
 	</div>
 	<div class="row">

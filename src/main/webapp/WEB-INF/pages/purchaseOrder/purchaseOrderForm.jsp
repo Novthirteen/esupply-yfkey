@@ -106,7 +106,7 @@
 
 	<display:table name="purchaseOrderDetails" cellspacing="0"
 		cellpadding="0" requestURI="editPurchaseOrder"
-		id="purchaseOrderDetails"
+		id="purchaseOrderDetails" pagesize="25" 
 		class="table table-condensed table-striped table-hover" export="true">
 
 		<display:column property="tt_xpyhddeto_seq" escapeXml="true"
@@ -126,6 +126,14 @@
 		<display:column property="tt_xpyhddeto_ordqty" escapeXml="true"
 			titleKey="purchaseOrderDetail.tt_xpyhddeto_ordqty" />
 
+		<display:setProperty name="paging.banner.placement" value="both" />
+		<display:setProperty name="paging.banner.item_name">
+			<fmt:message key="purchaseOrder.purchaseOrderDetail" />
+		</display:setProperty>
+		<display:setProperty name="paging.banner.items_name">
+			<fmt:message key="purchaseOrder.purchaseOrderDetails" />
+		</display:setProperty>
+		
 		<display:setProperty name="export.excel.filename"
 			value="PurchaseOrderDetail List.xls" />
 		<display:setProperty name="export.pdf" value="false" />

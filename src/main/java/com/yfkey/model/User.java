@@ -52,12 +52,14 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	private Gender gender;
 	private String mobilephone;
 	private String address;
+	private String domain;
 	private int version;
 	private boolean enabled;
 	private boolean accountExpired;
 	private boolean accountLocked;
 	private boolean credentialsExpired;
 	private boolean enforcePassword;
+	private boolean needUpdatePassword;
 	private String createUser;
 	private Timestamp createDate;
 	private String updateUser;
@@ -246,6 +248,11 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 		return enforcePassword;
 	}
 	
+	@Column(name = "need_update_password", nullable = false)
+	public boolean isNeedUpdatePassword() {
+		return needUpdatePassword;
+	}
+	
 	@Column(name = "create_user", length = 50, nullable = false, updatable = false)
 	public String getCreateUser() {
 		return createUser;
@@ -343,6 +350,10 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	public void setEnforcePassword(boolean enforcePassword) {
 		this.enforcePassword = enforcePassword;
 	}
+	
+	public void setNeedUpdatePassword(boolean needUpdatePassword) {
+		this.needUpdatePassword = needUpdatePassword;
+	}
 
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
@@ -358,6 +369,14 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 	public void setUserAuthorizedUrls(Collection<UserAuthority> userAuthorizedUrls) {

@@ -253,7 +253,7 @@ public class BarcodeAction extends BaseAction {
 				if (purchaseOrderDetails != null) {
 					for (PurchaseOrderDetail pod : purchaseOrderDetails) {
 
-						if (pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != ""
+						if (pod!= null && pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != ""
 								&& pod.getTt_xpyhddeto_qty() != null
 								&& !pod.getTt_xpyhddeto_qty().equals(BigDecimal.ZERO)) {
 

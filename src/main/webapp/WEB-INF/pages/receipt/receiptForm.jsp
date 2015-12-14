@@ -63,8 +63,8 @@
 
 
 <display:table name="receiptDetails" cellspacing="0" cellpadding="0"
-	requestURI="/receiptDetails" id="receiptDetail"
-	class="table table-condensed table-striped table-hover" export="false">
+	requestURI="editReceipt" id="receiptDetail" pagesize="25"
+	class="table table-condensed table-striped table-hover" export="true">
 	<display:column property="tt_prhdeto_seq" escapeXml="false"
 		titleKey="receiptDetail.tt_prhdeto_seq" />
 	<display:column property="tt_prhdeto_yhdnbr" escapeXml="true"
@@ -86,6 +86,20 @@
 	<display:column property="tt_prhdeto_revdqty" escapeXml="true"
 		titleKey="receiptDetail.tt_prhdeto_revdqty" />
 
+	<display:setProperty name="paging.banner.placement" value="both" />
+	<display:setProperty name="paging.banner.item_name">
+		<fmt:message key="receipt.receiptDetails" />
+	</display:setProperty>
+	<display:setProperty name="paging.banner.items_name">
+		<fmt:message key="receipt.receiptDetails" />
+	</display:setProperty>
+	
+		<display:setProperty name="export.excel.filename"
+			value="PurchaseOrderDetail List.xls" />
+		<display:setProperty name="export.pdf" value="false" />
+		<display:setProperty name="export.excel" value="true" />
+		<display:setProperty name="export.csv" value="false" />
+		<display:setProperty name="export.xml" value="false" />
 </display:table>
 
 <script type="text/javascript">

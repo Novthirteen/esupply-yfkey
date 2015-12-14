@@ -20,8 +20,8 @@
 			<s:hidden key="bill.tt_xprcmstro_type" />
 		</div>
 		<div class="col-xs-4 search-group">
-			<s:textfield key="bill.tt_xprcmstro_createdate" cssClass="form-control"
-				readonly="true" />
+			<s:textfield key="bill.tt_xprcmstro_createdate"
+				cssClass="form-control" readonly="true" />
 
 		</div>
 	</div>
@@ -44,8 +44,8 @@
 				</div>
 				<div class="col-xs-4 search-group">
 
-					<s:textfield cssClass="form-control"
-						id="tt_xprcmstro_invdate" key="bill.tt_xprcmstro_invdate" />
+					<s:textfield cssClass="form-control" id="tt_xprcmstro_invdate"
+						key="bill.tt_xprcmstro_invdate" />
 				</div>
 			</div>
 			<div class="row">
@@ -53,7 +53,7 @@
 					<s:textfield key="bill.tt_xprcmstro_taxamt" cssClass="form-control"
 						onChange="javascript:calcTotalamt();" />
 				</div>
-			    <div class="col-xs-4 search-group">
+				<div class="col-xs-4 search-group">
 					<s:textfield key="bill.tt_xprcmstro_notaxamt"
 						cssClass="form-control" onChange="javascript:calcTotalamt();" />
 				</div>
@@ -97,16 +97,18 @@
 						readonly="true" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:textfield cssClass="form-control" readonly="true" 
+					<s:textfield cssClass="form-control" readonly="true"
 						id="tt_xprcmstro_invdate" key="bill.tt_xprcmstro_invdate" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xprcmstro_taxamt" readonly="true"  cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_taxamt" readonly="true"
+						cssClass="form-control" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xprcmstro_notaxamt" readonly="true" cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_notaxamt" readonly="true"
+						cssClass="form-control" />
 				</div>
 			</div>
 			<div class="row">
@@ -115,27 +117,30 @@
 						cssClass="form-control" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xpyhddeto_disamt" readonly="true" cssClass="form-control" />
+					<s:textfield key="bill.tt_xpyhddeto_disamt" readonly="true"
+						cssClass="form-control" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xpyhddeto_invoiceamt" readonly="true" cssClass="form-control" />
+					<s:textfield key="bill.tt_xpyhddeto_invoiceamt" readonly="true"
+						cssClass="form-control" />
 				</div>
 				<div class="col-xs-4 search-group">
-					<s:textfield key="bill.tt_xprcmstro_indexinvnbr" readonly="true" 
+					<s:textfield key="bill.tt_xprcmstro_indexinvnbr" readonly="true"
 						cssClass="form-control" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-8 search-group">
-					<s:textfield key="bill.tt_xprcmstro_invnbr" cssClass="form-control" readonly="true" 
-						rows="6" />
+					<s:textfield key="bill.tt_xprcmstro_invnbr" cssClass="form-control"
+						readonly="true" rows="6" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-8 search-group">
-					<s:textfield key="bill.tt_xprcmstro_rmk" readonly="true"  cssClass="form-control" />
+					<s:textfield key="bill.tt_xprcmstro_rmk" readonly="true"
+						cssClass="form-control" />
 				</div>
 
 			</div>
@@ -188,8 +193,8 @@
 
 
 	<display:table name="billDetails" cellspacing="0" cellpadding="0"
-		requestURI="editBill" id="billDetail" pagesize="25" 
-		class="table table-condensed table-striped table-hover" export="false">
+		requestURI="editBill" id="billDetail" pagesize="25"
+		class="table table-condensed table-striped table-hover" export="true">
 		<display:column property="tt_xpyhddeto_receiver" escapeXml="false"
 			titleKey="billDetail.tt_xpyhddeto_receiver" />
 		<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
@@ -210,13 +215,20 @@
 			titleKey="billDetail.tt_xpyhddeto_partdesc" />
 		<display:column property="tt_xpyhddeto_rcdate" escapeXml="true"
 			titleKey="billDetail.tt_xpyhddeto_rcdate" />
-			
-				<display:setProperty name="paging.banner.placement" value="both" />
+
+		<display:setProperty name="paging.banner.placement" value="both" />
 		<display:setProperty name="paging.banner.item_name">
 			<fmt:message key="bill.billDetail" />
 		</display:setProperty>
 		<display:setProperty name="paging.banner.items_name">
 			<fmt:message key="bill.billDetails" />
+
+			<display:setProperty name="export.excel.filename"
+				value="BillDetail List.xls" />
+			<display:setProperty name="export.pdf" value="false" />
+			<display:setProperty name="export.excel" value="true" />
+			<display:setProperty name="export.csv" value="false" />
+			<display:setProperty name="export.xml" value="false" />
 		</display:setProperty>
 	</display:table>
 </s:form>

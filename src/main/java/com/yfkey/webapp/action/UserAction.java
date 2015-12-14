@@ -57,6 +57,7 @@ public class UserAction extends BaseAction implements Preparable {
 	private Boolean canDelete;
 	private Boolean canAssignUserPermission;
 	private Boolean canAssignUserRole;
+	
 
 	/**
 	 * Holder for users to display on list screen
@@ -187,13 +188,19 @@ public class UserAction extends BaseAction implements Preparable {
 
 	public String home() throws PrincipalNullException {
 		HttpSession session = this.getRequest().getSession();
-		if (session.getAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK) == null) {
+ 		if (session.getAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK) == null) {
 			try {
 				user = SecurityContextHelper.getRemoteUser();
+				
+				
 			} catch (PrincipalNullException e) {
 				return ERROR;
 			}
 
+			if(user.isNeedUpdatePassword())
+			{
+				session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
+			}
 			if (user.isEnforcePassword()) {
 				List<UserPasswordLog> userPasswordLogList = this.universalManager.findByHql(
 						"from UserPasswordLog where username = ? order by createDate desc", user.getUsername(), 1);
@@ -240,6 +247,11 @@ public class UserAction extends BaseAction implements Preparable {
 					availableUserPlants.sort(labelValueComparator);
 
 					session.setAttribute(Constants.AVAILABLE_USER_PLANTS, availableUserPlants);
+				}
+				
+				if(user.getDomain() != null && !"".equals(user.getDomain()))
+				{
+					session.setAttribute(Constants.SELECTED_USER_PLANT, user.getDomain());
 				}
 			}
 		}

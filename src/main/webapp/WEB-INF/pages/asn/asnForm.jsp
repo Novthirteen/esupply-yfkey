@@ -63,8 +63,8 @@
 
 
 <display:table name="asnDetails" cellspacing="0" cellpadding="0"
-	requestURI="/asnDetails" id="asnDetails"
-	class="table table-condensed table-striped table-hover" export="false">
+	requestURI="editAsn" id="asnDetails" pagesize="25"
+	class="table table-condensed table-striped table-hover" export="true">
 	<display:column property="tt_xasndeto_yhdnbr" escapeXml="true"
 		titleKey="asnDetail.tt_xasndeto_yhdnbr" />
 	<display:column property="tt_xasndeto_seq" escapeXml="true"
@@ -82,7 +82,20 @@
 	<display:column property="tt_xasndeto_asnqty" escapeXml="true"
 		titleKey="asnDetail.tt_xasndeto_asnqty" />
 
+	<display:setProperty name="paging.banner.placement" value="both" />
+	<display:setProperty name="paging.banner.item_name">
+		<fmt:message key="asn.asnDetail" />
+	</display:setProperty>
+	<display:setProperty name="paging.banner.items_name">
+		<fmt:message key="asn.asnDetails" />
+	</display:setProperty>
 
+	<display:setProperty name="export.excel.filename"
+		value="AsnDetail List.xls" />
+	<display:setProperty name="export.pdf" value="false" />
+	<display:setProperty name="export.excel" value="true" />
+	<display:setProperty name="export.csv" value="false" />
+	<display:setProperty name="export.xml" value="false" />
 </display:table>
 
 <script type="text/javascript">
