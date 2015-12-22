@@ -22,10 +22,10 @@
 			<s:textfield cssClass="form-control search-control"
 				key="user.firstName" />
 		</div>
-		<div class="col-xs-3 search-group">
-			<s:textfield cssClass="form-control search-control"
-				key="user.lastName" />
-		</div>
+<!-- 		<div class="col-xs-3 search-group"> -->
+<%-- 			<s:textfield cssClass="form-control search-control" --%>
+<%-- 				key="user.lastName" /> --%>
+<!-- 		</div> -->
 		<div class="col-xs-3 search-group layouttrim">
 			<input type="hidden" name="from" value="list" />
 			<s:submit type="button" cssClass="btn btn-default btn-sm"

@@ -37,10 +37,10 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
-			<s:label key="user.lastName" 
-				cssClass="form-control" />
-		</div>
+<!-- 		<div class="col-xs-6"> -->
+<%-- 			<s:label key="user.lastName"  --%>
+<%-- 				cssClass="form-control" /> --%>
+<!-- 		</div> -->
 		<div class="col-xs-6">
 			<s:label key="user.firstName" 
 				cssClass="form-control" />

@@ -56,9 +56,9 @@ public class PrintASNUtil {
 	        	cb.setFontAndSize(baseFont, 8);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_yhdnbr() == null?"":asnDetail.getTt_xasndeto_yhdnbr(), 36, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(asnDetail.getTt_xasndeto_seq() == 0?i+1:asnDetail.getTt_xasndeto_seq() ), 84, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partnbr() == null?"": asnDetail.getTt_xasndeto_partnbr(), 117, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partnbr() == null?"": asnDetail.getTt_xasndeto_partnbr(), 120, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_supppart() == null?"":asnDetail.getTt_xasndeto_supppart(), 165, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partdesc() == null?"":asnDetail.getTt_xasndeto_partdesc(), 228, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partdesc() == null?"":asnDetail.getTt_xasndeto_partdesc(), 230, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_uom() == null?"":asnDetail.getTt_xasndeto_uom(), 308, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(asnDetail.getTt_xasndeto_spq()), 344, baseDetailHeight-height*(i%lineCount), 0);
 	        	
@@ -110,31 +110,32 @@ public class PrintASNUtil {
         cb.addImage(img, 120, 0, 0, 36, 420, 758);
         //cb.stroke();
         
-        //外部单据号
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasnmstro_suppcode(), 140, 727, 0);
-        //ASN
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 727, 0);
-        //供应商代码
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 140, 713, 0);
-        //收货日期
+        cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asn.getTt_xasnmstro_startdt(), 490, 747, 0);
         
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 713, 0);
+        //供应商代码
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasnmstro_suppcode() == null?"":asn.getTt_xasnmstro_suppcode(), 140, 727, 0);
+        //客户代码
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasnmstro_shipto() == null?"":asn.getTt_xasnmstro_shipto(), 422, 727, 0);
         //供应商名称
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT,"", 140, 699, 0);
-        //收货部门
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 699, 0);
-        //承运商			
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 140, 685, 0);
-        //收货地点
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasndeto_vendname() == null?"":asn.getTt_xasndeto_vendname(), 140, 713, 0);
+        //客户名称
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasndeto_shipname() == null?"":asn.getTt_xasndeto_shipname(), 422, 713, 0);
+        //供应商地址
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasndeto_vendaddr() == null?"":asn.getTt_xasndeto_vendaddr(), 140, 699, 0);
+        //客户地址
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasndeto_shipaddr() == null?"":asn.getTt_xasndeto_shipaddr(), 422, 699, 0);
+        //供应商联系人		
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasndeto_vendcontact() == null?"":asn.getTt_xasndeto_vendcontact(), 140, 685, 0);
+        //交货道口
         cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 685, 0);
         
-        //供应商名称
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 140, 671, 0);
-        //收货部门
+        //供应商电话
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasndeto_vendphone() == null?"":asn.getTt_xasndeto_vendphone(), 140, 671, 0);
+        //物流协调员
         cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 671, 0);
-        //供应商名称
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 140, 657, 0);
-        //收货部门
+        //供应商传真
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, asn.getTt_xasndeto_vendtax() == null?"":asn.getTt_xasndeto_vendtax(), 140, 657, 0);
+        //客户电话
         cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 422, 657, 0);
         cb.endText();
 		

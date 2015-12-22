@@ -58,13 +58,13 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
-			<s:textfield key="user.lastName" required="true"
-				cssClass="form-control" />
-		</div>
+		
 		<div class="col-xs-6">
 			<s:textfield key="user.firstName" required="true"
 				cssClass="form-control" />
+		</div>
+		<div class="col-xs-6">
+			<s:hidden key="user.lastName" value="yfkey" />
 		</div>
 	</div>
 	<div class="row">

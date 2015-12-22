@@ -27,9 +27,7 @@ public class Bill extends BaseObject {
 	private String tt_xprcmstri_todate; // 结束日期(YYYYMMDD
     private String tt_suppcodei_suppcode; //供应商代码
 	
-	private int tt_xprcmstro_qty; // 发票数量
-	private BigDecimal tt_xprcmstro_taxamt; // 增值税金额
-	private BigDecimal tt_xprcmstro_notaxamt; // 不含税金额
+
 	private String tt_xprcmstro_invnbr; // 发票号
 	private String tt_xprcmstro_rmk; // 备注
 	private String tt_xprcmstro_indexinvnbr; // 第一張发票号
@@ -38,12 +36,20 @@ public class Bill extends BaseObject {
 	
 	private String tt_xprcmstro_stat_desc; // 账单状态描述
 	
-	private BigDecimal tt_xpyhddeto_disamt; //返点金额
+
 	
-	private BigDecimal tt_xpyhddeto_invoiceamt; //发票金额
+
 	
 	private String tt_xprcmstro_createdate;   //创建日期
 
+	
+	
+	private String tt_xprcmstro_qty; // 发票数量
+	private String tt_xprcmstro_taxamt; // 增值税金额
+	private String tt_xprcmstro_notaxamt; // 不含税金额
+	private String tt_xpyhddeto_disamt; //返点金额
+	private String tt_xpyhddeto_invoiceamt; //发票金额
+	
 	List<BillDetail> billDetailList;
 
 	public int getTt_xprcmstro_seq() {
@@ -142,27 +148,27 @@ public class Bill extends BaseObject {
 		this.tt_xprcmstro_claimamt = tt_xprcmstro_claimamt;
 	}
 
-	public int getTt_xprcmstro_qty() {
+	public String getTt_xprcmstro_qty() {
 		return tt_xprcmstro_qty;
 	}
 
-	public void setTt_xprcmstro_qty(int tt_xprcmstro_qty) {
+	public void setTt_xprcmstro_qty(String tt_xprcmstro_qty) {
 		this.tt_xprcmstro_qty = tt_xprcmstro_qty;
 	}
 
-	public BigDecimal getTt_xprcmstro_taxamt() {
+	public String getTt_xprcmstro_taxamt() {
 		return tt_xprcmstro_taxamt;
 	}
 
-	public void setTt_xprcmstro_taxamt(BigDecimal tt_xprcmstro_taxamt) {
+	public void setTt_xprcmstro_taxamt(String tt_xprcmstro_taxamt) {
 		this.tt_xprcmstro_taxamt = tt_xprcmstro_taxamt;
 	}
 
-	public BigDecimal getTt_xprcmstro_notaxamt() {
+	public String getTt_xprcmstro_notaxamt() {
 		return tt_xprcmstro_notaxamt;
 	}
 
-	public void setTt_xprcmstro_notaxamt(BigDecimal tt_xprcmstro_notaxamt) {
+	public void setTt_xprcmstro_notaxamt(String tt_xprcmstro_notaxamt) {
 		this.tt_xprcmstro_notaxamt = tt_xprcmstro_notaxamt;
 	}
 
@@ -226,19 +232,19 @@ public class Bill extends BaseObject {
 	}
 
 	
-	public BigDecimal getTt_xpyhddeto_disamt() {
+	public String getTt_xpyhddeto_disamt() {
 		return tt_xpyhddeto_disamt;
 	}
 
-	public void setTt_xpyhddeto_disamt(BigDecimal tt_xpyhddeto_disamt) {
+	public void setTt_xpyhddeto_disamt(String tt_xpyhddeto_disamt) {
 		this.tt_xpyhddeto_disamt = tt_xpyhddeto_disamt;
 	}
 
-	public BigDecimal getTt_xpyhddeto_invoiceamt() {
+	public String getTt_xpyhddeto_invoiceamt() {
 		return tt_xpyhddeto_invoiceamt;
 	}
 
-	public void setTt_xpyhddeto_invoiceamt(BigDecimal tt_xpyhddeto_invoiceamt) {
+	public void setTt_xpyhddeto_invoiceamt(String tt_xpyhddeto_invoiceamt) {
 		this.tt_xpyhddeto_invoiceamt = tt_xpyhddeto_invoiceamt;
 	}
 	

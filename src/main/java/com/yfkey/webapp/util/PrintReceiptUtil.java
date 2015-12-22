@@ -57,7 +57,7 @@ public class PrintReceiptUtil {
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_seq()), 126, 580-height*(i%lineCount), 0);
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_partnbr() == null?"":rd.getTt_prhdeto_partnbr(), 169, 580-height*(i%lineCount), 0);
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_suppcode() == null?"": rd.getTt_prhdeto_suppcode() , 238, 580-height*(i%lineCount), 0);
-        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_partdesc() == null?"":rd.getTt_prhdeto_partdesc(), 288, 580-height*(i%lineCount), 0);
+        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_partdesc() == null?"":rd.getTt_prhdeto_partdesc(), 310, 580-height*(i%lineCount), 0);
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_uom() == null?"":rd.getTt_prhdeto_uom(), 372, 580-height*(i%lineCount), 0);
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_spq() == BigDecimal.ZERO?BigDecimal.ZERO:rd.getTt_prhdeto_spq()), 394, 580-height*(i%lineCount), 0);
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_revdqty() == BigDecimal.ZERO?BigDecimal.ZERO:rd.getTt_prhdeto_revdqty()), 420, 580-height*(i%lineCount), 0);
@@ -99,23 +99,34 @@ public class PrintReceiptUtil {
         cb.addImage(img, 120, 0, 0, 46, 380, 694);
         //cb.stroke();
         
+        
+        
         //外部单据号
         cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 116, 683, 0);
         //ASN
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_asnnbr(), 360, 683, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_asnnbr() == null?"" :receipt.getTt_prhmstro_asnnbr(), 360, 683, 0);
         //供应商代码
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_suppcode(), 116, 668, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_suppcode() == null?"" :receipt.getTt_prhmstro_suppcode(), 116, 668, 0);
         //收货日期
         
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_rcdate(), 360, 668, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_rcdate()== null?"" :receipt.getTt_prhmstro_rcdate(), 360, 668, 0);
         //供应商名称
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 116, 653, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhdeto_vendname() == null?"":receipt.getTt_prhdeto_vendname(), 116, 653, 0);
         //收货部门
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 360, 653, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "YFK_PCL", 360, 653, 0);
         //承运商			
         cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "", 116, 638, 0);
         //收货地点
-        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_shipto(), 360, 638, 0);
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhdeto_shipaddr()== null?"" :receipt.getTt_prhdeto_shipaddr(), 360, 638, 0);
+        
+        
+        
+        //bottom
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_rcdate()== null?"" :receipt.getTt_prhmstro_rcdate(), 126, 80, 0);
+        
+        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, receipt.getTt_prhmstro_rcuserid()== null?"" :receipt.getTt_prhmstro_rcuserid(), 310, 80, 0);
+        
+        
         cb.endText();
 		
         return cb;

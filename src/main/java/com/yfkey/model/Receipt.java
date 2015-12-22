@@ -26,6 +26,11 @@ public class Receipt extends BaseObject {
 	private String tt_prhmstri_fromdate;					  //从日期(YYYYMMDD)
 	private String tt_prhmstri_todate;	                   //到日期(YYYYMMDD)
 	
+	 
+	private String tt_prhdeto_vendname;              //供应商名称
+	private String tt_prhdeto_shipaddr;              //收货地点
+
+	
 	private List<ReceiptDetail> receiptDetailList;
 
 	public int getTt_prhmstro_seq() {
@@ -138,6 +143,22 @@ public class Receipt extends BaseObject {
 
 	public void setReceiptDetailList(List<ReceiptDetail> receiptDetailList) {
 		this.receiptDetailList = receiptDetailList;
+	}
+	
+	public String getTt_prhdeto_vendname() {
+		return tt_prhdeto_vendname;
+	}
+
+	public void setTt_prhdeto_vendname(String tt_prhdeto_vendname) {
+		this.tt_prhdeto_vendname = tt_prhdeto_vendname;
+	}
+
+	public String getTt_prhdeto_shipaddr() {
+		return tt_prhdeto_shipaddr;
+	}
+
+	public void setTt_prhdeto_shipaddr(String tt_prhdeto_shipaddr) {
+		this.tt_prhdeto_shipaddr = tt_prhdeto_shipaddr;
 	}
 
 	@Override

@@ -94,14 +94,14 @@
 
 		<display:setProperty name="paging.banner.placement" value="both" />
 		<display:setProperty name="paging.banner.item_name">
-			<fmt:message key="purchaseOrderList.purchaseOrderDetail" />
+			<fmt:message key="purchaseOrderList.forecastPurchaseOrderDetail" />
 		</display:setProperty>
 		<display:setProperty name="paging.banner.items_name">
-			<fmt:message key="purchaseOrderList.purchaseOrderDetails" />
+			<fmt:message key="purchaseOrderList.forecastPurchaseOrderDetails" />
 		</display:setProperty>
 
 		<display:setProperty name="export.excel.filename"
-			value="PurchaseOrder List.xls" />
+			value="ForecastPurchaseOrder List.xls" />
 
 		<display:setProperty name="export.pdf" value="false" />
 		<display:setProperty name="export.excel" value="true" />

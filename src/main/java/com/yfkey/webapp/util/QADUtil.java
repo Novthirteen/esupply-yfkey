@@ -176,7 +176,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_externalqty(o.getBigDecimal("tt_xpyhddeto_externalqty"));
 				pod.setTt_xpyhddeto_pktype(o.getString("tt_xpyhddeto_pktype"));
 				pod.setTt_xpyhddeto_lots(o.getString("tt_xpyhddeto_lots"));
-				pod.setTt_xpyhddeto_qty(o.getBigDecimal("tt_xpyhddeto_qty"));
+				pod.setTt_xpyhddeto_qty(String.valueOf(o.getBigDecimal("tt_xpyhddeto_qty")));
 				pod.setTt_xpyhddeto_suppcode(o.getString("tt_xpyhddeto_suppcode"));
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
 
@@ -245,7 +245,7 @@ public final class QADUtil {
 				pod.setTt_xpyhddeto_uom(o.getString("tt_xpyhddeto_uom"));
 				pod.setTt_xpyhddeto_spq(o.getBigDecimal("tt_xpyhddeto_spq"));
 				pod.setTt_xpyhddeto_toloc(o.getString("tt_xpyhddeto_toloc"));
-				pod.setTt_xpyhddeto_delvqty(o.getBigDecimal("tt_xpyhddeto_delvqty"));
+				pod.setTt_xpyhddeto_delvqty(String.valueOf(o.getBigDecimal("tt_xpyhddeto_delvqty")));
 				pod.setTt_xpyhddeto_openqty(o.getBigDecimal("tt_xpyhddeto_openqty"));
 				pod.setTt_xpyhddeto_xpyhmstroid(o.getString("tt_xpyhddeto_xpyhmstroid"));
 				pod.setTt_xpyhddeto_xpyhddetoid(o.getString("tt_xpyhddeto_xpyhddetoid"));
@@ -329,6 +329,15 @@ public final class QADUtil {
 			asn.setTt_xasnmstro_stat(om.getString("tt_xasndeto_stat"));
 			asn.setTt_xasnmstro_creator(om.getString("tt_xasndeto_creator"));
 			asn.setTt_xasnmstro_suppcode(om.getString("tt_xasndeto_vend"));
+			
+			asn.setTt_xasndeto_vendname(om.getString("tt_xasndeto_vendname"));
+			asn.setTt_xasndeto_vendaddr(om.getString("tt_xasndeto_vendaddr"));
+			asn.setTt_xasndeto_vendcontact(om.getString("tt_xasndeto_vendcontact"));
+			asn.setTt_xasndeto_vendtax(om.getString("tt_xasndeto_vendtax"));
+			asn.setTt_xasndeto_shipname(om.getString("tt_xasndeto_shipname"));
+			asn.setTt_xasndeto_shipaddr(om.getString("tt_xasndeto_shipaddr"));
+
+			
 			asnList.add(asn);
 
 			int i = 1;
@@ -427,6 +436,9 @@ public final class QADUtil {
 			receipt.setTt_prhmstro_rcuserid(om.getString("tt_prhdeto_rcuserid"));
 			receipt.setTt_prhmstro_prhmstroid(om.getString("tt_prhdeto_prhmstroid"));
 			receipt.setTt_prhmstro_shipto(om.getString("tt_prhdeto_shipto"));
+			
+			receipt.setTt_prhdeto_vendname(om.getString("tt_prhdeto_vendname"));
+			receipt.setTt_prhdeto_shipaddr(om.getString("tt_prhdeto_shipaddr"));
 			receiptList.add(receipt);
 
 			int i = 1;
@@ -493,9 +505,9 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_totalamt(om.getBigDecimal("tt_xpyhddeto_totalamt"));
 			bill.setTt_xprcmstro_stat(om.getString("tt_xpyhddeto_stat"));
 
-			bill.setTt_xprcmstro_qty(om.getInt("tt_xpyhddeto_qty"));
-			bill.setTt_xprcmstro_taxamt(om.getBigDecimal("tt_xpyhddeto_taxamt"));
-			bill.setTt_xprcmstro_notaxamt(om.getBigDecimal("tt_xpyhddeto_notaxamt"));
+			bill.setTt_xprcmstro_qty(String.valueOf(om.getInt("tt_xpyhddeto_qty")));
+			bill.setTt_xprcmstro_taxamt(String.valueOf(om.getBigDecimal("tt_xpyhddeto_taxamt")));
+			bill.setTt_xprcmstro_notaxamt(String.valueOf(om.getBigDecimal("tt_xpyhddeto_notaxamt")));
 			bill.setTt_xprcmstro_invnbr(om.getString("tt_xpyhddeto_invnbr"));
 			bill.setTt_xprcmstro_rmk(om.getString("tt_xpyhddeto_rmk"));
 			bill.setTt_xprcmstro_claiminv(om.getString("tt_xpyhddeto_claiminv"));
@@ -503,11 +515,13 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_voucher"));
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			bill.setTt_xprcmstro_indexinvnbr(om.getString("tt_xpyhddeto_indexinvnbr"));
-			bill.setTt_xpyhddeto_disamt(om.getBigDecimal("tt_xpyhddeto_disamt"));
+			bill.setTt_xpyhddeto_disamt(String.valueOf(om.getBigDecimal("tt_xpyhddeto_disamt")));
 	
+			BigDecimal notaxamt = om.getBigDecimal("tt_xpyhddeto_notaxamt");
+			BigDecimal taxamt = om.getBigDecimal("tt_xpyhddeto_taxamt");
 			
-			BigDecimal invoiceAmount = bill.getTt_xprcmstro_notaxamt().add(bill.getTt_xprcmstro_taxamt());
-			bill.setTt_xpyhddeto_invoiceamt(invoiceAmount);
+			BigDecimal invoiceAmount = notaxamt.add(taxamt);
+			bill.setTt_xpyhddeto_invoiceamt(String.valueOf(invoiceAmount));
 			//bill.setTt_xprcmstro_type("0");                  //后面要加字段
 
 			//日期转一下格式,现在存到创建日期，发票日期给供应商维护

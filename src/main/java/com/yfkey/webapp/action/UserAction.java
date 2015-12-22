@@ -244,7 +244,7 @@ public class UserAction extends BaseAction implements Preparable {
 								.add(new LabelValue(userAuthority.getAuthorityName(), userAuthority.getAuthority()));
 					}
 
-					availableUserPlants.sort(labelValueComparator);
+					//availableUserPlants.sort(labelValueComparator);
 
 					session.setAttribute(Constants.AVAILABLE_USER_PLANTS, availableUserPlants);
 				}
@@ -501,10 +501,10 @@ public class UserAction extends BaseAction implements Preparable {
 				args.add("%" + user.getFirstName() + "%");
 			}
 
-			if (user.getLastName() != null && user.getLastName().trim().length() != 0) {
-				hql += "and lastName like ? ";
-				args.add("%" + user.getLastName() + "%");
-			}
+//			if (user.getLastName() != null && user.getLastName().trim().length() != 0) {
+//				hql += "and lastName like ? ";
+//				args.add("%" + user.getLastName() + "%");
+//			}
 		}
 
 		users = universalManager.findByHql(hql, args.toArray());

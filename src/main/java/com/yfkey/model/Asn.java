@@ -25,6 +25,16 @@ public class Asn extends BaseObject {
 	private String tt_xasnmstri_yhdnbr; // 要货单号
 
 	private String tt_xasnmstro_stat_desc; // 状态描述
+	
+	
+	private String tt_xasndeto_vendname;   //供应商名称
+	private String tt_xasndeto_vendaddr;   //供应商地址
+	private String tt_xasndeto_vendcontact;  //联系人
+	private String tt_xasndeto_vendphone;    //供应商电话
+	private String tt_xasndeto_vendtax;      //供应商传真
+	private String tt_xasndeto_shipname;    //客户名称
+	private String tt_xasndeto_shipaddr;    //客户地址
+
 
 	private List<AsnDetail> asnDetailList;
 
@@ -146,6 +156,62 @@ public class Asn extends BaseObject {
 
 	public void setIsDetail(Boolean isDetail) {
 		this.isDetail = isDetail;
+	}
+
+	public String getTt_xasndeto_vendname() {
+		return tt_xasndeto_vendname;
+	}
+
+	public void setTt_xasndeto_vendname(String tt_xasndeto_vendname) {
+		this.tt_xasndeto_vendname = tt_xasndeto_vendname;
+	}
+
+	public String getTt_xasndeto_vendaddr() {
+		return tt_xasndeto_vendaddr;
+	}
+
+	public void setTt_xasndeto_vendaddr(String tt_xasndeto_vendaddr) {
+		this.tt_xasndeto_vendaddr = tt_xasndeto_vendaddr;
+	}
+
+	public String getTt_xasndeto_vendcontact() {
+		return tt_xasndeto_vendcontact;
+	}
+
+	public void setTt_xasndeto_vendcontact(String tt_xasndeto_vendcontact) {
+		this.tt_xasndeto_vendcontact = tt_xasndeto_vendcontact;
+	}
+
+	public String getTt_xasndeto_vendphone() {
+		return tt_xasndeto_vendphone;
+	}
+
+	public void setTt_xasndeto_vendphone(String tt_xasndeto_vendphone) {
+		this.tt_xasndeto_vendphone = tt_xasndeto_vendphone;
+	}
+
+	public String getTt_xasndeto_vendtax() {
+		return tt_xasndeto_vendtax;
+	}
+
+	public void setTt_xasndeto_vendtax(String tt_xasndeto_vendtax) {
+		this.tt_xasndeto_vendtax = tt_xasndeto_vendtax;
+	}
+
+	public String getTt_xasndeto_shipname() {
+		return tt_xasndeto_shipname;
+	}
+
+	public void setTt_xasndeto_shipname(String tt_xasndeto_shipname) {
+		this.tt_xasndeto_shipname = tt_xasndeto_shipname;
+	}
+
+	public String getTt_xasndeto_shipaddr() {
+		return tt_xasndeto_shipaddr;
+	}
+
+	public void setTt_xasndeto_shipaddr(String tt_xasndeto_shipaddr) {
+		this.tt_xasndeto_shipaddr = tt_xasndeto_shipaddr;
 	}
 
 	@Override

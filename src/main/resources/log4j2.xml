@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
-    <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%p [%t] %c{1}.%M(%L) | %m%n"/>
-        </Console>
-    </Appenders>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%p [%t] %c{1}.%M(%L) | %m%n" />
+		</Console>
 
-    <Loggers>
-        <Logger name="net.sf.ehcache" level="error"/>
-        <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
-        <Logger name="org.springframework.security" level="error"/>
-        <Logger name="org.apache" level="error"/>
-        <Logger name="org.apache.velocity" level="fatal"/>
-        <!-- Suppress invalid warning messages from JSF -->
-        <Logger name="org.apache.myfaces" level="error"/>
-        <!-- Suppress warnings from Struts -->
-        <Logger name="org.apache.struts2.util.TextProviderHelper" level="error"/>
-        <Logger name="com.opensymphony.xwork2.util.OgnlUtil" level="error"/>
-        <Logger name="com.opensymphony.xwork2.ognl.OgnlValueStack" level="error"/>
-        <Logger name="org.dbunit" level="warn"/>
-        <Logger name="org.hibernate" level="warn"/>
-        <!-- Uncomment if you want to see Hibernate's SQL -->
-        <Logger name="org.hibernate.SQL" level="debug"/>
-        <Logger name="org.hibernate.type" level="debug" />
-        <Logger name="org.springframework" level="warn"/>
-        <Logger name="com.yfkey" level="debug"/>
-        <Logger name="com.yfkey.tool" level="info"/>
+		<RollingFile name="RollingFile" fileName="logs/esupply.log"    
+                 filePattern="logs/$${date:yyyy-MM}/esupply-%d{MM-dd-yyyy}-%i.log.gz">    
+      		<PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>    
+      		<SizeBasedTriggeringPolicy size="10 MB" />    
+    	</RollingFile>    
+	</Appenders>
 
-        <Root level="warn">
-            <AppenderRef ref="Console" />
-        </Root>
-    </Loggers>
+
+
+	<Loggers>
+		<Logger name="net.sf.ehcache" level="error" />
+		<!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
+		<Logger name="org.springframework.security" level="error" />
+		<Logger name="org.apache" level="error" />
+		<Logger name="org.apache.velocity" level="fatal" />
+		<!-- Suppress invalid warning messages from JSF -->
+		<Logger name="org.apache.myfaces" level="error" />
+		<!-- Suppress warnings from Struts -->
+		<Logger name="org.apache.struts2.util.TextProviderHelper"
+			level="error" />
+		<Logger name="com.opensymphony.xwork2.util.OgnlUtil" level="error" />
+		<Logger name="com.opensymphony.xwork2.ognl.OgnlValueStack"
+			level="error" />
+		<Logger name="org.dbunit" level="warn" />
+		<Logger name="org.hibernate" level="warn" />
+		<!-- Uncomment if you want to see Hibernate's SQL -->
+		<Logger name="org.hibernate.SQL" level="debug" />
+		<Logger name="org.hibernate.type" level="debug" />
+		<Logger name="org.springframework" level="warn" />
+		<Logger name="com.yfkey" level="debug" />
+		<Logger name="com.yfkey.tool" level="info" />
+
+		<Root level="warn">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
 </Configuration>

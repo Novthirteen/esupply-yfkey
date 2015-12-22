@@ -27,7 +27,11 @@ import com.progress.open4gl.Parameter;
 import com.progress.open4gl.ProDataGraph;
 import com.progress.open4gl.ProDataGraphHolder;
 import com.progress.open4gl.ProDataObject;
+import com.yfkey.exception.BillConfirmNotValidException;
+import com.yfkey.exception.PrintBarcodeNotValidException;
+import com.yfkey.exception.QadException;
 import com.yfkey.model.Barcode;
+import com.yfkey.model.Bill;
 import com.yfkey.model.Gender;
 import com.yfkey.model.LabelValue;
 import com.yfkey.model.PermissionType;
@@ -110,7 +114,6 @@ public class BarcodeAction extends BaseAction {
 				purchaseOrderDetail.setTt_xpyhddeto_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
 			}
 		}
-		
 
 		query();
 		return SUCCESS;
@@ -198,45 +201,20 @@ public class BarcodeAction extends BaseAction {
 	}
 
 	public String print() {
+		try {
 
-		// purchaseOrderDetails.size();
-		// List<Barcode> barcodeList = new ArrayList<Barcode>();
-		// Barcode bc = new Barcode();
-		// bc.setTt_bcdeto_bcnon("47000009320250F427100025");
-		// bc.setTt_bcdeto_serial("47000009320250F427100025");
-		// bc.setTt_bcdeto_partnbr("100001");
-		// bc.setTt_bcdeto_lots("AC12");
-		// bc.setTt_bcdeto_qty(new BigDecimal(100));
-		// bc.setTt_bcdeto_partdesc("螺丝");
-		// barcodeList.add(bc);
-		//
-		// Barcode bc1 = new Barcode();
-		// bc1.setTt_bcdeto_bcnon("47000009320250F427100026");
-		// bc1.setTt_bcdeto_serial("47000009320250F427100026");
-		// bc1.setTt_bcdeto_partnbr("100002");
-		// bc1.setTt_bcdeto_lots("AC12");
-		// bc1.setTt_bcdeto_qty(new BigDecimal(200));
-		// bc1.setTt_bcdeto_partdesc("螺母");
-		// barcodeList.add(bc1);
-		//
-		// try {
-		// printBarcode(barcodeList);
-		// } catch (Exception e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+			checkPrintBarcode(purchaseOrderDetails);
+			if (ConnectQAD()) {
 
-		if (ConnectQAD()) {
+				String userCode = this.getRequest().getRemoteUser();
+				@SuppressWarnings("unchecked")
+				List<String> supplierCodeList = getSupplierCodeList(
+						purchaseOrderDetail != null ? purchaseOrderDetail.getTt_xpyhddeto_suppcode() : "");
 
-			String userCode = this.getRequest().getRemoteUser();
-			@SuppressWarnings("unchecked")
-			List<String> supplierCodeList = getSupplierCodeList(
-					purchaseOrderDetail != null ? purchaseOrderDetail.getTt_xpyhddeto_suppcode() : "");
+				String domain = getCurrentDomain();
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
-			String domain = getCurrentDomain();
-			ProDataGraph exDataGraph; // 输入参数
-			ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
-			try {
 				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxprint_barcode_DSMetaData1());
 				for (int i = 0; i < supplierCodeList.size(); i++) {
 					ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
@@ -253,14 +231,14 @@ public class BarcodeAction extends BaseAction {
 				if (purchaseOrderDetails != null) {
 					for (PurchaseOrderDetail pod : purchaseOrderDetails) {
 
-						if (pod!= null && pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != ""
+						if (pod != null && pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != ""
 								&& pod.getTt_xpyhddeto_qty() != null
 								&& !pod.getTt_xpyhddeto_qty().equals(BigDecimal.ZERO)) {
 
 							ProDataObject objectMstr = exDataGraph.createProDataObject("tt_bcdet_in");
 							objectMstr.setString(0, pod.getTt_xpyhddeto_partnbr());
 							objectMstr.setString(1, pod.getTt_xpyhddeto_lots());
-							objectMstr.setBigDecimal(2, pod.getTt_xpyhddeto_qty());
+							objectMstr.setBigDecimal(2, new BigDecimal(pod.getTt_xpyhddeto_qty()));
 							objectMstr.setString(3, currDate);
 							// objectMstr.setString("tt_bcdeti_domain",
 							// value);
@@ -276,6 +254,13 @@ public class BarcodeAction extends BaseAction {
 				yfkssScp.xxprint_barcode(exDataGraph, outputData);
 
 				@SuppressWarnings("unchecked")
+				List<ProDataObject> errotOutDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_err_out");
+				if (errotOutDataList != null && errotOutDataList.size() > 0) {
+					throw new QadException(getQadErrorMessage(errotOutDataList));
+				}
+
+				@SuppressWarnings("unchecked")
 				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 						.getProDataObjects("tt_bcdet_out");
 
@@ -288,150 +273,22 @@ public class BarcodeAction extends BaseAction {
 
 				fileName = "barcode.pdf";
 
-			} catch (Exception e) {
-				// catch
 			}
+		} catch (QadException ex) {
+			addActionError(ex.getMessage());
+			list();
+			return INPUT;
+		} catch (PrintBarcodeNotValidException ex) {
+			addActionError(ex.getMessage());
+			list();
+			return INPUT;
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			return INPUT;
 		}
+
 		return SUCCESS;
 	}
-
-	// public void printBarcode(List<Barcode> barcodeList) throws Exception {
-	//
-	// String localAbsolutPath =
-	// this.getSession().getServletContext().getRealPath("/");
-	// Rectangle pagesize = new Rectangle(226.771653f, 170.078740f);
-	// Document document = new Document(pagesize, 2f, 5f, 10f, 1f);
-	// ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	// try {
-	//
-	// // step 2
-	// PdfWriter writer = PdfWriter.getInstance(document, baos);
-	// // step 3
-	// document.open();
-	// PdfContentByte cb = writer.getDirectContent();
-	// int i = 0;
-	//
-	// for (Barcode barcode : barcodeList) {
-	// if (i != 0) {
-	// document.newPage();
-	// }
-	// BaseFont baseFont = BaseFont.createFont("STSongStd-Light",
-	// "UniGB-UCS2-H", BaseFont.EMBEDDED);
-	// // Font font = FontFactory.getFont("Times-Roman");
-	// Barcode128 code128 = new Barcode128();
-	// code128.setCode(barcode.getTt_bcdeto_bcinfo1());
-	// // code128.setX(0.75f);
-	// // code128.setN(1.5f);
-	// code128.setSize(0.0001f);
-	// code128.setTextAlignment(Element.ALIGN_LEFT);
-	// // code128.setBaseline(1);
-	// // code128.setBarHeight(26f);
-	// Image img = code128.createImageWithBarcode(cb, null, null);
-	// cb.addImage(img, 150, 0, 0, 35, 50, 120);
-	// cb.stroke();
-	// // document.add(img);
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 8);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
-	// barcode.getTt_bcdeto_bcnon(), 80, 120, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 7);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PART NO.", 10, 110, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 8);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
-	// barcode.getTt_bcdeto_partnbr(), 35, 100, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 7);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "LOT/SERIAL NO.", 10, 90,
-	// 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 8);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
-	// barcode.getTt_bcdeto_lots(), 35, 80, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 7);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "QUANTITY", 145, 90, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 8);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
-	// String.valueOf(barcode.getTt_bcdeto_qty()), 145, 80, 0);
-	// cb.endText();
-	//
-	// // QRCODE
-	// if (barcode.getTt_bcdeto_bcinfo2() != null &&
-	// !barcode.getTt_bcdeto_bcinfo2().trim().equals("")) {
-	// BarcodeQRCode qrcode = new BarcodeQRCode(barcode.getTt_bcdeto_bcinfo2(),
-	// 1, 1, null);
-	// Image img1 = qrcode.getImage();
-	// cb.addImage(img1, 40, 0, 0, 40, 140, 50);
-	// cb.stroke();
-	// }
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 7);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DESCRIPTION ", 10, 70, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 8);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
-	// barcode.getTt_bcdeto_partdesc(), 35, 60, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 7);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SUPPLIER ", 10, 50, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 8);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT,
-	// barcode.getTt_bcdeto_suppname() == null ? "" :
-	// barcode.getTt_bcdeto_suppname(), 35, 40, 0);
-	// cb.endText();
-	//
-	// cb.beginText();
-	// cb.setFontAndSize(baseFont, 8);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED DATE: " +
-	// barcode.getTt_bcdeto_date(), 10, 10,
-	// 0);
-	// cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PRINTED USER: " +
-	// this.getRequest().getRemoteUser(), 110,
-	// 10, 0);
-	// cb.endText();
-	//
-	// i++;
-	// }
-	//
-	// } catch (Exception e) {
-	// // catch
-	// } finally {
-	// document.close();
-	// HttpServletResponse response = this.getResponse();
-	// ServletOutputStream outputStream = response.getOutputStream();
-	// baos.writeTo(outputStream);
-	// response.setHeader("Content-Disposition", "attachment;
-	// filename=\"barcode.pdf\"");
-	// response.setContentType("application/pdf");
-	// outputStream.flush();
-	// outputStream.close();
-	// }
-	//
-	// }
 
 	public List<LabelValue> getPackageList() {
 		List<LabelValue> packageList = new ArrayList<LabelValue>();
@@ -439,6 +296,41 @@ public class BarcodeAction extends BaseAction {
 		packageList.add(new LabelValue("1", getText("package.external")));
 
 		return packageList;
+	}
+
+	private void checkPrintBarcode(List<PurchaseOrderDetail> purchaseOrderDetails)
+			throws PrintBarcodeNotValidException {
+
+		List<Object> args = new ArrayList<Object>();
+
+		if (purchaseOrderDetails != null && purchaseOrderDetails.size() > 0) {
+			for (PurchaseOrderDetail d : purchaseOrderDetails) {
+				try {
+					Integer qty = Integer.parseInt(d.getTt_xpyhddeto_qty());
+
+					if (qty instanceof Integer == false) {
+						args.add(qty);
+						throw new PrintBarcodeNotValidException(getText("barcode.qty_format_error", args));
+					}
+					if (qty <= 0) {
+
+						args.add(d.getTt_xpyhddeto_seq());
+						throw new PrintBarcodeNotValidException(getText("barcode.qty_less_than_zero", args));
+					}
+					
+					if(qty > d.getTt_xpyhddeto_oldQty())
+					{
+						args.add(qty);
+						args.add(d.getTt_xpyhddeto_oldQty());
+						throw new PrintBarcodeNotValidException(getText("barcode.oldqty_less_than_Qty", args));
+					}
+				} catch (NumberFormatException e) {
+					args.add(d.getTt_xpyhddeto_qty());
+					throw new PrintBarcodeNotValidException(getText("barcode.qty_format_error", args));
+				}
+
+			}
+		}
 	}
 
 }

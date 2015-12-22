@@ -1,11 +1,13 @@
 package com.yfkey.webapp.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.progress.open4gl.ProDataObject;
 import com.progress.open4gl.javaproxy.Connection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 import com.yfkey.Constants;
+import com.yfkey.exception.QadException;
 import com.yfkey.exception.SupplierAuthorityException;
 import com.yfkey.exception.UserPasswordNotValidException;
 import com.yfkey.model.User;
@@ -18,6 +20,8 @@ import org.springframework.mail.SimpleMailMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -329,5 +333,21 @@ public class BaseAction extends ActionSupport {
 			}
 		}
 
+	}
+
+	public String getQadErrorMessage(List<ProDataObject> errorOutDataList) {
+		String errorMessage = "";
+		if (errorOutDataList != null && errorOutDataList.size() > 0) {
+			for (ProDataObject qadError : errorOutDataList) {
+				if (qadError.getBigDecimal("tt_erro_errid").equals(new BigDecimal(2)) &&getRequest().getLocale().toString().equals("zh_CN")) {
+					errorMessage = (String)qadError.get("tt_erro_msg");
+					break;
+				} else if(qadError.getBigDecimal("tt_erro_errid").equals(new BigDecimal(1)) &&getRequest().getLocale().toString().equals("en")){
+					errorMessage = (String)qadError.get("tt_erro_msg");
+					break;
+				}
+			}
+		}
+		return errorMessage;
 	}
 }

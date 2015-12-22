@@ -16,7 +16,6 @@
 		<div class="col-xs-4 search-group">
 			<s:textfield key="receipt.tt_prhmstro_receiver"
 				cssClass="form-control" readonly="true" />
-			<s:hidden key="receipt.tt_prhmstro_receiver" />
 		</div>
 		<div class="col-xs-4 search-group">
 			<s:textfield key="receipt.tt_prhmstro_asnnbr" cssClass="form-control"

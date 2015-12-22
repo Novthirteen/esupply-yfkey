@@ -37,14 +37,15 @@ public class PurchaseOrderDetail extends BaseObject {
 	private BigDecimal tt_xpyhddeto_innnerqty;				  //内包装
 	private BigDecimal tt_xpyhddeto_externalqty;              //外包装
 	private String tt_xpyhddeto_lots;              				//批号
-	private BigDecimal tt_xpyhddeto_qty;    					//数量
+	private String tt_xpyhddeto_qty;    					//数量
+	private int tt_xpyhddeto_oldQty;    					//数量
 	private String tt_xpyhddeto_pktype;              			//包装类型
 	private String isexternal;              			      //包装类型
 	
 	
 	//发货用
 	private String tt_xpyhddeto_toloc;  					//目的库位
-	private BigDecimal tt_xpyhddeto_delvqty; 				//发货数
+	private String tt_xpyhddeto_delvqty; 				//发货数
 	private BigDecimal tt_xpyhddeto_openqty;                //待发数
 	
 	
@@ -188,10 +189,10 @@ public class PurchaseOrderDetail extends BaseObject {
 	public void setTt_xpyhddeto_lots(String tt_xpyhddeto_lots) {
 		this.tt_xpyhddeto_lots = tt_xpyhddeto_lots;
 	}
-	public BigDecimal getTt_xpyhddeto_qty() {
+	public String getTt_xpyhddeto_qty() {
 		return tt_xpyhddeto_qty;
 	}
-	public void setTt_xpyhddeto_qty(BigDecimal tt_xpyhddeto_qty) {
+	public void setTt_xpyhddeto_qty(String tt_xpyhddeto_qty) {
 		this.tt_xpyhddeto_qty = tt_xpyhddeto_qty;
 	}
 	public String getLine_remark() {
@@ -242,10 +243,10 @@ public class PurchaseOrderDetail extends BaseObject {
 		this.tt_xpyhddeto_toloc = tt_xpyhddeto_toloc;
 	}
 	
-	public BigDecimal getTt_xpyhddeto_delvqty() {
+	public String getTt_xpyhddeto_delvqty() {
 		return tt_xpyhddeto_delvqty;
 	}
-	public void setTt_xpyhddeto_delvqty(BigDecimal tt_xpyhddeto_delvqty) {
+	public void setTt_xpyhddeto_delvqty(String tt_xpyhddeto_delvqty) {
 		this.tt_xpyhddeto_delvqty = tt_xpyhddeto_delvqty;
 	}
 	
@@ -260,6 +261,13 @@ public class PurchaseOrderDetail extends BaseObject {
 	}
 	public void setTt_forecast_fcastqty(BigDecimal tt_forecast_fcastqty) {
 		this.tt_forecast_fcastqty = tt_forecast_fcastqty;
+	}
+	
+	public int getTt_xpyhddeto_oldQty() {
+		return tt_xpyhddeto_oldQty;
+	}
+	public void setTt_xpyhddeto_oldQty(int tt_xpyhddeto_oldQty) {
+		this.tt_xpyhddeto_oldQty = tt_xpyhddeto_oldQty;
 	}
 	@Override
 	public int hashCode() {

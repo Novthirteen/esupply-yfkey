@@ -155,7 +155,9 @@ public class User extends BaseObject implements Serializable, UserDetails, Audit
 	 */
 	@Transient
 	public String getFullName() {
-		return firstName + ' ' + lastName;
+		//return firstName + ' ' + lastName;
+	
+		return firstName;
 	}
 
 	/**

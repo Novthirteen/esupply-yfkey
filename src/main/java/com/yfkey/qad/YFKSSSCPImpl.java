@@ -413,7 +413,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinqury_prhdet_MetaData12.setFieldDesc(5, "tt_prhdeti_partnbr", 0, Parameter.PRO_CHARACTER,4,0);
 		xxinqury_prhdet_DSMetaData1.addTable(xxinqury_prhdet_MetaData12);
 		xxinqury_prhdet_DSMetaData2 = new ProDataGraphMetaData(0, "export_prhdet", 2, ParameterSet.OUTPUT);
-		xxinqury_prhdet_MetaData21 = new ProDataObjectMetaData("tt_prhdet_out", 18, false, 0, null, null, null);
+		xxinqury_prhdet_MetaData21 = new ProDataObjectMetaData("tt_prhdet_out", 20, false, 0, null, null, null);
 		xxinqury_prhdet_MetaData21.setFieldDesc(1, "tt_prhdeto_seq", 0, Parameter.PRO_INTEGER,0,0);
 		xxinqury_prhdet_MetaData21.setFieldDesc(2, "tt_prhdeto_receiver", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinqury_prhdet_MetaData21.setFieldDesc(3, "tt_prhdeto_suppcode", 0, Parameter.PRO_CHARACTER,2,0);
@@ -432,6 +432,8 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinqury_prhdet_MetaData21.setFieldDesc(16, "tt_prhdeto_toloc", 0, Parameter.PRO_CHARACTER,15,0);
 		xxinqury_prhdet_MetaData21.setFieldDesc(17, "tt_prhdeto_delvqty", 0, Parameter.PRO_DECIMAL,16,0);
 		xxinqury_prhdet_MetaData21.setFieldDesc(18, "tt_prhdeto_revdqty", 0, Parameter.PRO_DECIMAL,17,0);
+		xxinqury_prhdet_MetaData21.setFieldDesc(19, "tt_prhdeto_vendname", 0, Parameter.PRO_CHARACTER,18,0);
+		xxinqury_prhdet_MetaData21.setFieldDesc(20, "tt_prhdeto_shipaddr", 0, Parameter.PRO_CHARACTER,19,0);
 		xxinqury_prhdet_DSMetaData2.addTable(xxinqury_prhdet_MetaData21);
 		xxinqury_prhdet_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxinqury_prhdet_MetaData22.setFieldDesc(1, "tt_erro_prhmstroid", 0, Parameter.PRO_CHARACTER,0,0);
@@ -719,7 +721,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxview_xasndet_MetaData11.setFieldDesc(1, "tt_xasndeti_xasnmstroid", 0, Parameter.PRO_CHARACTER,0,0);
 		xxview_xasndet_DSMetaData1.addTable(xxview_xasndet_MetaData11);
 		xxview_xasndet_DSMetaData2 = new ProDataGraphMetaData(0, "export_xasndet", 2, ParameterSet.OUTPUT);
-		xxview_xasndet_MetaData21 = new ProDataObjectMetaData("tt_xasndet_out", 16, false, 0, null, null, null);
+		xxview_xasndet_MetaData21 = new ProDataObjectMetaData("tt_xasndet_out", 23, false, 0, null, null, null);
 		xxview_xasndet_MetaData21.setFieldDesc(1, "tt_xasndeto_seq", 0, Parameter.PRO_INTEGER,0,0);
 		xxview_xasndet_MetaData21.setFieldDesc(2, "tt_xasndeto_asnnbr", 0, Parameter.PRO_CHARACTER,1,0);
 		xxview_xasndet_MetaData21.setFieldDesc(3, "tt_xasndeto_shipto", 0, Parameter.PRO_CHARACTER,2,0);
@@ -736,6 +738,14 @@ public final class YFKSSSCPImpl extends AppObject
 		xxview_xasndet_MetaData21.setFieldDesc(14, "tt_xasndeto_xasndetoid", 0, Parameter.PRO_CHARACTER,13,0);
 		xxview_xasndet_MetaData21.setFieldDesc(15, "tt_xasndeto_yhdnbr", 0, Parameter.PRO_CHARACTER,14,0);
 		xxview_xasndet_MetaData21.setFieldDesc(16, "tt_xasndeto_vend", 0, Parameter.PRO_CHARACTER,15,0);
+		xxview_xasndet_MetaData21.setFieldDesc(17, "tt_xasndeto_vendname", 0, Parameter.PRO_CHARACTER,16,0);
+		xxview_xasndet_MetaData21.setFieldDesc(18, "tt_xasndeto_vendaddr", 0, Parameter.PRO_CHARACTER,17,0);
+		xxview_xasndet_MetaData21.setFieldDesc(19, "tt_xasndeto_vendcontact", 0, Parameter.PRO_CHARACTER,18,0);
+		xxview_xasndet_MetaData21.setFieldDesc(20, "tt_xasndeto_vendphone", 0, Parameter.PRO_CHARACTER,19,0);
+		xxview_xasndet_MetaData21.setFieldDesc(21, "tt_xasndeto_vendtax", 0, Parameter.PRO_CHARACTER,20,0);
+		xxview_xasndet_MetaData21.setFieldDesc(22, "tt_xasndeto_shipname", 0, Parameter.PRO_CHARACTER,21,0);
+		xxview_xasndet_MetaData21.setFieldDesc(23, "tt_xasndeto_shipaddr", 0, Parameter.PRO_CHARACTER,22,0);
+		
 		xxview_xasndet_DSMetaData2.addTable(xxview_xasndet_MetaData21);
 		xxview_xasndet_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxview_xasndet_MetaData22.setFieldDesc(1, "tt_xasndeto_xasndetoid", 0, Parameter.PRO_CHARACTER,0,0);
