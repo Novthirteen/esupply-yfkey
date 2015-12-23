@@ -33,7 +33,8 @@
 				        		<c:forEach  items="${userMenu.items}" var="userchildMenu">
 				        			<tr>
 			                            <td>
-			                                <span class="glyphicon glyphicon-pencil text-primary"></span><a href="<c:url value='${userchildMenu.url}'/>">
+			                                <span class="glyphicon glyphicon-pencil text-primary"></span>
+			                                   <a href="#"  onclick="loadClick('<c:url value='${userchildMenu.url}'/>')">
 			                                   <fmt:message key="${userchildMenu.text}" /></a>
 			                                <input type="hidden" value=""  id="${userchildMenu.value}"  name="${userchildMenu.value}"  />
 			                            </td>
@@ -69,7 +70,7 @@
  			//t.addClass("collapse in");
  		}
  		else{
- 			window.location.href = url;
+ 			window.location.href = url + "?cb=" + generateUUID();
  		}
  	}
  </script>

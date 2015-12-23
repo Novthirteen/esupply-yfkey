@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.yfkey.qad.QADConfg;
 import com.yfkey.qad.YFKSSSCP;
@@ -113,6 +114,10 @@ public class BaseAction extends ActionSupport {
 
 	protected static YFKSSSCP yfkssScp;
 	private static String yfkssScpLock = "yfkssScpLock";
+
+	public String getCbValue() {
+		return UUID.randomUUID().toString();
+	}
 
 	public String cancel() {
 		return CANCEL;
@@ -339,11 +344,13 @@ public class BaseAction extends ActionSupport {
 		String errorMessage = "";
 		if (errorOutDataList != null && errorOutDataList.size() > 0) {
 			for (ProDataObject qadError : errorOutDataList) {
-				if (qadError.getBigDecimal("tt_erro_errid").equals(new BigDecimal(2)) &&getRequest().getLocale().toString().equals("zh_CN")) {
-					errorMessage = (String)qadError.get("tt_erro_msg");
+				if (qadError.getBigDecimal("tt_erro_errid").equals(new BigDecimal(2))
+						&& getRequest().getLocale().toString().equals("zh_CN")) {
+					errorMessage = (String) qadError.get("tt_erro_msg");
 					break;
-				} else if(qadError.getBigDecimal("tt_erro_errid").equals(new BigDecimal(1)) &&getRequest().getLocale().toString().equals("en")){
-					errorMessage = (String)qadError.get("tt_erro_msg");
+				} else if (qadError.getBigDecimal("tt_erro_errid").equals(new BigDecimal(1))
+						&& getRequest().getLocale().toString().equals("en")) {
+					errorMessage = (String) qadError.get("tt_erro_msg");
 					break;
 				}
 			}

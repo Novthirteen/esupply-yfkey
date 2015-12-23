@@ -354,10 +354,7 @@ public class AsnAction extends BaseAction {
 
 					asns = QADUtil.ConverToAsn(outDataList);
 
-					// asn状态字段
-					for (Asn asn : asns) {
-						asn.setTt_xasnmstro_stat_desc(getAsnStatus(asn.getTt_xasnmstro_stat()));
-					}
+				
 
 				} catch (Exception e) {
 					e.printStackTrace();

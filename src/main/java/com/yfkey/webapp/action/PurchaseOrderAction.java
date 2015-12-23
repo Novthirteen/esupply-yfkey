@@ -424,24 +424,31 @@ public class PurchaseOrderAction extends BaseAction {
 				@SuppressWarnings("unchecked")
 				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 						.getProDataObjects("tt_xasndet_out");
-				
-				
+
 				List<Object> args = new ArrayList<Object>();
-				if(outDataList != null && outDataList.size()>0)
+//				if (outDataList != null && outDataList.size() > 0) {
+//					String asnNo = "";
+//					for (ProDataObject p : outDataList) {
+//						String currAsnNo =  p.getString("tt_xasndeto_asnnbr");
+//						if (asnNo.equals("")) {
+//							asnNo = currAsnNo;
+//						} else {
+//							if(!asnNo.contains(currAsnNo))
+//							{
+//								asnNo += "," + p.getString("tt_xasndeto_asnnbr");
+//							}
+//						}
+//					}
+//					args.add(asnNo);
+//				}
+				
+				if(outDataList  != null && outDataList.size()>0)
 				{
-					String asnNo = "";
-					for(ProDataObject p : outDataList)
-					{
-						if(asnNo.equals(""))
-						{
-							asnNo = p.getString("tt_xasndeto_asnnbr");
-						}else{
-						asnNo += ","+p.getString("tt_xasndeto_asnnbr");
-						}
-					}
+					ProDataObject p = outDataList.get(0);
+					String asnNo =  p.getString("tt_xasndeto_asnnbr");
 					args.add(asnNo);
 				}
-				saveMessage(getText("ship.success",args));
+				saveMessage(getText("ship.success", args));
 			} else {
 				purchaseOrder = new PurchaseOrder();
 			}
@@ -467,9 +474,9 @@ public class PurchaseOrderAction extends BaseAction {
 	public String list() {
 		if (purchaseOrder == null) {
 			purchaseOrder = new PurchaseOrder();
-//			Date date = new Date();
-//			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-//			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
+			// Date date = new Date();
+			// SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+			// purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
 
 			purchaseOrder.setIsDetail(false);
 		}
@@ -494,8 +501,26 @@ public class PurchaseOrderAction extends BaseAction {
 			}
 		}
 
-		if (purchaseOrder.getTt_xpyhmstro_stat() == null || purchaseOrder.getTt_xpyhmstro_stat().equals("")) {
-			purchaseOrder.setTt_xpyhmstro_stat("2,3");
+		// 其他全部为空才状态值赋为2，3
+
+		if ((purchaseOrder.getTt_xpyhmstro_yhdnbr() == null || purchaseOrder.getTt_xpyhmstro_yhdnbr().equals(""))
+				&& (purchaseOrder.getTt_xpyhmstro_priority()  == null
+						|| purchaseOrder.getTt_xpyhmstro_priority().equals(""))
+				&& (purchaseOrder.getTt_xpyhmstro_suppcode()  == null
+						|| purchaseOrder.getTt_xpyhmstro_suppcode().equals(""))
+				&& (purchaseOrder.getTt_xpyhmstro_creator()  == null
+						|| purchaseOrder.getTt_xpyhmstro_creator().equals(""))
+				&& (purchaseOrder.getTt_xpyhmstro_shipto()  == null
+						|| purchaseOrder.getTt_xpyhmstro_shipto().equals(""))
+				&& (purchaseOrder.getTt_xpyhmstro_startdt()  == null
+						|| purchaseOrder.getTt_xpyhmstro_startdt().equals(""))
+				&& (purchaseOrder.getTt_xpyhmstro_receptdt()  == null
+						|| purchaseOrder.getTt_xpyhmstro_receptdt().equals(""))
+				&& (purchaseOrder.getTt_xpyhmstro_partnbr()  == null
+						|| purchaseOrder.getTt_xpyhmstro_partnbr().equals(""))) {
+			if (purchaseOrder.getTt_xpyhmstro_stat() == null || purchaseOrder.getTt_xpyhmstro_stat().equals("")) {
+				purchaseOrder.setTt_xpyhmstro_stat("2,3");
+			}
 		}
 
 		query();
@@ -647,11 +672,7 @@ public class PurchaseOrderAction extends BaseAction {
 
 					purchaseOrders = QADUtil.ConverToPurchaseOrder(outDataList);
 
-					// 两个描述字段翻译一下
-					for (PurchaseOrder po : purchaseOrders) {
-						po.setTt_xpyhmstro_stat_desc(getPurchaseOrderStatus(po.getTt_xpyhmstro_stat()));
-						po.setTt_xpyhmstro_priority_desc(getPurchaseOrderPriority(po.getTt_xpyhmstro_priority()));
-					}
+					
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -950,7 +971,7 @@ public class PurchaseOrderAction extends BaseAction {
 
 				if (delvqty instanceof BigDecimal == false) {
 					args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
-					throw new ShipQtyNotValidException(getText("purchaseOrder.delvqty_format_error",args));
+					throw new ShipQtyNotValidException(getText("purchaseOrder.delvqty_format_error", args));
 				}
 
 				if (delvqty.compareTo(BigDecimal.ZERO) < 1) {
@@ -963,7 +984,7 @@ public class PurchaseOrderAction extends BaseAction {
 				}
 			} catch (NumberFormatException e) {
 				args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
-				throw new ShipQtyNotValidException(getText("purchaseOrder.delvqty_format_error",args));
+				throw new ShipQtyNotValidException(getText("purchaseOrder.delvqty_format_error", args));
 			}
 
 		}

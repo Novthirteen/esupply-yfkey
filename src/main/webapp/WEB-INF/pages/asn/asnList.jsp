@@ -74,7 +74,7 @@
 	<c:choose>
 		<c:when test="${!asn.isDetail}">
 			<display:table name="asns" cellspacing="0" cellpadding="0"
-				requestURI="asns" defaultsort="1" id="asns" pagesize="25"
+				requestURI="asns" defaultsort="1" id="asn" pagesize="25"
 				class="table table-condensed table-striped table-hover"
 				export="true">
 				<display:column property="tt_xasnmstro_seq" escapeXml="true"
@@ -85,8 +85,22 @@
 					paramProperty="tt_xasnmstro_xasnmstroid" />
 				<display:column property="tt_xasnmstro_startdt" escapeXml="true"
 					sortable="true" titleKey="asn.tt_xasnmstro_startdt" />
-				<display:column property="tt_xasnmstro_stat_desc" escapeXml="true"
-					sortable="true" titleKey="asn.tt_xasnmstro_stat_desc" />
+			
+				<display:column titleKey="asn.tt_xasnmstro_stat"
+					escapeXml="true" sortable="true">
+					<c:choose>
+						<c:when test="${asn.tt_xasnmstro_stat eq '1'}">
+							<fmt:message key="xasnd_status.Create" />
+						</c:when>
+						<c:when test="${asn.tt_xasnmstro_stat  eq '2'}">
+							<fmt:message key="xasnd_status.InProcess" />
+						</c:when>
+						<c:when test="${asn.tt_xasnmstro_stat eq '3'}">
+							<fmt:message key="xasnd_status.Close" />
+						</c:when>
+					</c:choose>
+				</display:column>	
+				
 				<display:column property="tt_xasnmstro_creator" escapeXml="true"
 					sortable="true" titleKey="asn.tt_xasnmstro_creator" />
 

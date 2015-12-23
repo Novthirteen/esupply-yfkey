@@ -23,46 +23,54 @@
 					cssClass="form-control search-control" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_suppcode" /></label>
-				<input id="tt_xpyhmstro_suppcode"
-					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text" value="${purchaseOrder.tt_xpyhmstro_suppcode}" 
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+				<label class="control-label"><fmt:message
+						key="purchaseOrder.tt_xpyhmstro_suppcode" /></label> <input
+					id="tt_xpyhmstro_suppcode"
+					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text"
+					value="${purchaseOrder.tt_xpyhmstro_suppcode}"
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrder.tt_xpyhmstro_creator" />
 			</div>
-			
+
 		</div>
 		<div class="row">
-		
+
 			<div class="col-xs-3 search-group">
 				<s:select key="purchaseOrder.tt_xpyhmstro_stat"
 					list="purchaseOrderStatusList" listKey="label" listValue="value"
 					cssClass="form-control search-control" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" /></label>
-				<input id="tt_xpyhmstro_shipto"
-					name="purchaseOrder.tt_xpyhmstro_shipto" type="text"  value="${purchaseOrder.tt_xpyhmstro_shipto}" 
-					class="form-control search-control" placeholder="" autocomplete="off" />
+				<label class="control-label"><fmt:message
+						key="purchaseOrder.tt_xpyhmstro_shipto" /></label> <input
+					id="tt_xpyhmstro_shipto" name="purchaseOrder.tt_xpyhmstro_shipto"
+					type="text" value="${purchaseOrder.tt_xpyhmstro_shipto}"
+					class="form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_startdt" 
-					key="purchaseOrder.tt_xpyhmstro_startdt" />
+				<s:textfield cssClass="form-control search-control"
+					id="tt_xpyhmstro_startdt" key="purchaseOrder.tt_xpyhmstro_startdt" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<s:textfield cssClass="form-control search-control" id="tt_xpyhmstro_receptdt" key="purchaseOrder.tt_xpyhmstro_receptdt" />
+				<s:textfield cssClass="form-control search-control"
+					id="tt_xpyhmstro_receptdt"
+					key="purchaseOrder.tt_xpyhmstro_receptdt" />
 			</div>
 		</div>
 		<div class="row">
-			
+
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" /></label>
-				<input id="tt_xpyhmstro_partnbr"
-					name="purchaseOrder.tt_xpyhmstro_partnbr" type="text"
-					value="${purchaseOrder.tt_xpyhmstro_partnbr}"
-					class="form-control search-control" placeholder="" autocomplete="off" />
+				<label class="control-label"><fmt:message
+						key="purchaseOrder.tt_xpyhmstro_partnbr" /></label> <input
+					id="tt_xpyhmstro_partnbr" name="purchaseOrder.tt_xpyhmstro_partnbr"
+					type="text" value="${purchaseOrder.tt_xpyhmstro_partnbr}"
+					class="form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group layouttrim">
 				<s:checkbox key="purchaseOrder.isDetail" />
@@ -84,11 +92,10 @@
 	<c:choose>
 		<c:when test="${!purchaseOrder.isDetail}">
 			<display:table name="purchaseOrders" cellspacing="0" cellpadding="0"
-				requestURI="purchaseOrders" defaultsort="1" id="purchaseOrders"
+				requestURI="purchaseOrders" defaultsort="1" id="purchaseOrder"
 				pagesize="25"
 				class="table table-condensed table-striped table-hover"
 				export="true">
-
 
 				<display:column property="tt_xpyhmstro_seq" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_seq" />
@@ -107,11 +114,41 @@
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_receptdt" />
 				<display:column property="tt_xpyhmstro_recepttm" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_recepttm" />
-				<display:column property="tt_xpyhmstro_stat_desc" escapeXml="true"
-					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_stat_desc" />
-				<display:column property="tt_xpyhmstro_priority_desc"
-					escapeXml="true" sortable="true"
-					titleKey="purchaseOrder.tt_xpyhmstro_priority_desc" />
+				<display:column titleKey="purchaseOrder.tt_xpyhmstro_stat"
+					escapeXml="true" sortable="true">
+					<c:choose>
+						<c:when test="${purchaseOrder.tt_xpyhmstro_stat eq '1'}">
+							<fmt:message key="xpyh_status.Create" />
+						</c:when>
+						<c:when test="${purchaseOrder.tt_xpyhmstro_stat eq '2'}">
+							<fmt:message key="xpyh_status.Submit" />
+						</c:when>
+						<c:when test="${purchaseOrder.tt_xpyhmstro_stat eq '3'}">
+							<fmt:message key="xpyh_status.InProcess" />
+						</c:when>
+						<c:when test="${purchaseOrder.tt_xpyhmstro_stat eq '4'}">
+							<fmt:message key="xpyh_status.Complete" />
+						</c:when>
+						<c:when test="${purchaseOrder.tt_xpyhmstro_stat eq '5'}">
+							<fmt:message key="xpyh_status.Close" />
+						</c:when>
+						
+						<c:when test="${purchaseOrder.tt_xpyhmstro_stat eq '6'}">
+							<fmt:message key="xpyh_status.Cancel" />
+						</c:when>
+					</c:choose>
+				</display:column>
+				<display:column titleKey="purchaseOrder.tt_xpyhmstro_priority"
+					escapeXml="true" sortable="true">
+					<c:choose>
+						<c:when test="${purchaseOrder.tt_xpyhmstro_priority eq '1'}">
+							<fmt:message key="xpyh_priority.Normal" />
+						</c:when>
+						<c:when test="${purchaseOrder.tt_xpyhmstro_priority eq '2'}">
+							<fmt:message key="xpyh_priority.Urgent" />
+						</c:when>
+					</c:choose>
+				</display:column>
 				<display:column property="tt_xpyhmstro_creator" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_creator" />
 
@@ -239,19 +276,19 @@
 							valueField : 'value'
 						//onSelect: displayResult
 						});
-		
+
 		$('#tt_xpyhmstro_startdt').datepicker({
-		    format: "yyyymmdd",
-		    language:  "${pageContext.response.locale}",
-		    autoclose: true,
-		    todayHighlight: true
+			format : "yyyymmdd",
+			language : "${pageContext.response.locale}",
+			autoclose : true,
+			todayHighlight : true
 		});
-		
+
 		$('#tt_xpyhmstro_receptdt').datepicker({
-		    format: "yyyymmdd",
-		    language:  "${pageContext.response.locale}",
-		    autoclose: true,
-		    todayHighlight: true
+			format : "yyyymmdd",
+			language : "${pageContext.response.locale}",
+			autoclose : true,
+			todayHighlight : true
 		});
 	</script>
 </body>

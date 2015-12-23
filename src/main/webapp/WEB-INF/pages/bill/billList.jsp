@@ -58,7 +58,7 @@
 	</s:form>
 	<hr>
 	<display:table name="bills" cellspacing="0" cellpadding="0"
-		requestURI="bills" defaultsort="1" id="bills" pagesize="25"
+		requestURI="bills" defaultsort="1" id="bill" pagesize="25"
 		class="table table-condensed table-striped table-hover" export="true">
 		<display:column property="tt_xprcmstro_seq" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_seq" />
@@ -66,19 +66,7 @@
 			sortable="true" titleKey="bill.tt_xprcmstro_voucher"
 			url="/bill/editBill?from=list" paramId="tt_xprcmstro_xprcmstroid"
 			paramProperty="tt_xprcmstro_xprcmstroid" />
-		<%-- 		<display:column titleKey="bill.tt_xprcmstro_type" escapeXml="true" --%>
-		<%-- 			sortable="true"> --%>
-		<%-- 			<c:choose> --%>
-		<%-- 				<c:when test="${bill.tt_xprcmstro_type eq '0'}"> --%>
-		<%-- 					<fmt:message key="xprcmstro_type.Normal" /> --%>
-		<%-- 				</c:when> --%>
-		<%-- 				<c:when test="${bill.tt_xprcmstro_type eq '1'}"> --%>
-		<%-- 					<fmt:message key="xprcmstro_type.Claim" /> --%>
-		<%-- 				</c:when> --%>
-		<%-- 			</c:choose> --%>
-		<%-- 		</display:column> --%>
-
-
+	
 		<display:column property="tt_xprcmstro_suppcode" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_suppcode" />
 		<display:column property="tt_xprcmstro_invdate" escapeXml="true"
@@ -97,10 +85,26 @@
 				</c:otherwise>
 			</c:choose>
 		</display:column>
-
-		<display:column property="tt_xprcmstro_stat_desc" escapeXml="true"
-			sortable="true" titleKey="bill.tt_xprcmstro_stat_desc" />
-
+		<display:column titleKey="bill.tt_xprcmstro_stat"
+					escapeXml="true" sortable="true">
+					<c:choose>
+						<c:when test="${bill.tt_xprcmstro_stat eq '3'}">
+							<fmt:message key="xprc_status.Submit" />
+						</c:when>
+						<c:when test="${bill.tt_xprcmstro_stat eq '4'}">
+							<fmt:message key="xprc_status.Confirm" />
+						</c:when>
+						<c:when test="${bill.tt_xprcmstro_stat eq '5'}">
+							<fmt:message key="xprc_status.Close" />
+						</c:when>
+						<c:when test="${bill.tt_xprcmstro_stat eq '6'}">
+							<fmt:message key="xprc_status.InProcess" />
+						</c:when>
+						
+					</c:choose>
+				</display:column>
+		
+		
 		<display:setProperty name="paging.banner.placement" value="both" />
 		<display:setProperty name="paging.banner.item_name">
 			<fmt:message key="billList.bill" />

@@ -56,7 +56,7 @@
 				<interceptor-ref name="workflow">
 					<param name="excludeMethods">input,back,cancel,browse</param>
 				</interceptor-ref>
-				
+
 			</interceptor-stack>
 			<interceptor-stack name="fileUploadStack">
 				<interceptor-ref name="fileUpload" />
@@ -65,7 +65,10 @@
 		</interceptors>
 
 		<global-results>
-			<result name="home" type="redirectAction">home</result>
+			<result name="home" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="dataAccessFailure">/WEB-INF/pages/dataAccessFailure.jsp</result>
 		</global-results>
 
@@ -78,7 +81,7 @@
 			<result name="success">/WEB-INF/pages/home.jsp</result>
 			<result name="error">/WEB-INF/pages/login.jsp</result>
 		</action>
-		
+
 		<action name="savePassword" class="userAction" method="savePassword">
 			<result name="input">/WEB-INF/pages/home.jsp</result>
 			<result name="success">/WEB-INF/pages/home.jsp</result>
@@ -89,9 +92,9 @@
 			<result name="success" type="redirectAction">home</result>
 		</action>
 
-		 <action name="selectFile" class="fileUploadAction" method="list">
-            <result name="success">/WEB-INF/pages/uploadForm.jsp</result>
-        </action>
+		<action name="selectFile" class="fileUploadAction" method="list">
+			<result name="success">/WEB-INF/pages/uploadForm.jsp</result>
+		</action>
 
 		<action name="uploadFile" class="fileUploadAction" method="upload">
 			<interceptor-ref name="fileUploadStack" />
@@ -99,21 +102,21 @@
 			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
 			<result name="cancel" type="redirectAction">home</result>
 		</action>
-		
+
 		<action name="uploadTest" class="fileUploadAction" method="uploadTest">
 			<interceptor-ref name="fileUploadStack" />
 			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
 			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
 			<result name="cancel" type="redirectAction">home</result>
 		</action>
-		
+
 		<action name="uploadProd" class="fileUploadAction" method="uploadProd">
 			<interceptor-ref name="fileUploadStack" />
 			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
 			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
 			<result name="cancel" type="redirectAction">home</result>
 		</action>
-		
+
 		<action name="uploadTraining" class="fileUploadAction" method="uploadTraining">
 			<interceptor-ref name="fileUploadStack" />
 			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
@@ -178,8 +181,10 @@
 		</action>
 		<action name="saveUserProfile" class="userAction" method="saveUserProfile">
 			<result name="cancel" type="redirectAction">home</result>
-			<result name="input">/WEB-INF/pages/user/user/userProfileForm.jsp</result>
-			<result name="success">/WEB-INF/pages/user/user/userProfileForm.jsp</result>
+			<result name="input">/WEB-INF/pages/user/user/userProfileForm.jsp
+			</result>
+			<result name="success">/WEB-INF/pages/user/user/userProfileForm.jsp
+			</result>
 		</action>
 	</package>
 
@@ -292,7 +297,7 @@
 				<param name="contentDisposition">attachment;filename="${fileName}"</param>
 				<param name="bufferSize">4096</param>
 			</result>
-			
+
 		</action>
 	</package>
 

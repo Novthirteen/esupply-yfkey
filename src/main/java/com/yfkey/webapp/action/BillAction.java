@@ -455,10 +455,7 @@ public class BillAction extends BaseAction {
 
 				bills = QADUtil.ConverToBill(outDataList);
 
-				// 转换状态为中文
-				for (Bill bill : bills) {
-					bill.setTt_xprcmstro_stat_desc(getBillStatus(bill.getTt_xprcmstro_stat()));
-				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
