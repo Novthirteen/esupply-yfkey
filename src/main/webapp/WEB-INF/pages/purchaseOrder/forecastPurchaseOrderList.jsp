@@ -13,26 +13,31 @@
 		action="forecastPurchaseOrders" method="post" validate="true">
 		<div class="row">
 			<div class="col-xs-4 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_suppcode" /></label>
-				<input id="tt_xpyhmstro_suppcode"
+				<label class="control-label"><fmt:message
+						key="purchaseOrder.tt_xpyhmstro_suppcode" /></label> <input
+					id="tt_xpyhmstro_suppcode"
 					name="purchaseOrder.tt_xpyhmstro_suppcode" type="text"
 					value="${purchaseOrder.tt_xpyhmstro_suppcode}"
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" /> <input type="hidden" name="cb"
+					value="${cbValue}">
 			</div>
 			<div class="col-xs-4 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" /></label>
-				<input id="tt_xpyhmstro_shipto"
-					name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
-					value="${purchaseOrder.tt_xpyhmstro_shipto}"
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+				<label class="control-label"><fmt:message
+						key="purchaseOrder.tt_xpyhmstro_shipto" /></label> <input
+					id="tt_xpyhmstro_shipto" name="purchaseOrder.tt_xpyhmstro_shipto"
+					type="text" value="${purchaseOrder.tt_xpyhmstro_shipto}"
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 
 			<div class="col-xs-4 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_partnbr" /></label>
-				<input id="tt_xpyhmstro_partnbr"
-					name="purchaseOrder.tt_xpyhmstro_partnbr" type="text"
-					value="${purchaseOrder.tt_xpyhmstro_partnbr}"
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+				<label class="control-label"><fmt:message
+						key="purchaseOrder.tt_xpyhmstro_partnbr" /></label> <input
+					id="tt_xpyhmstro_partnbr" name="purchaseOrder.tt_xpyhmstro_partnbr"
+					type="text" value="${purchaseOrder.tt_xpyhmstro_partnbr}"
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 
 		</div>

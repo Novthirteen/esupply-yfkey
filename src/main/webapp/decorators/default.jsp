@@ -191,12 +191,12 @@
 		$(function() {
 			$(".theme-link").click(function() {
 				var theme = $(this).attr("data-theme");
-				location.href = "<c:url value='/home?theme='/>" + theme;
+				location.href = "<c:url value='/home?theme='/>" + theme + "&cb=" + generateUUID();
 			});
 
 			$(".language-link").click(function() {
 				var language = $(this).attr("data-language");
-				location.href = "<c:url value='/home?locale='/>" + language;
+				location.href = "<c:url value='/home?locale='/>" + language+ "&cb=" + generateUUID();
 			});
 
 			$(".plant-link")
@@ -204,7 +204,7 @@
 							function() {
 								var plant = $(this).attr("data-plant");
 								location.href = "<c:url value='/selectUserPlant?plantCode='/>"
-										+ plant;
+										+ plant + "&cb=" + generateUUID();
 							});
 
 			<c:choose>

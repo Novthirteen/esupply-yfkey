@@ -42,7 +42,7 @@ public class PurchaseOrder extends BaseObject {
 	private String tt_xpyhmstro_priority_desc; //优先级描述
 	private String tt_xpyhmstro_stat_desc; //状态描述
 	
-	
+	private Boolean hasShipError;
 
 	private List<PurchaseOrderDetail> purchaseOrderDetailList;
 
@@ -254,6 +254,14 @@ public class PurchaseOrder extends BaseObject {
 
 	public void setTt_xpyhmstro_recepttm(String tt_xpyhmstro_recepttm) {
 		this.tt_xpyhmstro_recepttm = tt_xpyhmstro_recepttm;
+	}
+	
+	public Boolean getHasShipError() {
+		return hasShipError;
+	}
+
+	public void setHasShipError(Boolean hasShipError) {
+		this.hasShipError = hasShipError;
 	}
 
 	public List<PurchaseOrderDetail> getPurchaseOrderDetailList() {

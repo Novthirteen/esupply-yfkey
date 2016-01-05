@@ -553,6 +553,11 @@ public class UserAction extends BaseAction implements Preparable {
 			}
 		}
 	}
+	
+	
+	public String logout(){
+		return SUCCESS;
+	}
 
 	@SuppressWarnings("unchecked")
 	private void prepareAssignPermission() {

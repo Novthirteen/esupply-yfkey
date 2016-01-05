@@ -8,14 +8,13 @@
 	<h4>
 		<fmt:message key="purchaseOrderList.heading" />
 	</h4>
-
-
 	<s:form name="purchaseOrderForm" action="purchaseOrders" method="post"
 		validate="true">
 		<div class="row">
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
+				<input type="hidden" name="cb" value="${cbValue}">
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:select key="purchaseOrder.tt_xpyhmstro_priority"
@@ -101,7 +100,7 @@
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_seq" />
 				<display:column property="tt_xpyhmstro_yhdnbr" escapeXml="true"
 					sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_yhdnbr"
-					url="/purchaseOrder/editPurchaseOrder?from=list"
+					url="/purchaseOrder/editPurchaseOrder?from=list&cb=${cbValue}"
 					paramId="tt_xpyhmstro_xpyhmstroid"
 					paramProperty="tt_xpyhmstro_xpyhmstroid" />
 				<display:column property="tt_xpyhmstro_suppcode" escapeXml="true"
@@ -132,7 +131,7 @@
 						<c:when test="${purchaseOrder.tt_xpyhmstro_stat eq '5'}">
 							<fmt:message key="xpyh_status.Close" />
 						</c:when>
-						
+
 						<c:when test="${purchaseOrder.tt_xpyhmstro_stat eq '6'}">
 							<fmt:message key="xpyh_status.Cancel" />
 						</c:when>

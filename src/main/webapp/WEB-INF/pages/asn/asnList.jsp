@@ -14,6 +14,7 @@
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="asn.tt_xasnmstro_asnnbr" />
+				<input type="hidden" name="cb" value="${cbValue}">
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
@@ -21,14 +22,16 @@
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:select key="asn.tt_xasnmstro_stat" list="asnStatusList"
-					listKey="label" listValue="value" cssClass="form-control search-control" />
+					listKey="label" listValue="value"
+					cssClass="form-control search-control" />
 			</div>
 			<div class="col-xs-3 search-group">
 				<label class="control-label"><fmt:message
 						key="asn.tt_xasnmstro_suppcode" /></label> <input
 					id="tt_xasnmstro_suppcode" name="asn.tt_xasnmstro_suppcode"
 					value="${asn.tt_xasnmstro_suppcode}" type="text"
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 		</div>
 		<div class="row">
@@ -36,15 +39,16 @@
 				<label class="control-label"><fmt:message
 						key="asn.tt_xasnmstro_shipto" /></label> <input id="tt_xasnmstro_shipto"
 					name="asn.tt_xasnmstro_shipto" value="${asn.tt_xasnmstro_shipto}"
-					type="text" class="col-md-12 form-control search-control" placeholder=""
-					autocomplete="off" />
+					type="text" class="col-md-12 form-control search-control"
+					placeholder="" autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group">
 				<label class="control-label"><fmt:message
 						key="asn.tt_xasnmstri_partnbr" /></label> <input
 					id="tt_xasnmstri_partnbr" name="asn.tt_xasnmstri_partnbr"
 					value="${asn.tt_xasnmstri_partnbr}" type="text"
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
@@ -59,7 +63,7 @@
 			<div class="col-xs-3 search-group layouttrim">
 				<s:checkbox key="asn.isDetail" />
 			</div>
-		
+
 			<div class="col-xs-3 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn" action="asns"
@@ -81,13 +85,14 @@
 					sortable="true" titleKey="asn.tt_xasnmstro_seq" />
 				<display:column property="tt_xasnmstro_asnnbr" escapeXml="true"
 					sortable="true" titleKey="asn.tt_xasnmstro_asnnbr"
-					url="/asn/editAsn?from=list" paramId="tt_xasnmstro_xasnmstroid"
+					url="/asn/editAsn?from=list&cb=${cbValue}"
+					paramId="tt_xasnmstro_xasnmstroid"
 					paramProperty="tt_xasnmstro_xasnmstroid" />
 				<display:column property="tt_xasnmstro_startdt" escapeXml="true"
 					sortable="true" titleKey="asn.tt_xasnmstro_startdt" />
-			
-				<display:column titleKey="asn.tt_xasnmstro_stat"
-					escapeXml="true" sortable="true">
+
+				<display:column titleKey="asn.tt_xasnmstro_stat" escapeXml="true"
+					sortable="true">
 					<c:choose>
 						<c:when test="${asn.tt_xasnmstro_stat eq '1'}">
 							<fmt:message key="xasnd_status.Create" />
@@ -99,8 +104,8 @@
 							<fmt:message key="xasnd_status.Close" />
 						</c:when>
 					</c:choose>
-				</display:column>	
-				
+				</display:column>
+
 				<display:column property="tt_xasnmstro_creator" escapeXml="true"
 					sortable="true" titleKey="asn.tt_xasnmstro_creator" />
 

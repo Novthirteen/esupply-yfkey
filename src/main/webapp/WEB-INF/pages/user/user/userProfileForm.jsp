@@ -87,6 +87,11 @@
 			<i class="icon-ok icon-white"></i>
 			<fmt:message key="button.save" />
 		</s:submit>
+		<s:submit type="button" cssClass="btn" method="cancel"
+			key="button.cancel" theme="simple">
+			<i class="icon-remove"></i>
+			<fmt:message key="button.cancel" />
+		</s:submit>
 	</div>
 </s:form>
 

@@ -29,6 +29,8 @@ public class BillDetail extends BaseObject {
 
 	private BigDecimal tt_xpyhddeto_rcqty;                 //入库数量
 	
+	private String tt_xpyhddeto_remark;                    //备注
+	private String tt_xpyhddeto_suppcode;                  //供应商代码
 	
 	public String getTt_xpyhddeto_xpyhddetoid() {
 		return tt_xpyhddeto_xpyhddetoid;
@@ -118,6 +120,19 @@ public class BillDetail extends BaseObject {
 		this.tt_xpyhddeto_rcqty = tt_xpyhddeto_rcqty;
 	}
 	
+	public String getTt_xpyhddeto_remark() {
+		return tt_xpyhddeto_remark;
+	}
+	public void setTt_xpyhddeto_remark(String tt_xpyhddeto_remark) {
+		this.tt_xpyhddeto_remark = tt_xpyhddeto_remark;
+	}
+	
+	public String getTt_xpyhddeto_suppcode() {
+		return tt_xpyhddeto_suppcode;
+	}
+	public void setTt_xpyhddeto_suppcode(String tt_xpyhddeto_suppcode) {
+		this.tt_xpyhddeto_suppcode = tt_xpyhddeto_suppcode;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

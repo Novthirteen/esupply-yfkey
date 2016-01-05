@@ -294,14 +294,14 @@ public class BaseAction extends ActionSupport {
 			for (String code : permissionCodeList) {
 
 				String[] codeArray = code.split("_");
-				supplierCodeList.add(codeArray[1]);
+				supplierCodeList.add(codeArray[1].toUpperCase());
 			}
 		}
 		if (supplierCode != null && !supplierCode.trim().equals("")) {
 
-			if (supplierCodeList.contains(supplierCode)) {
+			if (supplierCodeList.contains(supplierCode.toUpperCase())) {
 				supplierCodeList = new ArrayList<String>();
-				supplierCodeList.add(supplierCode);
+				supplierCodeList.add(supplierCode.toUpperCase());
 			} else {
 				supplierCodeList = new ArrayList<String>();
 			}

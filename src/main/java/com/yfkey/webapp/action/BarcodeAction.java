@@ -233,7 +233,7 @@ public class BarcodeAction extends BaseAction {
 
 						if (pod != null && pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != ""
 								&& pod.getTt_xpyhddeto_qty() != null
-								&& !pod.getTt_xpyhddeto_qty().equals(BigDecimal.ZERO)) {
+								&& !pod.getTt_xpyhddeto_qty().equals("0")) {
 
 							ProDataObject objectMstr = exDataGraph.createProDataObject("tt_bcdet_in");
 							objectMstr.setString(0, pod.getTt_xpyhddeto_partnbr());
@@ -302,7 +302,7 @@ public class BarcodeAction extends BaseAction {
 			throws PrintBarcodeNotValidException {
 
 		List<Object> args = new ArrayList<Object>();
-
+        Boolean allZero = true;
 		if (purchaseOrderDetails != null && purchaseOrderDetails.size() > 0) {
 			for (PurchaseOrderDetail d : purchaseOrderDetails) {
 				try {
@@ -312,9 +312,9 @@ public class BarcodeAction extends BaseAction {
 						args.add(qty);
 						throw new PrintBarcodeNotValidException(getText("barcode.qty_format_error", args));
 					}
-					if (qty <= 0) {
+					if (qty < 0) {
 
-						args.add(d.getTt_xpyhddeto_seq());
+						args.add(d.getTt_xpyhddeto_partnbr());
 						throw new PrintBarcodeNotValidException(getText("barcode.qty_less_than_zero", args));
 					}
 					
@@ -324,11 +324,20 @@ public class BarcodeAction extends BaseAction {
 						args.add(d.getTt_xpyhddeto_oldQty());
 						throw new PrintBarcodeNotValidException(getText("barcode.oldqty_less_than_Qty", args));
 					}
+					if(qty > 0 && allZero)
+					{
+						allZero = false;
+					}
 				} catch (NumberFormatException e) {
 					args.add(d.getTt_xpyhddeto_qty());
 					throw new PrintBarcodeNotValidException(getText("barcode.qty_format_error", args));
 				}
 
+			}
+			
+			if(allZero)
+			{
+				throw new PrintBarcodeNotValidException(getText("barcode.qty_all_empty"));
 			}
 		}
 	}

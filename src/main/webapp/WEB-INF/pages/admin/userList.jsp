@@ -22,7 +22,7 @@
     </form>
 
     <div id="actions" class="btn-group">
-        <a class="btn btn-primary" href="<c:url value='/editUser?method=Add&from=list'/>" >
+        <a class="btn btn-primary" href="<c:url value='/editUser?method=Add&from=list&cb=${cbValue}'/>" >
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/>
         </a>
         <a class="btn btn-default" href="<c:url value="/home"/>">
@@ -33,7 +33,7 @@
     <display:table name="users" cellspacing="0" cellpadding="0" requestURI=""
                    defaultsort="1" id="users" pagesize="25" class="table table-condensed table-striped table-hover" export="true">
         <display:column property="username" escapeXml="true" sortable="true" titleKey="user.username" style="width: 25%"
-                        url="/editUser?from=list" paramId="id" paramProperty="id"/>
+                        url="/editUser?from=list&cb=${cbValue}" paramId="id" paramProperty="id"/>
         <display:column property="fullName" escapeXml="true" sortable="true" titleKey="activeUsers.fullName"
                         style="width: 34%"/>
         <display:column property="email" sortable="true" titleKey="user.email" style="width: 25%" autolink="true"

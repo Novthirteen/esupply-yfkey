@@ -14,6 +14,7 @@
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="bill.tt_xprcmstro_voucher" />
+				<input type="hidden" name="cb" value="${cbValue}">
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
@@ -58,15 +59,16 @@
 	</s:form>
 	<hr>
 	<display:table name="bills" cellspacing="0" cellpadding="0"
-		requestURI="bills" defaultsort="1" id="bill" pagesize="25"
+		requestURI="bills" defaultsort="1" id="bil" pagesize="25"
 		class="table table-condensed table-striped table-hover" export="true">
 		<display:column property="tt_xprcmstro_seq" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_seq" />
-		<display:column property="tt_xprcmstro_voucher" escapeXml="true"
-			sortable="true" titleKey="bill.tt_xprcmstro_voucher"
-			url="/bill/editBill?from=list" paramId="tt_xprcmstro_xprcmstroid"
-			paramProperty="tt_xprcmstro_xprcmstroid" />
-	
+
+		<display:column titleKey="bill.tt_xprcmstro_voucher" sortable="true">
+			<a
+				href="<c:url value="/bill/editBill?from=list&cb=${cbValue}&tt_xprcmstro_type=${bil.tt_xprcmstro_type}&tt_xprcmstro_xprcmstroid=${bil.tt_xprcmstro_xprcmstroid}" />">
+				${bil.tt_xprcmstro_voucher}</a>
+		</display:column>
 		<display:column property="tt_xprcmstro_suppcode" escapeXml="true"
 			sortable="true" titleKey="bill.tt_xprcmstro_suppcode" />
 		<display:column property="tt_xprcmstro_invdate" escapeXml="true"
@@ -77,7 +79,7 @@
 		<display:column titleKey="bill.tt_xprcmstro_printed" escapeXml="true"
 			sortable="true">
 			<c:choose>
-				<c:when test="${bill.tt_xprcmstro_printed eq '0'}">
+				<c:when test="${bil.tt_xprcmstro_printed eq '0'}">
 					<fmt:message key="common.no" />
 				</c:when>
 				<c:otherwise>
@@ -85,26 +87,26 @@
 				</c:otherwise>
 			</c:choose>
 		</display:column>
-		<display:column titleKey="bill.tt_xprcmstro_stat"
-					escapeXml="true" sortable="true">
-					<c:choose>
-						<c:when test="${bill.tt_xprcmstro_stat eq '3'}">
-							<fmt:message key="xprc_status.Submit" />
-						</c:when>
-						<c:when test="${bill.tt_xprcmstro_stat eq '4'}">
-							<fmt:message key="xprc_status.Confirm" />
-						</c:when>
-						<c:when test="${bill.tt_xprcmstro_stat eq '5'}">
-							<fmt:message key="xprc_status.Close" />
-						</c:when>
-						<c:when test="${bill.tt_xprcmstro_stat eq '6'}">
-							<fmt:message key="xprc_status.InProcess" />
-						</c:when>
-						
-					</c:choose>
-				</display:column>
-		
-		
+		<display:column titleKey="bill.tt_xprcmstro_stat" escapeXml="true"
+			sortable="true">
+			<c:choose>
+				<c:when test="${bil.tt_xprcmstro_stat eq '3'}">
+					<fmt:message key="xprc_status.Submit" />
+				</c:when>
+				<c:when test="${bil.tt_xprcmstro_stat eq '4'}">
+					<fmt:message key="xprc_status.Confirm" />
+				</c:when>
+				<c:when test="${bil.tt_xprcmstro_stat eq '5'}">
+					<fmt:message key="xprc_status.Close" />
+				</c:when>
+				<c:when test="${bil.tt_xprcmstro_stat eq '6'}">
+					<fmt:message key="xprc_status.InProcess" />
+				</c:when>
+
+			</c:choose>
+		</display:column>
+
+
 		<display:setProperty name="paging.banner.placement" value="both" />
 		<display:setProperty name="paging.banner.item_name">
 			<fmt:message key="billList.bill" />

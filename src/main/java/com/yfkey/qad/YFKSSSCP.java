@@ -319,4 +319,14 @@ public class YFKSSSCP implements SDOFactory {
 		return m_YFKSSSCPImpl.xxview_forecast(input_scpfcast, export_scpfcast);
 	}
 
+	/**
+	*	
+	*	
+	*/
+	public String xxinquiry_claimdet(ProDataGraph input_xprcd, ProDataGraphHolder export_xprcd)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		return m_YFKSSSCPImpl.xxinquiry_claimdet( input_xprcd,  export_xprcd);
+	}
+
 }

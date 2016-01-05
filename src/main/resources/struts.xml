@@ -89,7 +89,10 @@
 		</action>
 
 		<action name="selectUserPlant" class="userAction" method="selectUserPlant">
-			<result name="success" type="redirectAction">home</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 
 		<action name="selectFile" class="fileUploadAction" method="list">
@@ -100,28 +103,40 @@
 			<interceptor-ref name="fileUploadStack" />
 			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
 			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
-			<result name="cancel" type="redirectAction">home</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 
 		<action name="uploadTest" class="fileUploadAction" method="uploadTest">
 			<interceptor-ref name="fileUploadStack" />
 			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
 			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
-			<result name="cancel" type="redirectAction">home</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 
 		<action name="uploadProd" class="fileUploadAction" method="uploadProd">
 			<interceptor-ref name="fileUploadStack" />
 			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
 			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
-			<result name="cancel" type="redirectAction">home</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 
 		<action name="uploadTraining" class="fileUploadAction" method="uploadTraining">
 			<interceptor-ref name="fileUploadStack" />
 			<result name="input">/WEB-INF/pages/uploadForm.jsp</result>
 			<result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
-			<result name="cancel" type="redirectAction">home</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 
 		<!-- Add additional actions here -->
@@ -134,12 +149,18 @@
 			<result name="success">/WEB-INF/pages/user/role/roleList.jsp</result>
 		</action>
 		<action name="editRole" class="roleAction" method="edit">
-			<result name="cancel" type="redirectAction">roles</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">roles</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="success">/WEB-INF/pages/user/role/roleForm.jsp</result>
 			<result name="input">/WEB-INF/pages/user/role/roleList.jsp</result>
 		</action>
 		<action name="saveRole" class="roleAction" method="save">
-			<result name="cancel" type="redirectAction">roles</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">roles</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="input">/WEB-INF/pages/user/role/roleForm.jsp</result>
 			<result name="success">/WEB-INF/pages/user/role/roleForm.jsp</result>
 		</action>
@@ -157,12 +178,18 @@
 			<result name="success">/WEB-INF/pages/user/user/userList.jsp</result>
 		</action>
 		<action name="editUser" class="userAction" method="edit">
-			<result name="cancel" type="redirectAction">users</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">users</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
 			<result name="input">/WEB-INF/pages/user/user/userList.jsp</result>
 		</action>
 		<action name="saveUser" class="userAction" method="saveUser">
-			<result name="cancel" type="redirectAction">users</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">users</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="input">/WEB-INF/pages/user/user/userForm.jsp</result>
 			<result name="success">/WEB-INF/pages/user/user/userForm.jsp</result>
 		</action>
@@ -180,7 +207,10 @@
 			<result name="error">/WEB-INF/pages/home.jsp</result>
 		</action>
 		<action name="saveUserProfile" class="userAction" method="saveUserProfile">
-			<result name="cancel" type="redirectAction">home</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="input">/WEB-INF/pages/user/user/userProfileForm.jsp
 			</result>
 			<result name="success">/WEB-INF/pages/user/user/userProfileForm.jsp
@@ -216,28 +246,34 @@
 			</result>
 			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderList.jsp
 			</result>
-			<result name="cancel" type="redirectAction">purchaseOrders</result>
-			<result name="confirm" type="redirectAction">confirmPurchaseOder</result>
-			<result name="close" type="redirectAction">closePurchaseOder</result>
-			<result name="delete" type="redirectAction">deletePurchaseOder</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">purchaseOrders</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 		<action name="confirmPurchaseOder" class="purchaseOrderAction"
 			method="confirm">
-			<result name="success">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
+			<result name="success" type="redirectAction">
+				<param name="actionName">purchaseOrders</param>
+				<param name="cb">${cbValue}</param>
 			</result>
-			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderList.jsp
+			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
 			</result>
 		</action>
 		<action name="closePurchaseOder" class="purchaseOrderAction"
 			method="close">
-			<result name="success">/WEB-INF/pages/purchaseOrder/purchaseOrderList.jsp
+			<result name="success" type="redirectAction">
+				<param name="actionName">purchaseOrders</param>
+				<param name="cb">${cbValue}</param>
 			</result>
 			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
 			</result>
 		</action>
 		<action name="deletePurchaseOder" class="purchaseOrderAction"
 			method="delete">
-			<result name="success">/WEB-INF/pages/purchaseOrder/purchaseOrderList.jsp
+			<result name="success" type="redirectAction">
+				<param name="actionName">purchaseOrders</param>
+				<param name="cb">${cbValue}</param>
 			</result>
 			<result name="input">/WEB-INF/pages/purchaseOrder/purchaseOrderForm.jsp
 			</result>
@@ -257,8 +293,14 @@
 			</result>
 			<result name="input">/WEB-INF/pages/purchaseOrder/shipPurchaseOrderList.jsp
 			</result>
-			<result name="cancel" type="redirectAction">shipPurchaseOrders</result>
-			<result name="ship" type="redirectAction">shipPurchaseOder</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">shipPurchaseOrders</param>
+				<param name="cb">${cbValue}</param>
+			</result>
+			<result name="ship" type="redirectAction">
+				<param name="actionName">shipPurchaseOrders</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 		<action name="shipPurchaseOrders" class="purchaseOrderAction"
 			method="shiplist">
@@ -289,7 +331,10 @@
 			</result>
 			<result name="input">/WEB-INF/pages/asn/asnList.jsp
 			</result>
-			<result name="cancel" type="redirectAction">asns</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">asns</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 		<action name="printAsn" class="asnAction" method="print">
 			<result name="success" type="stream">
@@ -349,7 +394,10 @@
 			</result>
 			<result name="input">/WEB-INF/pages/receipt/receiptList.jsp
 			</result>
-			<result name="cancel" type="redirectAction">receipts</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">receipts</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 		<action name="printReceipt" class="receiptAction" method="print">
 			<result name="success" type="stream">
@@ -370,7 +418,10 @@
 			</result>
 			<result name="input">/WEB-INF/pages/bill/billList.jsp
 			</result>
-			<result name="cancel" type="redirectAction">bills</result>
+			<result name="cancel" type="redirectAction">
+				<param name="actionName">bills</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 		</action>
 		<action name="printBill" class="billAction" method="print">
 			<result name="success" type="stream">
@@ -380,17 +431,26 @@
 			</result>
 		</action>
 		<action name="agreeBill" class="billAction" method="agree">
-			<result name="success" type="redirectAction">bills</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">bills</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
 		<action name="refuseBill" class="billAction" method="refuse">
-			<result name="success" type="redirectAction">bills</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">bills</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
 		<action name="confirmBill" class="billAction" method="confirm">
-			<result name="success" type="redirectAction">bills</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">bills</param>
+				<param name="cb">${cbValue}</param>
+			</result>
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>

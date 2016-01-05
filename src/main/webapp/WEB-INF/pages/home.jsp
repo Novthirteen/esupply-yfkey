@@ -14,10 +14,10 @@
 	</p>
 
 	<ul class="glassList">
-		<li><a href="<c:url value='/user/editProfile'/>"><fmt:message
+		<li><a href="<c:url value='/user/editProfile?cb=${cbValue}'/>"><fmt:message
 					key="menu.user" /></a></li>
 		<li>
-        	<a href="<c:url value='/selectFile'/>"><fmt:message key="menu.selectFile"/></a>
+        	<a href="<c:url value='/selectFile?cb=${cbValue}'/>"><fmt:message key="menu.selectFile"/></a>
     	</li>
 	</ul>
 	

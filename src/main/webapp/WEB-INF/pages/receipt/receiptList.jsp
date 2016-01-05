@@ -15,6 +15,7 @@
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="receipt.tt_prhmstro_receiver" />
+			<input type="hidden" name="cb" value="${cbValue}">
 		</div>
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
@@ -30,10 +31,14 @@
 		</div>
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
-				id="tt_prhmstri_fromdate" key="receipt.tt_prhmstri_fromdate" />
+				id="tt_prhmstro_asnnbr" key="receipt.tt_prhmstro_asnnbr" />
 		</div>
 	</div>
 	<div class="row">
+		<div class="col-xs-3 search-group">
+			<s:textfield cssClass="form-control search-control"
+				id="tt_prhmstri_fromdate" key="receipt.tt_prhmstri_fromdate" />
+		</div>
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				id="tt_prhmstri_todate" key="receipt.tt_prhmstri_todate" />
@@ -73,8 +78,8 @@
 
 			<display:column property="tt_prhmstro_receiver" escapeXml="true"
 				sortable="true" titleKey="receipt.tt_prhmstro_receiver"
-				url="/receipt/editReceipt?from=list" paramId="tt_prhmstri_receiver"
-				paramProperty="tt_prhmstro_receiver" />
+				url="/receipt/editReceipt?from=list&cb=${cbValue}"
+				paramId="tt_prhmstri_receiver" paramProperty="tt_prhmstro_receiver" />
 
 			<display:column property="tt_prhmstro_suppcode" escapeXml="true"
 				sortable="true" titleKey="receipt.tt_prhmstro_suppcode" />

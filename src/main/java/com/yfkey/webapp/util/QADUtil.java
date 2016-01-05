@@ -501,7 +501,7 @@ public final class QADUtil {
 
 			bill.setTt_xprcmstro_voucher(om.getString("tt_xpyhddeto_voucher"));
 			bill.setTt_xprcmstro_suppcode(om.getString("tt_xpyhddeto_suppcode"));
-	
+			bill.setTt_xprcmstro_type("0");
 			bill.setTt_xprcmstro_totalamt(om.getBigDecimal("tt_xpyhddeto_totalamt"));
 			bill.setTt_xprcmstro_stat(om.getString("tt_xpyhddeto_stat"));
 
@@ -512,7 +512,6 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_rmk(om.getString("tt_xpyhddeto_rmk"));
 			bill.setTt_xprcmstro_claiminv(om.getString("tt_xpyhddeto_claiminv"));
 			bill.setTt_xprcmstro_claimamt(om.getBigDecimal("tt_xpyhddeto_claimamt"));
-			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_voucher"));
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			bill.setTt_xprcmstro_indexinvnbr(om.getString("tt_xpyhddeto_indexinvnbr"));
 			bill.setTt_xpyhddeto_disamt(String.valueOf(om.getBigDecimal("tt_xpyhddeto_disamt")));
@@ -540,19 +539,20 @@ public final class QADUtil {
 
 			int i = 1;
 			for (ProDataObject o : proDataObjectList) {
-				BillDetail pod = new BillDetail();
-				pod.setTt_xpyhddeto_seq(i);
-				pod.setTt_xpyhddeto_voucher(o.getString("tt_xpyhddeto_voucher"));
-				pod.setTt_xpyhddeto_partnbr(o.getString("tt_xpyhddeto_partnbr"));
-				pod.setTt_xpyhddeto_receiver(o.getString("tt_xpyhddeto_receiver"));
-				pod.setTt_xpyhddeto_poprice(o.getBigDecimal("tt_xpyhddeto_poprice"));
-				pod.setTt_xpyhddeto_uom(o.getString("tt_xpyhddeto_uom"));
-				pod.setTt_xpyhddeto_invprice(o.getBigDecimal("tt_xpyhddeto_invprice"));
-				pod.setTt_xpyhddeto_invamt(o.getBigDecimal("tt_xpyhddeto_invamt"));
-				pod.setTt_xpyhddeto_partdesc(o.getString("tt_xpyhddeto_partdesc"));
-				pod.setTt_xpyhddeto_rcdate(o.getString("tt_xpyhddeto_rcdate"));
-				pod.setTt_xpyhddeto_rcqty(o.getBigDecimal("tt_xpyhddeto_rcqty"));
-				billDetailList.add(pod);
+				BillDetail bd = new BillDetail();
+				bd.setTt_xpyhddeto_seq(i);
+				bd.setTt_xpyhddeto_voucher(o.getString("tt_xpyhddeto_voucher"));
+				bd.setTt_xpyhddeto_partnbr(o.getString("tt_xpyhddeto_partnbr"));
+				bd.setTt_xpyhddeto_receiver(o.getString("tt_xpyhddeto_receiver"));
+				bd.setTt_xpyhddeto_poprice(o.getBigDecimal("tt_xpyhddeto_poprice"));
+				bd.setTt_xpyhddeto_uom(o.getString("tt_xpyhddeto_uom"));
+				bd.setTt_xpyhddeto_invprice(o.getBigDecimal("tt_xpyhddeto_invprice"));
+				bd.setTt_xpyhddeto_invamt(o.getBigDecimal("tt_xpyhddeto_invamt"));
+				bd.setTt_xpyhddeto_partdesc(o.getString("tt_xpyhddeto_partdesc"));
+				bd.setTt_xpyhddeto_rcdate(o.getString("tt_xpyhddeto_rcdate"));
+				bd.setTt_xpyhddeto_rcqty(o.getBigDecimal("tt_xpyhddeto_rcqty"));
+				bd.setTt_xpyhddeto_suppcode(o.getString("tt_xpyhddeto_suppcode"));
+				billDetailList.add(bd);
 				i++;
 
 			}
@@ -590,6 +590,66 @@ public final class QADUtil {
 		}
 		return purchaseOrderDetailList;
 
+	}
+	
+	
+	
+	// claim billdet
+	public static List<Object> ConvertToClaimBillAndDetail(List<ProDataObject> proDataObjectList) throws ParseException {
+		Bill bill = new Bill();
+		List<BillDetail> billDetailList = new ArrayList<BillDetail>();
+		List<Object> billList = new ArrayList<Object>();
+
+		if (proDataObjectList != null && proDataObjectList.size() > 0) {
+			ProDataObject om = proDataObjectList.get(0);
+
+			bill.setTt_xprcmstro_voucher(om.getString("tt_claimdeto_voucher"));
+			bill.setTt_xprcmstro_suppcode(om.getString("tt_claimdeto_suppcode"));
+			bill.setTt_xprcmstro_totalamt(om.getBigDecimal("tt_claimdeto_totalamt"));
+			bill.setTt_xprcmstro_stat(om.getString("tt_claimdeto_stat"));			
+			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_claimdeto_xprcmstroid"));
+
+			bill.setTt_claimdeto_billno(om.getString("tt_claimdeto_billno"));
+			bill.setTt_xprcmstro_type("1");
+
+			//日期转一下格式,现在存到创建日期，发票日期给供应商维护
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
+			String dstr=om.getString("tt_claimdeto_invdate");  
+			if(dstr != null)
+			{
+			java.util.Date invDate=sdf.parse(dstr);  
+			
+			SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");  
+			String invDateStr=sdft.format(invDate);  
+			bill.setTt_xprcmstro_invdate(invDateStr);
+			}
+			
+			billList.add(bill);
+
+			int i = 1;
+			for (ProDataObject o : proDataObjectList) {
+				BillDetail bd = new BillDetail();
+				bd.setTt_xpyhddeto_seq(i);
+				bd.setTt_xpyhddeto_voucher(o.getString("tt_claimdeto_voucher"));
+				bd.setTt_xpyhddeto_partnbr(o.getString("tt_claimdeto_partnbr"));
+				bd.setTt_xpyhddeto_receiver(o.getString("tt_claimdeto_receiver"));
+				bd.setTt_xpyhddeto_poprice(o.getBigDecimal("tt_claimdeto_poprice"));
+				bd.setTt_xpyhddeto_uom(o.getString("tt_claimdeto_uom"));
+				bd.setTt_xpyhddeto_invprice(o.getBigDecimal("tt_claimdeto_invprice"));
+				bd.setTt_xpyhddeto_invamt(o.getBigDecimal("tt_claimdeto_invamt"));
+				bd.setTt_xpyhddeto_partdesc(o.getString("tt_claimdeto_partdesc"));
+				bd.setTt_xpyhddeto_rcdate(o.getString("tt_claimdeto_rcdate"));
+				bd.setTt_xpyhddeto_rcqty(o.getBigDecimal("tt_claimdeto_rcqty"));
+				bd.setTt_xpyhddeto_remark(o.getString("tt_claimdeto_rmk"));
+				bd.setTt_xpyhddeto_suppcode(o.getString("tt_claimdeto_suppcode"));
+				billDetailList.add(bd);
+				i++;
+
+			}
+			billList.add(billDetailList);
+		}
+
+		return billList;
 	}
 
 }

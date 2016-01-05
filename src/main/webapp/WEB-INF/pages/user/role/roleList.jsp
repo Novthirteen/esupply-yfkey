@@ -15,6 +15,7 @@
 	<div class="row">
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control" key="role.code" />
+			<input type="hidden" name="cb" value="${cbValue}"> 
 		</div>
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control" key="role.name" />
@@ -62,10 +63,10 @@
 	class="table table-condensed table-striped table-hover" export="true">
 
 	<display:column property="code" escapeXml="true" sortable="true"
-		titleKey="role.code" url="/user/editRole?from=list" paramId="code"
+		titleKey="role.code" url="/user/editRole?from=list&cb=${cbValue}" paramId="code"
 		paramProperty="code" />
 	<display:column property="name" escapeXml="true" sortable="true"
-		titleKey="role.name" url="/user/editRole?from=list" paramId="code"
+		titleKey="role.name" url="/user/editRole?from=list&cb=${cbValue}" paramId="code"
 		paramProperty="code" />
 
 	<display:setProperty name="paging.banner.placement" value="both" />

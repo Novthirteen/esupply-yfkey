@@ -17,6 +17,7 @@
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="user.username" />
+			<input type="hidden" name="cb" value="${cbValue}"> 
 		</div>
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
@@ -71,22 +72,22 @@
 	class="table table-condensed table-striped table-hover" export="true">
 
 	<display:column property="username" escapeXml="true" sortable="true"
-		titleKey="user.username" url="/user/editUser?from=list"
+		titleKey="user.username" url="/user/editUser?from=list&cb=${cbValue}"
 		paramId="username" paramProperty="username" />
 	<display:column property="fullName" escapeXml="true" sortable="true"
-		titleKey="user.fullName" url="/user/editUser?from=list"
+		titleKey="user.fullName" url="/user/editUser?from=list&cb=${cbValue}"
 		paramId="username" paramProperty="username" />
 	<display:column property="email" escapeXml="true" sortable="true"
-		titleKey="user.email" url="/user/editUser?from=list"
+		titleKey="user.email" url="/user/editUser?from=list&cb=${cbValue}"
 		paramId="username" paramProperty="username" />
 	<display:column property="address" escapeXml="true" sortable="true"
-		titleKey="user.address" url="/user/editUser?from=list"
+		titleKey="user.address" url="/user/editUser?from=list&cb=${cbValue}"
 		paramId="username" paramProperty="username" />
 	<display:column property="phoneNumber" escapeXml="true" sortable="true"
-		titleKey="user.phoneNumber" url="/user/editUser?from=list"
+		titleKey="user.phoneNumber" url="/user/editUser?from=list&cb=${cbValue}"
 		paramId="username" paramProperty="username" />
 	<display:column property="mobilephone" escapeXml="true" sortable="true"
-		titleKey="user.mobilephone" url="/user/editUser?from=list"
+		titleKey="user.mobilephone" url="/user/editUser?from=list&cb=${cbValue}"
 		paramId="username" paramProperty="username" />
 	<display:column sortProperty="enabled" sortable="true" media="html"
 		titleKey="user.enabled">

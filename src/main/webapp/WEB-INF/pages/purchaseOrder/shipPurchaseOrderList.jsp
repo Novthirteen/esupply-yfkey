@@ -16,14 +16,17 @@
 		<div class="col-xs-3 search-group">
 			<s:textfield cssClass="form-control search-control"
 				key="purchaseOrder.tt_xpyhmstro_yhdnbr" />
+			<input type="hidden" name="cb" value="${cbValue}">
 		</div>
 
 		<div class="col-xs-3 search-group">
-			<label class="control-label"><fmt:message key="purchaseOrder.tt_xpyhmstro_shipto" /></label>
-			<input id="tt_xpyhmstro_shipto"
+			<label class="control-label"><fmt:message
+					key="purchaseOrder.tt_xpyhmstro_shipto" /></label> <input
+				id="tt_xpyhmstro_shipto"
 				value="${purchaseOrder.tt_xpyhmstro_shipto}"
 				name="purchaseOrder.tt_xpyhmstro_shipto" type="text"
-				class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+				class="col-md-12 form-control search-control" placeholder=""
+				autocomplete="off" />
 		</div>
 	</div>
 
@@ -47,7 +50,7 @@
 	export="false">
 	<display:column property="tt_xpyhmstro_yhdnbr" escapeXml="true"
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_yhdnbr"
-		url="/purchaseOrder/editShipPurchaseOrder?from=list"
+		url="/purchaseOrder/editShipPurchaseOrder?from=list&cb=${cbValue}"
 		paramId="tt_xpyhddeti_xpyhmstroid"
 		paramProperty="tt_xpyhmstro_xpyhmstroid" />
 	<display:column property="tt_xpyhmstro_startdt" escapeXml="true"
@@ -56,21 +59,21 @@
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_receptdt" />
 	<display:column property="tt_xpyhmstro_shipto" escapeXml="true"
 		sortable="true" titleKey="purchaseOrder.tt_xpyhmstro_shipto" />
-	<display:column titleKey="purchaseOrder.tt_xpyhmstro_priority" escapeXml="true"
-		sortable="true">
+	<display:column titleKey="purchaseOrder.tt_xpyhmstro_priority"
+		escapeXml="true" sortable="true">
 		<c:choose>
 			<c:when test="${purchaseOrder.tt_xpyhmstro_priority eq '1'}">
 				<fmt:message key="xpyh_priority.Normal" />
 			</c:when>
 			<c:when test="${purchaseOrder.tt_xpyhmstro_priority eq '2'}">
 				<fmt:message key="xpyh_priority.Urgent" />
-				</c:when>
-				
+			</c:when>
+
 		</c:choose>
 	</display:column>
-	
-	<display:column titleKey="purchaseOrder.tt_xpyhmstro_conf" escapeXml="true"
-		sortable="true">
+
+	<display:column titleKey="purchaseOrder.tt_xpyhmstro_conf"
+		escapeXml="true" sortable="true">
 		<c:choose>
 			<c:when test="${purchaseOrder.tt_xpyhmstro_conf eq '0'}">
 				<fmt:message key="common.no" />
@@ -80,8 +83,8 @@
 			</c:otherwise>
 		</c:choose>
 	</display:column>
-	<display:column titleKey="purchaseOrder.tt_xpyhmstro_print" escapeXml="true"
-		sortable="true">
+	<display:column titleKey="purchaseOrder.tt_xpyhmstro_print"
+		escapeXml="true" sortable="true">
 		<c:choose>
 			<c:when test="${purchaseOrder.tt_xpyhmstro_print eq '0'}">
 				<fmt:message key="common.no" />
@@ -91,7 +94,7 @@
 			</c:otherwise>
 		</c:choose>
 	</display:column>
-	
+
 
 	<display:setProperty name="paging.banner.placement" value="both" />
 	<display:setProperty name="paging.banner.item_name">

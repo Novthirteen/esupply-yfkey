@@ -405,12 +405,13 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinqury_prhdet_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinqury_prhdet_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinqury_prhdet_DSMetaData1.addTable(xxinqury_prhdet_MetaData11);
-		xxinqury_prhdet_MetaData12 = new ProDataObjectMetaData("tt_prhdet_in", 5, false, 0, null, null, null);
+		xxinqury_prhdet_MetaData12 = new ProDataObjectMetaData("tt_prhdet_in", 6, false, 0, null, null, null);
 		xxinqury_prhdet_MetaData12.setFieldDesc(1, "tt_prhdeti_receiver", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinqury_prhdet_MetaData12.setFieldDesc(2, "tt_prhdeti_fromdate", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinqury_prhdet_MetaData12.setFieldDesc(3, "tt_prhdeti_todate", 0, Parameter.PRO_CHARACTER,2,0);
 		xxinqury_prhdet_MetaData12.setFieldDesc(4, "tt_prhdeti_yhdnbr", 0, Parameter.PRO_CHARACTER,3,0);
 		xxinqury_prhdet_MetaData12.setFieldDesc(5, "tt_prhdeti_partnbr", 0, Parameter.PRO_CHARACTER,4,0);
+		xxinqury_prhdet_MetaData12.setFieldDesc(6, "tt_prhdeti_asnnbr", 0, Parameter.PRO_CHARACTER,5,0);
 		xxinqury_prhdet_DSMetaData1.addTable(xxinqury_prhdet_MetaData12);
 		xxinqury_prhdet_DSMetaData2 = new ProDataGraphMetaData(0, "export_prhdet", 2, ParameterSet.OUTPUT);
 		xxinqury_prhdet_MetaData21 = new ProDataObjectMetaData("tt_prhdet_out", 20, false, 0, null, null, null);
@@ -464,12 +465,13 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinqury_prhmstr_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinqury_prhmstr_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinqury_prhmstr_DSMetaData1.addTable(xxinqury_prhmstr_MetaData11);
-		xxinqury_prhmstr_MetaData12 = new ProDataObjectMetaData("tt_prhmstr_in", 5, false, 0, null, null, null);
+		xxinqury_prhmstr_MetaData12 = new ProDataObjectMetaData("tt_prhmstr_in", 6, false, 0, null, null, null);
 		xxinqury_prhmstr_MetaData12.setFieldDesc(1, "tt_prhmstri_receiver", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinqury_prhmstr_MetaData12.setFieldDesc(2, "tt_prhmstri_fromdate", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinqury_prhmstr_MetaData12.setFieldDesc(3, "tt_prhmstri_todate", 0, Parameter.PRO_CHARACTER,2,0);
 		xxinqury_prhmstr_MetaData12.setFieldDesc(4, "tt_prhmstri_yhdnbr", 0, Parameter.PRO_CHARACTER,3,0);
 		xxinqury_prhmstr_MetaData12.setFieldDesc(5, "tt_prhmstri_partnbr", 0, Parameter.PRO_CHARACTER,4,0);
+		xxinqury_prhmstr_MetaData12.setFieldDesc(6, "tt_prhmstri_asnnbr", 0, Parameter.PRO_CHARACTER,5,0);
 		xxinqury_prhmstr_DSMetaData1.addTable(xxinqury_prhmstr_MetaData12);
 		xxinqury_prhmstr_DSMetaData2 = new ProDataGraphMetaData(0, "export_prhmstr", 2, ParameterSet.OUTPUT);
 		xxinqury_prhmstr_MetaData21 = new ProDataObjectMetaData("tt_prhmstr_out", 8, false, 0, null, null, null);
@@ -868,6 +870,54 @@ public final class YFKSSSCPImpl extends AppObject
 		xxview_forecast_MetaData22.setFieldDesc(3, "tt_erro_errsens", 0, Parameter.PRO_INTEGER,2,0);
 		xxview_forecast_MetaData22.setFieldDesc(4, "tt_erro_msg", 0, Parameter.PRO_CHARACTER,3,0);
 		xxview_forecast_DSMetaData2.addTable(xxview_forecast_MetaData22);
+
+	}
+	
+	
+	static ProDataGraphMetaData xxinquiry_claimdet_DSMetaData1;
+
+	static ProDataObjectMetaData xxinquiry_claimdet_MetaData11;
+
+	static ProDataGraphMetaData xxinquiry_claimdet_DSMetaData2;
+
+	static ProDataObjectMetaData xxinquiry_claimdet_MetaData21;
+
+	static ProDataObjectMetaData xxinquiry_claimdet_MetaData22;
+
+
+	static
+	{
+		xxinquiry_claimdet_DSMetaData1 = new ProDataGraphMetaData(0, "input_xprcd", 1, ParameterSet.INPUT);
+		xxinquiry_claimdet_MetaData11 = new ProDataObjectMetaData("tt_claimdet_in", 1, false, 0, null, null, null);
+		xxinquiry_claimdet_MetaData11.setFieldDesc(1, "tt_claimdeti_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_claimdet_DSMetaData1.addTable(xxinquiry_claimdet_MetaData11);
+		xxinquiry_claimdet_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprcd", 2, ParameterSet.OUTPUT);
+		xxinquiry_claimdet_MetaData21 = new ProDataObjectMetaData("tt_claimdet_out", 18, false, 0, null, null, null);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(1, "tt_claimdeto_voucher", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(2, "tt_claimdeto_partnbr", 0, Parameter.PRO_CHARACTER,1,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(3, "tt_claimdeto_receiver", 0, Parameter.PRO_CHARACTER,2,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(4, "tt_claimdeto_seq", 0, Parameter.PRO_INTEGER,3,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(5, "tt_claimdeto_poprice", 0, Parameter.PRO_DECIMAL,4,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(6, "tt_claimdeto_uom", 0, Parameter.PRO_CHARACTER,5,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(7, "tt_claimdeto_invprice", 0, Parameter.PRO_DECIMAL,6,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(8, "tt_claimdeto_invamt", 0, Parameter.PRO_DECIMAL,7,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(9, "tt_claimdeto_partdesc", 0, Parameter.PRO_CHARACTER,8,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(10, "tt_claimdeto_rcdate", 0, Parameter.PRO_CHARACTER,9,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(11, "tt_claimdeto_invdate", 0, Parameter.PRO_CHARACTER,10,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(12, "tt_claimdeto_totalamt", 0, Parameter.PRO_DECIMAL,11,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(13, "tt_claimdeto_rmk", 0, Parameter.PRO_CHARACTER,12,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(14, "tt_claimdeto_suppcode", 0, Parameter.PRO_CHARACTER,13,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(15, "tt_claimdeto_stat", 0, Parameter.PRO_CHARACTER,14,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(16, "tt_claimdeto_xprcmstroid", 0, Parameter.PRO_CHARACTER,15,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(17, "tt_claimdeto_rcqty", 0, Parameter.PRO_DECIMAL,16,0);
+		xxinquiry_claimdet_MetaData21.setFieldDesc(18, "tt_claimdeto_billno", 0, Parameter.PRO_CHARACTER,17,0);
+		xxinquiry_claimdet_DSMetaData2.addTable(xxinquiry_claimdet_MetaData21);
+		xxinquiry_claimdet_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
+		xxinquiry_claimdet_MetaData22.setFieldDesc(1, "tt_erro_xprcdetoid", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_claimdet_MetaData22.setFieldDesc(2, "tt_erro_errid", 0, Parameter.PRO_INTEGER,1,0);
+		xxinquiry_claimdet_MetaData22.setFieldDesc(3, "tt_erro_errsens", 0, Parameter.PRO_INTEGER,2,0);
+		xxinquiry_claimdet_MetaData22.setFieldDesc(4, "tt_erro_msg", 0, Parameter.PRO_CHARACTER,3,0);
+		xxinquiry_claimdet_DSMetaData2.addTable(xxinquiry_claimdet_MetaData22);
 
 	}
 
@@ -1792,6 +1842,66 @@ public final class YFKSSSCPImpl extends AppObject
 
 	public static void setXxview_forecast_MetaData22(ProDataObjectMetaData xxview_forecast_MetaData22) {
 		YFKSSSCPImpl.xxview_forecast_MetaData22 = xxview_forecast_MetaData22;
+	}
+
+
+	public static ProDataObjectMetaData getXxview_forecast_MetaData12() {
+		return xxview_forecast_MetaData12;
+	}
+
+
+	public static void setXxview_forecast_MetaData12(ProDataObjectMetaData xxview_forecast_MetaData12) {
+		YFKSSSCPImpl.xxview_forecast_MetaData12 = xxview_forecast_MetaData12;
+	}
+
+
+	public static ProDataGraphMetaData getXxinquiry_claimdet_DSMetaData1() {
+		return xxinquiry_claimdet_DSMetaData1;
+	}
+
+
+	public static void setXxinquiry_claimdet_DSMetaData1(ProDataGraphMetaData xxinquiry_claimdet_DSMetaData1) {
+		YFKSSSCPImpl.xxinquiry_claimdet_DSMetaData1 = xxinquiry_claimdet_DSMetaData1;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_claimdet_MetaData11() {
+		return xxinquiry_claimdet_MetaData11;
+	}
+
+
+	public static void setXxinquiry_claimdet_MetaData11(ProDataObjectMetaData xxinquiry_claimdet_MetaData11) {
+		YFKSSSCPImpl.xxinquiry_claimdet_MetaData11 = xxinquiry_claimdet_MetaData11;
+	}
+
+
+	public static ProDataGraphMetaData getXxinquiry_claimdet_DSMetaData2() {
+		return xxinquiry_claimdet_DSMetaData2;
+	}
+
+
+	public static void setXxinquiry_claimdet_DSMetaData2(ProDataGraphMetaData xxinquiry_claimdet_DSMetaData2) {
+		YFKSSSCPImpl.xxinquiry_claimdet_DSMetaData2 = xxinquiry_claimdet_DSMetaData2;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_claimdet_MetaData21() {
+		return xxinquiry_claimdet_MetaData21;
+	}
+
+
+	public static void setXxinquiry_claimdet_MetaData21(ProDataObjectMetaData xxinquiry_claimdet_MetaData21) {
+		YFKSSSCPImpl.xxinquiry_claimdet_MetaData21 = xxinquiry_claimdet_MetaData21;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_claimdet_MetaData22() {
+		return xxinquiry_claimdet_MetaData22;
+	}
+
+
+	public static void setXxinquiry_claimdet_MetaData22(ProDataObjectMetaData xxinquiry_claimdet_MetaData22) {
+		YFKSSSCPImpl.xxinquiry_claimdet_MetaData22 = xxinquiry_claimdet_MetaData22;
 	}
 
 
@@ -2840,6 +2950,69 @@ public final class YFKSSSCPImpl extends AppObject
 		// Get output parameters
 		outValue = params.getOutputParameter(2);
 		export_scpfcast.setValue(outValue);
+
+
+		// Session-Managed always returns null
+		if (rqCtx != null)
+		{
+			if (!rqCtx._isStreaming())
+				rqCtx._release();
+			else
+			{
+				// If set, there's a ResultSetHolder parm
+				lastResultSet = null;
+				if (lastResultSet != null)
+					lastResultSet.setRqContext(rqCtx);
+			}
+		}
+
+		// Return output value
+		return (String)(params.getProcedureReturnValue());
+
+	}
+	
+	
+	/* 
+	*/
+	public String xxinquiry_claimdet(ProDataGraph input_xprcd, ProDataGraphHolder export_xprcd)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		RqContext rqCtx = null;
+		com.progress.open4gl.dynamicapi.ResultSet lastResultSet = null;
+
+		if (isSessionAvailable() == false)
+			throw new Open4GLException(m_notAvailable, null);
+
+		Object outValue;
+		ParameterSet params = new ParameterSet(2);
+
+		// Set up input parameters
+		params.setDataGraphParameter(1, input_xprcd, ParameterSet.INPUT, false);
+
+
+		// Set up input/output parameters
+
+
+		// Set up Out parameters
+		params.setDataGraphParameter(2, null, ParameterSet.OUTPUT, false);
+
+
+		// Setup local MetaSchema if any params are tables
+		MetaSchema xxinquiry_claimdet_MetaSchema = new MetaSchema();
+		xxinquiry_claimdet_MetaSchema.addProDataGraphSchema(xxinquiry_claimdet_DSMetaData1, 1, ParameterSet.INPUT , false);
+		xxinquiry_claimdet_MetaSchema.addProDataGraphSchema(xxinquiry_claimdet_DSMetaData2, 2, ParameterSet.OUTPUT , false);
+
+
+		// Set up return type
+		
+
+		// Run procedure
+		rqCtx = runProcedure(QADConfg.getQadFilePath() +"xxinquiry_claimdet.p", params, xxinquiry_claimdet_MetaSchema);
+
+
+		// Get output parameters
+		outValue = params.getOutputParameter(2);
+		export_xprcd.setValue(outValue);
 
 
 		// Session-Managed always returns null

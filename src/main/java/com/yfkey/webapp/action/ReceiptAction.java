@@ -145,7 +145,7 @@ public class ReceiptAction extends BaseAction {
 					object.setString(2, "");
 					object.setString(3, "");
 					object.setString(4, "");
-					
+					object.setString(5, "");
 
 					exDataGraph.addProDataObject(object);
 
@@ -284,6 +284,8 @@ public class ReceiptAction extends BaseAction {
 								receipt.getTt_prhmstri_yhdnbr() == null ? "" : receipt.getTt_prhmstri_yhdnbr().trim());
 						objectMstr.setString(4,
 								receipt.getTt_prhmstri_partnbr() == null ? "" : receipt.getTt_prhmstri_partnbr().trim());
+						objectMstr.setString(5, 
+								receipt.getTt_prhmstro_asnnbr() == null ? "" : receipt.getTt_prhmstro_asnnbr().trim());
 					}
 
 					exDataGraph.addProDataObject(objectMstr);
@@ -338,6 +340,8 @@ public class ReceiptAction extends BaseAction {
 								receipt.getTt_prhmstri_yhdnbr() == null ? "" : receipt.getTt_prhmstri_yhdnbr().trim());
 						objectMstr.setString(4,
 								receipt.getTt_prhmstri_partnbr() == null ? "" : receipt.getTt_prhmstri_partnbr().trim());
+						objectMstr.setString(5, 
+								receipt.getTt_prhmstro_asnnbr() == null ? "" : receipt.getTt_prhmstro_asnnbr().trim());
 
 					}
 
@@ -397,7 +401,7 @@ public class ReceiptAction extends BaseAction {
 				object.setString(2, "");
 				object.setString(3, "");
 				object.setString(4, "");
-				
+				object.setString(5, "");
 
 				exDataGraph.addProDataObject(object);
 

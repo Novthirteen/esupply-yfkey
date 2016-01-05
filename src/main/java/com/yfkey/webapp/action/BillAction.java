@@ -67,10 +67,13 @@ public class BillAction extends BaseAction {
 
 	private InputStream inputStream;
 	private String fileName;
-	
+
 	private Boolean canConfirmBill;
 	private Boolean canAgreeBill;
 	private Boolean canRefuseBill;
+
+	private String tt_xprcmstro_type;
+	private int rowNumber;
 
 	public Bill getBill() {
 		return bill;
@@ -128,6 +131,18 @@ public class BillAction extends BaseAction {
 		this.canRefuseBill = canRefuseBill;
 	}
 
+	public String getTt_xprcmstro_type() {
+		return tt_xprcmstro_type;
+	}
+
+	public void setTt_xprcmstro_type(String tt_xprcmstro_type) {
+		this.tt_xprcmstro_type = tt_xprcmstro_type;
+	}
+	
+	public int getRowNumber() {
+		return rowNumber++;
+	}
+
 	@SuppressWarnings("unchecked")
 	public String edit() throws IOException {
 
@@ -140,7 +155,7 @@ public class BillAction extends BaseAction {
 				canAgreeBill = false;
 				canRefuseBill = false;
 				List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
-				if (userButtons != null && userButtons.size() > 0) {
+				if ( tt_xprcmstro_type.equals("0") && userButtons != null && userButtons.size() > 0) {
 					for (UserAuthority u : userButtons) {
 						if (!canConfirmBill && u.getAuthority().equals("ConfirmBill")) {
 							canConfirmBill = true;
@@ -148,42 +163,67 @@ public class BillAction extends BaseAction {
 						if (!canAgreeBill && u.getAuthority().equals("AgreeBill")) {
 							canAgreeBill = true;
 						}
-						if(!canRefuseBill && u.getAuthority().equals("RefuseBill"))
-						{
+						if (!canRefuseBill && u.getAuthority().equals("RefuseBill")) {
 							canRefuseBill = true;
 						}
 					}
 				}
-				
-				if (ConnectQAD()) {
-					String userCode = this.getRequest().getRemoteUser();
 
-					String domain = getCurrentDomain();
+				if (ConnectQAD()) {
 					ProDataGraph exDataGraph; // 输入参数
 					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
-					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_xprcdet_DSMetaData1());
+					if (tt_xprcmstro_type.equals("0")) {
 
-					ProDataObject object = exDataGraph.createProDataObject("tt_xprcdet_in");
+						// 正常
+						exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_xprcdet_DSMetaData1());
+						ProDataObject object = exDataGraph.createProDataObject("tt_xprcdet_in");
+						object.setString(0, tt_xprcmstro_xprcmstroid);
+						exDataGraph.addProDataObject(object);
+						yfkssScp.xxinquiry_xprcdet(exDataGraph, outputData);
 
-					object.setString(0, tt_xprcmstro_xprcmstroid);
+						@SuppressWarnings("unchecked")
+						List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+								.getProDataObjects("tt_xprcdet_out");
 
-					exDataGraph.addProDataObject(object);
+						if (outDataList != null && outDataList.size() > 0) {
+							List<Object> objList = QADUtil.ConvertToBillAndDetail(outDataList);
 
-					yfkssScp.xxinquiry_xprcdet(exDataGraph, outputData);
+							if (bill != null && bill.getHasError() != null && bill.getHasError()) {
+								bill.setHasError(false);
+							} else {
+								bill = (Bill) objList.get(0);
+								bill.setTt_xprcmstro_stat_desc(getBillStatus(bill.getTt_xprcmstro_stat()));
+							}
 
-					@SuppressWarnings("unchecked")
-					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xprcdet_out");
+							billDetails = (List<BillDetail>) objList.get(1);
+							checkSupplier(bill.getTt_xprcmstro_suppcode());
+						}
+					} else {
+						// 索赔
+						exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinquiry_claimdet_DSMetaData1());
+						ProDataObject object = exDataGraph.createProDataObject("tt_claimdet_in");
+						object.setString(0, tt_xprcmstro_xprcmstroid);
+						exDataGraph.addProDataObject(object);
+						yfkssScp.xxinquiry_claimdet(exDataGraph, outputData);
 
-					if (outDataList != null && outDataList.size() > 0) {
-						List<Object> objList = QADUtil.ConvertToBillAndDetail(outDataList);
-						bill = (Bill) objList.get(0);
-						billDetails = (List<BillDetail>) objList.get(1);
+						@SuppressWarnings("unchecked")
+						List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+								.getProDataObjects("tt_claimdet_out");
 
-						bill.setTt_xprcmstro_stat_desc(getBillStatus(bill.getTt_xprcmstro_stat()));
-						
-						checkSupplier(bill.getTt_xprcmstro_suppcode());
+						if (outDataList != null && outDataList.size() > 0) {
+							List<Object> objList = QADUtil.ConvertToClaimBillAndDetail(outDataList);
+
+							if (bill != null && bill.getHasError() != null && bill.getHasError()) {
+								bill.setHasError(false);
+							} else {
+								bill = (Bill) objList.get(0);
+								bill.setTt_xprcmstro_stat_desc(getBillStatus(bill.getTt_xprcmstro_stat()));
+							}
+
+							billDetails = (List<BillDetail>) objList.get(1);
+							checkSupplier(bill.getTt_xprcmstro_suppcode());
+						}
 					}
 				}
 			} else {
@@ -193,9 +233,9 @@ public class BillAction extends BaseAction {
 
 		} catch (SupplierAuthorityException ex) {
 			addActionError(ex.getMessage());
-			
+
 			bill = new Bill();
-			
+
 			return INPUT;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -212,18 +252,18 @@ public class BillAction extends BaseAction {
 			}
 			saveMessage(getText("bill.confirm.success"));
 			return SUCCESS;
-//		} catch (BillConfirmNotValidException ex) {
-//			addActionError(ex.getMessage());
-//			edit();
-//			return INPUT;
-		}  catch (QadException ex) {
+		} catch (QadException ex) {
 			addActionError(ex.getMessage());
 			tt_xprcmstro_xprcmstroid = bill.getTt_xprcmstro_xprcmstroid();
+			tt_xprcmstro_type = bill.getTt_xprcmstro_type();
+			bill.setHasError(true);
 			edit();
 			return INPUT;
-		}  catch (BillConfirmNotValidException ex) {
+		} catch (BillConfirmNotValidException ex) {
 			addActionError(ex.getMessage());
 			tt_xprcmstro_xprcmstroid = bill.getTt_xprcmstro_xprcmstroid();
+			tt_xprcmstro_type = bill.getTt_xprcmstro_type();
+			bill.setHasError(true);
 			edit();
 			return INPUT;
 		} catch (Exception ex) {
@@ -242,13 +282,15 @@ public class BillAction extends BaseAction {
 		} catch (QadException ex) {
 			addActionError(ex.getMessage());
 			tt_xprcmstro_xprcmstroid = bill.getTt_xprcmstro_xprcmstroid();
+			tt_xprcmstro_type = bill.getTt_xprcmstro_type();
+			bill.setHasError(true);
 			edit();
 			return INPUT;
 		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
 			return INPUT;
 		}
-	
+
 	}
 
 	public String agree() throws Exception {
@@ -258,18 +300,19 @@ public class BillAction extends BaseAction {
 			}
 			saveMessage(getText("bill.agree.success"));
 			return SUCCESS;
-		}catch (QadException ex) {
+		} catch (QadException ex) {
 			addActionError(ex.getMessage());
 			tt_xprcmstro_xprcmstroid = bill.getTt_xprcmstro_xprcmstroid();
+			tt_xprcmstro_type = bill.getTt_xprcmstro_type();
+			bill.setHasError(true);
 			edit();
 			return INPUT;
 		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
 			return INPUT;
 		}
-	
-	}
 
+	}
 
 	public String print() {
 		try {
@@ -319,71 +362,64 @@ public class BillAction extends BaseAction {
 		ProDataGraph exDataGraph; // 输入参数
 		ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
 
-		
-			exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxupdate_xprcmstr_DSMetaData1());
+		exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxupdate_xprcmstr_DSMetaData1());
 
-			ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
+		ProDataObject object = exDataGraph.createProDataObject("tt_xprcmstr_in");
 
-			// 提交状态同时提交信息
-			if (status == "4") {
-				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
-				object.setInt(1, Integer.parseInt(b.getTt_xprcmstro_qty()));
-				object.setBigDecimal(2,  new BigDecimal(bill.getTt_xprcmstro_taxamt()));
-				object.setString(3, bill.getTt_xprcmstro_invdate());
-				object.setBigDecimal(4, new BigDecimal(bill.getTt_xprcmstro_notaxamt()));
-				object.setString(5, bill.getTt_xprcmstro_invnbr());
-				object.setString(6, bill.getTt_xprcmstro_rmk());
-				object.setString(7, status);
-				object.setString(8, bill.getTt_xprcmstro_indexinvnbr());
-				object.setString(9, isPrint); // ""为确认，0为打印
-				object.setString(10, userCode);
-				object.setBigDecimal(11, new BigDecimal(bill.getTt_xpyhddeto_disamt()));
-				object.setBigDecimal(12, bill.getTt_xprcmstro_claimamt());
-			} 
-			else if(status.equals("6"))
-			{
-				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
-				object.setInt(1, 0);
-				object.setBigDecimal(2, new BigDecimal(bill.getTt_xprcmstro_taxamt()));
-				object.setString(3,"");
-				object.setBigDecimal(4, new BigDecimal(bill.getTt_xprcmstro_notaxamt()));
-				object.setString(5, "");
-				object.setString(6, "");
-				object.setString(7, status);
-				object.setString(8, "");
-				object.setString(9, isPrint); // ""为确认，0为打印
-				object.setString(10, userCode);
-				object.setBigDecimal(11, new BigDecimal(bill.getTt_xpyhddeto_disamt()));
-				object.setBigDecimal(12, bill.getTt_xprcmstro_claimamt());
-			}
-			else {
-				object.setString(0, b.getTt_xprcmstro_xprcmstroid());
-				object.setInt(1, 0);
-				object.setBigDecimal(2, BigDecimal.ZERO);
-				object.setString(3, "");
-				object.setBigDecimal(4, BigDecimal.ZERO);
-				object.setString(5, "");
-				object.setString(6, "");
-				object.setString(7, status);
-				object.setString(8, "");
-				object.setString(9, isPrint); // ""为确认，0为打印
-				object.setString(10, userCode);
-				object.setBigDecimal(11,  BigDecimal.ZERO);
-				object.setBigDecimal(12,  BigDecimal.ZERO);
-			}
+		// 提交状态同时提交信息
+		if (status == "4") {
+			object.setString(0, b.getTt_xprcmstro_xprcmstroid());
+			object.setInt(1, Integer.parseInt(b.getTt_xprcmstro_qty()));
+			object.setBigDecimal(2, new BigDecimal(bill.getTt_xprcmstro_taxamt()));
+			object.setString(3, bill.getTt_xprcmstro_invdate());
+			object.setBigDecimal(4, new BigDecimal(bill.getTt_xprcmstro_notaxamt()));
+			object.setString(5, bill.getTt_xprcmstro_invnbr());
+			object.setString(6, bill.getTt_xprcmstro_rmk());
+			object.setString(7, status);
+			object.setString(8, bill.getTt_xprcmstro_indexinvnbr());
+			object.setString(9, isPrint); // ""为确认，0为打印
+			object.setString(10, userCode);
+			object.setBigDecimal(11, new BigDecimal(bill.getTt_xpyhddeto_disamt()));
+			object.setBigDecimal(12, bill.getTt_xprcmstro_claimamt());
+		} else if (status.equals("6")) {
+			object.setString(0, b.getTt_xprcmstro_xprcmstroid());
+			object.setInt(1, 0);
+			object.setBigDecimal(2, new BigDecimal(bill.getTt_xprcmstro_taxamt()));
+			object.setString(3, "");
+			object.setBigDecimal(4, new BigDecimal(bill.getTt_xprcmstro_notaxamt()));
+			object.setString(5, "");
+			object.setString(6, "");
+			object.setString(7, status);
+			object.setString(8, "");
+			object.setString(9, isPrint); // ""为确认，0为打印
+			object.setString(10, userCode);
+			object.setBigDecimal(11, new BigDecimal(bill.getTt_xpyhddeto_disamt()));
+			object.setBigDecimal(12, bill.getTt_xprcmstro_claimamt());
+		} else {
+			object.setString(0, b.getTt_xprcmstro_xprcmstroid());
+			object.setInt(1, 0);
+			object.setBigDecimal(2, BigDecimal.ZERO);
+			object.setString(3, "");
+			object.setBigDecimal(4, BigDecimal.ZERO);
+			object.setString(5, "");
+			object.setString(6, "");
+			object.setString(7, status);
+			object.setString(8, "");
+			object.setString(9, isPrint); // ""为确认，0为打印
+			object.setString(10, userCode);
+			object.setBigDecimal(11, BigDecimal.ZERO);
+			object.setBigDecimal(12, BigDecimal.ZERO);
+		}
 
-			exDataGraph.addProDataObject(object);
+		exDataGraph.addProDataObject(object);
 
-			yfkssScp.xxupdate_xprcmstr(exDataGraph, outputData);
-			
-			List<ProDataObject> errotOutDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-					.getProDataObjects("tt_err_out");
-			if(errotOutDataList != null && errotOutDataList.size()>0)
-			{
-				throw new QadException(getQadErrorMessage(errotOutDataList));
-			}
-			
-		
+		yfkssScp.xxupdate_xprcmstr(exDataGraph, outputData);
+
+		List<ProDataObject> errotOutDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+				.getProDataObjects("tt_err_out");
+		if (errotOutDataList != null && errotOutDataList.size() > 0) {
+			throw new QadException(getQadErrorMessage(errotOutDataList));
+		}
 
 	}
 
@@ -442,7 +478,8 @@ public class BillAction extends BaseAction {
 							bill.getTt_xprcmstri_fromdate() == null ? "" : bill.getTt_xprcmstri_fromdate().trim());
 					objectMstr.setString(2,
 							bill.getTt_xprcmstri_todate() == null ? "" : bill.getTt_xprcmstri_todate().trim());
-					objectMstr.setString(3, bill.getTt_xprcmstro_stat() == null ? "3,4,6" : bill.getTt_xprcmstro_stat());
+					objectMstr.setString(3,
+							bill.getTt_xprcmstro_stat() == null ? "3,4,6" : bill.getTt_xprcmstro_stat());
 				}
 
 				exDataGraph.addProDataObject(objectMstr);
@@ -455,7 +492,6 @@ public class BillAction extends BaseAction {
 
 				bills = QADUtil.ConverToBill(outDataList);
 
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -466,28 +502,31 @@ public class BillAction extends BaseAction {
 	public List<LabelValue> getBillStatusList() {
 		List<LabelValue> billStatusList = new ArrayList<LabelValue>();
 		billStatusList.add(new LabelValue("", getText("xprc_status.Empty")));
-//		billStatusList.add(new LabelValue("0", getText("xprc_status.Initial")));
-//		billStatusList.add(new LabelValue("1", getText("xprc_status.Create")));
-//		billStatusList.add(new LabelValue("2", getText("xprc_status.Cancel")));
+		// billStatusList.add(new LabelValue("0",
+		// getText("xprc_status.Initial")));
+		// billStatusList.add(new LabelValue("1",
+		// getText("xprc_status.Create")));
+		// billStatusList.add(new LabelValue("2",
+		// getText("xprc_status.Cancel")));
 		billStatusList.add(new LabelValue("3", getText("xprc_status.Submit")));
 		billStatusList.add(new LabelValue("4", getText("xprc_status.Confirm")));
 		billStatusList.add(new LabelValue("5", getText("xprc_status.Close")));
-        billStatusList.add(new LabelValue("6", getText("xprc_status.InProcess")));
+		billStatusList.add(new LabelValue("6", getText("xprc_status.InProcess")));
 		return billStatusList;
 	}
 
 	public String getBillStatus(String status) {
 		String statusDesc = "";
 		switch (status) {
-//		case "0":
-//			statusDesc = getText("xprc_status.Initial");
-//			break;
-//		case "1":
-//			statusDesc = getText("xprc_status.Create");
-//			break;
-//		case "2":
-//			statusDesc = getText("xprc_status.Cancel");
-//			break;
+		// case "0":
+		// statusDesc = getText("xprc_status.Initial");
+		// break;
+		// case "1":
+		// statusDesc = getText("xprc_status.Create");
+		// break;
+		// case "2":
+		// statusDesc = getText("xprc_status.Cancel");
+		// break;
 		case "3":
 			statusDesc = getText("xprc_status.Submit");
 			break;
@@ -507,88 +546,64 @@ public class BillAction extends BaseAction {
 		return statusDesc;
 	}
 
-	
 	private void checkConfirmBill(Bill bill) throws BillConfirmNotValidException {
-		
-		
-			List<Object> args = new ArrayList<Object>();
-		    if(bill.getTt_xprcmstro_invdate() == null || bill.getTt_xprcmstro_invdate().equals(""))
-		    {
-		    	throw new BillConfirmNotValidException(getText("bill.invdate_empty"));
-		    }
-		    
-		    try  
-		    {  
-		        Integer qty = Integer.parseInt(bill.getTt_xprcmstro_qty());
-		                      
-		        if (qty instanceof Integer == false)  
-		        {  
-		        	throw new BillConfirmNotValidException(getText("bill.qty_format_error"));
-		        }  
-		        if(qty <= 0 )
-		        {
-		        	throw new BillConfirmNotValidException(getText("bill.qty_less_than_zero"));
-		        }
-		    }  
-		    catch(NumberFormatException e)  
-		    {    
-		    	throw new BillConfirmNotValidException(getText("bill.qty_format_error"));
-		    }  
- 
-		    try  
-		    {  
-		        BigDecimal notaxamt =new BigDecimal(bill.getTt_xprcmstro_notaxamt());
-		                      
-		        if (notaxamt instanceof BigDecimal == false)  
-		        {  
-		        	throw new BillConfirmNotValidException(getText("bill.notaxamt_format_error"));
-		        }  
-		        if(notaxamt.compareTo(BigDecimal.ZERO) < 1 )
-		        {
-		        	throw new BillConfirmNotValidException(getText("bill.notaxamt_less_than_zero"));
-		        }
-		    }  
-		    catch(NumberFormatException e)  
-		    {    
-		    	throw new BillConfirmNotValidException(getText("bill.notaxamt_format_error"));
-		    }  
-		    
-		    try  
-		    {  
-		        BigDecimal taxamt =new BigDecimal(bill.getTt_xprcmstro_taxamt());
-		                      
-		        if (taxamt instanceof BigDecimal == false)  
-		        {  
-		        	throw new BillConfirmNotValidException(getText("bill.taxamt_format_error"));
-		        }  
-		        if(taxamt.compareTo(BigDecimal.ZERO) < 1 )
-		        {
-		        	throw new BillConfirmNotValidException(getText("bill.taxamt_less_than_zero"));
-		        }
-		    }  
-		    catch(NumberFormatException e)  
-		    {    
-		    	throw new BillConfirmNotValidException(getText("bill.taxamt_format_error"));
-		    }  
-		    
-		    try  
-		    {  
-		        BigDecimal disamt =new BigDecimal(bill.getTt_xpyhddeto_disamt());
-		                      
-		        if (disamt instanceof BigDecimal == false)  
-		        {  
-		        	throw new BillConfirmNotValidException(getText("bill.disamt_format_error"));
-		        }  
-		        if(disamt.compareTo(BigDecimal.ZERO) < 1 )
-		        {
-		        	throw new BillConfirmNotValidException(getText("bill.disamt_less_than_zero"));
-		        }
-		    }  
-		    catch(NumberFormatException e)  
-		    {    
-		    	throw new BillConfirmNotValidException(getText("bill.disamt_format_error"));
-		    }  
-		  
-		  
+
+		List<Object> args = new ArrayList<Object>();
+		if (bill.getTt_xprcmstro_invdate() == null || bill.getTt_xprcmstro_invdate().equals("")) {
+			throw new BillConfirmNotValidException(getText("bill.invdate_empty"));
+		}
+
+		try {
+			Integer qty = Integer.parseInt(bill.getTt_xprcmstro_qty());
+
+			if (qty instanceof Integer == false) {
+				throw new BillConfirmNotValidException(getText("bill.qty_format_error"));
+			}
+			if (qty <= 0) {
+				throw new BillConfirmNotValidException(getText("bill.qty_less_than_zero"));
+			}
+		} catch (NumberFormatException e) {
+			throw new BillConfirmNotValidException(getText("bill.qty_format_error"));
+		}
+
+		try {
+			BigDecimal notaxamt = new BigDecimal(bill.getTt_xprcmstro_notaxamt());
+
+			if (notaxamt instanceof BigDecimal == false) {
+				throw new BillConfirmNotValidException(getText("bill.notaxamt_format_error"));
+			}
+			if (notaxamt.compareTo(BigDecimal.ZERO) < 1) {
+				throw new BillConfirmNotValidException(getText("bill.notaxamt_less_than_zero"));
+			}
+		} catch (NumberFormatException e) {
+			throw new BillConfirmNotValidException(getText("bill.notaxamt_format_error"));
+		}
+
+		try {
+			BigDecimal taxamt = new BigDecimal(bill.getTt_xprcmstro_taxamt());
+
+			if (taxamt instanceof BigDecimal == false) {
+				throw new BillConfirmNotValidException(getText("bill.taxamt_format_error"));
+			}
+			if (taxamt.compareTo(BigDecimal.ZERO) < 1) {
+				throw new BillConfirmNotValidException(getText("bill.taxamt_less_than_zero"));
+			}
+		} catch (NumberFormatException e) {
+			throw new BillConfirmNotValidException(getText("bill.taxamt_format_error"));
+		}
+
+		try {
+			BigDecimal disamt = new BigDecimal(bill.getTt_xpyhddeto_disamt());
+
+			if (disamt instanceof BigDecimal == false) {
+				throw new BillConfirmNotValidException(getText("bill.disamt_format_error"));
+			}
+			if (disamt.compareTo(BigDecimal.ZERO) < 0) {
+				throw new BillConfirmNotValidException(getText("bill.disamt_less_than_zero"));
+			}
+		} catch (NumberFormatException e) {
+			throw new BillConfirmNotValidException(getText("bill.disamt_format_error"));
+		}
+
 	}
 }

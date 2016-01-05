@@ -63,7 +63,7 @@
 	<div id="actions" class="form-group form-actions">
 		<c:if test="${canConfirmOrder}">
 			<c:if test="${purchaseOrder.tt_xpyhmstro_stat  eq '2'}">
-				<s:submit type="button" cssClass="btn btn-primary" method="confirm"
+				<s:submit type="button" cssClass="btn btn-primary" action="confirmPurchaseOder"
 					key="button.confirm" theme="simple">
 					<i class="icon-ok icon-white"></i>
 					<fmt:message key="button.confirm" />
@@ -73,7 +73,7 @@
 		<c:if test="${canCloseOrder}">
 			<c:if
 				test="${purchaseOrder.tt_xpyhmstro_stat eq '3' || purchaseOrder.tt_xpyhmstro_stat eq '4' }">
-				<s:submit type="button" cssClass="btn btn-primary" method="close"
+				<s:submit type="button" cssClass="btn btn-primary" action="closePurchaseOder"
 					key="button.close" theme="simple">
 					<i class="icon-off icon-white"></i>
 					<fmt:message key="button.close" />
@@ -82,7 +82,7 @@
 		</c:if>
 		<c:if test="${canCancelOrder}">
 			<c:if test="${purchaseOrder.tt_xpyhmstro_stat  eq '2'}">
-				<s:submit type="button" cssClass="btn" method="delete"
+				<s:submit type="button" cssClass="btn" action="deletePurchaseOder"
 					key="button.cancel" theme="simple">
 					<i class="icon-remove"></i>
 					<fmt:message key="button.cancel" />

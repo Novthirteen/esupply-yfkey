@@ -36,10 +36,6 @@ public class Bill extends BaseObject {
 	
 	private String tt_xprcmstro_stat_desc; // 账单状态描述
 	
-
-	
-
-	
 	private String tt_xprcmstro_createdate;   //创建日期
 
 	
@@ -49,6 +45,10 @@ public class Bill extends BaseObject {
 	private String tt_xprcmstro_notaxamt; // 不含税金额
 	private String tt_xpyhddeto_disamt; //返点金额
 	private String tt_xpyhddeto_invoiceamt; //发票金额
+	
+	private String tt_claimdeto_billno; //绑定账单
+	
+	private Boolean hasError; //校验失败后用
 	
 	List<BillDetail> billDetailList;
 
@@ -254,6 +254,22 @@ public class Bill extends BaseObject {
 
 	public void setTt_xprcmstro_createdate(String tt_xprcmstro_createdate) {
 		this.tt_xprcmstro_createdate = tt_xprcmstro_createdate;
+	}
+
+	public Boolean getHasError() {
+		return hasError;
+	}
+
+	public void setHasError(Boolean hasError) {
+		this.hasError = hasError;
+	}
+	
+	public String getTt_claimdeto_billno() {
+		return tt_claimdeto_billno;
+	}
+
+	public void setTt_claimdeto_billno(String tt_claimdeto_billno) {
+		this.tt_claimdeto_billno = tt_claimdeto_billno;
 	}
 
 	@Override

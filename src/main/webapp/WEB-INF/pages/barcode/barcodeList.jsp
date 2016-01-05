@@ -16,40 +16,47 @@
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrderDetail.tt_xpyhddeto_asn" />
+				<input type="hidden" name="cb" value="${cbValue}">
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrderDetail.tt_xpyhddeto_yhdnbr" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_shipto" /></label>
-				<input id="tt_xpyhddeto_shipto"
+				<label class="control-label"><fmt:message
+						key="purchaseOrderDetail.tt_xpyhddeto_shipto" /></label> <input
+					id="tt_xpyhddeto_shipto"
 					name="purchaseOrderDetail.tt_xpyhddeto_shipto" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_shipto}"
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_partnbr" /></label>
-				<input id="tt_xpyhddeto_partnbr"
+				<label class="control-label"><fmt:message
+						key="purchaseOrderDetail.tt_xpyhddeto_partnbr" /></label> <input
+					id="tt_xpyhddeto_partnbr"
 					name="purchaseOrderDetail.tt_xpyhddeto_partnbr" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_partnbr}"
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
-			
+
 		</div>
 		<div class="row">
 			<div class="col-xs-3 search-group">
-				<label class="control-label"><fmt:message key="purchaseOrderDetail.tt_xpyhddeto_suppcode" /></label>
-				<input id="tt_xpyhddeto_suppcode"
+				<label class="control-label"><fmt:message
+						key="purchaseOrderDetail.tt_xpyhddeto_suppcode" /></label> <input
+					id="tt_xpyhddeto_suppcode"
 					name="purchaseOrderDetail.tt_xpyhddeto_suppcode" type="text"
 					value="${purchaseOrderDetail.tt_xpyhddeto_suppcode}"
-					class="col-md-12 form-control search-control" placeholder="" autocomplete="off" />
+					class="col-md-12 form-control search-control" placeholder=""
+					autocomplete="off" />
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
 					key="purchaseOrderDetail.tt_xpyhddeto_supppart" />
 			</div>
-			
+
 			<div class="col-xs-3 search-group layouttrim">
 				<s:radio key="purchaseOrderDetail.isexternal" listValue="value"
 					value="0" listKey="label" list="packageList" />
@@ -74,9 +81,11 @@
 		<hr>
 
 		<display:table name="purchaseOrderDetails" cellspacing="0"
-			pagesize="10" defaultsort="1" cellpadding="0" id="purchaseOrderDetail"
-			class="table table-condensed table-striped table-hover" requestURI="barcodes"
-			export="false" excludedParams="purchaseOrderDetails[0].tt_xpyhddeto_lots purchaseOrderDetails[0].tt_xpyhddeto_xpyhddetoid purchaseOrderDetails[0].tt_xpyhddeto_qty purchaseOrderDetails[0].tt_xpyhddeto_partnbr purchaseOrderDetails[0].tt_xpyhddeto_tt_xpyhddeto_oldQty
+			pagesize="10" defaultsort="1" cellpadding="0"
+			id="purchaseOrderDetail"
+			class="table table-condensed table-striped table-hover"
+			requestURI="barcodes" export="false"
+			excludedParams="purchaseOrderDetails[0].tt_xpyhddeto_lots purchaseOrderDetails[0].tt_xpyhddeto_xpyhddetoid purchaseOrderDetails[0].tt_xpyhddeto_qty purchaseOrderDetails[0].tt_xpyhddeto_partnbr purchaseOrderDetails[0].tt_xpyhddeto_tt_xpyhddeto_oldQty
 purchaseOrderDetails[1].tt_xpyhddeto_lots purchaseOrderDetails[1].tt_xpyhddeto_xpyhddetoid purchaseOrderDetails[1].tt_xpyhddeto_qty purchaseOrderDetails[1].tt_xpyhddeto_partnbr purchaseOrderDetails[1].tt_xpyhddeto_tt_xpyhddeto_oldQty
 purchaseOrderDetails[2].tt_xpyhddeto_lots purchaseOrderDetails[2].tt_xpyhddeto_xpyhddetoid purchaseOrderDetails[2].tt_xpyhddeto_qty purchaseOrderDetails[2].tt_xpyhddeto_partnbr purchaseOrderDetails[2].tt_xpyhddeto_tt_xpyhddeto_oldQty
 purchaseOrderDetails[3].tt_xpyhddeto_lots purchaseOrderDetails[3].tt_xpyhddeto_xpyhddetoid purchaseOrderDetails[3].tt_xpyhddeto_qty purchaseOrderDetails[3].tt_xpyhddeto_partnbr purchaseOrderDetails[3].tt_xpyhddeto_tt_xpyhddeto_oldQty

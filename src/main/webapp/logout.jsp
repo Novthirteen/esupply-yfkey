@@ -11,6 +11,10 @@ String contextPath = request.getContextPath();
 terminate.setPath(contextPath != null && contextPath.length() > 0 ? contextPath : "/");
 terminate.setMaxAge(0);
 response.addCookie(terminate);
+
 %>
 
-<c:redirect url="/home"/>
+<c:redirect url="/home">
+  <c:param name="cb"
+            value="<%=java.util.UUID.randomUUID().toString()%>"></c:param>
+</c:redirect>
