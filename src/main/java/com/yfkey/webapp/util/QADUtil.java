@@ -524,16 +524,18 @@ public final class QADUtil {
 			//bill.setTt_xprcmstro_type("0");                  //后面要加字段
 
 			//日期转一下格式,现在存到创建日期，发票日期给供应商维护
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
-			String dstr=om.getString("tt_xpyhddeto_invdate");  
-			if(dstr != null)
-			{
-			java.util.Date invDate=sdf.parse(dstr);  
+//			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
+//			String dstr=om.getString("tt_xpyhddeto_invdate");  
+//			if(dstr != null)
+//			{
+//			java.util.Date invDate=sdf.parse(dstr);  
+//			
+//			SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");  
+//			String invDateStr=sdft.format(invDate);  
+//			bill.setTt_xprcmstro_invdate(invDateStr);
+//			}
 			
-			SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");  
-			String invDateStr=sdft.format(invDate);  
-			bill.setTt_xprcmstro_invdate(invDateStr);
-			}
+			bill.setTt_xprcmstro_invdate(om.getString("tt_xpyhddeto_invdate"));
 			
 			billList.add(bill);
 
@@ -613,16 +615,18 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_type("1");
 
 			//日期转一下格式,现在存到创建日期，发票日期给供应商维护
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
-			String dstr=om.getString("tt_claimdeto_invdate");  
-			if(dstr != null)
-			{
-			java.util.Date invDate=sdf.parse(dstr);  
+//			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
+//			String dstr=om.getString("tt_claimdeto_invdate");  
+//			if(dstr != null)
+//			{
+//			java.util.Date invDate=sdf.parse(dstr);  
+//			
+//			SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");  
+//			String invDateStr=sdft.format(invDate);  
+//			bill.setTt_xprcmstro_invdate(invDateStr);
+//			}
 			
-			SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");  
-			String invDateStr=sdft.format(invDate);  
-			bill.setTt_xprcmstro_invdate(invDateStr);
-			}
+			bill.setTt_xprcmstro_invdate(om.getString("tt_claimdeto_invdate"));
 			
 			billList.add(bill);
 

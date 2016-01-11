@@ -20,11 +20,24 @@
 			<s:hidden key="bill.tt_xprcmstro_type" />
 			<s:hidden key="bill.tt_xprcmstro_stat" />
 		</div>
-		<div class="col-xs-4 search-group">
-			<s:textfield key="bill.tt_xprcmstro_createdate"
-				cssClass="form-control" readonly="true" />
 
-		</div>
+		<c:choose>
+			<c:when test="${bill.tt_xprcmstro_type eq '0'}">
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xprcmstro_createdate"
+						cssClass="form-control" readonly="true" />
+
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="col-xs-4 search-group">
+					<s:textfield key="bill.tt_xprcmstro_invdate"
+						cssClass="form-control" readonly="true" />
+
+				</div>
+			</c:otherwise>
+		</c:choose>
+
 	</div>
 	<div class="row">
 		<div class="col-xs-4 search-group">
@@ -214,7 +227,7 @@
 		class="table table-condensed table-striped table-hover" export="true">
 		<display:column property="tt_xpyhddeto_suppcode" escapeXml="false"
 			titleKey="billDetail.tt_xpyhddeto_suppcode" />
-			<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
+		<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
 			titleKey="billDetail.tt_xpyhddeto_partnbr" />
 		<display:column property="tt_xpyhddeto_receiver" escapeXml="false"
 			titleKey="billDetail.tt_xpyhddeto_receiver" />
