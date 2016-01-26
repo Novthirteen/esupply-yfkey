@@ -19,6 +19,7 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.yfkey.model.Asn;
 import com.yfkey.model.AsnDetail;
@@ -56,11 +57,27 @@ public class PrintASNUtil {
 	        	cb.setFontAndSize(baseFont, 8);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_yhdnbr() == null?"":asnDetail.getTt_xasndeto_yhdnbr(), 36, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(asnDetail.getTt_xasndeto_seq() == 0?i+1:asnDetail.getTt_xasndeto_seq() ), 84, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partnbr() == null?"": asnDetail.getTt_xasndeto_partnbr(), 120, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.endText();
+	        	
+	        	cb.beginText();
+	        	cb.setFontAndSize(baseFont, 7);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partnbr() == null?"": asnDetail.getTt_xasndeto_partnbr(), 117, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_supppart() == null?"":asnDetail.getTt_xasndeto_supppart(), 165, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_partdesc() == null?"":asnDetail.getTt_xasndeto_partdesc(), 230, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.endText();
+	        	
+	        	
+	        	PdfTemplate tp2 = cb.createTemplate(90, 60);
+				tp2.beginText();
+				tp2.setTextRenderingMode(PdfContentByte.TEXT_RENDER_MODE_FILL_CLIP);
+				tp2.setFontAndSize(baseFont, 7);
+				tp2.showText(asnDetail.getTt_xasndeto_partdesc() == null?"":asnDetail.getTt_xasndeto_partdesc());
+				tp2.endText();
+				cb.addTemplate(tp2, 200, baseDetailHeight-height*(i%lineCount));
+	        	
+	        	cb.beginText();
+	        	cb.setFontAndSize(baseFont, 8);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, asnDetail.getTt_xasndeto_uom() == null?"":asnDetail.getTt_xasndeto_uom(), 308, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(asnDetail.getTt_xasndeto_spq()), 344, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(asnDetail.getTt_xasndeto_spq()), 350, baseDetailHeight-height*(i%lineCount), 0);
 	        	
 	        	BigDecimal box = asnDetail.getTt_xasndeto_spq() == BigDecimal.ZERO?BigDecimal.ZERO:asnDetail.getTt_xasndeto_asnqty().divide(asnDetail.getTt_xasndeto_spq(),0,BigDecimal.ROUND_CEILING);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(box), 394, baseDetailHeight-height*(i%lineCount), 0);

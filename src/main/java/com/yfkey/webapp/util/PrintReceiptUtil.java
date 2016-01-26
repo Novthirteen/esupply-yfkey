@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.yfkey.model.Receipt;
 import com.yfkey.model.ReceiptDetail;
@@ -57,10 +58,32 @@ public class PrintReceiptUtil {
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_seq()), 126, 580-height*(i%lineCount), 0);
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_partnbr() == null?"":rd.getTt_prhdeto_partnbr(), 169, 580-height*(i%lineCount), 0);
         	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_suppcode() == null?"": rd.getTt_prhdeto_suppcode() , 238, 580-height*(i%lineCount), 0);
-        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_partdesc() == null?"":rd.getTt_prhdeto_partdesc(), 310, 580-height*(i%lineCount), 0);
-        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_uom() == null?"":rd.getTt_prhdeto_uom(), 372, 580-height*(i%lineCount), 0);
-        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_spq() == BigDecimal.ZERO?BigDecimal.ZERO:rd.getTt_prhdeto_spq()), 394, 580-height*(i%lineCount), 0);
-        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_revdqty() == BigDecimal.ZERO?BigDecimal.ZERO:rd.getTt_prhdeto_revdqty()), 420, 580-height*(i%lineCount), 0);
+        	cb.endText();
+        	
+        	
+        	PdfTemplate tp2 = cb.createTemplate(90, 60);
+			tp2.beginText();
+			tp2.setTextRenderingMode(PdfContentByte.TEXT_RENDER_MODE_FILL_CLIP);
+			tp2.setFontAndSize(baseFont, 7);
+			tp2.showText(rd.getTt_prhdeto_partdesc() == null?"":rd.getTt_prhdeto_partdesc());
+			tp2.endText();
+			cb.addTemplate(tp2, 268, 580-height*(i%lineCount));
+			
+        	cb.beginText();
+        	cb.setFontAndSize(baseFont, 8);
+        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, rd.getTt_prhdeto_uom() == null?"":rd.getTt_prhdeto_uom(), 375, 580-height*(i%lineCount), 0);
+        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_spq() == BigDecimal.ZERO?BigDecimal.ZERO:rd.getTt_prhdeto_spq()), 395, 580-height*(i%lineCount), 0);
+        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_delvqty() == BigDecimal.ZERO?BigDecimal.ZERO:rd.getTt_prhdeto_delvqty()), 430, 580-height*(i%lineCount), 0);
+        	
+        	//实收数和包装
+        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(rd.getTt_prhdeto_revdqty() == BigDecimal.ZERO?BigDecimal.ZERO:rd.getTt_prhdeto_revdqty()), 475, 580-height*(i%lineCount), 0);
+        	
+        	int pgCount = 0;
+        	if(!rd.getTt_prhdeto_spq().equals(BigDecimal.ZERO))
+        	{
+        		pgCount = rd.getTt_prhdeto_revdqty().divide(rd.getTt_prhdeto_spq(),2).intValue();
+        	}
+        	cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(pgCount), 510, 580-height*(i%lineCount), 0);
         	
         	
         	cb.endText();

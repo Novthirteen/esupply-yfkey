@@ -280,7 +280,7 @@
 			});
 
 	$('#tt_xprcmstro_invdate').datepicker({
-		format : "yyyymmdd",
+		format : "yyyy-mm-dd",
 		language : "${pageContext.response.locale}",
 		autoclose : true,
 		todayHighlight : true

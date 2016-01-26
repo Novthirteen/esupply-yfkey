@@ -232,8 +232,7 @@ public class BarcodeAction extends BaseAction {
 					for (PurchaseOrderDetail pod : purchaseOrderDetails) {
 
 						if (pod != null && pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != ""
-								&& pod.getTt_xpyhddeto_qty() != null
-								&& !pod.getTt_xpyhddeto_qty().equals("0")) {
+								&& pod.getTt_xpyhddeto_qty() != null && !pod.getTt_xpyhddeto_qty().equals("0")) {
 
 							ProDataObject objectMstr = exDataGraph.createProDataObject("tt_bcdet_in");
 							objectMstr.setString(0, pod.getTt_xpyhddeto_partnbr());
@@ -302,31 +301,31 @@ public class BarcodeAction extends BaseAction {
 			throws PrintBarcodeNotValidException {
 
 		List<Object> args = new ArrayList<Object>();
-        Boolean allZero = true;
+		Boolean allZero = true;
 		if (purchaseOrderDetails != null && purchaseOrderDetails.size() > 0) {
 			for (PurchaseOrderDetail d : purchaseOrderDetails) {
 				try {
-					Integer qty = Integer.parseInt(d.getTt_xpyhddeto_qty());
+					if (d != null) {
+						Integer qty = Integer.parseInt(d.getTt_xpyhddeto_qty());
 
-					if (qty instanceof Integer == false) {
-						args.add(qty);
-						throw new PrintBarcodeNotValidException(getText("barcode.qty_format_error", args));
-					}
-					if (qty < 0) {
+						if (qty instanceof Integer == false) {
+							args.add(qty);
+							throw new PrintBarcodeNotValidException(getText("barcode.qty_format_error", args));
+						}
+						if (qty < 0) {
 
-						args.add(d.getTt_xpyhddeto_partnbr());
-						throw new PrintBarcodeNotValidException(getText("barcode.qty_less_than_zero", args));
-					}
-					
-					if(qty > d.getTt_xpyhddeto_oldQty())
-					{
-						args.add(qty);
-						args.add(d.getTt_xpyhddeto_oldQty());
-						throw new PrintBarcodeNotValidException(getText("barcode.oldqty_less_than_Qty", args));
-					}
-					if(qty > 0 && allZero)
-					{
-						allZero = false;
+							args.add(d.getTt_xpyhddeto_partnbr());
+							throw new PrintBarcodeNotValidException(getText("barcode.qty_less_than_zero", args));
+						}
+
+						if (qty > d.getTt_xpyhddeto_oldQty()) {
+							args.add(qty);
+							args.add(d.getTt_xpyhddeto_oldQty());
+							throw new PrintBarcodeNotValidException(getText("barcode.oldqty_less_than_Qty", args));
+						}
+						if (qty > 0 && allZero) {
+							allZero = false;
+						}
 					}
 				} catch (NumberFormatException e) {
 					args.add(d.getTt_xpyhddeto_qty());
@@ -334,9 +333,8 @@ public class BarcodeAction extends BaseAction {
 				}
 
 			}
-			
-			if(allZero)
-			{
+
+			if (allZero) {
 				throw new PrintBarcodeNotValidException(getText("barcode.qty_all_empty"));
 			}
 		}
