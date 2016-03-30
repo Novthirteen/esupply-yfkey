@@ -57,13 +57,13 @@
 					key="purchaseOrderDetail.tt_xpyhddeto_supppart" />
 			</div>
 
-			<div class="col-xs-3 search-group layouttrim">
+			<div class="col-xs-6 search-group layouttrim">
 				<s:radio key="purchaseOrderDetail.isexternal" listValue="value"
 					value="0" listKey="label" list="packageList" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3 search-group layouttrim">
+			<div class="col-xs-12 search-group layouttrim">
 				<s:submit type="button" cssClass="btn btn-primary" action="barcodes"
 					key="button.search" theme="simple">
 					<i class="icon-search icon-white"></i>
@@ -75,13 +75,20 @@
 					<i class="icon-print icon-white"></i>
 					<fmt:message key="button.print" />
 				</s:submit>
+				
+				<s:submit type="button" cssClass="btn btn-primary"
+					action="printAllBarcode" key="button.printAll" theme="simple">
+					<i class="icon-print icon-white"></i>
+					<fmt:message key="button.printAll" />
+				</s:submit>
+				
 
 			</div>
 		</div>
 		<hr>
 
 		<display:table name="purchaseOrderDetails" cellspacing="0"
-			pagesize="10" defaultsort="1" cellpadding="0"
+			pagesize="25" defaultsort="1" cellpadding="0"
 			id="purchaseOrderDetail"
 			class="table table-condensed table-striped table-hover"
 			requestURI="barcodes" export="false"

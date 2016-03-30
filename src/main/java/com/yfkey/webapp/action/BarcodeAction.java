@@ -289,6 +289,99 @@ public class BarcodeAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	public String printAll() {
+		try {
+
+			checkPrintAllBarcode(purchaseOrderDetails);
+			if (ConnectQAD()) {
+
+				//重新按条件查一遍
+				query();
+
+				
+				String userCode = this.getRequest().getRemoteUser();
+				@SuppressWarnings("unchecked")
+				List<String> supplierCodeList = getSupplierCodeList(
+						purchaseOrderDetail != null ? purchaseOrderDetail.getTt_xpyhddeto_suppcode() : "");
+
+				String domain = getCurrentDomain();
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxprint_barcode_DSMetaData1());
+				for (int i = 0; i < supplierCodeList.size(); i++) {
+					ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
+					String supCode = supplierCodeList.get(i);
+					object.setString(0, domain);
+					object.setString(1, supCode);
+
+					exDataGraph.addProDataObject(object);
+				}
+
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");// 设置日期格式
+				String currDate = df.format(new Date());
+
+				if (purchaseOrderDetails != null) {
+					for (PurchaseOrderDetail pod : purchaseOrderDetails) {
+
+						if (pod != null && pod.getTt_xpyhddeto_lots() != null && pod.getTt_xpyhddeto_lots() != ""
+								&& pod.getTt_xpyhddeto_qty() != null && !pod.getTt_xpyhddeto_qty().equals("0")) {
+
+							ProDataObject objectMstr = exDataGraph.createProDataObject("tt_bcdet_in");
+							objectMstr.setString(0, pod.getTt_xpyhddeto_partnbr());
+							objectMstr.setString(1, pod.getTt_xpyhddeto_lots());
+							objectMstr.setBigDecimal(2, new BigDecimal(pod.getTt_xpyhddeto_qty()));
+							objectMstr.setString(3, currDate);
+							// objectMstr.setString("tt_bcdeti_domain",
+							// value);
+							objectMstr.setString(4, pod.getTt_xpyhddeto_xpyhddetoid());
+							objectMstr.setString(5, purchaseOrderDetail.getIsexternal());
+
+							exDataGraph.addProDataObject(objectMstr);
+						}
+
+					}
+				}
+
+				yfkssScp.xxprint_barcode(exDataGraph, outputData);
+
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> errotOutDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_err_out");
+				if (errotOutDataList != null && errotOutDataList.size() > 0) {
+					throw new QadException(getQadErrorMessage(errotOutDataList));
+				}
+
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_bcdet_out");
+
+				List<Barcode> barcodeList = QADUtil.ConvertToBarcode(outDataList);
+
+				// printBarcode(barcodeList);
+
+				String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+				inputStream = PrintBarcodeUtil.printBarcode(localAbsolutPath, barcodeList, userCode);
+
+				fileName = "barcode.pdf";
+
+			}
+		} catch (QadException ex) {
+			addActionError(ex.getMessage());
+			list();
+			return INPUT;
+		} catch (PrintBarcodeNotValidException ex) {
+			addActionError(ex.getMessage());
+			list();
+			return INPUT;
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			return INPUT;
+		}
+
+		return SUCCESS;
+	}
+
 	public List<LabelValue> getPackageList() {
 		List<LabelValue> packageList = new ArrayList<LabelValue>();
 		packageList.add(new LabelValue("0", getText("package.inner")));
@@ -337,6 +430,24 @@ public class BarcodeAction extends BaseAction {
 			if (allZero) {
 				throw new PrintBarcodeNotValidException(getText("barcode.qty_all_empty"));
 			}
+		}
+	}
+
+	private void checkPrintAllBarcode(List<PurchaseOrderDetail> purchaseOrderDetails)
+			throws PrintBarcodeNotValidException {
+
+		List<Object> args = new ArrayList<Object>();
+		Boolean allZero = true;
+		if (purchaseOrderDetails != null && purchaseOrderDetails.size() > 0) {
+			for (PurchaseOrderDetail d : purchaseOrderDetails) {
+				if (d != null) {
+					allZero = false;
+					break;
+				}
+			}			
+		}
+		if (allZero) {
+			throw new PrintBarcodeNotValidException(getText("barcode.qty_all_empty"));
 		}
 	}
 
