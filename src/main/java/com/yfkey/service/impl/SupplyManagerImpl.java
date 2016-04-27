@@ -28,6 +28,7 @@ import com.yfkey.model.UserPermission;
 import com.yfkey.model.UserRole;
 import com.yfkey.service.UniversalManager;
 import com.yfkey.service.UserManager;
+import com.yfkey.util.NativeSqlRepository;
 import com.yfkey.service.SupplyManager;
 
 /**
@@ -48,8 +49,8 @@ public class SupplyManagerImpl extends GenericManagerImpl<User, String>implement
 		List<LabelValue> lvList = new ArrayList<LabelValue>();
 
 		List<String[]> permissionCodeList = universalManager.findByNativeSql(
-				"select permission_code,permission_name from permission_view where permission_type = ? and username = ? and permission_code like ?",
-				new Object[] { PermissionType.S.toString(), usercode, domain+"%"});
+				"select permission_code,permission_name from ("+NativeSqlRepository.SELECT_PERMISSION_VIEW_STATEMENT+") p",
+				new Object[] { usercode,PermissionType.S.toString(),  domain+"%",usercode,PermissionType.S.toString(),  domain+"%"});
 		
 		if(permissionCodeList != null && permissionCodeList.size()>0)
 		{

@@ -552,6 +552,10 @@ public class BillAction extends BaseAction {
 		if (bill.getTt_xprcmstro_invdate() == null || bill.getTt_xprcmstro_invdate().equals("")) {
 			throw new BillConfirmNotValidException(getText("bill.invdate_empty"));
 		}
+		
+		if (bill.getTt_xprcmstro_indexinvnbr() == null || bill.getTt_xprcmstro_indexinvnbr().equals("")) {
+			throw new BillConfirmNotValidException(getText("bill.indexinvnbr_empty"));
+		}
 
 		try {
 			Integer qty = Integer.parseInt(bill.getTt_xprcmstro_qty());

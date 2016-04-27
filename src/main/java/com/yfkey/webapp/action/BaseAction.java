@@ -15,6 +15,8 @@ import com.yfkey.model.UserPasswordLog;
 import com.yfkey.service.MailEngine;
 import com.yfkey.service.RoleManager;
 import com.yfkey.service.UserManager;
+import com.yfkey.util.NativeSqlRepository;
+
 import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.HttpServletRequest;
@@ -287,8 +289,8 @@ public class BaseAction extends ActionSupport {
 		List<String> supplierCodeList = new ArrayList<String>();
 		@SuppressWarnings("unchecked")
 		List<String> permissionCodeList = universalManager.findByNativeSql(
-				"select permission_code from permission_view where permission_type = ? and username = ? and permission_code like ?",
-				new Object[] { PermissionType.S.toString(), userCode, domain + "%" });
+				"select permission_code from (" +NativeSqlRepository.SELECT_PERMISSION_VIEW_STATEMENT +") p",
+				new Object[] {userCode,  PermissionType.S.toString(), domain + "%",userCode,  PermissionType.S.toString(), domain + "%" });
 
 		if (permissionCodeList != null && permissionCodeList.size() > 0) {
 			for (String code : permissionCodeList) {
@@ -319,8 +321,8 @@ public class BaseAction extends ActionSupport {
 		List<String> supplierCodeList = new ArrayList<String>();
 		@SuppressWarnings("unchecked")
 		List<String> permissionCodeList = universalManager.findByNativeSql(
-				"select permission_code from permission_view where permission_type = ? and username = ? and permission_code like ?",
-				new Object[] { PermissionType.S.toString(), userCode, domain + "%" });
+				"select permission_code from ("+NativeSqlRepository.SELECT_PERMISSION_VIEW_STATEMENT +") p",
+				new Object[] { userCode,PermissionType.S.toString(),  domain + "%",userCode,PermissionType.S.toString(),  domain + "%" });
 
 		if (permissionCodeList != null && permissionCodeList.size() > 0) {
 			for (String code : permissionCodeList) {

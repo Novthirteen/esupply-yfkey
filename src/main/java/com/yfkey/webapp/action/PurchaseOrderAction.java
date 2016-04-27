@@ -261,13 +261,13 @@ public class PurchaseOrderAction extends BaseAction {
 
 				if (ConnectQAD()) {
 
-//					// 鍏堟竻绌轰竴涓�
-//					if (purchaseOrder != null) {
-//						purchaseOrder = new PurchaseOrder();
-//					}
-//					if (purchaseOrderDetails != null) {
-//						purchaseOrderDetails.clear();
-//					}
+					// // 鍏堟竻绌轰竴涓�
+					// if (purchaseOrder != null) {
+					// purchaseOrder = new PurchaseOrder();
+					// }
+					// if (purchaseOrderDetails != null) {
+					// purchaseOrderDetails.clear();
+					// }
 
 					ProDataGraph exDataGraph; // 杈撳叆鍙傛暟
 					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 杈撳嚭鍙傛暟
@@ -288,7 +288,8 @@ public class PurchaseOrderAction extends BaseAction {
 
 					List<Object> objList = QADUtil.ConvertToShipPurchaseOrderAndDetail(outDataList);
 
-					if (purchaseOrder != null && purchaseOrder.getHasShipError()!= null &&purchaseOrder.getHasShipError()) {
+					if (purchaseOrder != null && purchaseOrder.getHasShipError() != null
+							&& purchaseOrder.getHasShipError()) {
 						purchaseOrder.setHasShipError(false);
 
 						List<PurchaseOrderDetail> oldPurchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
@@ -435,16 +436,18 @@ public class PurchaseOrderAction extends BaseAction {
 
 				if (purchaseOrderDetails != null && purchaseOrderDetails.size() > 0) {
 					for (PurchaseOrderDetail pod : purchaseOrderDetails) {
-						ProDataObject object = exDataGraph.createProDataObject("tt_xasndet_in");
-						object.setString(0, pod.getTt_xpyhddeto_xpyhddetoid());
-						object.setBigDecimal(1, new BigDecimal(pod.getTt_xpyhddeto_delvqty()));
-						object.setString(2, purchaseOrder.getRemark());
-						object.setString(3, pod.getLine_remark());
-						object.setString(4, userCode);
-						object.setString(5, "-1");
-						object.setString(6, "-1");
+						if (new BigDecimal(pod.getTt_xpyhddeto_delvqty()).compareTo(BigDecimal.ZERO) == 1) {
+							ProDataObject object = exDataGraph.createProDataObject("tt_xasndet_in");
+							object.setString(0, pod.getTt_xpyhddeto_xpyhddetoid());
+							object.setBigDecimal(1, new BigDecimal(pod.getTt_xpyhddeto_delvqty()));
+							object.setString(2, purchaseOrder.getRemark());
+							object.setString(3, pod.getLine_remark());
+							object.setString(4, userCode);
+							object.setString(5, "-1");
+							object.setString(6, "-1");
 
-						exDataGraph.addProDataObject(object);
+							exDataGraph.addProDataObject(object);
+						}
 					}
 				}
 
@@ -990,7 +993,8 @@ public class PurchaseOrderAction extends BaseAction {
 	}
 
 	private void checkShipQty(List<PurchaseOrderDetail> purchaseOrderDetailList) throws ShipQtyNotValidException {
-
+		
+		Boolean allZero = true;
 		for (PurchaseOrderDetail d : purchaseOrderDetailList) {
 			List<Object> args = new ArrayList<Object>();
 
@@ -1002,19 +1006,27 @@ public class PurchaseOrderAction extends BaseAction {
 					throw new ShipQtyNotValidException(getText("purchaseOrder.delvqty_format_error", args));
 				}
 
-				if (delvqty.compareTo(BigDecimal.ZERO) < 1) {
+				if (delvqty.compareTo(BigDecimal.ZERO) < 0) {
 					args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
 					throw new ShipQtyNotValidException(getText("purchaseOrder.shipqty_less_than_zero", args));
-				} else if (delvqty.compareTo(d.getTt_xpyhddeto_openqty()) > 0) {
+				} 
+				if (delvqty.compareTo(d.getTt_xpyhddeto_openqty()) > 0) {
 					args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
 					throw new ShipQtyNotValidException(getText("purchaseOrder.openqty_less_than_shipqty", args));
 
+				}
+				if (delvqty.compareTo(BigDecimal.ZERO) == 1 && allZero) {
+					allZero = false;
 				}
 			} catch (NumberFormatException e) {
 				args.add(String.valueOf(d.getTt_xpyhddeto_seq()));
 				throw new ShipQtyNotValidException(getText("purchaseOrder.delvqty_format_error", args));
 			}
 
+		}
+		
+		if (allZero) {
+			throw new ShipQtyNotValidException(getText("purchaseOrder.delvqty_all_empty"));
 		}
 
 	}

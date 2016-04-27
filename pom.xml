@@ -127,7 +127,7 @@
 		<amp.genericCore>true</amp.genericCore>
 		<amp.fullSource>false</amp.fullSource>
 		<dao.framework>hibernate</dao.framework>
-		<db.name>esupply</db.name>
+		<db.name>scpprod</db.name>
 		<web.framework>struts</web.framework>
 
 		<!-- Framework/Plugin versions -->
@@ -139,7 +139,7 @@
 
 		<!-- Database settings -->
 		<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
-		<hibernate.show_sql>true</hibernate.show_sql>
+		<hibernate.show_sql>false</hibernate.show_sql>
 		<hibernate.format_sql>true</hibernate.format_sql>
 		<hibernate.use_sql_comments>true</hibernate.use_sql_comments>
 		<jdbc.groupId>mysql</jdbc.groupId>
@@ -147,8 +147,8 @@
 		<jdbc.version>5.1.27</jdbc.version>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
-		<jdbc.username>root</jdbc.username>
-		<jdbc.password />
+		<jdbc.username>yfkssscp</jdbc.username>
+		<jdbc.password>0plm9okn</jdbc.password>
 		<jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
 
 		<maven.test.skip>true</maven.test.skip>

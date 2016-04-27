@@ -89,9 +89,10 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, String>implement
 
 	private void loadUserPermission(User user) {
 
-		Collection<UserAuthority> userAuthorities = getSession().createCriteria(UserAuthority.class)
-				.add(Restrictions.eq("username", user.getUsername())).list();
-
+		Collection<UserAuthority> userAuthorities  = universalDao.findByNativeSql(UserAuthority.class,
+				NativeSqlRepository.SELECT_USER_PERMISSION_STATEMENT,
+				new Object[] { user.getUsername(), user.getUsername() });
+		
 		if (CollectionHelper.isNotEmpty(userAuthorities)) {
 			for (UserAuthority userAuthoritiy : userAuthorities) {
 				if (userAuthoritiy.getPermissionType() == PermissionType.U) {
@@ -110,7 +111,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, String>implement
 	private void loadUserMenu(User user) {
 		List<Menu> authorityMenuList = universalDao.findByNativeSql(Menu.class,
 				NativeSqlRepository.SELECT_USER_MENU_STATEMENT,
-				new Object[] { user.getUsername(), user.getUsername() });
+				new Object[] { user.getUsername(), user.getUsername(),user.getUsername(), user.getUsername(),user.getUsername(), user.getUsername() });
 
 		if (CollectionHelper.isNotEmpty(authorityMenuList)) {
 			List<UserMenu> userMenus = new ArrayList<UserMenu>();
