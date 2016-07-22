@@ -515,7 +515,9 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			bill.setTt_xprcmstro_indexinvnbr(om.getString("tt_xpyhddeto_indexinvnbr"));
 			bill.setTt_xpyhddeto_disamt(String.valueOf(om.getBigDecimal("tt_xpyhddeto_disamt")));
-	
+			
+			bill.setTt_xpyhddeto_spname(om.getString("tt_xpyhddeto_spname"));
+		
 			BigDecimal notaxamt = om.getBigDecimal("tt_xpyhddeto_notaxamt");
 			BigDecimal taxamt = om.getBigDecimal("tt_xpyhddeto_taxamt");
 			
@@ -554,6 +556,9 @@ public final class QADUtil {
 				bd.setTt_xpyhddeto_rcdate(o.getString("tt_xpyhddeto_rcdate"));
 				bd.setTt_xpyhddeto_rcqty(o.getBigDecimal("tt_xpyhddeto_rcqty"));
 				bd.setTt_xpyhddeto_suppcode(o.getString("tt_xpyhddeto_suppcode"));
+				
+			
+				bd.setTt_xpyhddeto_ponbr(o.getString("tt_xpyhddeto_ponbr"));
 				billDetailList.add(bd);
 				i++;
 

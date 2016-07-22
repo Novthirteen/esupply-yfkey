@@ -453,26 +453,22 @@ public class PurchaseOrderAction extends BaseAction {
 
 				yfkssScp.xxcreate_xasndet(exDataGraph, outputData);
 
+				
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> errotOutDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_err_out");
+
+				if (errotOutDataList != null && errotOutDataList.size() > 0) {
+					throw new QadException(getQadErrorMessage(errotOutDataList));
+				}
+				
+				
 				@SuppressWarnings("unchecked")
 				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
 						.getProDataObjects("tt_xasndet_out");
 
 				List<Object> args = new ArrayList<Object>();
-				// if (outDataList != null && outDataList.size() > 0) {
-				// String asnNo = "";
-				// for (ProDataObject p : outDataList) {
-				// String currAsnNo = p.getString("tt_xasndeto_asnnbr");
-				// if (asnNo.equals("")) {
-				// asnNo = currAsnNo;
-				// } else {
-				// if(!asnNo.contains(currAsnNo))
-				// {
-				// asnNo += "," + p.getString("tt_xasndeto_asnnbr");
-				// }
-				// }
-				// }
-				// args.add(asnNo);
-				// }
+				
 
 				if (outDataList != null && outDataList.size() > 0) {
 					ProDataObject p = outDataList.get(0);
@@ -482,9 +478,17 @@ public class PurchaseOrderAction extends BaseAction {
 				saveMessage(getText("ship.success", args));
 			} else {
 				purchaseOrder = new PurchaseOrder();
+				
+				
 			}
 
 		} catch (ShipQtyNotValidException ex) {
+			addActionError(ex.getMessage());
+			tt_xpyhddeti_xpyhmstroid = purchaseOrder.getTt_xpyhmstro_xpyhmstroid();
+			purchaseOrder.setHasShipError(true);
+			shipEdit();
+			return INPUT;
+		} catch (QadException ex) {
 			addActionError(ex.getMessage());
 			tt_xpyhddeti_xpyhmstroid = purchaseOrder.getTt_xpyhmstro_xpyhmstroid();
 			purchaseOrder.setHasShipError(true);

@@ -21,7 +21,7 @@
     	</li>
 	</ul>
 	
-	<c:if test="${not empty sessionScope.forceChangePassword}">
+	<c:if test="${sessionScope.forceChangePassword}">
 		<div class="modal fade" id="changePasswordModal" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

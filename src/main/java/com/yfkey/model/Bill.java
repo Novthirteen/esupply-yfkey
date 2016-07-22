@@ -50,6 +50,9 @@ public class Bill extends BaseObject {
 	
 	private Boolean hasError; //校验失败后用
 	
+	private String tt_xpyhddeto_spname;                    //供应商名称
+
+	
 	List<BillDetail> billDetailList;
 
 	public int getTt_xprcmstro_seq() {
@@ -271,6 +274,17 @@ public class Bill extends BaseObject {
 	public void setTt_claimdeto_billno(String tt_claimdeto_billno) {
 		this.tt_claimdeto_billno = tt_claimdeto_billno;
 	}
+
+	
+	public String getTt_xpyhddeto_spname() {
+		return tt_xpyhddeto_spname;
+	}
+
+	public void setTt_xpyhddeto_spname(String tt_xpyhddeto_spname) {
+		this.tt_xpyhddeto_spname = tt_xpyhddeto_spname;
+	}
+
+
 
 	@Override
 	public String toString() {

@@ -137,7 +137,10 @@
 		<progress.version>1.0.0</progress.version>
 		<itextpdf.version>5.0.6</itextpdf.version>
 
+
+
 		<!-- Database settings -->
+		
 		<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
 		<hibernate.show_sql>false</hibernate.show_sql>
 		<hibernate.format_sql>true</hibernate.format_sql>

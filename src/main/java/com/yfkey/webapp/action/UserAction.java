@@ -57,7 +57,6 @@ public class UserAction extends BaseAction implements Preparable {
 	private Boolean canDelete;
 	private Boolean canAssignUserPermission;
 	private Boolean canAssignUserRole;
-	
 
 	/**
 	 * Holder for users to display on list screen
@@ -188,43 +187,42 @@ public class UserAction extends BaseAction implements Preparable {
 
 	public String home() throws PrincipalNullException {
 		HttpSession session = this.getRequest().getSession();
- 		if (session.getAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK) == null) {
-			try {
-				user = SecurityContextHelper.getRemoteUser();
-				
-				
-			} catch (PrincipalNullException e) {
-				return ERROR;
-			}
 
-			if(user.isNeedUpdatePassword())
-			{
-				session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
-			}
-			if (user.isEnforcePassword()) {
-				List<UserPasswordLog> userPasswordLogList = this.universalManager.findByHql(
-						"from UserPasswordLog where username = ? order by createDate desc", user.getUsername(), 1);
-
-				if (userPasswordLogList != null && userPasswordLogList.size() > 0) {
-					Calendar cal = Calendar.getInstance();
-					cal.add(Calendar.MONTH, -3);
-
-					if (userPasswordLogList.get(0).getCreateDate().compareTo(cal.getTime()) < 0) {
-						user.setConfirmPassword(user.getPassword());
-						session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
-					}
-				} else {
-					UserPasswordLog userPasswordLog = new UserPasswordLog();
-					userPasswordLog.setUsername(user.getUsername());
-					userPasswordLog.setPassword(user.getPassword());
-					userPasswordLog.setCreateDate(new Timestamp((new Date()).getTime()));
-
-					this.universalManager.save(userPasswordLog);
-				}
-			}
-
-			session.setAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK, true);
+		try {
+			user = SecurityContextHelper.getRemoteUser();
+			session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, false);
+			
+		} catch (PrincipalNullException e) {
+			return ERROR;
 		}
+
+		if (user.isNeedUpdatePassword()) {
+			session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
+		}
+		if (user.isEnforcePassword()) {
+			List<UserPasswordLog> userPasswordLogList = this.universalManager.findByHql(
+					"from UserPasswordLog where username = ? order by createDate desc", user.getUsername(), 1);
+
+			if (userPasswordLogList != null && userPasswordLogList.size() > 0) {
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.MONTH, -3);
+
+				if (userPasswordLogList.get(0).getCreateDate().compareTo(cal.getTime()) < 0) {
+					user.setConfirmPassword(user.getPassword());
+					session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
+				}
+			} else {
+				UserPasswordLog userPasswordLog = new UserPasswordLog();
+				userPasswordLog.setUsername(user.getUsername());
+				userPasswordLog.setPassword(user.getPassword());
+				userPasswordLog.setCreateDate(new Timestamp((new Date()).getTime()));
+
+				this.universalManager.save(userPasswordLog);
+			}
+		}
+//		if (session.getAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK) == null) {
+//			session.setAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK, false);
+//		}
 
 		if (session.getAttribute(Constants.SELECTED_USER_PLANT) == null) {
 			Collection<UserAuthority> userPlants = SecurityContextHelper.getRemoteUserPlants();
@@ -233,9 +231,9 @@ public class UserAction extends BaseAction implements Preparable {
 				addActionError(getText("user.noAvailablePlant"));
 				return ERROR;
 			} else {
-				//if (userPlants.size() == 1) {
-					session.setAttribute(Constants.SELECTED_USER_PLANT, userPlants.iterator().next().getAuthority());
-				//}
+				// if (userPlants.size() == 1) {
+				session.setAttribute(Constants.SELECTED_USER_PLANT, userPlants.iterator().next().getAuthority());
+				// }
 
 				if (session.getAttribute(Constants.AVAILABLE_USER_PLANTS) == null) {
 					List<LabelValue> availableUserPlants = new ArrayList<LabelValue>();
@@ -244,13 +242,12 @@ public class UserAction extends BaseAction implements Preparable {
 								.add(new LabelValue(userAuthority.getAuthorityName(), userAuthority.getAuthority()));
 					}
 
-					//availableUserPlants.sort(labelValueComparator);
+					// availableUserPlants.sort(labelValueComparator);
 
 					session.setAttribute(Constants.AVAILABLE_USER_PLANTS, availableUserPlants);
 				}
-				
-				if(user.getDomain() != null && !"".equals(user.getDomain()))
-				{
+
+				if (user.getDomain() != null && !"".equals(user.getDomain())) {
 					session.setAttribute(Constants.SELECTED_USER_PLANT, user.getDomain());
 				}
 			}
@@ -299,9 +296,6 @@ public class UserAction extends BaseAction implements Preparable {
 		} else {
 			user = new User();
 		}
-
-	
-	
 
 		return SUCCESS;
 	}
@@ -431,7 +425,8 @@ public class UserAction extends BaseAction implements Preparable {
 				assignedPermissions = null;
 			}
 			String domain = this.getCurrentDomain();
-			this.userManager.saveUserPermission(username, domain,PermissionType.valueOf(permissionType), assignedPermissions);
+			this.userManager.saveUserPermission(username, domain, PermissionType.valueOf(permissionType),
+					assignedPermissions);
 		} catch (Exception ex) {
 			saveErrorForUnexpectException(ex);
 			prepare();
@@ -501,10 +496,11 @@ public class UserAction extends BaseAction implements Preparable {
 				args.add("%" + user.getFirstName() + "%");
 			}
 
-//			if (user.getLastName() != null && user.getLastName().trim().length() != 0) {
-//				hql += "and lastName like ? ";
-//				args.add("%" + user.getLastName() + "%");
-//			}
+			// if (user.getLastName() != null &&
+			// user.getLastName().trim().length() != 0) {
+			// hql += "and lastName like ? ";
+			// args.add("%" + user.getLastName() + "%");
+			// }
 		}
 
 		users = universalManager.findByHql(hql, args.toArray());
@@ -526,13 +522,13 @@ public class UserAction extends BaseAction implements Preparable {
 			prepareAssignPermission();
 			prepareAssignRole();
 		}
-		
+
 		// 按钮权限
 		canSave = false;
 		canDelete = false;
 		canAssignUserPermission = false;
 		canAssignUserRole = false;
-		
+
 		List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
 		if (userButtons != null && userButtons.size() > 0) {
 			for (UserAuthority u : userButtons) {
@@ -542,20 +538,17 @@ public class UserAction extends BaseAction implements Preparable {
 				if (!canDelete && u.getAuthority().equals("DeleteUser")) {
 					canDelete = true;
 				}
-				if(!canAssignUserPermission && u.getAuthority().equals("AssignUserPermission"))
-				{
+				if (!canAssignUserPermission && u.getAuthority().equals("AssignUserPermission")) {
 					canAssignUserPermission = true;
 				}
-				if(!canAssignUserRole && u.getAuthority().equals("AssignUserRole"))
-				{
+				if (!canAssignUserRole && u.getAuthority().equals("AssignUserRole")) {
 					canAssignUserRole = true;
 				}
 			}
 		}
 	}
-	
-	
-	public String logout(){
+
+	public String logout() {
 		return SUCCESS;
 	}
 

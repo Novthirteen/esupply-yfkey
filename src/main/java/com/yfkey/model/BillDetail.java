@@ -32,6 +32,9 @@ public class BillDetail extends BaseObject {
 	private String tt_xpyhddeto_remark;                    //备注
 	private String tt_xpyhddeto_suppcode;                  //供应商代码
 	
+
+	private String tt_xpyhddeto_ponbr;                     //采购单
+	
 	public String getTt_xpyhddeto_xpyhddetoid() {
 		return tt_xpyhddeto_xpyhddetoid;
 	}
@@ -132,6 +135,15 @@ public class BillDetail extends BaseObject {
 	}
 	public void setTt_xpyhddeto_suppcode(String tt_xpyhddeto_suppcode) {
 		this.tt_xpyhddeto_suppcode = tt_xpyhddeto_suppcode;
+	}
+	
+	
+
+	public String getTt_xpyhddeto_ponbr() {
+		return tt_xpyhddeto_ponbr;
+	}
+	public void setTt_xpyhddeto_ponbr(String tt_xpyhddeto_ponbr) {
+		this.tt_xpyhddeto_ponbr = tt_xpyhddeto_ponbr;
 	}
 	@Override
 	public int hashCode() {

@@ -31,7 +31,7 @@
 		<Logger name="org.dbunit" level="warn" />
 		<Logger name="org.hibernate" level="warn" />
 		<!-- Uncomment if you want to see Hibernate's SQL -->
-		<Logger name="org.hibernate.SQL" level="warn" />
+		<Logger name="org.hibernate.SQL" level="debug" />
 		<Logger name="org.hibernate.type" level="warn" />
 		<Logger name="org.springframework" level="warn" />
 		<Logger name="com.yfkey" level="warn" />

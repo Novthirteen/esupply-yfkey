@@ -56,16 +56,17 @@ public class PrintBillUtil {
 	        	BillDetail billDetail = bill.getBillDetailList().get(i);
 	        	cb.beginText();
 	        	cb.setFontAndSize(baseFont, 8);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, bill.getTt_suppcodei_suppcode()== null?"":bill.getTt_suppcodei_suppcode(), 26, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_ponbr()== null?"":billDetail.getTt_xpyhddeto_ponbr(), 26, baseDetailHeight-height*(i%lineCount), 0);
+	        	//cb.showTextAligned(PdfContentByte.ALIGN_LEFT, bill.getTt_suppcodei_suppcode()== null?"":bill.getTt_suppcodei_suppcode(), 26, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_partnbr() == null?"":billDetail.getTt_xpyhddeto_partnbr(), 93, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_voucher() == null?"": billDetail.getTt_xpyhddeto_voucher(), 165, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_receiver() == null?"": billDetail.getTt_xpyhddeto_receiver(), 165, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_seq()), 232, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_rcqty()), 260, baseDetailHeight-height*(i%lineCount), 0);
 	        	//cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(i+1), 345, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_poprice()), 298, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_uom()== null?"":billDetail.getTt_xpyhddeto_uom(), 355, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invprice()), 414, baseDetailHeight-height*(i%lineCount), 0);
-	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invamt()), 474, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invprice()), 385, baseDetailHeight-height*(i%lineCount), 0);
+	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(billDetail.getTt_xpyhddeto_invamt()), 445, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_partdesc()== null?"":billDetail.getTt_xpyhddeto_partdesc(), 504, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_receiver()== null?"": billDetail.getTt_xpyhddeto_receiver(), 686, baseDetailHeight-height*(i%lineCount), 0);
 	        	cb.showTextAligned(PdfContentByte.ALIGN_LEFT, billDetail.getTt_xpyhddeto_rcdate()== null?"":billDetail.getTt_xpyhddeto_rcdate(), 765, baseDetailHeight-height*(i%lineCount), 0);
@@ -94,6 +95,15 @@ public class PrintBillUtil {
 			cb.beginText();
 			cb.setFontAndSize(baseFont, 9);
 			cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "No/Nb: "+String.valueOf(pageNum)+"/"+String.valueOf(pageCount), 780, 570, 0);
+			
+			
+			
+			//供应商名称
+	        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, bill.getTt_xpyhddeto_spname(), 160, 450, 0);
+	        //No。号
+	        cb.showTextAligned(PdfContentByte.ALIGN_LEFT, bill.getTt_xprcmstro_voucher(), 685, 450, 0);
+	        
+	        
 			if(pageNum == pageCount)
 			{
 				cb.setFontAndSize(baseFont, 8);
@@ -102,6 +112,9 @@ public class PrintBillUtil {
 				cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "合计发票金额:", 644, 28.8f, 0);
 				cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(bill.getTt_xprcmstro_totalamt()), 704, 28.8f, 0);
 			}
+			
+			
+			
 			/*SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			cb.beginText();
 			cb.setFontAndSize(baseFont, 11);

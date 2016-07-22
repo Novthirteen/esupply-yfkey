@@ -140,7 +140,7 @@
 			</c:if>
 		</div>
 
-		<c:if test="${empty sessionScope.forceChangePassword}">
+		<c:if test="${!sessionScope.forceChangePassword}">
 			<%@ include file="/common/messages.jsp"%>
 		</c:if>
 		<div class="row">
