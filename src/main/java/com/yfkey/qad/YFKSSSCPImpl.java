@@ -351,7 +351,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xpyhmstr_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xpyhmstr_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xpyhmstr_DSMetaData1.addTable(xxinquiry_xpyhmstr_MetaData11);
-		xxinquiry_xpyhmstr_MetaData12 = new ProDataObjectMetaData("tt_xpyhmstr_in", 9, false, 0, null, null, null);
+		xxinquiry_xpyhmstr_MetaData12 = new ProDataObjectMetaData("tt_xpyhmstr_in", 10, false, 0, null, null, null);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(1, "tt_xpyhmstri_yhdnbr", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(2, "tt_xpyhmstri_stat", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(3, "tt_xpyhmstri_startdt", 0, Parameter.PRO_CHARACTER,2,0);
@@ -361,6 +361,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(7, "tt_xpyhmstri_receptdt", 0, Parameter.PRO_CHARACTER,6,0);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(8, "tt_xpyhmstri_partnbr", 0, Parameter.PRO_CHARACTER,7,0);
 		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(9, "tt_xpyhmstri_type", 0, Parameter.PRO_CHARACTER,8,0);
+		xxinquiry_xpyhmstr_MetaData12.setFieldDesc(10, "tt_xpyhmstri_enddt", 0, Parameter.PRO_CHARACTER,9,0);
 		xxinquiry_xpyhmstr_DSMetaData1.addTable(xxinquiry_xpyhmstr_MetaData12);
 		xxinquiry_xpyhmstr_DSMetaData2 = new ProDataGraphMetaData(0, "export_xpyhmstr", 2, ParameterSet.OUTPUT);
 		xxinquiry_xpyhmstr_MetaData21 = new ProDataObjectMetaData("tt_xpyhmstr_out", 13, false, 0, null, null, null);
@@ -920,6 +921,117 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_claimdet_MetaData22.setFieldDesc(3, "tt_erro_errsens", 0, Parameter.PRO_INTEGER,2,0);
 		xxinquiry_claimdet_MetaData22.setFieldDesc(4, "tt_erro_msg", 0, Parameter.PRO_CHARACTER,3,0);
 		xxinquiry_claimdet_DSMetaData2.addTable(xxinquiry_claimdet_MetaData22);
+
+	}
+	
+	static ProDataGraphMetaData xxinquiry_cinvoice_DSMetaData1;
+
+	static ProDataObjectMetaData xxinquiry_cinvoice_MetaData11;
+
+	static ProDataObjectMetaData xxinquiry_cinvoice_MetaData12;
+
+	static ProDataGraphMetaData xxinquiry_cinvoice_DSMetaData2;
+
+	static ProDataObjectMetaData xxinquiry_cinvoice_MetaData21;
+
+	static ProDataObjectMetaData xxinquiry_cinvoice_MetaData22;
+
+
+	static
+	{
+		xxinquiry_cinvoice_DSMetaData1 = new ProDataGraphMetaData(0, "input_xprc", 1, ParameterSet.INPUT);
+		xxinquiry_cinvoice_MetaData11 = new ProDataObjectMetaData("tt_suppcode_in", 2, false, 0, null, null, null);
+		xxinquiry_cinvoice_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_cinvoice_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
+		xxinquiry_cinvoice_DSMetaData1.addTable(xxinquiry_cinvoice_MetaData11);
+		xxinquiry_cinvoice_MetaData12 = new ProDataObjectMetaData("tt_cinvoice_in", 8, false, 0, null, null, null);
+		xxinquiry_cinvoice_MetaData12.setFieldDesc(1, "tt_cinvoice_sp", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_cinvoice_MetaData12.setFieldDesc(2, "tt_cinvoice_fromdate", 0, Parameter.PRO_CHARACTER,1,0);
+		xxinquiry_cinvoice_MetaData12.setFieldDesc(3, "tt_cinvoice_todate", 0, Parameter.PRO_CHARACTER,2,0);
+		xxinquiry_cinvoice_MetaData12.setFieldDesc(4, "tt_cinvoice_rf", 0, Parameter.PRO_CHARACTER,3,0);
+		xxinquiry_cinvoice_MetaData12.setFieldDesc(5, "tt_cinvoice_curr", 0, Parameter.PRO_CHARACTER,4,0);
+		xxinquiry_cinvoice_MetaData12.setFieldDesc(6, "tt_cinvoice_type", 0, Parameter.PRO_CHARACTER,5,0);
+		xxinquiry_cinvoice_MetaData12.setFieldDesc(7, "tt_cinvoice_term", 0, Parameter.PRO_CHARACTER,6,0);
+		xxinquiry_cinvoice_MetaData12.setFieldDesc(8, "tt_cinvoice_duedate", 0, Parameter.PRO_CHARACTER,7,0);
+		xxinquiry_cinvoice_DSMetaData1.addTable(xxinquiry_cinvoice_MetaData12);
+		xxinquiry_cinvoice_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprc", 2, ParameterSet.OUTPUT);
+		xxinquiry_cinvoice_MetaData21 = new ProDataObjectMetaData("tt_cinvoice_out", 14, false, 0, null, null, null);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(1, "tt_cinvoiceout_sp", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(2, "tt_cinvoiceout_invdate", 0, Parameter.PRO_CHARACTER,1,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(3, "tt_cinvoiceout_br", 0, Parameter.PRO_CHARACTER,2,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(4, "tt_cinvoiceout_rf", 0, Parameter.PRO_CHARACTER,3,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(5, "tt_cinvoiceout_duedate", 0, Parameter.PRO_CHARACTER,4,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(6, "tt_cinvoiceout_tb", 0, Parameter.PRO_DECIMAL,5,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(7, "tt_cinvoiceout_curr", 0, Parameter.PRO_CHARACTER,6,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(8, "tt_cinvoiceout_tbcr", 0, Parameter.PRO_DECIMAL,7,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(9, "tt_cinvoiceout_tbdr", 0, Parameter.PRO_DECIMAL,8,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(10, "tt_cinvoiceout_type", 0, Parameter.PRO_CHARACTER,9,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(11, "tt_cinvoiceout_hold", 0, Parameter.PRO_DECIMAL,10,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(12, "tt_cinvoiceout_brname", 0, Parameter.PRO_CHARACTER,11,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(13, "tt_cinvoiceout_term", 0, Parameter.PRO_CHARACTER,12,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(14, "tt_cinvoiceout_id", 0, Parameter.PRO_INTEGER,13,0);
+		xxinquiry_cinvoice_DSMetaData2.addTable(xxinquiry_cinvoice_MetaData21);
+		xxinquiry_cinvoice_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
+		xxinquiry_cinvoice_MetaData22.setFieldDesc(1, "tt_erro_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_cinvoice_MetaData22.setFieldDesc(2, "tt_erro_errid", 0, Parameter.PRO_INTEGER,1,0);
+		xxinquiry_cinvoice_MetaData22.setFieldDesc(3, "tt_erro_errsens", 0, Parameter.PRO_INTEGER,2,0);
+		xxinquiry_cinvoice_MetaData22.setFieldDesc(4, "tt_erro_msg", 0, Parameter.PRO_CHARACTER,3,0);
+		xxinquiry_cinvoice_DSMetaData2.addTable(xxinquiry_cinvoice_MetaData22);
+
+	}
+
+	static ProDataGraphMetaData xxinquiry_payment_DSMetaData1;
+
+	static ProDataObjectMetaData xxinquiry_payment_MetaData11;
+
+	static ProDataObjectMetaData xxinquiry_payment_MetaData12;
+
+	static ProDataGraphMetaData xxinquiry_payment_DSMetaData2;
+
+	static ProDataObjectMetaData xxinquiry_payment_MetaData21;
+
+	static ProDataObjectMetaData xxinquiry_payment_MetaData22;
+
+
+	static
+	{
+		xxinquiry_payment_DSMetaData1 = new ProDataGraphMetaData(0, "input_xprc", 1, ParameterSet.INPUT);
+		xxinquiry_payment_MetaData11 = new ProDataObjectMetaData("tt_suppcode_in", 2, false, 0, null, null, null);
+		xxinquiry_payment_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_payment_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
+		xxinquiry_payment_DSMetaData1.addTable(xxinquiry_payment_MetaData11);
+		xxinquiry_payment_MetaData12 = new ProDataObjectMetaData("tt_payment_in", 7, false, 0, null, null, null);
+		xxinquiry_payment_MetaData12.setFieldDesc(1, "tt_payment_payrf", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_payment_MetaData12.setFieldDesc(2, "tt_payment_rf", 0, Parameter.PRO_CHARACTER,1,0);
+		xxinquiry_payment_MetaData12.setFieldDesc(3, "tt_payment_curr", 0, Parameter.PRO_CHARACTER,2,0);
+		xxinquiry_payment_MetaData12.setFieldDesc(4, "tt_payment_status", 0, Parameter.PRO_CHARACTER,3,0);
+		xxinquiry_payment_MetaData12.setFieldDesc(5, "tt_payment_entity", 0, Parameter.PRO_CHARACTER,4,0);
+		xxinquiry_payment_MetaData12.setFieldDesc(6, "tt_paymentout_sp", 0, Parameter.PRO_CHARACTER,5,0);
+		xxinquiry_payment_MetaData12.setFieldDesc(7, "tt_payment_fromdate", 0, Parameter.PRO_CHARACTER,6,0);
+		xxinquiry_payment_MetaData12.setFieldDesc(8, "tt_payment_todate", 0, Parameter.PRO_CHARACTER,7,0);
+		
+		xxinquiry_payment_DSMetaData1.addTable(xxinquiry_payment_MetaData12);
+		xxinquiry_payment_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprc", 2, ParameterSet.OUTPUT);
+		xxinquiry_payment_MetaData21 = new ProDataObjectMetaData("tt_payment_out", 12, false, 0, null, null, null);
+		xxinquiry_payment_MetaData21.setFieldDesc(1, "tt_paymentout_payrf", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(2, "tt_paymentout_rf", 0, Parameter.PRO_CHARACTER,1,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(3, "tt_paymentout_date", 0, Parameter.PRO_CHARACTER,2,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(4, "tt_paymentout_orgTC", 0, Parameter.PRO_DECIMAL,3,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(5, "tt_paymentout_curr", 0, Parameter.PRO_CHARACTER,4,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(6, "tt_paymentout_invno", 0, Parameter.PRO_CHARACTER,5,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(7, "tt_paymentout_status", 0, Parameter.PRO_CHARACTER,6,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(8, "tt_paymentout_TC", 0, Parameter.PRO_DECIMAL,7,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(9, "tt_paymentout_openTC", 0, Parameter.PRO_DECIMAL,8,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(10, "tt_paymentout_entity", 0, Parameter.PRO_CHARACTER,9,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(11, "tt_paymentout_sp", 0, Parameter.PRO_CHARACTER,10,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(12, "tt_paymentout_id", 0, Parameter.PRO_INTEGER,11,0);
+		xxinquiry_payment_DSMetaData2.addTable(xxinquiry_payment_MetaData21);
+		xxinquiry_payment_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
+		xxinquiry_payment_MetaData22.setFieldDesc(1, "tt_erro_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);
+		xxinquiry_payment_MetaData22.setFieldDesc(2, "tt_erro_errid", 0, Parameter.PRO_INTEGER,1,0);
+		xxinquiry_payment_MetaData22.setFieldDesc(3, "tt_erro_errsens", 0, Parameter.PRO_INTEGER,2,0);
+		xxinquiry_payment_MetaData22.setFieldDesc(4, "tt_erro_msg", 0, Parameter.PRO_CHARACTER,3,0);
+		xxinquiry_payment_DSMetaData2.addTable(xxinquiry_payment_MetaData22);
 
 	}
 
@@ -1904,6 +2016,127 @@ public final class YFKSSSCPImpl extends AppObject
 
 	public static void setXxinquiry_claimdet_MetaData22(ProDataObjectMetaData xxinquiry_claimdet_MetaData22) {
 		YFKSSSCPImpl.xxinquiry_claimdet_MetaData22 = xxinquiry_claimdet_MetaData22;
+	}
+
+	
+
+	public static ProDataGraphMetaData getXxinquiry_cinvoice_DSMetaData1() {
+		return xxinquiry_cinvoice_DSMetaData1;
+	}
+
+
+	public static void setXxinquiry_cinvoice_DSMetaData1(ProDataGraphMetaData xxinquiry_cinvoice_DSMetaData1) {
+		YFKSSSCPImpl.xxinquiry_cinvoice_DSMetaData1 = xxinquiry_cinvoice_DSMetaData1;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_cinvoice_MetaData11() {
+		return xxinquiry_cinvoice_MetaData11;
+	}
+
+
+	public static void setXxinquiry_cinvoice_MetaData11(ProDataObjectMetaData xxinquiry_cinvoice_MetaData11) {
+		YFKSSSCPImpl.xxinquiry_cinvoice_MetaData11 = xxinquiry_cinvoice_MetaData11;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_cinvoice_MetaData12() {
+		return xxinquiry_cinvoice_MetaData12;
+	}
+
+
+	public static void setXxinquiry_cinvoice_MetaData12(ProDataObjectMetaData xxinquiry_cinvoice_MetaData12) {
+		YFKSSSCPImpl.xxinquiry_cinvoice_MetaData12 = xxinquiry_cinvoice_MetaData12;
+	}
+
+
+	public static ProDataGraphMetaData getXxinquiry_cinvoice_DSMetaData2() {
+		return xxinquiry_cinvoice_DSMetaData2;
+	}
+
+
+	public static void setXxinquiry_cinvoice_DSMetaData2(ProDataGraphMetaData xxinquiry_cinvoice_DSMetaData2) {
+		YFKSSSCPImpl.xxinquiry_cinvoice_DSMetaData2 = xxinquiry_cinvoice_DSMetaData2;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_cinvoice_MetaData21() {
+		return xxinquiry_cinvoice_MetaData21;
+	}
+
+
+	public static void setXxinquiry_cinvoice_MetaData21(ProDataObjectMetaData xxinquiry_cinvoice_MetaData21) {
+		YFKSSSCPImpl.xxinquiry_cinvoice_MetaData21 = xxinquiry_cinvoice_MetaData21;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_cinvoice_MetaData22() {
+		return xxinquiry_cinvoice_MetaData22;
+	}
+
+
+	public static void setXxinquiry_cinvoice_MetaData22(ProDataObjectMetaData xxinquiry_cinvoice_MetaData22) {
+		YFKSSSCPImpl.xxinquiry_cinvoice_MetaData22 = xxinquiry_cinvoice_MetaData22;
+	}
+
+
+	public static ProDataGraphMetaData getXxinquiry_payment_DSMetaData1() {
+		return xxinquiry_payment_DSMetaData1;
+	}
+
+
+	public static void setXxinquiry_payment_DSMetaData1(ProDataGraphMetaData xxinquiry_payment_DSMetaData1) {
+		YFKSSSCPImpl.xxinquiry_payment_DSMetaData1 = xxinquiry_payment_DSMetaData1;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_payment_MetaData11() {
+		return xxinquiry_payment_MetaData11;
+	}
+
+
+	public static void setXxinquiry_payment_MetaData11(ProDataObjectMetaData xxinquiry_payment_MetaData11) {
+		YFKSSSCPImpl.xxinquiry_payment_MetaData11 = xxinquiry_payment_MetaData11;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_payment_MetaData12() {
+		return xxinquiry_payment_MetaData12;
+	}
+
+
+	public static void setXxinquiry_payment_MetaData12(ProDataObjectMetaData xxinquiry_payment_MetaData12) {
+		YFKSSSCPImpl.xxinquiry_payment_MetaData12 = xxinquiry_payment_MetaData12;
+	}
+
+
+	public static ProDataGraphMetaData getXxinquiry_payment_DSMetaData2() {
+		return xxinquiry_payment_DSMetaData2;
+	}
+
+
+	public static void setXxinquiry_payment_DSMetaData2(ProDataGraphMetaData xxinquiry_payment_DSMetaData2) {
+		YFKSSSCPImpl.xxinquiry_payment_DSMetaData2 = xxinquiry_payment_DSMetaData2;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_payment_MetaData21() {
+		return xxinquiry_payment_MetaData21;
+	}
+
+
+	public static void setXxinquiry_payment_MetaData21(ProDataObjectMetaData xxinquiry_payment_MetaData21) {
+		YFKSSSCPImpl.xxinquiry_payment_MetaData21 = xxinquiry_payment_MetaData21;
+	}
+
+
+	public static ProDataObjectMetaData getXxinquiry_payment_MetaData22() {
+		return xxinquiry_payment_MetaData22;
+	}
+
+
+	public static void setXxinquiry_payment_MetaData22(ProDataObjectMetaData xxinquiry_payment_MetaData22) {
+		YFKSSSCPImpl.xxinquiry_payment_MetaData22 = xxinquiry_payment_MetaData22;
 	}
 
 
@@ -3015,6 +3248,130 @@ public final class YFKSSSCPImpl extends AppObject
 		// Get output parameters
 		outValue = params.getOutputParameter(2);
 		export_xprcd.setValue(outValue);
+
+
+		// Session-Managed always returns null
+		if (rqCtx != null)
+		{
+			if (!rqCtx._isStreaming())
+				rqCtx._release();
+			else
+			{
+				// If set, there's a ResultSetHolder parm
+				lastResultSet = null;
+				if (lastResultSet != null)
+					lastResultSet.setRqContext(rqCtx);
+			}
+		}
+
+		// Return output value
+		return (String)(params.getProcedureReturnValue());
+
+	}
+	
+	/* 
+	*/
+	public String xxinquiry_cinvoice(ProDataGraph input_xprc, ProDataGraphHolder export_xprc)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		RqContext rqCtx = null;
+		com.progress.open4gl.dynamicapi.ResultSet lastResultSet = null;
+
+		if (isSessionAvailable() == false)
+			throw new Open4GLException(m_notAvailable, null);
+
+		Object outValue;
+		ParameterSet params = new ParameterSet(2);
+
+		// Set up input parameters
+		params.setDataGraphParameter(1, input_xprc, ParameterSet.INPUT, false);
+
+
+		// Set up input/output parameters
+
+
+		// Set up Out parameters
+		params.setDataGraphParameter(2, null, ParameterSet.OUTPUT, false);
+
+
+		// Setup local MetaSchema if any params are tables
+		MetaSchema xxinquiry_cinvoice_MetaSchema = new MetaSchema();
+		xxinquiry_cinvoice_MetaSchema.addProDataGraphSchema(xxinquiry_cinvoice_DSMetaData1, 1, ParameterSet.INPUT , false);
+		xxinquiry_cinvoice_MetaSchema.addProDataGraphSchema(xxinquiry_cinvoice_DSMetaData2, 2, ParameterSet.OUTPUT , false);
+
+
+		// Set up return type
+		
+
+		// Run procedure
+		rqCtx = runProcedure("xxinquiry_cinvoice.p", params, xxinquiry_cinvoice_MetaSchema);
+
+
+		// Get output parameters
+		outValue = params.getOutputParameter(2);
+		export_xprc.setValue(outValue);
+
+
+		// Session-Managed always returns null
+		if (rqCtx != null)
+		{
+			if (!rqCtx._isStreaming())
+				rqCtx._release();
+			else
+			{
+				// If set, there's a ResultSetHolder parm
+				lastResultSet = null;
+				if (lastResultSet != null)
+					lastResultSet.setRqContext(rqCtx);
+			}
+		}
+
+		// Return output value
+		return (String)(params.getProcedureReturnValue());
+
+	}
+
+	/* 
+	*/
+	public String xxinquiry_payment(ProDataGraph input_xprc, ProDataGraphHolder export_xprc)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		RqContext rqCtx = null;
+		com.progress.open4gl.dynamicapi.ResultSet lastResultSet = null;
+
+		if (isSessionAvailable() == false)
+			throw new Open4GLException(m_notAvailable, null);
+
+		Object outValue;
+		ParameterSet params = new ParameterSet(2);
+
+		// Set up input parameters
+		params.setDataGraphParameter(1, input_xprc, ParameterSet.INPUT, false);
+
+
+		// Set up input/output parameters
+
+
+		// Set up Out parameters
+		params.setDataGraphParameter(2, null, ParameterSet.OUTPUT, false);
+
+
+		// Setup local MetaSchema if any params are tables
+		MetaSchema xxinquiry_payment_MetaSchema = new MetaSchema();
+		xxinquiry_payment_MetaSchema.addProDataGraphSchema(xxinquiry_payment_DSMetaData1, 1, ParameterSet.INPUT , false);
+		xxinquiry_payment_MetaSchema.addProDataGraphSchema(xxinquiry_payment_DSMetaData2, 2, ParameterSet.OUTPUT , false);
+
+
+		// Set up return type
+		
+
+		// Run procedure
+		rqCtx = runProcedure("xxinquiry_payment.p", params, xxinquiry_payment_MetaSchema);
+
+
+		// Get output parameters
+		outValue = params.getOutputParameter(2);
+		export_xprc.setValue(outValue);
 
 
 		// Session-Managed always returns null

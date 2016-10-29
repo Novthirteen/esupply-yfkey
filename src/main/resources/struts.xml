@@ -463,5 +463,20 @@
 			<result name="input">/WEB-INF/pages/bill/billForm.jsp
 			</result>
 		</action>
+
+
 	</package>
+	<package name="invoice" extends="default" namespace="/invoice">
+		<action name="invoices" class="invoiceAction" method="list">
+			<result name="success">/WEB-INF/pages/invoice/invoiceList.jsp
+			</result>
+		</action>
+	</package>
+	<package name="payment" extends="default" namespace="/payment">
+		<action name="payments" class="paymentAction" method="list">
+			<result name="success">/WEB-INF/pages/payment/paymentList.jsp
+			</result>
+		</action>
+	</package>
+
 </struts>

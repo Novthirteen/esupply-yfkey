@@ -42,6 +42,9 @@ public class PurchaseOrder extends BaseObject {
 	private String tt_xpyhmstro_priority_desc; //优先级描述
 	private String tt_xpyhmstro_stat_desc; //状态描述
 	
+	private String tt_xpyhmstri_enddt; //结束日期
+	
+	
 	private Boolean hasShipError;
 
 	private List<PurchaseOrderDetail> purchaseOrderDetailList;
@@ -263,6 +266,14 @@ public class PurchaseOrder extends BaseObject {
 	public void setHasShipError(Boolean hasShipError) {
 		this.hasShipError = hasShipError;
 	}
+	
+	public String getTt_xpyhmstri_enddt() {
+		return tt_xpyhmstri_enddt;
+	}
+
+	public void setTt_xpyhmstri_enddt(String tt_xpyhmstri_enddt) {
+		this.tt_xpyhmstri_enddt = tt_xpyhmstri_enddt;
+	}
 
 	public List<PurchaseOrderDetail> getPurchaseOrderDetailList() {
 		return purchaseOrderDetailList;
@@ -271,6 +282,8 @@ public class PurchaseOrder extends BaseObject {
 	public void setPurchaseOrderDetailList(List<PurchaseOrderDetail> purchaseOrderDetailList) {
 		this.purchaseOrderDetailList = purchaseOrderDetailList;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {

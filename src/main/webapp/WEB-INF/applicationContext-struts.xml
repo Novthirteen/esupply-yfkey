@@ -43,4 +43,12 @@
 	<bean id="fileUploadAction" class="com.yfkey.webapp.action.FileUploadAction"
 		scope="prototype">
 	</bean>
+	<bean id="invoiceAction" class="com.yfkey.webapp.action.InvoiceAction"
+		scope="prototype">
+		<property name="universalManager" ref="universalManager" />
+	</bean>
+	<bean id="paymentAction" class="com.yfkey.webapp.action.PaymentAction"
+		scope="prototype">
+		<property name="universalManager" ref="universalManager" />
+	</bean>
 </beans>

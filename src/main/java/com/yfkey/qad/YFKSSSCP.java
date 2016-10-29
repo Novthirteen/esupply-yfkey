@@ -329,4 +329,23 @@ public class YFKSSSCP implements SDOFactory {
 		return m_YFKSSSCPImpl.xxinquiry_claimdet( input_xprcd,  export_xprcd);
 	}
 
+	/**
+	*	
+	*	
+	*/
+	public String xxinquiry_cinvoice(ProDataGraph input_xprc, ProDataGraphHolder export_xprc)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		return m_YFKSSSCPImpl.xxinquiry_cinvoice( input_xprc,  export_xprc);
+	}
+
+	/**
+	*	
+	*	
+	*/
+	public String xxinquiry_payment(ProDataGraph input_xprc, ProDataGraphHolder export_xprc)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		return m_YFKSSSCPImpl.xxinquiry_payment( input_xprc,  export_xprc);
+	}
 }

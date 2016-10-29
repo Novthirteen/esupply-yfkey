@@ -15,7 +15,9 @@ import com.yfkey.model.Barcode;
 import com.yfkey.model.Bill;
 import com.yfkey.model.BillDetail;
 import com.yfkey.model.Gender;
+import com.yfkey.model.Invoice;
 import com.yfkey.model.LabelValue;
+import com.yfkey.model.Payment;
 import com.yfkey.model.PurchaseOrder;
 import com.yfkey.model.PurchaseOrderDetail;
 import com.yfkey.model.Receipt;
@@ -329,7 +331,7 @@ public final class QADUtil {
 			asn.setTt_xasnmstro_stat(om.getString("tt_xasndeto_stat"));
 			asn.setTt_xasnmstro_creator(om.getString("tt_xasndeto_creator"));
 			asn.setTt_xasnmstro_suppcode(om.getString("tt_xasndeto_vend"));
-			
+
 			asn.setTt_xasndeto_vendname(om.getString("tt_xasndeto_vendname"));
 			asn.setTt_xasndeto_vendaddr(om.getString("tt_xasndeto_vendaddr"));
 			asn.setTt_xasndeto_vendcontact(om.getString("tt_xasndeto_vendcontact"));
@@ -337,7 +339,6 @@ public final class QADUtil {
 			asn.setTt_xasndeto_shipname(om.getString("tt_xasndeto_shipname"));
 			asn.setTt_xasndeto_shipaddr(om.getString("tt_xasndeto_shipaddr"));
 
-			
 			asnList.add(asn);
 
 			int i = 1;
@@ -436,7 +437,7 @@ public final class QADUtil {
 			receipt.setTt_prhmstro_rcuserid(om.getString("tt_prhdeto_rcuserid"));
 			receipt.setTt_prhmstro_prhmstroid(om.getString("tt_prhdeto_prhmstroid"));
 			receipt.setTt_prhmstro_shipto(om.getString("tt_prhdeto_shipto"));
-			
+
 			receipt.setTt_prhdeto_vendname(om.getString("tt_prhdeto_vendname"));
 			receipt.setTt_prhdeto_shipaddr(om.getString("tt_prhdeto_shipaddr"));
 			receiptList.add(receipt);
@@ -515,30 +516,31 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_xpyhddeto_xprcmstroid"));
 			bill.setTt_xprcmstro_indexinvnbr(om.getString("tt_xpyhddeto_indexinvnbr"));
 			bill.setTt_xpyhddeto_disamt(String.valueOf(om.getBigDecimal("tt_xpyhddeto_disamt")));
-			
+
 			bill.setTt_xpyhddeto_spname(om.getString("tt_xpyhddeto_spname"));
-		
+
 			BigDecimal notaxamt = om.getBigDecimal("tt_xpyhddeto_notaxamt");
 			BigDecimal taxamt = om.getBigDecimal("tt_xpyhddeto_taxamt");
-			
+
 			BigDecimal invoiceAmount = notaxamt.add(taxamt);
 			bill.setTt_xpyhddeto_invoiceamt(String.valueOf(invoiceAmount));
-			//bill.setTt_xprcmstro_type("0");                  //后面要加字段
+			// bill.setTt_xprcmstro_type("0"); //后面要加字段
 
-			//日期转一下格式,现在存到创建日期，发票日期给供应商维护
-//			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
-//			String dstr=om.getString("tt_xpyhddeto_invdate");  
-//			if(dstr != null)
-//			{
-//			java.util.Date invDate=sdf.parse(dstr);  
-//			
-//			SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");  
-//			String invDateStr=sdft.format(invDate);  
-//			bill.setTt_xprcmstro_invdate(invDateStr);
-//			}
-			
+			// 日期转一下格式,现在存到创建日期，发票日期给供应商维护
+			// SimpleDateFormat sdf=new
+			// SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟
+			// String dstr=om.getString("tt_xpyhddeto_invdate");
+			// if(dstr != null)
+			// {
+			// java.util.Date invDate=sdf.parse(dstr);
+			//
+			// SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");
+			// String invDateStr=sdft.format(invDate);
+			// bill.setTt_xprcmstro_invdate(invDateStr);
+			// }
+
 			bill.setTt_xprcmstro_invdate(om.getString("tt_xpyhddeto_invdate"));
-			
+
 			billList.add(bill);
 
 			int i = 1;
@@ -556,8 +558,7 @@ public final class QADUtil {
 				bd.setTt_xpyhddeto_rcdate(o.getString("tt_xpyhddeto_rcdate"));
 				bd.setTt_xpyhddeto_rcqty(o.getBigDecimal("tt_xpyhddeto_rcqty"));
 				bd.setTt_xpyhddeto_suppcode(o.getString("tt_xpyhddeto_suppcode"));
-				
-			
+
 				bd.setTt_xpyhddeto_ponbr(o.getString("tt_xpyhddeto_ponbr"));
 				billDetailList.add(bd);
 				i++;
@@ -598,11 +599,10 @@ public final class QADUtil {
 		return purchaseOrderDetailList;
 
 	}
-	
-	
-	
+
 	// claim billdet
-	public static List<Object> ConvertToClaimBillAndDetail(List<ProDataObject> proDataObjectList) throws ParseException {
+	public static List<Object> ConvertToClaimBillAndDetail(List<ProDataObject> proDataObjectList)
+			throws ParseException {
 		Bill bill = new Bill();
 		List<BillDetail> billDetailList = new ArrayList<BillDetail>();
 		List<Object> billList = new ArrayList<Object>();
@@ -613,26 +613,27 @@ public final class QADUtil {
 			bill.setTt_xprcmstro_voucher(om.getString("tt_claimdeto_voucher"));
 			bill.setTt_xprcmstro_suppcode(om.getString("tt_claimdeto_suppcode"));
 			bill.setTt_xprcmstro_totalamt(om.getBigDecimal("tt_claimdeto_totalamt"));
-			bill.setTt_xprcmstro_stat(om.getString("tt_claimdeto_stat"));			
+			bill.setTt_xprcmstro_stat(om.getString("tt_claimdeto_stat"));
 			bill.setTt_xprcmstro_xprcmstroid(om.getString("tt_claimdeto_xprcmstroid"));
 
 			bill.setTt_claimdeto_billno(om.getString("tt_claimdeto_billno"));
 			bill.setTt_xprcmstro_type("1");
 
-			//日期转一下格式,现在存到创建日期，发票日期给供应商维护
-//			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
-//			String dstr=om.getString("tt_claimdeto_invdate");  
-//			if(dstr != null)
-//			{
-//			java.util.Date invDate=sdf.parse(dstr);  
-//			
-//			SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");  
-//			String invDateStr=sdft.format(invDate);  
-//			bill.setTt_xprcmstro_invdate(invDateStr);
-//			}
-			
+			// 日期转一下格式,现在存到创建日期，发票日期给供应商维护
+			// SimpleDateFormat sdf=new
+			// SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟
+			// String dstr=om.getString("tt_claimdeto_invdate");
+			// if(dstr != null)
+			// {
+			// java.util.Date invDate=sdf.parse(dstr);
+			//
+			// SimpleDateFormat sdft=new SimpleDateFormat("yyyyMMdd");
+			// String invDateStr=sdft.format(invDate);
+			// bill.setTt_xprcmstro_invdate(invDateStr);
+			// }
+
 			bill.setTt_xprcmstro_invdate(om.getString("tt_claimdeto_invdate"));
-			
+
 			billList.add(bill);
 
 			int i = 1;
@@ -659,6 +660,66 @@ public final class QADUtil {
 		}
 
 		return billList;
+	}
+
+	// invoice
+	public static List<Invoice> ConvertToInvoice(List<ProDataObject> proDataObjectList) {
+		List<Invoice> invoiceList = new ArrayList<Invoice>();
+		if (proDataObjectList != null && proDataObjectList.size() > 0) {
+			int i = 1;
+			for (ProDataObject o : proDataObjectList) {
+				Invoice invoice = new Invoice();
+				invoice.setTt_cinvoice_sp(o.getString("tt_cinvoiceout_sp"));
+				invoice.setTt_cinvoice_invdate(o.getString("tt_cinvoiceout_invdate"));
+				invoice.setTt_cinvoice_br(o.getString("tt_cinvoiceout_br"));
+				invoice.setTt_cinvoice_rf(o.getString("tt_cinvoiceout_rf"));
+				invoice.setTt_cinvoice_duedate(o.getString("tt_cinvoiceout_duedate"));
+				invoice.setTt_cinvoice_tb(o.getBigDecimal("tt_cinvoiceout_tb"));
+				invoice.setTt_cinvoice_curr(o.getString("tt_cinvoiceout_curr"));
+				invoice.setTt_cinvoice_tbcr(o.getBigDecimal("tt_cinvoiceout_tbcr"));
+				invoice.setTt_cinvoice_tbdr(o.getBigDecimal("tt_cinvoiceout_tbdr"));
+				invoice.setTt_cinvoice_type(o.getString("tt_cinvoiceout_type"));
+				invoice.setTt_cinvoice_hold(o.getBigDecimal("tt_cinvoiceout_hold"));
+				invoice.setTt_cinvoice_brname(o.getString("tt_cinvoiceout_brname"));
+				invoice.setTt_cinvoice_term(o.getString("tt_cinvoiceout_term"));
+				invoice.setTt_cinvoice_id(o.getInt("tt_cinvoiceout_id"));
+
+				invoiceList.add(invoice);
+				i++;
+
+			}
+		}
+		return invoiceList;
+
+	}
+
+	// payment
+	public static List<Payment> ConvertToPayment(List<ProDataObject> proDataObjectList) {
+		List<Payment> paymentList = new ArrayList<Payment>();
+		if (proDataObjectList != null && proDataObjectList.size() > 0) {
+			int i = 1;
+			for (ProDataObject o : proDataObjectList) {
+				Payment payment = new Payment();
+				payment.setTt_payment_payrf(o.getString("tt_paymentout_payrf"));
+				payment.setTt_payment_rf(o.getString("tt_paymentout_rf"));
+				payment.setTt_payment_date(o.getString("tt_paymentout_date"));
+				payment.setTt_payment_orgTC(o.getBigDecimal("tt_paymentout_orgTC"));
+				payment.setTt_payment_curr(o.getString("tt_paymentout_curr"));
+				payment.setTt_payment_invno(o.getString("tt_paymentout_invno"));
+				payment.setTt_payment_status(o.getString("tt_paymentout_status"));
+				payment.setTt_payment_TC(o.getBigDecimal("tt_paymentout_TC"));
+				payment.setTt_payment_openTC(o.getBigDecimal("tt_paymentout_openTC"));
+				payment.setTt_payment_entity(o.getString("tt_paymentout_entity"));
+				payment.setTt_payment_sp(o.getString("tt_paymentout_sp"));
+				payment.setTt_payment_id(o.getInt("tt_paymentout_id"));
+				
+				paymentList.add(payment);
+				i++;
+
+			}
+		}
+		return paymentList;
+
 	}
 
 }

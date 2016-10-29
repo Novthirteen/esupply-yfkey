@@ -138,7 +138,7 @@ public class BillAction extends BaseAction {
 	public void setTt_xprcmstro_type(String tt_xprcmstro_type) {
 		this.tt_xprcmstro_type = tt_xprcmstro_type;
 	}
-	
+
 	public int getRowNumber() {
 		return rowNumber++;
 	}
@@ -155,7 +155,7 @@ public class BillAction extends BaseAction {
 				canAgreeBill = false;
 				canRefuseBill = false;
 				List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
-				if ( tt_xprcmstro_type.equals("0") && userButtons != null && userButtons.size() > 0) {
+				if (tt_xprcmstro_type.equals("0") && userButtons != null && userButtons.size() > 0) {
 					for (UserAuthority u : userButtons) {
 						if (!canConfirmBill && u.getAuthority().equals("ConfirmBill")) {
 							canConfirmBill = true;
@@ -426,6 +426,21 @@ public class BillAction extends BaseAction {
 	public String list() {
 		if (bill == null) {
 			bill = new Bill();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			Date date = new Date();
+
+			Calendar fca = Calendar.getInstance();
+			fca.setTime(date);
+			fca.add(Calendar.MONTH, -1);
+			String fromDate = sdf.format(fca.getTime());
+
+			Calendar tca = Calendar.getInstance();
+			tca.setTime(date);
+			String toDate = sdf.format(tca.getTime());
+
+			bill.setTt_xprcmstri_fromdate(fromDate);
+			bill.setTt_xprcmstri_todate(toDate);
 		}
 
 		if (bill.getTt_xprcmstro_suppcode() != null && !bill.getTt_xprcmstro_suppcode().equals("")) {
@@ -552,7 +567,7 @@ public class BillAction extends BaseAction {
 		if (bill.getTt_xprcmstro_invdate() == null || bill.getTt_xprcmstro_invdate().equals("")) {
 			throw new BillConfirmNotValidException(getText("bill.invdate_empty"));
 		}
-		
+
 		if (bill.getTt_xprcmstro_indexinvnbr() == null || bill.getTt_xprcmstro_indexinvnbr().equals("")) {
 			throw new BillConfirmNotValidException(getText("bill.indexinvnbr_empty"));
 		}
@@ -579,6 +594,10 @@ public class BillAction extends BaseAction {
 			if (notaxamt.compareTo(BigDecimal.ZERO) < 1) {
 				throw new BillConfirmNotValidException(getText("bill.notaxamt_less_than_zero"));
 			}
+			if(!checkStr(bill.getTt_xprcmstro_notaxamt()))
+			{
+				throw new BillConfirmNotValidException(getText("bill.notaxamt_digits_more_than_two"));
+			}
 		} catch (NumberFormatException e) {
 			throw new BillConfirmNotValidException(getText("bill.notaxamt_format_error"));
 		}
@@ -589,8 +608,12 @@ public class BillAction extends BaseAction {
 			if (taxamt instanceof BigDecimal == false) {
 				throw new BillConfirmNotValidException(getText("bill.taxamt_format_error"));
 			}
-			if (taxamt.compareTo(BigDecimal.ZERO) < 1) {
+			if (taxamt.compareTo(BigDecimal.ZERO) < 0) {
 				throw new BillConfirmNotValidException(getText("bill.taxamt_less_than_zero"));
+			}
+			if(!checkStr(bill.getTt_xprcmstro_taxamt()))
+			{
+				throw new BillConfirmNotValidException(getText("bill.taxamt_digits_more_than_two"));
 			}
 		} catch (NumberFormatException e) {
 			throw new BillConfirmNotValidException(getText("bill.taxamt_format_error"));
@@ -605,9 +628,26 @@ public class BillAction extends BaseAction {
 			if (disamt.compareTo(BigDecimal.ZERO) < 0) {
 				throw new BillConfirmNotValidException(getText("bill.disamt_less_than_zero"));
 			}
+			if(!checkStr(bill.getTt_xpyhddeto_disamt()))
+			{
+				throw new BillConfirmNotValidException(getText("bill.disamt_digits_more_than_two"));
+			}
 		} catch (NumberFormatException e) {
 			throw new BillConfirmNotValidException(getText("bill.disamt_format_error"));
 		}
+
+	}
+
+	public static boolean checkStr(String s) {
+		boolean isValiad = true;
+		int index = s.lastIndexOf(".");// 寻找小数点的索引位置，若不是小数，则为-1
+		if (index > -1) {
+			int len = s.substring(index + 1).length();// 取得小数点后的数值，不包括小数点
+			if (len > 2) {
+				isValiad = false;
+			}
+		}
+		return isValiad;
 
 	}
 }

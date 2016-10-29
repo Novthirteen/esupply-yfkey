@@ -37,4 +37,8 @@ public interface SupplyManager {
 	@GET
 	@Path("getShiptoData")
 	public List<LabelValue> getShiptoData(@QueryParam("domain") String domain,@QueryParam("query") String query);
+	
+	@GET
+	@Path("getInvoiceTypeData")
+	public List<LabelValue> getInvoiceTypeData(@QueryParam("domain") String domain,@QueryParam("query") String query);
 }

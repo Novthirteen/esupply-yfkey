@@ -513,6 +513,23 @@ public class PurchaseOrderAction extends BaseAction {
 			// Date date = new Date();
 			// SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 			// purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
+			
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			Date date = new Date();
+
+			Calendar fca = Calendar.getInstance();
+			fca.setTime(date);
+			fca.add(Calendar.WEEK_OF_MONTH, -1);
+			String fromDate = sdf.format(fca.getTime());
+
+			Calendar tca = Calendar.getInstance();
+			tca.setTime(date);
+			String toDate = sdf.format(tca.getTime());
+
+			purchaseOrder.setTt_xpyhmstro_startdt(fromDate);
+			purchaseOrder.setTt_xpyhmstri_enddt(toDate);
+			
 
 			purchaseOrder.setIsDetail(false);
 		}
@@ -549,6 +566,8 @@ public class PurchaseOrderAction extends BaseAction {
 				&& (purchaseOrder.getTt_xpyhmstro_shipto() == null || purchaseOrder.getTt_xpyhmstro_shipto().equals(""))
 				&& (purchaseOrder.getTt_xpyhmstro_startdt() == null
 						|| purchaseOrder.getTt_xpyhmstro_startdt().equals(""))
+				&& (purchaseOrder.getTt_xpyhmstri_enddt() == null
+						|| purchaseOrder.getTt_xpyhmstri_enddt().equals(""))
 				&& (purchaseOrder.getTt_xpyhmstro_receptdt() == null
 						|| purchaseOrder.getTt_xpyhmstro_receptdt().equals(""))
 				&& (purchaseOrder.getTt_xpyhmstro_partnbr() == null
@@ -694,7 +713,8 @@ public class PurchaseOrderAction extends BaseAction {
 						objectMstr.setString(7, purchaseOrder.getTt_xpyhmstro_partnbr() == null ? ""
 								: purchaseOrder.getTt_xpyhmstro_partnbr().trim());
 						objectMstr.setString(8, "0");
-
+						objectMstr.setString(9, purchaseOrder.getTt_xpyhmstri_enddt() == null ? ""
+								: purchaseOrder.getTt_xpyhmstri_enddt().trim());
 					}
 
 					exDataGraph.addProDataObject(objectMstr);
@@ -750,6 +770,7 @@ public class PurchaseOrderAction extends BaseAction {
 					objectMstr.setString(6, "");
 					objectMstr.setString(7, "");
 					objectMstr.setString(8, "1");
+					objectMstr.setString(9,"");
 
 				}
 

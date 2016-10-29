@@ -57,12 +57,15 @@
 			</div>
 			<div class="col-xs-3 search-group">
 				<s:textfield cssClass="form-control search-control"
-					id="tt_xpyhmstro_receptdt"
-					key="purchaseOrder.tt_xpyhmstro_receptdt" />
+					id="tt_xpyhmstri_enddt" key="purchaseOrder.tt_xpyhmstri_enddt" />
 			</div>
 		</div>
 		<div class="row">
-
+			<div class="col-xs-3 search-group">
+				<s:textfield cssClass="form-control search-control"
+					id="tt_xpyhmstro_receptdt"
+					key="purchaseOrder.tt_xpyhmstro_receptdt" />
+			</div>
 			<div class="col-xs-3 search-group">
 				<label class="control-label"><fmt:message
 						key="purchaseOrder.tt_xpyhmstro_partnbr" /></label> <input
@@ -277,6 +280,13 @@
 						});
 
 		$('#tt_xpyhmstro_startdt').datepicker({
+			format : "yyyymmdd",
+			language : "${pageContext.response.locale}",
+			autoclose : true,
+			todayHighlight : true
+		});
+		
+		$('#tt_xpyhmstri_enddt').datepicker({
 			format : "yyyymmdd",
 			language : "${pageContext.response.locale}",
 			autoclose : true,
