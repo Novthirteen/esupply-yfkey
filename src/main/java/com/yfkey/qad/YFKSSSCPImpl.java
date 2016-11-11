@@ -1000,7 +1000,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_payment_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_payment_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_payment_DSMetaData1.addTable(xxinquiry_payment_MetaData11);
-		xxinquiry_payment_MetaData12 = new ProDataObjectMetaData("tt_payment_in", 7, false, 0, null, null, null);
+		xxinquiry_payment_MetaData12 = new ProDataObjectMetaData("tt_payment_in", 8, false, 0, null, null, null);
 		xxinquiry_payment_MetaData12.setFieldDesc(1, "tt_payment_payrf", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_payment_MetaData12.setFieldDesc(2, "tt_payment_rf", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_payment_MetaData12.setFieldDesc(3, "tt_payment_curr", 0, Parameter.PRO_CHARACTER,2,0);
@@ -1012,7 +1012,7 @@ public final class YFKSSSCPImpl extends AppObject
 		
 		xxinquiry_payment_DSMetaData1.addTable(xxinquiry_payment_MetaData12);
 		xxinquiry_payment_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprc", 2, ParameterSet.OUTPUT);
-		xxinquiry_payment_MetaData21 = new ProDataObjectMetaData("tt_payment_out", 12, false, 0, null, null, null);
+		xxinquiry_payment_MetaData21 = new ProDataObjectMetaData("tt_payment_out", 13, false, 0, null, null, null);
 		xxinquiry_payment_MetaData21.setFieldDesc(1, "tt_paymentout_payrf", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_payment_MetaData21.setFieldDesc(2, "tt_paymentout_rf", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_payment_MetaData21.setFieldDesc(3, "tt_paymentout_date", 0, Parameter.PRO_CHARACTER,2,0);
@@ -1025,6 +1025,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_payment_MetaData21.setFieldDesc(10, "tt_paymentout_entity", 0, Parameter.PRO_CHARACTER,9,0);
 		xxinquiry_payment_MetaData21.setFieldDesc(11, "tt_paymentout_sp", 0, Parameter.PRO_CHARACTER,10,0);
 		xxinquiry_payment_MetaData21.setFieldDesc(12, "tt_paymentout_id", 0, Parameter.PRO_INTEGER,11,0);
+		xxinquiry_payment_MetaData21.setFieldDesc(13, "tt_paymentout_type", 0, Parameter.PRO_CHARACTER,12,0);
 		xxinquiry_payment_DSMetaData2.addTable(xxinquiry_payment_MetaData21);
 		xxinquiry_payment_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxinquiry_payment_MetaData22.setFieldDesc(1, "tt_erro_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);

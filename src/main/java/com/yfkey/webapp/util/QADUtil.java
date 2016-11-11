@@ -712,6 +712,7 @@ public final class QADUtil {
 				payment.setTt_payment_entity(o.getString("tt_paymentout_entity"));
 				payment.setTt_payment_sp(o.getString("tt_paymentout_sp"));
 				payment.setTt_payment_id(o.getInt("tt_paymentout_id"));
+				payment.setTt_payment_type(o.getString("tt_paymentout_type"));
 				
 				paymentList.add(payment);
 				i++;

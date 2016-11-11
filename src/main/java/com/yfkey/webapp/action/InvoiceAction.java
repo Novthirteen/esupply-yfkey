@@ -166,7 +166,7 @@ public class InvoiceAction extends BaseAction {
 
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_prhmstr_out");
+							.getProDataObjects("tt_cinvoice_out");
 
 					invoices = QADUtil.ConvertToInvoice(outDataList);
 				} catch (Exception e) {

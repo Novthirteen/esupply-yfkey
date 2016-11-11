@@ -91,7 +91,8 @@
 			sortable="true" titleKey="payment.tt_payment_openTC" />
 		<display:column property="tt_payment_entity" escapeXml="true"
 			sortable="true" titleKey="payment.tt_payment_entity" />
-	
+		<display:column property="tt_payment_type" escapeXml="true"
+			sortable="true" titleKey="payment.tt_payment_type" />
 
 		<display:setProperty name="paging.banner.placement" value="both" />
 		<display:setProperty name="paging.banner.item_name">

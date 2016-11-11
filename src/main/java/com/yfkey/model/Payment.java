@@ -21,7 +21,9 @@ public class Payment extends BaseObject {
 	private BigDecimal tt_payment_openTC;	//未结金额
 	private String tt_payment_entity;	//会计单位
 	private String tt_payment_sp;		//供应商代码
-	private int tt_payment_id;		//cinvoice唯一标示
+	private int tt_payment_id;		//付款唯一标示
+	
+	private String tt_payment_type; //付款类型
 	
 	private String tt_payment_fromdate;    //开始日期(YYYYMMDD)
 	private String tt_payment_todate;      //结束日期(YYYYMMDD)
@@ -110,6 +112,13 @@ public class Payment extends BaseObject {
 	}
 	public void setTt_payment_todate(String tt_payment_todate) {
 		this.tt_payment_todate = tt_payment_todate;
+	}
+
+	public String getTt_payment_type() {
+		return tt_payment_type;
+	}
+	public void setTt_payment_type(String tt_payment_type) {
+		this.tt_payment_type = tt_payment_type;
 	}
 	@Override
 	public int hashCode() {

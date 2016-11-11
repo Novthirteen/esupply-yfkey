@@ -166,7 +166,7 @@ public class PaymentAction extends BaseAction {
 
 					@SuppressWarnings("unchecked")
 					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_prhmstr_out");
+							.getProDataObjects("tt_payment_out");
 
 					payments = QADUtil.ConvertToPayment(outDataList);
 				} catch (Exception e) {
