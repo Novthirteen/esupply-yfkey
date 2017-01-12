@@ -560,6 +560,7 @@ public final class QADUtil {
 				bd.setTt_xpyhddeto_suppcode(o.getString("tt_xpyhddeto_suppcode"));
 
 				bd.setTt_xpyhddeto_ponbr(o.getString("tt_xpyhddeto_ponbr"));
+				bd.setTt_xpyhddeto_asn(o.getString("tt_xpyhddeto_asn"));
 				billDetailList.add(bd);
 				i++;
 
@@ -683,7 +684,8 @@ public final class QADUtil {
 				invoice.setTt_cinvoice_brname(o.getString("tt_cinvoiceout_brname"));
 				invoice.setTt_cinvoice_term(o.getString("tt_cinvoiceout_term"));
 				invoice.setTt_cinvoice_id(o.getInt("tt_cinvoiceout_id"));
-
+				invoice.setTt_cinvoice_desc(o.getString("tt_cinvoiceout_desc"));
+				
 				invoiceList.add(invoice);
 				i++;
 

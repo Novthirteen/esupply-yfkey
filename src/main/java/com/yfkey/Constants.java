@@ -120,4 +120,7 @@ public final class Constants {
      * Buttons user authorized a session-scoped attribute
      */
     public static final String AVAILABLE_USER_BUTTONS = "availableUserButtons";
+    
+    
+    public static final String NEED_UPDATE_USER_PASSWORD = "needUpdateUserPassword";
 }

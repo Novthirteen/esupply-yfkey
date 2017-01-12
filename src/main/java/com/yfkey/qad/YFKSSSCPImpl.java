@@ -194,7 +194,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xprcdet_MetaData11.setFieldDesc(1, "tt_xprcdeti_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xprcdet_DSMetaData1.addTable(xxinquiry_xprcdet_MetaData11);
 		xxinquiry_xprcdet_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprcd", 2, ParameterSet.OUTPUT);
-		xxinquiry_xprcdet_MetaData21 = new ProDataObjectMetaData("tt_xprcdet_out", 27, false, 0, null, null, null);
+		xxinquiry_xprcdet_MetaData21 = new ProDataObjectMetaData("tt_xprcdet_out", 28, false, 0, null, null, null);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(1, "tt_xpyhddeto_voucher", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(2, "tt_xpyhddeto_partnbr", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(3, "tt_xpyhddeto_receiver", 0, Parameter.PRO_CHARACTER,2,0);
@@ -222,6 +222,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(25, "tt_xpyhddeto_disamt", 0, Parameter.PRO_DECIMAL,24,0);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(26, "tt_xpyhddeto_spname", 0, Parameter.PRO_CHARACTER,25,0);
 		xxinquiry_xprcdet_MetaData21.setFieldDesc(27, " tt_xpyhddeto_ponbr", 0, Parameter.PRO_CHARACTER,26,0);
+		xxinquiry_xprcdet_MetaData21.setFieldDesc(28, " tt_xpyhddeto_asn", 0, Parameter.PRO_CHARACTER,27,0);
 		xxinquiry_xprcdet_DSMetaData2.addTable(xxinquiry_xprcdet_MetaData21);
 		xxinquiry_xprcdet_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxinquiry_xprcdet_MetaData22.setFieldDesc(1, "tt_erro_xprcdetoid", 0, Parameter.PRO_CHARACTER,0,0);
@@ -955,7 +956,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_cinvoice_MetaData12.setFieldDesc(8, "tt_cinvoice_duedate", 0, Parameter.PRO_CHARACTER,7,0);
 		xxinquiry_cinvoice_DSMetaData1.addTable(xxinquiry_cinvoice_MetaData12);
 		xxinquiry_cinvoice_DSMetaData2 = new ProDataGraphMetaData(0, "export_xprc", 2, ParameterSet.OUTPUT);
-		xxinquiry_cinvoice_MetaData21 = new ProDataObjectMetaData("tt_cinvoice_out", 14, false, 0, null, null, null);
+		xxinquiry_cinvoice_MetaData21 = new ProDataObjectMetaData("tt_cinvoice_out", 15, false, 0, null, null, null);
 		xxinquiry_cinvoice_MetaData21.setFieldDesc(1, "tt_cinvoiceout_sp", 0, Parameter.PRO_CHARACTER,0,0);
 		xxinquiry_cinvoice_MetaData21.setFieldDesc(2, "tt_cinvoiceout_invdate", 0, Parameter.PRO_CHARACTER,1,0);
 		xxinquiry_cinvoice_MetaData21.setFieldDesc(3, "tt_cinvoiceout_br", 0, Parameter.PRO_CHARACTER,2,0);
@@ -970,6 +971,7 @@ public final class YFKSSSCPImpl extends AppObject
 		xxinquiry_cinvoice_MetaData21.setFieldDesc(12, "tt_cinvoiceout_brname", 0, Parameter.PRO_CHARACTER,11,0);
 		xxinquiry_cinvoice_MetaData21.setFieldDesc(13, "tt_cinvoiceout_term", 0, Parameter.PRO_CHARACTER,12,0);
 		xxinquiry_cinvoice_MetaData21.setFieldDesc(14, "tt_cinvoiceout_id", 0, Parameter.PRO_INTEGER,13,0);
+		xxinquiry_cinvoice_MetaData21.setFieldDesc(15, "tt_cinvoiceout_desc", 0, Parameter.PRO_CHARACTER,14,0);
 		xxinquiry_cinvoice_DSMetaData2.addTable(xxinquiry_cinvoice_MetaData21);
 		xxinquiry_cinvoice_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
 		xxinquiry_cinvoice_MetaData22.setFieldDesc(1, "tt_erro_xprcmstroid", 0, Parameter.PRO_CHARACTER,0,0);

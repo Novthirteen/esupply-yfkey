@@ -225,12 +225,14 @@
 	<display:table name="billDetails" cellspacing="0" cellpadding="0"
 		requestURI="editBill" id="billDetail" pagesize="25"
 		class="table table-condensed table-striped table-hover" export="true">
-		<display:column property="tt_xpyhddeto_suppcode" escapeXml="false"
-			titleKey="billDetail.tt_xpyhddeto_suppcode" />
+		<display:column property="tt_xpyhddeto_ponbr" escapeXml="false"
+			titleKey="billDetail.tt_xpyhddeto_ponbr" />
 		<display:column property="tt_xpyhddeto_partnbr" escapeXml="true"
 			titleKey="billDetail.tt_xpyhddeto_partnbr" />
 		<display:column property="tt_xpyhddeto_receiver" escapeXml="false"
 			titleKey="billDetail.tt_xpyhddeto_receiver" />
+		<display:column property="tt_xpyhddeto_asn" escapeXml="false"
+			titleKey="billDetail.tt_xpyhddeto_asn" />
 		<display:column property="tt_xpyhddeto_seq" escapeXml="true"
 			titleKey="billDetail.tt_xpyhddeto_seq" />
 		<display:column property="tt_xpyhddeto_rcqty" escapeXml="true"

@@ -9,13 +9,12 @@
 		<fmt:message key="invoiceList.heading" />
 	</h2>
 
-	<s:form name="invoiceForm"
-		action="invoices" method="post" validate="true">
+	<s:form name="invoiceForm" action="invoices" method="post"
+		validate="true">
 		<div class="row">
 			<div class="col-xs-4 search-group">
 				<label class="control-label"><fmt:message
-						key="invoice.tt_cinvoice_sp" /></label> <input
-					id="tt_cinvoice_sp"
+						key="invoice.tt_cinvoice_sp" /></label> <input id="tt_cinvoice_sp"
 					name="invoice.tt_cinvoice_sp" type="text"
 					value="${invoice.tt_cinvoice_sp}"
 					class="col-md-12 form-control search-control" placeholder=""
@@ -24,18 +23,18 @@
 			</div>
 			<div class="col-xs-4 search-group">
 				<label class="control-label"><fmt:message
-						key="invoice.tt_cinvoice_type" /></label> <input
-					id="tt_cinvoice_type" name="invoice.tt_cinvoice_type"
-					type="text" value="${invoice.tt_cinvoice_type}"
+						key="invoice.tt_cinvoice_type" /></label> <input id="tt_cinvoice_type"
+					name="invoice.tt_cinvoice_type" type="text"
+					value="${invoice.tt_cinvoice_type}"
 					class="col-md-12 form-control search-control" placeholder=""
-					autocomplete="off"/>
+					autocomplete="off" />
 			</div>
 
 			<div class="col-xs-4 search-group">
 				<label class="control-label"><fmt:message
-						key="invoice.tt_cinvoice_curr" /></label> <input
-					id="tt_cinvoice_curr" name="invoice.tt_cinvoice_curr"
-					type="text" value="${invoice.tt_cinvoice_curr}"
+						key="invoice.tt_cinvoice_curr" /></label> <input id="tt_cinvoice_curr"
+					name="invoice.tt_cinvoice_curr" type="text"
+					value="${invoice.tt_cinvoice_curr}"
 					class="col-md-12 form-control search-control" />
 			</div>
 
@@ -43,8 +42,7 @@
 		<div class="row">
 			<div class="col-xs-4 search-group">
 				<s:textfield cssClass="form-control search-control"
-					id="tt_cinvoice_fromdate"
-					key="invoice.tt_cinvoice_fromdate" />
+					id="tt_cinvoice_fromdate" key="invoice.tt_cinvoice_fromdate" />
 			</div>
 			<div class="col-xs-4 search-group">
 				<s:textfield cssClass="form-control search-control"
@@ -55,8 +53,8 @@
 			<div class="col-xs-4 search-group"></div>
 			<div class="col-xs-4 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
-				<s:submit type="button" cssClass="btn"
-					action="invoices" key="button.search" theme="simple">
+				<s:submit type="button" cssClass="btn" action="invoices"
+					key="button.search" theme="simple">
 					<i class="icon-search"></i>
 					<fmt:message key="button.search" />
 				</s:submit>
@@ -65,9 +63,8 @@
 		</div>
 	</s:form>
 	<hr>
-	<display:table name="invoices" cellspacing="0"
-		pagesize="25" defaultsort="1" cellpadding="0"
-		requestURI="invoices" id="invoice"
+	<display:table name="invoices" cellspacing="0" pagesize="25"
+		defaultsort="1" cellpadding="0" requestURI="invoices" id="invoice"
 		class="table table-condensed table-striped table-hover" export="true">
 
 		<display:column property="tt_cinvoice_sp" escapeXml="true"
@@ -78,6 +75,8 @@
 			sortable="true" titleKey="invoice.tt_cinvoice_invdate" />
 		<display:column property="tt_cinvoice_rf" escapeXml="true"
 			sortable="true" titleKey="invoice.tt_cinvoice_rf" />
+		<display:column property="tt_cinvoice_desc" escapeXml="true"
+			sortable="true" titleKey="invoice.tt_cinvoice_desc" />
 		<display:column property="tt_cinvoice_duedate" escapeXml="true"
 			sortable="true" titleKey="invoice.tt_cinvoice_duedate" />
 		<display:column property="tt_cinvoice_tb" escapeXml="true"
@@ -91,8 +90,7 @@
 		<display:column property="tt_cinvoice_type" escapeXml="true"
 			sortable="true" titleKey="invoice.tt_cinvoice_type" />
 		<display:column property="tt_cinvoice_hold" escapeXml="true"
-			sortable="true"
-			titleKey="invoice.tt_cinvoice_hold" />
+			sortable="true" titleKey="invoice.tt_cinvoice_hold" />
 		<display:column property="tt_cinvoice_brname" escapeXml="true"
 			sortable="true" titleKey="invoice.tt_cinvoice_brname" />
 		<display:column property="tt_cinvoice_term" escapeXml="true"
@@ -137,24 +135,23 @@
 						});
 
 		$('#tt_cinvoice_type')
-		.typeahead(
-				{
-					ajax : {
-						url : "<c:url value="/services/api/supplys/getInvoiceTypeData.json"/>",
-						method : 'get',
-						preDispatch : function(e) {
-							return {
-								domain : "${sessionScope.selectedUserPlant}",
-								query : e
-							}
-						},
-						triggerLength : 1
-					},
-					displayField : 'label',
-					valueField : 'value'
-				//onSelect: displayResult
-				});
-
+				.typeahead(
+						{
+							ajax : {
+								url : "<c:url value="/services/api/supplys/getInvoiceTypeData.json"/>",
+								method : 'get',
+								preDispatch : function(e) {
+									return {
+										domain : "${sessionScope.selectedUserPlant}",
+										query : e
+									}
+								},
+								triggerLength : 1
+							},
+							displayField : 'label',
+							valueField : 'value'
+						//onSelect: displayResult
+						});
 
 		$('#tt_cinvoice_fromdate').datepicker({
 			format : "yyyymmdd",

@@ -191,38 +191,47 @@ public class UserAction extends BaseAction implements Preparable {
 		try {
 			user = SecurityContextHelper.getRemoteUser();
 			session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, false);
-			
+
 		} catch (PrincipalNullException e) {
 			return ERROR;
 		}
 
-		if (user.isNeedUpdatePassword()) {
-			session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
+		Boolean needUpdateUserPassword = true;
+		if(session.getAttribute(Constants.NEED_UPDATE_USER_PASSWORD) != null)
+		{
+			needUpdateUserPassword = new Boolean(
+				session.getAttribute(Constants.NEED_UPDATE_USER_PASSWORD).toString());
 		}
-		if (user.isEnforcePassword()) {
-			List<UserPasswordLog> userPasswordLogList = this.universalManager.findByHql(
-					"from UserPasswordLog where username = ? order by createDate desc", user.getUsername(), 1);
+		if (needUpdateUserPassword) {
+			if (user.isNeedUpdatePassword()) {
+				session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
+			}
+			if (user.isEnforcePassword()) {
+				List<UserPasswordLog> userPasswordLogList = this.universalManager.findByHql(
+						"from UserPasswordLog where username = ? order by createDate desc", user.getUsername(), 1);
 
-			if (userPasswordLogList != null && userPasswordLogList.size() > 0) {
-				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.MONTH, -3);
+				if (userPasswordLogList != null && userPasswordLogList.size() > 0) {
+					Calendar cal = Calendar.getInstance();
+					cal.add(Calendar.MONTH, -3);
 
-				if (userPasswordLogList.get(0).getCreateDate().compareTo(cal.getTime()) < 0) {
-					user.setConfirmPassword(user.getPassword());
-					session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
+					if (userPasswordLogList.get(0).getCreateDate().compareTo(cal.getTime()) < 0) {
+						user.setConfirmPassword(user.getPassword());
+						session.setAttribute(Constants.FORCE_CHANGE_PASSWORD, true);
+					}
+				} else {
+					UserPasswordLog userPasswordLog = new UserPasswordLog();
+					userPasswordLog.setUsername(user.getUsername());
+					userPasswordLog.setPassword(user.getPassword());
+					userPasswordLog.setCreateDate(new Timestamp((new Date()).getTime()));
+
+					this.universalManager.save(userPasswordLog);
 				}
-			} else {
-				UserPasswordLog userPasswordLog = new UserPasswordLog();
-				userPasswordLog.setUsername(user.getUsername());
-				userPasswordLog.setPassword(user.getPassword());
-				userPasswordLog.setCreateDate(new Timestamp((new Date()).getTime()));
-
-				this.universalManager.save(userPasswordLog);
 			}
 		}
-//		if (session.getAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK) == null) {
-//			session.setAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK, false);
-//		}
+		// if (session.getAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK) ==
+		// null) {
+		// session.setAttribute(Constants.FORCE_CHANGE_PASSWORD_CHECK, false);
+		// }
 
 		if (session.getAttribute(Constants.SELECTED_USER_PLANT) == null) {
 			Collection<UserAuthority> userPlants = SecurityContextHelper.getRemoteUserPlants();
@@ -258,6 +267,8 @@ public class UserAction extends BaseAction implements Preparable {
 
 	public String selectUserPlant() {
 		this.getRequest().getSession().setAttribute(Constants.SELECTED_USER_PLANT, plantCode);
+		HttpSession session = this.getRequest().getSession();
+		session.setAttribute(Constants.NEED_UPDATE_USER_PASSWORD, false);
 		return SUCCESS;
 	}
 

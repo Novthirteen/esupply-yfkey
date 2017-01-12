@@ -27,6 +27,8 @@ public class Invoice extends BaseObject {
 	private BigDecimal tt_cinvoice_hold; // 发票暂留金额
 	private String tt_cinvoice_brname;   //业务关系名称
 	private int tt_cinvoice_id;  //唯一标示(隐含，用户不可见)
+	
+	private String tt_cinvoice_desc; //描述
 
 	public String getTt_cinvoice_sp() {
 		return tt_cinvoice_sp;
@@ -154,6 +156,14 @@ public class Invoice extends BaseObject {
 
 	public void setTt_cinvoice_id(int tt_cinvoice_id) {
 		this.tt_cinvoice_id = tt_cinvoice_id;
+	}
+
+	public String getTt_cinvoice_desc() {
+		return tt_cinvoice_desc;
+	}
+
+	public void setTt_cinvoice_desc(String tt_cinvoice_desc) {
+		this.tt_cinvoice_desc = tt_cinvoice_desc;
 	}
 
 	@Override
