@@ -89,6 +89,10 @@ public class BarcodeAction extends BaseAction {
 	public String list() {
 		if (purchaseOrderDetail == null) {
 			purchaseOrderDetail = new PurchaseOrderDetail();
+			
+			//没条件显示空
+			purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
+			return SUCCESS;
 		}
 
 		if (purchaseOrderDetail.getTt_xpyhddeto_shipto() != null
