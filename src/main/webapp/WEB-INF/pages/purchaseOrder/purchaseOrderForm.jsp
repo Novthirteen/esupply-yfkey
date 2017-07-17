@@ -61,15 +61,15 @@
 
 	<hr>
 	<div id="actions" class="form-group form-actions">
-<%-- 		<c:if test="${canConfirmOrder}"> --%>
-<%-- 			<c:if test="${purchaseOrder.tt_xpyhmstro_stat  eq '2'}"> --%>
+		<c:if test="${canConfirmOrder}">
+			<c:if test="${purchaseOrder.tt_xpyhmstro_stat  eq '2'}">
 				<s:submit type="button" cssClass="btn btn-primary" formaction="confirmPurchaseOder"
 					key="button.confirm" theme="simple">
 					<i class="icon-ok icon-white"></i>
 					<fmt:message key="button.confirm" />
 				</s:submit>
-<%-- 			</c:if> --%>
-<%-- 		</c:if> --%>
+			</c:if>
+		</c:if>
 		<c:if test="${canCloseOrder}">
 			<c:if
 				test="${purchaseOrder.tt_xpyhmstro_stat eq '3' || purchaseOrder.tt_xpyhmstro_stat eq '4' }">
