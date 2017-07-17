@@ -182,7 +182,7 @@
 		<c:if test="${bill.tt_xprcmstro_stat eq '3'}">
 			<c:if test="${canConfirmBill}">
 				<s:submit type="button" cssClass="btn btn-primary"
-					action="confirmBill" key="button.confirm" theme="simple">
+					formaction="confirmBill" key="button.confirm" theme="simple">
 					<i class="icon-confirm icon-white"></i>
 					<fmt:message key="button.confirm" />
 				</s:submit>
@@ -191,7 +191,7 @@
 		<c:if test="${bill.tt_xprcmstro_stat eq '4'}">
 			<c:if test="${canAgreeBill}">
 				<s:submit type="button" cssClass="btn btn-primary"
-					action="agreeBill" key="button.agree" theme="simple">
+					formaction="agreeBill" key="button.agree" theme="simple">
 					<i class="icon-agree icon-white"></i>
 					<fmt:message key="button.agree" />
 				</s:submit>
@@ -199,7 +199,7 @@
 
 			<c:if test="${canRefuseBill}">
 				<s:submit type="button" cssClass="btn btn-primary"
-					action="refuseBill" key="button.refuse" theme="simple">
+					formaction="refuseBill" key="button.refuse" theme="simple">
 					<i class="icon-refuse icon-white"></i>
 					<fmt:message key="button.refuse" />
 				</s:submit>
@@ -207,7 +207,7 @@
 		</c:if>
 
 		<c:if test="${bill.tt_xprcmstro_type eq '0'}">
-			<s:submit type="button" cssClass="btn btn-primary" action="printBill"
+			<s:submit type="button" cssClass="btn btn-primary" formaction="printBill"
 				key="button.print" theme="simple">
 				<i class="icon-print icon-white"></i>
 				<fmt:message key="button.print" />

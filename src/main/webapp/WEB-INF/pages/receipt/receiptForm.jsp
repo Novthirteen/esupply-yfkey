@@ -47,7 +47,7 @@
 	<div id="actions" class="form-actions">
 
 		<s:submit type="button" cssClass="btn btn-primary"
-			action="printReceipt" key="button.print" theme="simple">
+			formaction="printReceipt" key="button.print" theme="simple">
 			<i class="icon-print icon-white"></i>
 			<fmt:message key="button.print" />
 		</s:submit>

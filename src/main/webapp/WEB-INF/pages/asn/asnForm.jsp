@@ -46,7 +46,7 @@
 
 	<hr>
 	<div id="actions" class="form-group form-actions">
-		<s:submit type="button" cssClass="btn btn-primary" action="printAsn"
+		<s:submit type="button" cssClass="btn btn-primary" formaction="printAsn"
 			key="button.print" theme="simple">
 			<i class="icon-print icon-white"></i>
 			<fmt:message key="button.print" />

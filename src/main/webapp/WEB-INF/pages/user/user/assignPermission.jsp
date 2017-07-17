@@ -28,7 +28,7 @@
 	<div id="actions" class="form-group form-actions">
 		<c:if test="${canAssignUserPermission}">
 			<s:submit type="button" cssClass="btn btn-primary"
-				action="saveUserPermission" key="button.save" theme="simple">
+				formaction="saveUserPermission" key="button.save" theme="simple">
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</s:submit>

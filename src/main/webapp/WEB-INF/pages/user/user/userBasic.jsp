@@ -34,7 +34,7 @@
 						readonly="true" />
 				</c:when>
 				<c:otherwise>
-					<s:textfield key="user.username" required="true"
+					<s:textfield key="user.username" requiredLabel="true"
 						cssClass="form-control" />
 				</c:otherwise>
 			</c:choose>
@@ -48,11 +48,11 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<s:password key="user.password" showPassword="true" required="true"
+			<s:password key="user.password" showPassword="true" requiredLabel="true"
 				onchange="passwordChanged(this)" cssClass="form-control" />
 		</div>
 		<div class="col-xs-6">
-			<s:password key="user.confirmPassword" required="true"
+			<s:password key="user.confirmPassword" requiredLabel="true"
 				cssClass="form-control" showPassword="true"
 				onchange="passwordChanged(this)" />
 		</div>
@@ -60,7 +60,7 @@
 	<div class="row">
 		
 		<div class="col-xs-6">
-			<s:textfield key="user.firstName" required="true"
+			<s:textfield key="user.firstName" requiredLabel="true"
 				cssClass="form-control" />
 		</div>
 		<div class="col-xs-6">
@@ -73,7 +73,7 @@
 		</div>
 		<div class="col-xs-6">
 			<s:radio key="user.gender" listValue="value" listKey="label"
-				list="genderList" required="true" />
+				list="genderList" requiredLabel="true" />
 		</div>
 	</div>
 	<div class="row">

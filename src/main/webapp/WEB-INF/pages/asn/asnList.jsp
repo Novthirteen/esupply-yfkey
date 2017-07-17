@@ -66,7 +66,7 @@
 
 			<div class="col-xs-3 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
-				<s:submit type="button" cssClass="btn" action="asns"
+				<s:submit type="button" cssClass="btn" formaction="asns"
 					key="button.search" theme="simple">
 					<i class="icon-search"></i>
 					<fmt:message key="button.search" />

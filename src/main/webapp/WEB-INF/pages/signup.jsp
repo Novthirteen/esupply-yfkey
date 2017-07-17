@@ -14,31 +14,31 @@
     <s:form name="signupForm" action="saveSignup" method="post" validate="true"
             autocomplete="off" cssClass="well">
 
-        <s:textfield key="user.username" required="true" autofocus="true" cssClass="form-control"/>
+        <s:textfield key="user.username" requiredLabel="true" autofocus="true" cssClass="form-control"/>
 
         <div class="row">
             <div class="col-sm-6">
-                <s:password key="user.password" showPassword="true" required="true" cssClass="form-control"/>
+                <s:password key="user.password" showPassword="true" requiredLabel="true" cssClass="form-control"/>
             </div>
             <div class="col-sm-6">
-                <s:password key="user.confirmPassword" required="true" showPassword="true" cssClass="form-control"/>
+                <s:password key="user.confirmPassword" requiredLabel="true" showPassword="true" cssClass="form-control"/>
             </div>
         </div>
 
-        <s:textfield key="user.passwordHint" required="true" cssClass="form-control"/>
+        <s:textfield key="user.passwordHint" requiredLabel="true" cssClass="form-control"/>
 
         <div class="row">
             <div class="col-sm-6">
-                <s:textfield key="user.firstName" required="true" cssClass="form-control"/>
+                <s:textfield key="user.firstName" requiredLabel="true" cssClass="form-control"/>
             </div>
             <div class="col-sm-6">
-                <s:textfield key="user.lastName" required="true" cssClass="form-control"/>
+                <s:textfield key="user.lastName" requiredLabel="true" cssClass="form-control"/>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-6">
-                <s:textfield key="user.email" required="true" cssClass="form-control"/>
+                <s:textfield key="user.email" requiredLabel="true" cssClass="form-control"/>
             </div>
             <div class="col-sm-6">
                 <s:textfield key="user.phoneNumber" cssClass="form-control"/>

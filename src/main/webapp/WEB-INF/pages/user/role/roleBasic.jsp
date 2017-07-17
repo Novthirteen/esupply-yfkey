@@ -33,7 +33,7 @@
 					<s:label key="role.code" cssClass="form-control" />
 				</c:when>
 				<c:otherwise>
-					<s:textfield key="role.code" required="true"
+					<s:textfield key="role.code" requiredLabel="true"
 						cssClass="form-control" />
 				</c:otherwise>
 			</c:choose>
@@ -41,7 +41,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-4">
-			<s:textfield key="role.name" required="true" cssClass="form-control" />
+			<s:textfield key="role.name" requiredLabel="true" cssClass="form-control" />
 		</div>
 	</div>
 	<hr>

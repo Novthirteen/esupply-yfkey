@@ -39,11 +39,11 @@
 							<div class="row">
 								<div class="col-xs-6">
 									<s:password key="user.password" showPassword="true"
-										required="true" onchange="passwordChanged(this)"
+										requiredLabel="true" onchange="passwordChanged(this)"
 										cssClass="form-control" value=""/>
 								</div>
 								<div class="col-xs-6">
-									<s:password key="user.confirmPassword" required="true"
+									<s:password key="user.confirmPassword" requiredLabel="true"
 										cssClass="form-control" showPassword="true"
 										onchange="passwordChanged(this)" value=""/>
 								</div>

@@ -55,7 +55,7 @@
 			<div class="col-xs-4 search-group layouttrim">
 				<input type="hidden" name="from" value="list" />
 				<s:submit type="button" cssClass="btn"
-					action="payments" key="button.search" theme="simple">
+					formaction="payments" key="button.search" theme="simple">
 					<i class="icon-search"></i>
 					<fmt:message key="button.search" />
 				</s:submit>

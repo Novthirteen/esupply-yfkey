@@ -62,7 +62,7 @@
 	<hr>
 	<div id="actions" class="form-actions">
 		<s:submit type="button" cssClass="btn btn-primary"
-			action="shipPurchaseOder" key="button.confirm" theme="simple">
+			formaction="shipPurchaseOder" key="button.confirm" theme="simple">
 			<i class="icon-ok icon-white"></i>
 			<fmt:message key="button.ship" />
 		</s:submit>

@@ -177,75 +177,85 @@ public class PurchaseOrderAction extends BaseAction {
 
 		try {
 
-			if (tt_xpyhmstro_xpyhmstroid != null) {
+			
+			
+			PurchaseOrder p  = new PurchaseOrder();
+			p.setTt_xpyhmstro_xpyhmstroid("100001");
+			p.setTt_xpyhmstro_stat("2");
+			p.setTt_xpyhmstro_yhdnbr("100001");
+			canConfirmOrder = true;
+			canCancelOrder = true;
+			canCloseOrder = true;
+			
+//			if (tt_xpyhmstro_xpyhmstroid != null) {
+//
+//				// 鎸夐挳鏉冮檺
+//				canConfirmOrder = false;
+//				canCancelOrder = false;
+//				canCloseOrder = false;
+//				List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
+//				if (userButtons != null && userButtons.size() > 0) {
+//					for (UserAuthority u : userButtons) {
+//						if (!canConfirmOrder && u.getAuthority().equals("ConfirmPurchaseOrder")) {
+//							canConfirmOrder = true;
+//						}
+//						if (!canCancelOrder && u.getAuthority().equals("CancelPurchaseOrder")) {
+//							canCancelOrder = true;
+//						}
+//						if (!canCloseOrder && u.getAuthority().equals("ClosePurchaseOrder")) {
+//							canCloseOrder = true;
+//						}
+//					}
+//				}
+//
+//				if (ConnectQAD()) {
+//					String userCode = this.getRequest().getRemoteUser();
+//					String domain = getCurrentDomain();
+//					ProDataGraph exDataGraph; // 杈撳叆鍙傛暟
+//					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 杈撳嚭鍙傛暟
+//
+//					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxview_xpyhddet_DSMetaData1());
+//
+//					ProDataObject object = exDataGraph.createProDataObject("tt_xpyhddet_in");
+//
+//					object.setString(0, tt_xpyhmstro_xpyhmstroid);
+//					object.setString(1, ""); // 0涓烘墦鍗帮紝""涓烘煡璇�
+//
+//					exDataGraph.addProDataObject(object);
+//
+//					yfkssScp.xxview_xpyhddet(exDataGraph, outputData);
+//
+//					@SuppressWarnings("unchecked")
+//					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+//							.getProDataObjects("tt_xpyhddet_out");
+//					if (outDataList != null && outDataList.size() > 0) {
+//						List<Object> objList = QADUtil.ConvertToPurchaseOrderAndDetail(outDataList);
+//						purchaseOrder = (PurchaseOrder) objList.get(0);
+//						purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
+//
+//						checkSupplier(purchaseOrder.getTt_xpyhmstro_suppcode());
+//
+//						// 鐘舵�鎻忚堪鍜屼紭鍏堢骇缈昏瘧涓�笅
+//						purchaseOrder.setTt_xpyhmstro_stat_desc(
+//								getPurchaseOrderStatus(purchaseOrder.getTt_xpyhmstro_stat()));
+//						purchaseOrder.setTt_xpyhmstro_priority_desc(
+//								getPurchaseOrderPriority(purchaseOrder.getTt_xpyhmstro_priority()));
+//					}
+//				}
+//			} else {
+//				purchaseOrder = new PurchaseOrder();
+//			}
 
-				// 鎸夐挳鏉冮檺
-				canConfirmOrder = false;
-				canCancelOrder = false;
-				canCloseOrder = false;
-				List<UserAuthority> userButtons = (List<UserAuthority>) SecurityContextHelper.getRemoteUserButtons();
-				if (userButtons != null && userButtons.size() > 0) {
-					for (UserAuthority u : userButtons) {
-						if (!canConfirmOrder && u.getAuthority().equals("ConfirmPurchaseOrder")) {
-							canConfirmOrder = true;
-						}
-						if (!canCancelOrder && u.getAuthority().equals("CancelPurchaseOrder")) {
-							canCancelOrder = true;
-						}
-						if (!canCloseOrder && u.getAuthority().equals("ClosePurchaseOrder")) {
-							canCloseOrder = true;
-						}
-					}
-				}
-
-				if (ConnectQAD()) {
-					String userCode = this.getRequest().getRemoteUser();
-					String domain = getCurrentDomain();
-					ProDataGraph exDataGraph; // 杈撳叆鍙傛暟
-					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 杈撳嚭鍙傛暟
-
-					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxview_xpyhddet_DSMetaData1());
-
-					ProDataObject object = exDataGraph.createProDataObject("tt_xpyhddet_in");
-
-					object.setString(0, tt_xpyhmstro_xpyhmstroid);
-					object.setString(1, ""); // 0涓烘墦鍗帮紝""涓烘煡璇�
-
-					exDataGraph.addProDataObject(object);
-
-					yfkssScp.xxview_xpyhddet(exDataGraph, outputData);
-
-					@SuppressWarnings("unchecked")
-					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhddet_out");
-					if (outDataList != null && outDataList.size() > 0) {
-						List<Object> objList = QADUtil.ConvertToPurchaseOrderAndDetail(outDataList);
-						purchaseOrder = (PurchaseOrder) objList.get(0);
-						purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
-
-						checkSupplier(purchaseOrder.getTt_xpyhmstro_suppcode());
-
-						// 鐘舵�鎻忚堪鍜屼紭鍏堢骇缈昏瘧涓�笅
-						purchaseOrder.setTt_xpyhmstro_stat_desc(
-								getPurchaseOrderStatus(purchaseOrder.getTt_xpyhmstro_stat()));
-						purchaseOrder.setTt_xpyhmstro_priority_desc(
-								getPurchaseOrderPriority(purchaseOrder.getTt_xpyhmstro_priority()));
-					}
-				}
-			} else {
-				purchaseOrder = new PurchaseOrder();
-			}
-
-		} catch (SupplierAuthorityException ex) {
-			addActionError(ex.getMessage());
-
-			purchaseOrder = new PurchaseOrder();
-			Date date = new Date();
-			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
-			purchaseOrder.setIsDetail(false);
-
-			return INPUT;
+//		} catch (SupplierAuthorityException ex) {
+//			addActionError(ex.getMessage());
+//
+//			purchaseOrder = new PurchaseOrder();
+//			Date date = new Date();
+//			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+//			purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
+//			purchaseOrder.setIsDetail(false);
+//
+//			return INPUT;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -257,76 +267,83 @@ public class PurchaseOrderAction extends BaseAction {
 
 		try {
 
-			if (tt_xpyhddeti_xpyhmstroid != null) {
-
-				if (ConnectQAD()) {
-
-					// // 鍏堟竻绌轰竴涓�
-					// if (purchaseOrder != null) {
-					// purchaseOrder = new PurchaseOrder();
-					// }
-					// if (purchaseOrderDetails != null) {
-					// purchaseOrderDetails.clear();
-					// }
-
-					ProDataGraph exDataGraph; // 杈撳叆鍙傛暟
-					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 杈撳嚭鍙傛暟
-
-					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinqury_xpyhddet2_DSMetaData1());
-
-					ProDataObject object = exDataGraph.createProDataObject("tt_xpyhddet_in");
-
-					object.setString(0, tt_xpyhddeti_xpyhmstroid);
-
-					exDataGraph.addProDataObject(object);
-
-					yfkssScp.xxinqury_xpyhddet2(exDataGraph, outputData);
-
-					@SuppressWarnings("unchecked")
-					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
-							.getProDataObjects("tt_xpyhddet_out");
-
-					List<Object> objList = QADUtil.ConvertToShipPurchaseOrderAndDetail(outDataList);
-
-					if (purchaseOrder != null && purchaseOrder.getHasShipError() != null
-							&& purchaseOrder.getHasShipError()) {
-						purchaseOrder.setHasShipError(false);
-
-						List<PurchaseOrderDetail> oldPurchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
-						for (PurchaseOrderDetail d : purchaseOrderDetails) {
-							for (PurchaseOrderDetail o : oldPurchaseOrderDetails) {
-								if (o.getTt_xpyhddeto_xpyhddetoid().equals(d.getTt_xpyhddeto_xpyhddetoid())) {
-									d.setTt_xpyhddeto_seq(o.getTt_xpyhddeto_seq());
-									d.setTt_xpyhddeto_partnbr(o.getTt_xpyhddeto_partnbr());
-									d.setTt_xpyhddeto_partdesc(o.getTt_xpyhddeto_partdesc());
-									d.setTt_xpyhddeto_supppart(o.getTt_xpyhddeto_supppart());
-									d.setTt_xpyhddeto_uom(o.getTt_xpyhddeto_uom());
-									d.setTt_xpyhddeto_spq(o.getTt_xpyhddeto_spq());
-									d.setTt_xpyhddeto_toloc(o.getTt_xpyhddeto_toloc());
-									d.setTt_xpyhddeto_openqty(o.getTt_xpyhddeto_openqty());
-									break;
-								}
-							}
-						}
-					} else {
-						purchaseOrder = (PurchaseOrder) objList.get(0);
-						purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
-						checkSupplier(purchaseOrder.getTt_xpyhmstro_suppcode());
-					}
-				}
-			} else {
-				purchaseOrder = new PurchaseOrder();
-			}
-
-		} catch (SupplierAuthorityException ex) {
-			addActionError(ex.getMessage());
-
-			purchaseOrder = new PurchaseOrder();
-			purchaseOrder.setTt_xpyhmstro_shipto("");
-			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
-			purchaseOrder.setTt_xpyhmstro_stat("3");
-
-			return INPUT;
+			
+			PurchaseOrder p  = new PurchaseOrder();
+			p.setTt_xpyhmstro_xpyhmstroid("100001");
+			p.setTt_xpyhmstro_stat("2");
+			p.setTt_xpyhmstro_yhdnbr("100001");
+		
+			
+//			if (tt_xpyhddeti_xpyhmstroid != null) {
+//
+//				if (ConnectQAD()) {
+//
+//					// // 鍏堟竻绌轰竴涓�
+//					// if (purchaseOrder != null) {
+//					// purchaseOrder = new PurchaseOrder();
+//					// }
+//					// if (purchaseOrderDetails != null) {
+//					// purchaseOrderDetails.clear();
+//					// }
+//
+//					ProDataGraph exDataGraph; // 杈撳叆鍙傛暟
+//					ProDataGraphHolder outputData = new ProDataGraphHolder(); // 杈撳嚭鍙傛暟
+//
+//					exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxinqury_xpyhddet2_DSMetaData1());
+//
+//					ProDataObject object = exDataGraph.createProDataObject("tt_xpyhddet_in");
+//
+//					object.setString(0, tt_xpyhddeti_xpyhmstroid);
+//
+//					exDataGraph.addProDataObject(object);
+//
+//					yfkssScp.xxinqury_xpyhddet2(exDataGraph, outputData);
+//
+//					@SuppressWarnings("unchecked")
+//					List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+//							.getProDataObjects("tt_xpyhddet_out");
+//
+//					List<Object> objList = QADUtil.ConvertToShipPurchaseOrderAndDetail(outDataList);
+//
+//					if (purchaseOrder != null && purchaseOrder.getHasShipError() != null
+//							&& purchaseOrder.getHasShipError()) {
+//						purchaseOrder.setHasShipError(false);
+//
+//						List<PurchaseOrderDetail> oldPurchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
+//						for (PurchaseOrderDetail d : purchaseOrderDetails) {
+//							for (PurchaseOrderDetail o : oldPurchaseOrderDetails) {
+//								if (o.getTt_xpyhddeto_xpyhddetoid().equals(d.getTt_xpyhddeto_xpyhddetoid())) {
+//									d.setTt_xpyhddeto_seq(o.getTt_xpyhddeto_seq());
+//									d.setTt_xpyhddeto_partnbr(o.getTt_xpyhddeto_partnbr());
+//									d.setTt_xpyhddeto_partdesc(o.getTt_xpyhddeto_partdesc());
+//									d.setTt_xpyhddeto_supppart(o.getTt_xpyhddeto_supppart());
+//									d.setTt_xpyhddeto_uom(o.getTt_xpyhddeto_uom());
+//									d.setTt_xpyhddeto_spq(o.getTt_xpyhddeto_spq());
+//									d.setTt_xpyhddeto_toloc(o.getTt_xpyhddeto_toloc());
+//									d.setTt_xpyhddeto_openqty(o.getTt_xpyhddeto_openqty());
+//									break;
+//								}
+//							}
+//						}
+//					} else {
+//						purchaseOrder = (PurchaseOrder) objList.get(0);
+//						purchaseOrderDetails = (List<PurchaseOrderDetail>) objList.get(1);
+//						checkSupplier(purchaseOrder.getTt_xpyhmstro_suppcode());
+//					}
+//				}
+//			} else {
+//				purchaseOrder = new PurchaseOrder();
+//			}
+//
+//		} catch (SupplierAuthorityException ex) {
+//			addActionError(ex.getMessage());
+//
+//			purchaseOrder = new PurchaseOrder();
+//			purchaseOrder.setTt_xpyhmstro_shipto("");
+//			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
+//			purchaseOrder.setTt_xpyhmstro_stat("3");
+//
+//			return INPUT;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -508,100 +525,117 @@ public class PurchaseOrderAction extends BaseAction {
 	 * @return "success" if no exceptions thrown
 	 */
 	public String list() {
-		if (purchaseOrder == null) {
-			purchaseOrder = new PurchaseOrder();
-			// Date date = new Date();
-			// SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-			// purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
-			
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-			Date date = new Date();
-
-			Calendar fca = Calendar.getInstance();
-			fca.setTime(date);
-			fca.add(Calendar.WEEK_OF_MONTH, -1);
-			String fromDate = sdf.format(fca.getTime());
-
-			Calendar tca = Calendar.getInstance();
-			tca.setTime(date);
-			String toDate = sdf.format(tca.getTime());
-
-			purchaseOrder.setTt_xpyhmstro_startdt(fromDate);
-			purchaseOrder.setTt_xpyhmstri_enddt(toDate);
-			
-
-			purchaseOrder.setIsDetail(false);
-		}
-		// autocomplete瑕佸鐞嗕竴涓�
-		if (purchaseOrder.getTt_xpyhmstro_suppcode() != null && !purchaseOrder.getTt_xpyhmstro_suppcode().equals("")) {
-			String suppcode = purchaseOrder.getTt_xpyhmstro_suppcode();
-			if (suppcode.contains("(")) {
-				purchaseOrder.setTt_xpyhmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
-			}
-		}
-		if (purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals("")) {
-			String shipto = purchaseOrder.getTt_xpyhmstro_shipto();
-
-			if (shipto.contains("(")) {
-				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
-			}
-		}
-		if (purchaseOrder.getTt_xpyhmstro_partnbr() != null && !purchaseOrder.getTt_xpyhmstro_partnbr().equals("")) {
-			String itemcode = purchaseOrder.getTt_xpyhmstro_partnbr();
-			if (itemcode.contains("(")) {
-				purchaseOrder.setTt_xpyhmstro_partnbr(itemcode.substring(0, itemcode.indexOf("(")));
-			}
-		}
-
-		// 鍏朵粬鍏ㄩ儴涓虹┖鎵嶇姸鎬佸�璧嬩负2锛�
-
-		if ((purchaseOrder.getTt_xpyhmstro_yhdnbr() == null || purchaseOrder.getTt_xpyhmstro_yhdnbr().equals(""))
-				&& (purchaseOrder.getTt_xpyhmstro_priority() == null
-						|| purchaseOrder.getTt_xpyhmstro_priority().equals(""))
-				&& (purchaseOrder.getTt_xpyhmstro_suppcode() == null
-						|| purchaseOrder.getTt_xpyhmstro_suppcode().equals(""))
-				&& (purchaseOrder.getTt_xpyhmstro_creator() == null
-						|| purchaseOrder.getTt_xpyhmstro_creator().equals(""))
-				&& (purchaseOrder.getTt_xpyhmstro_shipto() == null || purchaseOrder.getTt_xpyhmstro_shipto().equals(""))
-				&& (purchaseOrder.getTt_xpyhmstro_startdt() == null
-						|| purchaseOrder.getTt_xpyhmstro_startdt().equals(""))
-				&& (purchaseOrder.getTt_xpyhmstri_enddt() == null
-						|| purchaseOrder.getTt_xpyhmstri_enddt().equals(""))
-				&& (purchaseOrder.getTt_xpyhmstro_receptdt() == null
-						|| purchaseOrder.getTt_xpyhmstro_receptdt().equals(""))
-				&& (purchaseOrder.getTt_xpyhmstro_partnbr() == null
-						|| purchaseOrder.getTt_xpyhmstro_partnbr().equals(""))) {
-			if (purchaseOrder.getTt_xpyhmstro_stat() == null || purchaseOrder.getTt_xpyhmstro_stat().equals("")) {
-				purchaseOrder.setTt_xpyhmstro_stat("2,3");
-			}
-		}
-
-		query();
+		
+		purchaseOrders = new ArrayList<PurchaseOrder>();
+		PurchaseOrder p  = new PurchaseOrder();
+		p.setTt_xpyhmstro_xpyhmstroid("100001");
+		p.setTt_xpyhmstro_yhdnbr("100001");
+		p.setTt_xpyhmstro_stat("2");
+		purchaseOrders.add(p);
+		
+//		if (purchaseOrder == null) {
+//			purchaseOrder = new PurchaseOrder();
+//			// Date date = new Date();
+//			// SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+//			// purchaseOrder.setTt_xpyhmstro_receptdt(df.format(date));
+//			
+//			
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//			Date date = new Date();
+//
+//			Calendar fca = Calendar.getInstance();
+//			fca.setTime(date);
+//			fca.add(Calendar.WEEK_OF_MONTH, -1);
+//			String fromDate = sdf.format(fca.getTime());
+//
+//			Calendar tca = Calendar.getInstance();
+//			tca.setTime(date);
+//			String toDate = sdf.format(tca.getTime());
+//
+//			purchaseOrder.setTt_xpyhmstro_startdt(fromDate);
+//			purchaseOrder.setTt_xpyhmstri_enddt(toDate);
+//			
+//
+//			purchaseOrder.setIsDetail(false);
+//		}
+//		// autocomplete瑕佸鐞嗕竴涓�
+//		if (purchaseOrder.getTt_xpyhmstro_suppcode() != null && !purchaseOrder.getTt_xpyhmstro_suppcode().equals("")) {
+//			String suppcode = purchaseOrder.getTt_xpyhmstro_suppcode();
+//			if (suppcode.contains("(")) {
+//				purchaseOrder.setTt_xpyhmstro_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
+//			}
+//		}
+//		if (purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals("")) {
+//			String shipto = purchaseOrder.getTt_xpyhmstro_shipto();
+//
+//			if (shipto.contains("(")) {
+//				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
+//			}
+//		}
+//		if (purchaseOrder.getTt_xpyhmstro_partnbr() != null && !purchaseOrder.getTt_xpyhmstro_partnbr().equals("")) {
+//			String itemcode = purchaseOrder.getTt_xpyhmstro_partnbr();
+//			if (itemcode.contains("(")) {
+//				purchaseOrder.setTt_xpyhmstro_partnbr(itemcode.substring(0, itemcode.indexOf("(")));
+//			}
+//		}
+//
+//		// 鍏朵粬鍏ㄩ儴涓虹┖鎵嶇姸鎬佸�璧嬩负2锛�
+//
+//		if ((purchaseOrder.getTt_xpyhmstro_yhdnbr() == null || purchaseOrder.getTt_xpyhmstro_yhdnbr().equals(""))
+//				&& (purchaseOrder.getTt_xpyhmstro_priority() == null
+//						|| purchaseOrder.getTt_xpyhmstro_priority().equals(""))
+//				&& (purchaseOrder.getTt_xpyhmstro_suppcode() == null
+//						|| purchaseOrder.getTt_xpyhmstro_suppcode().equals(""))
+//				&& (purchaseOrder.getTt_xpyhmstro_creator() == null
+//						|| purchaseOrder.getTt_xpyhmstro_creator().equals(""))
+//				&& (purchaseOrder.getTt_xpyhmstro_shipto() == null || purchaseOrder.getTt_xpyhmstro_shipto().equals(""))
+//				&& (purchaseOrder.getTt_xpyhmstro_startdt() == null
+//						|| purchaseOrder.getTt_xpyhmstro_startdt().equals(""))
+//				&& (purchaseOrder.getTt_xpyhmstri_enddt() == null
+//						|| purchaseOrder.getTt_xpyhmstri_enddt().equals(""))
+//				&& (purchaseOrder.getTt_xpyhmstro_receptdt() == null
+//						|| purchaseOrder.getTt_xpyhmstro_receptdt().equals(""))
+//				&& (purchaseOrder.getTt_xpyhmstro_partnbr() == null
+//						|| purchaseOrder.getTt_xpyhmstro_partnbr().equals(""))) {
+//			if (purchaseOrder.getTt_xpyhmstro_stat() == null || purchaseOrder.getTt_xpyhmstro_stat().equals("")) {
+//				purchaseOrder.setTt_xpyhmstro_stat("2,3");
+//			}
+//		}
+//
+//		query();
 
 		return SUCCESS;
 	}
 
 	public String shiplist() {
 
-		if (purchaseOrder == null) {
-
-			purchaseOrder = new PurchaseOrder();
-			purchaseOrder.setTt_xpyhmstro_shipto("");
-			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
-		}
-
-		if (purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals("")) {
-			String shipto = purchaseOrder.getTt_xpyhmstro_shipto();
-
-			if (shipto.contains("(")) {
-				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
-			}
-		}
-
-		purchaseOrder.setTt_xpyhmstro_stat("3");
-
-		shipQuery();
+		purchaseOrders = new ArrayList<PurchaseOrder>();
+		
+		PurchaseOrder p  = new PurchaseOrder();
+		p.setTt_xpyhmstro_xpyhmstroid("100001");
+		p.setTt_xpyhmstro_stat("2");
+		p.setTt_xpyhmstro_yhdnbr("100001");
+	
+		purchaseOrders.add(p);
+		
+//		if (purchaseOrder == null) {
+//
+//			purchaseOrder = new PurchaseOrder();
+//			purchaseOrder.setTt_xpyhmstro_shipto("");
+//			purchaseOrder.setTt_xpyhmstro_yhdnbr("");
+//		}
+//
+//		if (purchaseOrder.getTt_xpyhmstro_shipto() != null && !purchaseOrder.getTt_xpyhmstro_shipto().equals("")) {
+//			String shipto = purchaseOrder.getTt_xpyhmstro_shipto();
+//
+//			if (shipto.contains("(")) {
+//				purchaseOrder.setTt_xpyhmstro_shipto(shipto.substring(0, shipto.indexOf("(")));
+//			}
+//		}
+//
+//		purchaseOrder.setTt_xpyhmstro_stat("3");
+//
+//		shipQuery();
 		return SUCCESS;
 	}
 

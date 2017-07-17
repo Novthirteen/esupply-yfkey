@@ -17,9 +17,9 @@
 	<s:form action="uploadFile" enctype="multipart/form-data" method="post"
 		validate="true" id="uploadForm" cssClass="well">
 		<s:textfield name="name" label="%{getText('uploadForm.name')}"
-			required="true" autofocus="true" cssClass="form-control" />
+			requiredLabel="true" autofocus="true" cssClass="form-control" />
 		<s:file name="file" label="%{getText('uploadForm.file')}"
-			required="true" />
+			requiredLabel="true" />
 		<div id="actions" class="form-group">
 			<c:if test="${canUploadTest}">
 				<s:submit type="button" key="button.upload.Test" name="uploadTest"

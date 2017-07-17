@@ -21,7 +21,7 @@
 	<div id="actions" class="form-group form-actions">
 		<c:if test="${canAssignRoleUser}">
 			<s:submit type="button" cssClass="btn btn-primary"
-				action="saveRoleUser" key="button.save" theme="simple">
+				formaction="saveRoleUser" key="button.save" theme="simple">
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</s:submit>

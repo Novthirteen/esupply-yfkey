@@ -64,20 +64,20 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 search-group layouttrim">
-				<s:submit type="button" cssClass="btn btn-primary" action="barcodes"
+				<s:submit type="button" cssClass="btn btn-primary" formaction="barcodes"
 					key="button.search" theme="simple">
 					<i class="icon-search icon-white"></i>
 					<fmt:message key="button.search" />
 				</s:submit>
 
 				<s:submit type="button" cssClass="btn btn-primary"
-					action="printBarcode" key="button.print" theme="simple">
+					formaction="printBarcode" key="button.print" theme="simple">
 					<i class="icon-print icon-white"></i>
 					<fmt:message key="button.print" />
 				</s:submit>
 				
 				<s:submit type="button" cssClass="btn btn-primary"
-					action="printAllBarcode" key="button.printAll" theme="simple">
+					formaction="printAllBarcode" key="button.printAll" theme="simple">
 					<i class="icon-print icon-white"></i>
 					<fmt:message key="button.printAll" />
 				</s:submit>
