@@ -121,6 +121,11 @@
 			<artifactId>displaytag-poi</artifactId>
 			<version>3.2.0</version>
 		</dependency>
+		<dependency>
+		  	<groupId>org.freemarker</groupId>
+  			<artifactId>freemarker</artifactId>
+  			<version>2.3.23</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -131,18 +136,15 @@
 		<web.framework>struts</web.framework>
 
 		<!-- Framework/Plugin versions -->
-		<struts.version>2.3.7</struts.version>
+		<struts.version>2.3.32</struts.version>
 		<appfuse.version>3.5.0</appfuse.version>
 		<java.version>1.7</java.version>
 		<progress.version>1.0.0</progress.version>
 		<itextpdf.version>5.0.6</itextpdf.version>
 
-
-
 		<!-- Database settings -->
-		
 		<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
-		<hibernate.show_sql>false</hibernate.show_sql>
+		<hibernate.show_sql>true</hibernate.show_sql>
 		<hibernate.format_sql>true</hibernate.format_sql>
 		<hibernate.use_sql_comments>true</hibernate.use_sql_comments>
 		<jdbc.groupId>mysql</jdbc.groupId>

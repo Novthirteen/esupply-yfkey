@@ -41,7 +41,7 @@ public class PurchaseOrderDetail extends BaseObject {
 	private int tt_xpyhddeto_oldQty;    					//数量
 	private String tt_xpyhddeto_pktype;              			//包装类型
 	private String isexternal;              			      //包装类型
-	
+	private String tt_xpyhddeto_vend_lots;                    //供应商批次  
 	
 	//发货用
 	private String tt_xpyhddeto_toloc;  					//目的库位
@@ -268,6 +268,14 @@ public class PurchaseOrderDetail extends BaseObject {
 	}
 	public void setTt_xpyhddeto_oldQty(int tt_xpyhddeto_oldQty) {
 		this.tt_xpyhddeto_oldQty = tt_xpyhddeto_oldQty;
+	}
+	
+	
+	public String getTt_xpyhddeto_vend_lots() {
+		return tt_xpyhddeto_vend_lots;
+	}
+	public void setTt_xpyhddeto_vend_lots(String tt_xpyhddeto_vend_lots) {
+		this.tt_xpyhddeto_vend_lots = tt_xpyhddeto_vend_lots;
 	}
 	@Override
 	public int hashCode() {

@@ -125,31 +125,35 @@ public class BarcodeAction extends BaseAction {
 
 	private void query() {
 
-		// purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
-		//
-		// PurchaseOrderDetail podet = new PurchaseOrderDetail();
-		// podet.setTt_xpyhddeto_seq(10);
-		// podet.setTt_xpyhddeto_yhdnbr("ORD000001");
-		// podet.setTt_xpyhddeto_partnbr("1000001");
-		// podet.setTt_xpyhddeto_partdesc("螺丝");
-		// podet.setTt_xpyhddeto_spq(new BigDecimal(100));
-		// podet.setTt_xpyhddeto_uom("件");
-		// podet.setTt_xpyhddeto_innnerqty(new BigDecimal(100));
-		// podet.setTt_xpyhddeto_externalqty(new BigDecimal(200));
-		// podet.setTt_xpyhddeto_pktype("纸箱");
-		// purchaseOrderDetails.add(podet);
-		//
-		// PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
-		// podet1.setTt_xpyhddeto_seq(20);
-		// podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
-		// podet1.setTt_xpyhddeto_partnbr("1000002");
-		// podet1.setTt_xpyhddeto_partdesc("螺母");
-		// podet1.setTt_xpyhddeto_spq(new BigDecimal(200));
-		// podet1.setTt_xpyhddeto_uom("件");
-		// podet1.setTt_xpyhddeto_innnerqty(new BigDecimal(200));
-		// podet1.setTt_xpyhddeto_externalqty(new BigDecimal(200));
-		// podet1.setTt_xpyhddeto_pktype("纸箱");
-		// purchaseOrderDetails.add(podet1);
+//		 purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
+//		
+//		 PurchaseOrderDetail podet = new PurchaseOrderDetail();
+//		 podet.setTt_xpyhddeto_seq(10);
+//		 podet.setTt_xpyhddeto_yhdnbr("ORD000001");
+//		 podet.setTt_xpyhddeto_partnbr("1000001");
+//		 podet.setTt_xpyhddeto_partdesc("螺丝");
+//		 podet.setTt_xpyhddeto_spq(new BigDecimal(100));
+//		 podet.setTt_xpyhddeto_uom("件");
+//		 podet.setTt_xpyhddeto_innnerqty(new BigDecimal(100));
+//		 podet.setTt_xpyhddeto_externalqty(new BigDecimal(200));
+//		 podet.setTt_xpyhddeto_pktype("纸箱");
+//		 podet.setTt_xpyhddeto_qty("200");
+//		 podet.setTt_xpyhddeto_lots("SP170719");
+//		 purchaseOrderDetails.add(podet);
+//		
+//		 PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
+//		 podet1.setTt_xpyhddeto_seq(20);
+//		 podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
+//		 podet1.setTt_xpyhddeto_partnbr("1000002");
+//		 podet1.setTt_xpyhddeto_partdesc("螺母");
+//		 podet1.setTt_xpyhddeto_spq(new BigDecimal(200));
+//		 podet1.setTt_xpyhddeto_uom("件");
+//		 podet1.setTt_xpyhddeto_innnerqty(new BigDecimal(200));
+//		 podet1.setTt_xpyhddeto_externalqty(new BigDecimal(200));
+//		 podet1.setTt_xpyhddeto_pktype("纸箱");
+//		 podet1.setTt_xpyhddeto_qty("200");
+//		 podet1.setTt_xpyhddeto_lots("SP170719");
+//		 purchaseOrderDetails.add(podet1);
 
 		if (ConnectQAD()) {
 
@@ -241,12 +245,13 @@ public class BarcodeAction extends BaseAction {
 							ProDataObject objectMstr = exDataGraph.createProDataObject("tt_bcdet_in");
 							objectMstr.setString(0, pod.getTt_xpyhddeto_partnbr());
 							objectMstr.setString(1, pod.getTt_xpyhddeto_lots());
-							objectMstr.setBigDecimal(2, new BigDecimal(pod.getTt_xpyhddeto_qty()));
-							objectMstr.setString(3, currDate);
+							objectMstr.setString(2, pod.getTt_xpyhddeto_vend_lots());
+							objectMstr.setBigDecimal(3, new BigDecimal(pod.getTt_xpyhddeto_qty()));
+							objectMstr.setString(4, currDate);
 							// objectMstr.setString("tt_bcdeti_domain",
 							// value);
-							objectMstr.setString(4, pod.getTt_xpyhddeto_xpyhddetoid());
-							objectMstr.setString(5, purchaseOrderDetail.getIsexternal());
+							objectMstr.setString(5, pod.getTt_xpyhddeto_xpyhddetoid());
+							objectMstr.setString(6, purchaseOrderDetail.getIsexternal());
 
 							exDataGraph.addProDataObject(objectMstr);
 						}
@@ -300,7 +305,7 @@ public class BarcodeAction extends BaseAction {
 			if (ConnectQAD()) {
 
 				//重新按条件查一遍
-				query();
+				//query();
 
 				
 				String userCode = this.getRequest().getRemoteUser();
@@ -334,12 +339,13 @@ public class BarcodeAction extends BaseAction {
 							ProDataObject objectMstr = exDataGraph.createProDataObject("tt_bcdet_in");
 							objectMstr.setString(0, pod.getTt_xpyhddeto_partnbr());
 							objectMstr.setString(1, pod.getTt_xpyhddeto_lots());
-							objectMstr.setBigDecimal(2, new BigDecimal(pod.getTt_xpyhddeto_qty()));
-							objectMstr.setString(3, currDate);
+							objectMstr.setString(2, pod.getTt_xpyhddeto_vend_lots());
+							objectMstr.setBigDecimal(3, new BigDecimal(pod.getTt_xpyhddeto_qty()));
+							objectMstr.setString(4, currDate);
 							// objectMstr.setString("tt_bcdeti_domain",
 							// value);
-							objectMstr.setString(4, pod.getTt_xpyhddeto_xpyhddetoid());
-							objectMstr.setString(5, purchaseOrderDetail.getIsexternal());
+							objectMstr.setString(5, pod.getTt_xpyhddeto_xpyhddetoid());
+							objectMstr.setString(6, purchaseOrderDetail.getIsexternal());
 
 							exDataGraph.addProDataObject(objectMstr);
 						}

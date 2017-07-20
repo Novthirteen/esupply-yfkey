@@ -8,7 +8,8 @@ public class Barcode extends BaseObject {
 	private String tt_bcdeto_partnbr;     				  //物料号
 	private String tt_bcdeto_partdesc;        			  //物料描述
 	private String tt_bcdeto_lots;   				  	  //批号
-	private BigDecimal tt_bcdeto_qty;   				  	  //数量
+	private String tt_bcdeto_vend_lots;                   //供应商批次
+	private BigDecimal tt_bcdeto_qty;   				  //数量
 	private String tt_bcdeto_bcinfo1;   				  //条码1(1维码)
 	private String tt_bcdeto_suppname;   				  //供应商名称
 	private String tt_bcdeto_bcinfo2;   				  //条码2(2维码)
@@ -78,7 +79,12 @@ public class Barcode extends BaseObject {
 	}
 	
 	
-	
+	public String getTt_bcdeto_vend_lots() {
+		return tt_bcdeto_vend_lots;
+	}
+	public void setTt_bcdeto_vend_lots(String tt_bcdeto_vend_lots) {
+		this.tt_bcdeto_vend_lots = tt_bcdeto_vend_lots;
+	}
 	public String getTt_bcdeto_bcnon() {
 		return tt_bcdeto_bcnon;
 	}
