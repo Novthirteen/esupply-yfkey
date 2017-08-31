@@ -27,6 +27,8 @@ public class PrintBarcodeUtil {
 
 			// step 2
 			PdfWriter writer = PdfWriter.getInstance(document, baos);
+			writer.setEncryption(null, null, PdfWriter.ALLOW_DEGRADED_PRINTING, PdfWriter.ENCRYPTION_AES_128);
+
 			// step 3
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
@@ -49,6 +51,11 @@ public class PrintBarcodeUtil {
 				// Image img = code128.createImageWithBarcode(cb, null, null);
 
 				Barcode128 code128 = new Barcode128();
+				// Jack Zheng
+
+				code128.setN(6f);
+				code128.setX(2f);
+
 				code128.setCodeType(com.itextpdf.text.pdf.Barcode.CODE128);
 				code128.setCode(barcode.getTt_bcdeto_bcinfo1());
 
