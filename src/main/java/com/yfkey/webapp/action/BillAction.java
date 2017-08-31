@@ -636,6 +636,23 @@ public class BillAction extends BaseAction {
 			throw new BillConfirmNotValidException(getText("bill.disamt_format_error"));
 		}
 
+		//不含税金额=账单金额-返点金额-索赔金额，否者报错。
+		try{
+			BigDecimal notaxamt = new BigDecimal(bill.getTt_xprcmstro_notaxamt()); 			//不含税
+			BigDecimal totalamt =bill.getTt_xprcmstro_totalamt();						// 账单金额	
+			BigDecimal disamt = new BigDecimal(bill.getTt_xpyhddeto_disamt());				//返点金额	
+			BigDecimal claimamt =  bill.getTt_xprcmstro_claimamt(); 						//索赔金额
+			
+			if(totalamt.subtract(disamt).subtract(claimamt).compareTo(notaxamt) != 0)
+			{
+				throw new BillConfirmNotValidException(getText("bill.notaxamt_not_equal_error"));
+			}
+			
+		
+		}catch (NumberFormatException e) {
+			throw new BillConfirmNotValidException(getText("bill.qty_format_error"));
+		}
+		
 	}
 
 	public static boolean checkStr(String s) {

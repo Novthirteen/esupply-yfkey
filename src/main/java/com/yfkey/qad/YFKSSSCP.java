@@ -52,7 +52,9 @@ public class YFKSSSCP implements SDOFactory {
 		if (urlString == null || urlString.compareTo("") == 0)
 			connection.setUrl("YFKSS_SCP");
 
-		connection.setRequestWaitTimeout(600);
+        connection.setIdleConnectionTimeout(480*1000);  
+        connection.setConnectionLifetime(480*1000);
+        
 		connection.setIntProperty("PROGRESS.Session.sessionModel", QADConfg.getQadSessionMode());
 		m_YFKSSSCPImpl = new YFKSSSCPImpl("YFKSS_SCP", connection, RunTimeProperties.tracer);
 	}
