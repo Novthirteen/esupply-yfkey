@@ -643,7 +643,7 @@ public class BillAction extends BaseAction {
 			BigDecimal disamt = new BigDecimal(bill.getTt_xpyhddeto_disamt());				//返点金额	
 			BigDecimal claimamt =  bill.getTt_xprcmstro_claimamt(); 						//索赔金额
 			
-			if(totalamt.subtract(disamt).subtract(claimamt).subtract(notaxamt).abs().compareTo(BigDecimal.ONE) == -1)
+			if(totalamt.subtract(disamt).subtract(claimamt).subtract(notaxamt).abs().compareTo(BigDecimal.ONE) == 1)
 			{
 				throw new BillConfirmNotValidException(getText("bill.notaxamt_not_equal_error"));
 			}
