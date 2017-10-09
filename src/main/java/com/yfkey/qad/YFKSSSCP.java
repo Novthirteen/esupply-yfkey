@@ -351,4 +351,15 @@ public class YFKSSSCP implements SDOFactory {
 	{
 		return m_YFKSSSCPImpl.xxinquiry_payment( input_xprc,  export_xprc);
 	}
+	
+	/**
+	*	
+	*	
+	*/
+	public String xxprint_barcode2(ProDataGraph input_bcddet, ProDataGraphHolder export_bcddet)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		return m_YFKSSSCPImpl.xxprint_barcode2( input_bcddet,  export_bcddet);
+	}
+
 }

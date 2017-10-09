@@ -2142,6 +2142,69 @@ public final class YFKSSSCPImpl extends AppObject
 	public static void setXxinquiry_payment_MetaData22(ProDataObjectMetaData xxinquiry_payment_MetaData22) {
 		YFKSSSCPImpl.xxinquiry_payment_MetaData22 = xxinquiry_payment_MetaData22;
 	}
+	
+	
+	
+
+
+	public static ProDataGraphMetaData getXxprint_barcode2_DSMetaData1() {
+		return xxprint_barcode2_DSMetaData1;
+	}
+
+
+	public static void setXxprint_barcode2_DSMetaData1(ProDataGraphMetaData xxprint_barcode2_DSMetaData1) {
+		YFKSSSCPImpl.xxprint_barcode2_DSMetaData1 = xxprint_barcode2_DSMetaData1;
+	}
+
+
+	public static ProDataObjectMetaData getXxprint_barcode2_MetaData11() {
+		return xxprint_barcode2_MetaData11;
+	}
+
+
+	public static void setXxprint_barcode2_MetaData11(ProDataObjectMetaData xxprint_barcode2_MetaData11) {
+		YFKSSSCPImpl.xxprint_barcode2_MetaData11 = xxprint_barcode2_MetaData11;
+	}
+
+
+	public static ProDataObjectMetaData getXxprint_barcode2_MetaData12() {
+		return xxprint_barcode2_MetaData12;
+	}
+
+
+	public static void setXxprint_barcode2_MetaData12(ProDataObjectMetaData xxprint_barcode2_MetaData12) {
+		YFKSSSCPImpl.xxprint_barcode2_MetaData12 = xxprint_barcode2_MetaData12;
+	}
+
+
+	public static ProDataGraphMetaData getXxprint_barcode2_DSMetaData2() {
+		return xxprint_barcode2_DSMetaData2;
+	}
+
+
+	public static void setXxprint_barcode2_DSMetaData2(ProDataGraphMetaData xxprint_barcode2_DSMetaData2) {
+		YFKSSSCPImpl.xxprint_barcode2_DSMetaData2 = xxprint_barcode2_DSMetaData2;
+	}
+
+
+	public static ProDataObjectMetaData getXxprint_barcode2_MetaData21() {
+		return xxprint_barcode2_MetaData21;
+	}
+
+
+	public static void setXxprint_barcode2_MetaData21(ProDataObjectMetaData xxprint_barcode2_MetaData21) {
+		YFKSSSCPImpl.xxprint_barcode2_MetaData21 = xxprint_barcode2_MetaData21;
+	}
+
+
+	public static ProDataObjectMetaData getXxprint_barcode2_MetaData22() {
+		return xxprint_barcode2_MetaData22;
+	}
+
+
+	public static void setXxprint_barcode2_MetaData22(ProDataObjectMetaData xxprint_barcode2_MetaData22) {
+		YFKSSSCPImpl.xxprint_barcode2_MetaData22 = xxprint_barcode2_MetaData22;
+	}
 
 
 	public YFKSSSCPImpl(String     appName,
@@ -3376,6 +3439,123 @@ public final class YFKSSSCPImpl extends AppObject
 		// Get output parameters
 		outValue = params.getOutputParameter(2);
 		export_xprc.setValue(outValue);
+
+
+		// Session-Managed always returns null
+		if (rqCtx != null)
+		{
+			if (!rqCtx._isStreaming())
+				rqCtx._release();
+			else
+			{
+				// If set, there's a ResultSetHolder parm
+				lastResultSet = null;
+				if (lastResultSet != null)
+					lastResultSet.setRqContext(rqCtx);
+			}
+		}
+
+		// Return output value
+		return (String)(params.getProcedureReturnValue());
+
+	}
+	
+	
+	
+	static ProDataGraphMetaData xxprint_barcode2_DSMetaData1;
+
+	static ProDataObjectMetaData xxprint_barcode2_MetaData11;
+
+	static ProDataObjectMetaData xxprint_barcode2_MetaData12;
+
+	static ProDataGraphMetaData xxprint_barcode2_DSMetaData2;
+
+	static ProDataObjectMetaData xxprint_barcode2_MetaData21;
+
+	static ProDataObjectMetaData xxprint_barcode2_MetaData22;
+
+
+	static
+	{
+		xxprint_barcode2_DSMetaData1 = new ProDataGraphMetaData(0, "input_bcddet", 1, ParameterSet.INPUT);
+		xxprint_barcode2_MetaData11 = new ProDataObjectMetaData("tt_suppcode_in", 2, false, 0, null, null, null);
+		xxprint_barcode2_MetaData11.setFieldDesc(1, "tt_suppcodei_domain", 0, Parameter.PRO_CHARACTER,0,0);
+		xxprint_barcode2_MetaData11.setFieldDesc(2, "tt_suppcodei_suppcode", 0, Parameter.PRO_CHARACTER,1,0);
+		xxprint_barcode2_DSMetaData1.addTable(xxprint_barcode2_MetaData11);
+		xxprint_barcode2_MetaData12 = new ProDataObjectMetaData("tt_bcdet_in", 7, false, 0, null, null, null);
+		xxprint_barcode2_MetaData12.setFieldDesc(1, "tt_bcdeti_partnbr", 0, Parameter.PRO_CHARACTER,0,0);
+		xxprint_barcode2_MetaData12.setFieldDesc(2, "tt_bcdeti_lots", 0, Parameter.PRO_CHARACTER,1,0);
+		xxprint_barcode2_MetaData12.setFieldDesc(3, "tt_bcdeti_vend_lots", 0, Parameter.PRO_CHARACTER,2,0);
+		xxprint_barcode2_MetaData12.setFieldDesc(4, "tt_bcdeti_qty", 0, Parameter.PRO_DECIMAL,3,0);
+		xxprint_barcode2_MetaData12.setFieldDesc(5, "tt_bcdeti_date", 0, Parameter.PRO_CHARACTER,4,0);
+		xxprint_barcode2_MetaData12.setFieldDesc(6, "tt_new_bcdeti_bcdetoid", 0, Parameter.PRO_CHARACTER,5,0);
+		xxprint_barcode2_MetaData12.setFieldDesc(7, "tt_bcdeti_pktype", 0, Parameter.PRO_CHARACTER,6,0);
+		xxprint_barcode2_DSMetaData1.addTable(xxprint_barcode2_MetaData12);
+		xxprint_barcode2_DSMetaData2 = new ProDataGraphMetaData(0, "export_bcddet", 2, ParameterSet.OUTPUT);
+		xxprint_barcode2_MetaData21 = new ProDataObjectMetaData("tt_bcdet_out", 11, false, 0, null, null, null);
+		xxprint_barcode2_MetaData21.setFieldDesc(1, "tt_bcdeto_date", 0, Parameter.PRO_CHARACTER,0,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(2, "tt_bcdeto_partnbr", 0, Parameter.PRO_CHARACTER,1,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(3, "tt_bcdeto_partdesc", 0, Parameter.PRO_CHARACTER,2,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(4, "tt_bcdeto_lots", 0, Parameter.PRO_CHARACTER,3,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(5, "tt_bcdeto_qty", 0, Parameter.PRO_DECIMAL,4,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(6, "tt_bcdeto_bcinfo1", 0, Parameter.PRO_CHARACTER,5,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(7, "tt_bcdeto_suppname", 0, Parameter.PRO_CHARACTER,6,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(8, "tt_bcdeto_bcinfo2", 0, Parameter.PRO_CHARACTER,7,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(9, "tt_bcdeto_serial", 0, Parameter.PRO_CHARACTER,8,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(10, "tt_bcdeto_bcdetoid", 0, Parameter.PRO_CHARACTER,9,0);
+		xxprint_barcode2_MetaData21.setFieldDesc(11, "tt_bcdeto_bcnon", 0, Parameter.PRO_CHARACTER,10,0);
+		xxprint_barcode2_DSMetaData2.addTable(xxprint_barcode2_MetaData21);
+		xxprint_barcode2_MetaData22 = new ProDataObjectMetaData("tt_err_out", 4, false, 0, null, null, null);
+		xxprint_barcode2_MetaData22.setFieldDesc(1, "tt_erro_bcdetoid", 0, Parameter.PRO_CHARACTER,0,0);
+		xxprint_barcode2_MetaData22.setFieldDesc(2, "tt_erro_errid", 0, Parameter.PRO_INTEGER,1,0);
+		xxprint_barcode2_MetaData22.setFieldDesc(3, "tt_erro_errsens", 0, Parameter.PRO_INTEGER,2,0);
+		xxprint_barcode2_MetaData22.setFieldDesc(4, "tt_erro_msg", 0, Parameter.PRO_CHARACTER,3,0);
+		xxprint_barcode2_DSMetaData2.addTable(xxprint_barcode2_MetaData22);
+
+	}
+
+
+	/* 
+	*/
+	public String xxprint_barcode2(ProDataGraph input_bcddet, ProDataGraphHolder export_bcddet)
+		throws Open4GLException, RunTime4GLException, SystemErrorException
+	{
+		RqContext rqCtx = null;
+		com.progress.open4gl.dynamicapi.ResultSet lastResultSet = null;
+
+		if (isSessionAvailable() == false)
+			throw new Open4GLException(m_notAvailable, null);
+
+		Object outValue;
+		ParameterSet params = new ParameterSet(2);
+
+		// Set up input parameters
+		params.setDataGraphParameter(1, input_bcddet, ParameterSet.INPUT, false);
+
+
+		// Set up input/output parameters
+
+
+		// Set up Out parameters
+		params.setDataGraphParameter(2, null, ParameterSet.OUTPUT, false);
+
+
+		// Setup local MetaSchema if any params are tables
+		MetaSchema xxprint_barcode2_MetaSchema = new MetaSchema();
+		xxprint_barcode2_MetaSchema.addProDataGraphSchema(xxprint_barcode2_DSMetaData1, 1, ParameterSet.INPUT , false);
+		xxprint_barcode2_MetaSchema.addProDataGraphSchema(xxprint_barcode2_DSMetaData2, 2, ParameterSet.OUTPUT , false);
+
+
+		// Set up return type
+		
+
+		// Run procedure
+		rqCtx = runProcedure("xxprint_barcode2.p", params, xxprint_barcode2_MetaSchema);
+
+
+		// Get output parameters
+		outValue = params.getOutputParameter(2);
+		export_bcddet.setValue(outValue);
 
 
 		// Session-Managed always returns null

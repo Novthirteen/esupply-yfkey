@@ -17,6 +17,12 @@ public class Barcode extends BaseObject {
 	private String tt_bcdeto_bcdetoid;   				  //bcdet唯一标示
 	private String tt_bcdeto_bcnon;                       //条码，不带特殊符号
 	
+	
+	//打条码
+	private String isexternal;              			      //包装类型
+	private String printQty;								   //打印数量
+	private String tt_bcdeto_suppcode;					      //供应商代码
+	
 	public String getTt_bcdeto_date() {
 		return tt_bcdeto_date;
 	}
@@ -90,6 +96,28 @@ public class Barcode extends BaseObject {
 	}
 	public void setTt_bcdeto_bcnon(String tt_bcdeto_bcnon) {
 		this.tt_bcdeto_bcnon = tt_bcdeto_bcnon;
+	}
+	
+	public String getIsexternal() {
+		return isexternal;
+	}
+	public void setIsexternal(String isexternal) {
+		this.isexternal = isexternal;
+	}
+	
+	
+	
+	public String getTt_bcdeto_suppcode() {
+		return tt_bcdeto_suppcode;
+	}
+	public void setTt_bcdeto_suppcode(String tt_bcdeto_suppcode) {
+		this.tt_bcdeto_suppcode = tt_bcdeto_suppcode;
+	}
+	public String getPrintQty() {
+		return printQty;
+	}
+	public void setPrintQty(String printQty) {
+		this.printQty = printQty;
 	}
 	@Override
 	public int hashCode() {

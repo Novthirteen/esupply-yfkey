@@ -52,6 +52,7 @@ public class BarcodeAction extends BaseAction {
 
 	private List<PurchaseOrderDetail> purchaseOrderDetails;
 	private PurchaseOrderDetail purchaseOrderDetail;
+	private Barcode barcode;
 
 	private InputStream inputStream;
 	private String fileName;
@@ -80,6 +81,14 @@ public class BarcodeAction extends BaseAction {
 		return fileName;
 	}
 
+	public Barcode getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(Barcode barcode) {
+		this.barcode = barcode;
+	}
+
 	/**
 	 * Fetch all purchaseOrders from database and put into local
 	 * "purchaseOrders" variable for retrieval in the UI.
@@ -89,8 +98,8 @@ public class BarcodeAction extends BaseAction {
 	public String list() {
 		if (purchaseOrderDetail == null) {
 			purchaseOrderDetail = new PurchaseOrderDetail();
-			
-			//没条件显示空
+
+			// 没条件显示空
 			purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
 			return SUCCESS;
 		}
@@ -123,37 +132,49 @@ public class BarcodeAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	public String list2() {
+
+		if (barcode == null) {
+			List<String> supplierCodeList = getSupplierCodeList("");
+			barcode = new Barcode();
+			if (supplierCodeList != null && supplierCodeList.size() > 0) {
+				barcode.setTt_bcdeto_suppcode(supplierCodeList.get(0));
+			}
+		}
+		return SUCCESS;
+	}
+
 	private void query() {
 
-//		 purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
-//		
-//		 PurchaseOrderDetail podet = new PurchaseOrderDetail();
-//		 podet.setTt_xpyhddeto_seq(10);
-//		 podet.setTt_xpyhddeto_yhdnbr("ORD000001");
-//		 podet.setTt_xpyhddeto_partnbr("1000001");
-//		 podet.setTt_xpyhddeto_partdesc("螺丝");
-//		 podet.setTt_xpyhddeto_spq(new BigDecimal(100));
-//		 podet.setTt_xpyhddeto_uom("件");
-//		 podet.setTt_xpyhddeto_innnerqty(new BigDecimal(100));
-//		 podet.setTt_xpyhddeto_externalqty(new BigDecimal(200));
-//		 podet.setTt_xpyhddeto_pktype("纸箱");
-//		 podet.setTt_xpyhddeto_qty("200");
-//		 podet.setTt_xpyhddeto_lots("SP170719");
-//		 purchaseOrderDetails.add(podet);
-//		
-//		 PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
-//		 podet1.setTt_xpyhddeto_seq(20);
-//		 podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
-//		 podet1.setTt_xpyhddeto_partnbr("1000002");
-//		 podet1.setTt_xpyhddeto_partdesc("螺母");
-//		 podet1.setTt_xpyhddeto_spq(new BigDecimal(200));
-//		 podet1.setTt_xpyhddeto_uom("件");
-//		 podet1.setTt_xpyhddeto_innnerqty(new BigDecimal(200));
-//		 podet1.setTt_xpyhddeto_externalqty(new BigDecimal(200));
-//		 podet1.setTt_xpyhddeto_pktype("纸箱");
-//		 podet1.setTt_xpyhddeto_qty("200");
-//		 podet1.setTt_xpyhddeto_lots("SP170719");
-//		 purchaseOrderDetails.add(podet1);
+		// purchaseOrderDetails = new ArrayList<PurchaseOrderDetail>();
+		//
+		// PurchaseOrderDetail podet = new PurchaseOrderDetail();
+		// podet.setTt_xpyhddeto_seq(10);
+		// podet.setTt_xpyhddeto_yhdnbr("ORD000001");
+		// podet.setTt_xpyhddeto_partnbr("1000001");
+		// podet.setTt_xpyhddeto_partdesc("螺丝");
+		// podet.setTt_xpyhddeto_spq(new BigDecimal(100));
+		// podet.setTt_xpyhddeto_uom("件");
+		// podet.setTt_xpyhddeto_innnerqty(new BigDecimal(100));
+		// podet.setTt_xpyhddeto_externalqty(new BigDecimal(200));
+		// podet.setTt_xpyhddeto_pktype("纸箱");
+		// podet.setTt_xpyhddeto_qty("200");
+		// podet.setTt_xpyhddeto_lots("SP170719");
+		// purchaseOrderDetails.add(podet);
+		//
+		// PurchaseOrderDetail podet1 = new PurchaseOrderDetail();
+		// podet1.setTt_xpyhddeto_seq(20);
+		// podet1.setTt_xpyhddeto_yhdnbr("ORD000001");
+		// podet1.setTt_xpyhddeto_partnbr("1000002");
+		// podet1.setTt_xpyhddeto_partdesc("螺母");
+		// podet1.setTt_xpyhddeto_spq(new BigDecimal(200));
+		// podet1.setTt_xpyhddeto_uom("件");
+		// podet1.setTt_xpyhddeto_innnerqty(new BigDecimal(200));
+		// podet1.setTt_xpyhddeto_externalqty(new BigDecimal(200));
+		// podet1.setTt_xpyhddeto_pktype("纸箱");
+		// podet1.setTt_xpyhddeto_qty("200");
+		// podet1.setTt_xpyhddeto_lots("SP170719");
+		// purchaseOrderDetails.add(podet1);
 
 		if (ConnectQAD()) {
 
@@ -304,10 +325,9 @@ public class BarcodeAction extends BaseAction {
 			checkPrintAllBarcode(purchaseOrderDetails);
 			if (ConnectQAD()) {
 
-				//重新按条件查一遍
-				//query();
+				// 重新按条件查一遍
+				// query();
 
-				
 				String userCode = this.getRequest().getRemoteUser();
 				@SuppressWarnings("unchecked")
 				List<String> supplierCodeList = getSupplierCodeList(
@@ -392,6 +412,95 @@ public class BarcodeAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	public String printByItem() {
+		try {
+
+			checkPrintBarcode(barcode);
+			if (ConnectQAD()) {
+
+				String userCode = this.getRequest().getRemoteUser();
+				@SuppressWarnings("unchecked")
+				List<String> supplierCodeList = getSupplierCodeList(
+						barcode != null ? barcode.getTt_bcdeto_suppcode() : "");
+
+				String domain = getCurrentDomain();
+				ProDataGraph exDataGraph; // 输入参数
+				ProDataGraphHolder outputData = new ProDataGraphHolder(); // 输出参数
+
+				exDataGraph = new ProDataGraph(yfkssScp.m_YFKSSSCPImpl.getXxprint_barcode2_DSMetaData1());
+				for (int i = 0; i < supplierCodeList.size(); i++) {
+					ProDataObject object = exDataGraph.createProDataObject("tt_suppcode_in");
+					String supCode = supplierCodeList.get(i);
+					object.setString(0, domain);
+					object.setString(1, supCode);
+
+					exDataGraph.addProDataObject(object);
+				}
+
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");// 设置日期格式
+				String currDate = df.format(new Date());
+
+				if (barcode != null) {
+
+					ProDataObject objectMstr = exDataGraph.createProDataObject("tt_bcdet_in");
+					objectMstr.setString(0, barcode.getTt_bcdeto_partnbr());
+					objectMstr.setString(1, barcode.getTt_bcdeto_lots());
+					objectMstr.setString(2, barcode.getTt_bcdeto_vend_lots());
+					objectMstr.setBigDecimal(3, new BigDecimal(barcode.getPrintQty()));
+					objectMstr.setString(4, currDate);
+					// objectMstr.setString("tt_bcdeti_domain",
+					// value);
+					objectMstr.setString(5, "");
+					objectMstr.setString(6, barcode.getIsexternal());
+
+					exDataGraph.addProDataObject(objectMstr);
+
+				}
+
+				yfkssScp.xxprint_barcode2(exDataGraph, outputData);
+
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> errotOutDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_err_out");
+				if (errotOutDataList != null && errotOutDataList.size() > 0) {
+					throw new QadException(getQadErrorMessage(errotOutDataList));
+				}
+
+				@SuppressWarnings("unchecked")
+				List<ProDataObject> outDataList = (List<ProDataObject>) outputData.getProDataGraphValue()
+						.getProDataObjects("tt_bcdet_out");
+
+				List<Barcode> barcodeList = QADUtil.ConvertToBarcode(outDataList);
+
+				// printBarcode(barcodeList);
+
+				if (barcodeList == null || barcodeList.size() == 0) {
+
+					throw new PrintBarcodeNotValidException(getText("barcode.qty_all_empty"));
+				}
+
+				String localAbsolutPath = this.getSession().getServletContext().getRealPath("/");
+				inputStream = PrintBarcodeUtil.printBarcode(localAbsolutPath, barcodeList, userCode);
+
+				fileName = "barcode.pdf";
+
+			}
+		} catch (QadException ex) {
+			addActionError(ex.getMessage());
+
+			return INPUT;
+		} catch (PrintBarcodeNotValidException ex) {
+			addActionError(ex.getMessage());
+
+			return INPUT;
+		} catch (Exception ex) {
+			saveErrorForUnexpectException(ex);
+			return INPUT;
+		}
+
+		return SUCCESS;
+	}
+
 	public List<LabelValue> getPackageList() {
 		List<LabelValue> packageList = new ArrayList<LabelValue>();
 		packageList.add(new LabelValue("0", getText("package.inner")));
@@ -443,6 +552,56 @@ public class BarcodeAction extends BaseAction {
 		}
 	}
 
+	@SuppressWarnings("unused")
+	private void checkPrintBarcode(Barcode barcode) throws PrintBarcodeNotValidException {
+
+		try {
+			if (barcode != null) {
+
+				if (barcode.getTt_bcdeto_suppcode() == null || barcode.getTt_bcdeto_suppcode().equals("")) {
+					throw new PrintBarcodeNotValidException(getText("barcode.suppcode_empty"));
+				} else {
+
+					String suppcode = barcode.getTt_bcdeto_suppcode();
+					if (suppcode.contains("(")) {
+						barcode.setTt_bcdeto_suppcode(suppcode.substring(0, suppcode.indexOf("(")));
+					}
+				}
+				if (barcode.getTt_bcdeto_partnbr() == null || barcode.getTt_bcdeto_partnbr().equals("")) {
+					throw new PrintBarcodeNotValidException(getText("barcode.partnbr_empty"));
+				} else {
+					String partnbr = barcode.getTt_bcdeto_partnbr();
+					if (partnbr.contains("(")) {
+						barcode.setTt_bcdeto_partnbr(partnbr.substring(0, partnbr.indexOf("(")));
+					}
+				}
+
+				if (barcode.getTt_bcdeto_lots() == null || barcode.getTt_bcdeto_lots().equals("")) {
+					throw new PrintBarcodeNotValidException(getText("barcode.lots_empty"));
+				}
+
+				if (barcode.getPrintQty() == null || barcode.getPrintQty().equals("")) {
+					throw new PrintBarcodeNotValidException(getText("barcode.qty_empty"));
+				}
+				BigDecimal qty = new BigDecimal(barcode.getPrintQty());
+
+				if (qty instanceof BigDecimal == false) {
+
+					throw new PrintBarcodeNotValidException(getText("barcode2.qty_format_error"));
+				}
+				if (qty.compareTo(BigDecimal.ZERO) < 1) {
+
+					throw new PrintBarcodeNotValidException(getText("barcode2.qty_less_than_zero"));
+				}
+
+			}
+		} catch (NumberFormatException e) {
+
+			throw new PrintBarcodeNotValidException(getText("barcode2.qty_format_error"));
+		}
+
+	}
+
 	private void checkPrintAllBarcode(List<PurchaseOrderDetail> purchaseOrderDetails)
 			throws PrintBarcodeNotValidException {
 
@@ -454,7 +613,7 @@ public class BarcodeAction extends BaseAction {
 					allZero = false;
 					break;
 				}
-			}			
+			}
 		}
 		if (allZero) {
 			throw new PrintBarcodeNotValidException(getText("barcode.qty_all_empty"));
